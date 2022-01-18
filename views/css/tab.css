@@ -1,0 +1,25 @@
+/**
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License version 3.0
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * @author    PrestaShop SA and Contributors <contact@prestashop.com>
+ * @copyright Since 2007 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+ */
+.icon-AdminGetresponse:before  {
+    content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAMCAYAAABvEu28AAAA9UlEQVQokZ3RPUsDQRDG8Z/HgYrJh7AQtFBIpYg2gmCl4AewyZeQNNpJBFsLMYWFEEtt0mgKC1vBl1asrVOoELS4OZCQ05wPDDu7+/Cf2dmxbrfbwQoq+MCncqrgPMVGHLxjAuMlQdBMInkL8v0/IOt4ykFV9HFYEtLANS4T2VwmsYA2HkeE7OIA+9hMZLOBk1iXokqRXrCFJmrYQz9F/rxF1NGSvbuObcyE5xUdHIV/GreR99KBaqfo4SKArYKu1nCFqdgnyRBTG2eYH3I3i2Pc/ICAwY5y7UTc4RlfmMNqgV8q+/oiLUf8pWoqG1htBPNvevgGxf4sZ99+2VAAAAAASUVORK5CYII=');
+}
+a:hover .icon-AdminGetresponse:before,
+li.active .icon-AdminGetresponse:before {
+    content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAMCAYAAABvEu28AAAA30lEQVQokaWSMUpDQRRFzxcLCXERdrGIkF4bIa1t0mcJKcTOVdinyAIsQgqtLMQuEEwjugGr8CMSRTgp8oRB/pf85MLAm/vuPc1Mpo6BU6AOfAHfVFMdGGaqYSyBg4qQXzX3YngP8mQLSBt4xrU+VdSu1XQVvVvUZZgnYU43hFxG/toY5rF4intNvfsH8KZeRLYV3g9qnoR6ESDmkfqivqr3aj/ZH6mL6M3/glQ7SbjsnKsfSScvAqkO1GYBoKHeFOTzTM2Bw5KnfQRmgMAxcFaSW6QfciftAw9Aa0fOdAUzqqZxyQrVqQAAAABJRU5ErkJggg==');
+}
