@@ -11,24 +11,31 @@ Send personalized, targeted offers to maximize conversions and increase sales.
 ## Getting started
 
 1. Go to releases section and download the most recent release of the zip file (don’t unpack it).
-2. Log into your PrestaShop administrative panel.
-3. Go to the “Modules and Services” section and click Add a new module.
-4. Click Browse to find the addon archive you downloaded from the Marketplace.
-5. Click Upload this module.
-   After the upload finishes, you’ll see that the module is ready for installation.
-6. Click the Install button to install the module.
-   You’re done. You can now create new webservice key (Advanced Parameters -> Webservice)
-7. Go to integration center in GetResponse to connect your PrestaShop site.
+2. Upload and install GetResponse module.
+3. Create new webservice key in Prestashop.
+4. Go to integration center in GetResponse to connect your PrestaShop site.
+
+####Detailed instructions can be found [here](https://www.getresponse.com/help/how-can-i-fully-integrate-my-prestashop-with-getresponse.html)
+
+## Requirements
+- PrestaShop in one of the supported versions: 1.6.1.x or 1.7.x
+- PHP version:
+  - 5.6 or higher for PrestaShop 1.6.x – 1.7.6
+  - 7.1 or higher for PrestaShop 1.7.7 – 1.7.8 
+- Prestshop response time (for request from GetResponse) no longer than 15 seconds
+
+## Known issues
+- in case of an integration error in GetResponse while connecting with your PrestaShop, reset the plugin (Improve > Modules > Modules Manager > GetResponse module > Configure > Reset)
 
 ## Support
 
 If you have any trouble installing or working the plugin feel free to contact us by
-[phone, email or chat](https://support.getresponse.com/). You can also get more info
-on [GetResponse App Center](https://connect.getresponse.com/) page.
+[email or chat](https://support.getresponse.com/). You can also get more info
+on [GetResponse App Center](https://www.getresponse.com/integrations) page.
 
 ## Contributing
 
 We love feature requests! Bug reports are very welcome as well. You can participate in this project
-by [reporting an issue](https://github.com/GetResponse/PrestaShop/issues)
-or creating a [pull request](https://github.com/GetResponse/PrestaShop/pulls). Please remind that all features and fixes
+by [reporting an issue](https://github.com/GetResponse/GetresponseForPrestashop/issues)
+or creating a [pull request](https://github.com/GetResponse/GetresponseForPrestashop/pulls). Please remind that all features and fixes
 must stick to platform coding standards.
