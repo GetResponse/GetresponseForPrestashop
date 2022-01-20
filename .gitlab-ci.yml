@@ -18,7 +18,7 @@ composer install:php56:
     paths:
       - vendor/
     expire_in: 2 hrs
-  except:
+  only:
     - develop
 
 composer install:php71:
@@ -36,7 +36,7 @@ composer install:php71:
     paths:
       - vendor/
     expire_in: 2 hrs
-  except:
+  only:
     - develop
 
 test:app-php56:
@@ -46,7 +46,7 @@ test:app-php56:
     - kubernetes-ci
   script:
     - ./vendor/bin/phpunit --testsuite unit --configuration ./tests/phpunit.xml --colors=never
-  except:
+  only:
     - develop
   dependencies:
     - composer install:php56
@@ -58,7 +58,7 @@ test:app-php71:
     - kubernetes-ci
   script:
     - ./vendor/bin/phpunit --testsuite unit --configuration ./tests/phpunit.xml --colors=never
-  except:
+  only:
     - develop
   dependencies:
     - composer install:php71
