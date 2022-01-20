@@ -1,0 +1,75 @@
+stages:
+  - install_dependencies
+  - test
+  - upload_to_s3
+
+composer install:php56:
+  image: php:5.6-cli
+  stage: install_dependencies
+  before_script:
+    - apt-get update
+    - apt-get install -y git
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php composer-setup.php
+    - php -r "unlink('composer-setup.php');"
+  script:
+    - php composer.phar update --prefer-dist --no-progress --optimize-autoloader
+  artifacts:
+    paths:
+      - vendor/
+    expire_in: 2 hrs
+  except:
+    - develop
+
+composer install:php71:
+  image: php:7.1-cli
+  stage: install_dependencies
+  before_script:
+    - apt-get update
+    - apt-get install -y git
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php composer-setup.php
+    - php -r "unlink('composer-setup.php');"
+  script:
+    - php composer.phar install --prefer-dist --no-progress --optimize-autoloader
+  artifacts:
+    paths:
+      - vendor/
+    expire_in: 2 hrs
+  except:
+    - develop
+
+test:app-php56:
+  image: php:5.6-cli
+  stage: test
+  tags:
+    - kubernetes-ci
+  script:
+    - ./vendor/bin/phpunit --testsuite unit --configuration ./tests/phpunit.xml --colors=never
+  except:
+    - develop
+  dependencies:
+    - composer install:php56
+
+test:app-php71:
+  image: php:7.1-cli
+  stage: test
+  tags:
+    - kubernetes-ci
+  script:
+    - ./vendor/bin/phpunit --testsuite unit --configuration ./tests/phpunit.xml --colors=never
+  except:
+    - develop
+  dependencies:
+    - composer install:php71
+
+upload to s3:
+  stage: upload_to_s3
+  only:
+    - tags
+  tags:
+    - kubernetes-us
+  script:
+    - tar --exclude='.git' --exclude='composer.*' --exclude='.gitignore' --exclude='.gitlab-ci.yml' --exclude='README.md' --exclude='CHANGELOG.md' --exclude='Makefile' -czf /tmp/$CI_COMMIT_TAG.tar.gz .
+    - mv /tmp/$CI_COMMIT_TAG.tar.gz .
+    - aws --only-show-errors --endpoint-url https://s3.eu-central-1.amazonaws.com s3 cp $CI_COMMIT_TAG.tar.gz s3://gr-deployment/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/releases/
