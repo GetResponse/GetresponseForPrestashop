@@ -20,6 +20,7 @@ composer install:php56:
     expire_in: 2 hrs
   only:
     - develop
+    - tags
 
 composer install:php71:
   image: php:7.1-cli
@@ -38,6 +39,7 @@ composer install:php71:
     expire_in: 2 hrs
   only:
     - develop
+    - tags
 
 test:app-php56:
   image: php:5.6-cli
@@ -48,6 +50,7 @@ test:app-php56:
     - ./vendor/bin/phpunit --testsuite unit --configuration ./tests/phpunit.xml --colors=never
   only:
     - develop
+    - tags
   dependencies:
     - composer install:php56
 
@@ -60,6 +63,7 @@ test:app-php71:
     - ./vendor/bin/phpunit --testsuite unit --configuration ./tests/phpunit.xml --colors=never
   only:
     - develop
+    - tags
   dependencies:
     - composer install:php71
 
