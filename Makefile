@@ -4,12 +4,12 @@ help:  ## Display this help
 app-php56-dev-build: ## Create environment with php5.6 for unit tests
 	docker build --target php5 -t prestashop-php5-cli .
 	docker run -d --name prestashop-php5-cli -v $PWD:/plugin prestashop-php5-cli
-	docker exec -it prestashop-php5-cli bash -c 'composer install --prefer-dist --no-cache --no-autoloader'
+	docker cp prestashop-php5-cli:/plugin/vendor vendor
 
 app-php71-dev-build: ## Create environment with php7.1 for unit tests
 	docker build --target php7 -t prestashop-php7-cli .
 	docker run -d --name prestashop-php7-cli -v $PWD:/plugin prestashop-php7-cli
-	docker exec -it prestashop-php7-cli bash -c 'composer install --prefer-dist --no-cache --no-autoloader'
+	docker cp prestashop-php7-cli:/plugin/vendor vendor
 
 release: ## Create module archive for release
 	mkdir release
