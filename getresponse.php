@@ -44,7 +44,7 @@ class Getresponse extends Module
     {
         $this->name = 'getresponse';
         $this->tab = 'emailing';
-        $this->version = '1.0.1';
+        $this->version = '1.0.2';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = 'b2dff089f1c2740a0ea180a1008fce6c';

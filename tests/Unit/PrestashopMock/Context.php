@@ -23,20 +23,20 @@
  * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  * International Registered Trademark & Property of PrestaShop SA
  */
-class Link
+class Context
 {
-    public function getProductLink($product)
+    /** @var Link */
+    public $link;
+
+    public function __construct($link)
     {
-        return __PS_BASE_URI__ . 'product/' . $product->id;
+        $this->link = $link;
     }
 
-    public function getImageLink($name, $ids, $type = null)
+    public static function getContext()
     {
-        return 'my-prestashop.com/product/1/images/default.jpg';
-    }
-
-    public function getPageLink($controllerName, $ssl = null, $id_lang = null, $request = null)
-    {
-        return 'https://my-prestashop.com/pl/koszyk?action=show';
+        return new self(
+            new Link()
+        );
     }
 }

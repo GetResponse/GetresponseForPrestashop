@@ -50,7 +50,9 @@ require_once __DIR__ . '/Unit/PrestashopMock/MockParams/CombinationParams.php';
 require_once __DIR__ . '/Unit/PrestashopMock/Tools.php';
 require_once __DIR__ . '/Unit/PrestashopMock/MockParams/ManufacturerParams.php';
 require_once __DIR__ . '/Unit/PrestashopMock/Manufacturer.php';
+require_once __DIR__ . '/Unit/PrestashopMock/Context.php';
 
 define('__PS_BASE_URI__', 'https://my-prestashop.com/');
 define('_PS_BASE_URL_', 'https://my-prestashop.com/');
+define('_PS_VERSION_', '1.6.1.0');
 define('_THEME_PROD_DIR_', 'img/p/');
