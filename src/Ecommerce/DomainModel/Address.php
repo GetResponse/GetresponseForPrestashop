@@ -17,6 +17,7 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
+
 namespace GetResponse\Ecommerce\DomainModel;
 
 use JsonSerializable;
@@ -78,6 +79,7 @@ class Address implements JsonSerializable
 
     /**
      * @param array $params
+     *
      * @return self
      */
     public static function createFromArray($params)

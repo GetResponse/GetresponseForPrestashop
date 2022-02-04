@@ -31,6 +31,7 @@ class CartAdapter
 {
     /**
      * @return Cart
+     *
      * @param $cartId
      */
     public function getCartById($cartId)
@@ -43,8 +44,7 @@ class CartAdapter
         $lines = [];
 
         foreach ($prestashopCart->getProducts(true) as $product) {
-
-            if ((int)$product['id_product_attribute'] > 0) {
+            if ((int) $product['id_product_attribute'] > 0) {
                 $combination = new Combination($product['id_product_attribute']);
                 $variantId = $combination->id;
                 $variantReference = $combination->reference;

@@ -17,21 +17,23 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
+
 namespace GetResponse\Ecommerce\Application\Adapter;
 
 use Category as PrestashopCategory;
-use Link;
-use Manufacturer;
-use Product as PrestashopProduct;
 use GetResponse\Ecommerce\DomainModel\Category;
 use GetResponse\Ecommerce\DomainModel\Product;
 use GetResponse\Ecommerce\DomainModel\Variant;
+use Link;
+use Manufacturer;
+use Product as PrestashopProduct;
 
 class ProductAdapter
 {
     /**
      * @param int $languageId
      * @param int $productId
+     *
      * @return Product
      */
     public function getProductById($productId, $languageId)
@@ -64,7 +66,7 @@ class ProductAdapter
 
             foreach ($combinations as $combination) {
                 $variant = new Variant(
-                    (int)$combination['id_product_attribute'],
+                    (int) $combination['id_product_attribute'],
                     $combination['name'],
                     !empty($combination['reference']) ? $combination['reference'] : $product->reference,
                     $product->getPrice(false, $combination['id_product_attribute']),
@@ -118,6 +120,7 @@ class ProductAdapter
 
     /**
      * @param array $combinations
+     *
      * @return array
      */
     private function prepareCombinations(array $combinations)
@@ -140,6 +143,7 @@ class ProductAdapter
     /**
      * @param PrestashopProduct $product
      * @param $languageId
+     *
      * @return mixed|null
      */
     private function getDescription(PrestashopProduct $product, $languageId)
@@ -156,6 +160,7 @@ class ProductAdapter
     /**
      * @param PrestashopProduct $product
      * @param $languageId
+     *
      * @return mixed|null
      */
     private function getShortDescription(PrestashopProduct $product, $languageId)

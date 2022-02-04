@@ -7,7 +7,6 @@
  * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -37,7 +36,7 @@ class Getresponse extends Module
         'actionOrderStatusPostUpdate',
         'actionNewsletterRegistrationAfter',
         'actionObjectAddressUpdateAfter',
-        'actionObjectAddressAddAfter'
+        'actionObjectAddressAddAfter',
     ];
 
     public function __construct()
@@ -343,7 +342,6 @@ class Getresponse extends Module
             if (null !== $customer) {
                 $this->upsertCustomer($customer);
             }
-
         } catch (\GetResponse\MessageSender\Application\MessageSenderException $e) {
             $this->logGetResponseError($e->getMessage());
         }
@@ -559,6 +557,7 @@ class Getresponse extends Module
 
     /**
      * @throws \GetResponse\MessageSender\Application\MessageSenderException
+     *
      * @param Customer $customer
      */
     private function upsertCustomer(Customer $customer)
@@ -580,6 +579,7 @@ class Getresponse extends Module
 
     /**
      * @throws \GetResponse\MessageSender\Application\MessageSenderException
+     *
      * @param Product $product
      */
     private function upsertProduct(Product $product)
@@ -592,7 +592,6 @@ class Getresponse extends Module
         $shops = $product->getAssociatedShops();
 
         foreach ($shops as $shopId) {
-
             $shop = new \Shop($shopId);
 
             $productService = new \GetResponse\Ecommerce\Application\ProductService(
@@ -605,13 +604,14 @@ class Getresponse extends Module
             );
 
             $productService->upsertProduct(
-                new \GetResponse\Ecommerce\Application\Command\UpsertProduct((int)$shopId, $product->id, (int)$languageId)
+                new \GetResponse\Ecommerce\Application\Command\UpsertProduct((int) $shopId, $product->id, (int) $languageId)
             );
         }
     }
 
     /**
      * @throws \GetResponse\MessageSender\Application\MessageSenderException
+     *
      * @param Order $order
      */
     private function upsertOrder(Order $order)

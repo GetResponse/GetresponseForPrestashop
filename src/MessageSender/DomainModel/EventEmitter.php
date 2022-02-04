@@ -27,8 +27,10 @@ interface EventEmitter
 {
     /**
      * @throws EventEmitterException
+     *
      * @param string $url
      * @param JsonSerializable $object
+     *
      * @return array
      */
     public function emit($url, JsonSerializable $object);
