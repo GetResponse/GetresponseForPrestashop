@@ -93,7 +93,17 @@ class CartServiceTest extends BaseTestCase
 
         $line = new Line(1, 29.99, 34.43, 1, 'product_combination_1');
 
-        $cartMock = new Cart(1, $customerMock, [$line], 29.99, 34.43, 'eur', '', '2020-05-12 11:43:59', '2020-05-14 16:32:03');
+        $cartMock = new Cart(
+            1,
+            $customerMock,
+            [$line],
+            29.99,
+            34.43,
+            'eur',
+            'https://my-prestashop.com/pl/koszyk?action=show',
+            '2020-05-12 11:43:59',
+            '2020-05-14 16:32:03'
+        );
 
         $this->messageSenderServiceMock
             ->expects(self::once())
