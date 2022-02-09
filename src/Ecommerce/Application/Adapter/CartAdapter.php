@@ -22,6 +22,7 @@ namespace GetResponse\Ecommerce\Application\Adapter;
 
 use Cart as PrestashopCart;
 use Combination;
+use Context;
 use Currency;
 use GetResponse\Contact\Application\Adapter\CustomerAdapter;
 use GetResponse\Ecommerce\DomainModel\Cart;
@@ -62,6 +63,10 @@ class CartAdapter
             );
         }
 
+        $shopCartUrl = version_compare(_PS_VERSION_, '1.7', '>=')
+            ? Context::getContext()->link->getPageLink('cart', null, null, ['action' => 'show'])
+            : Context::getContext()->link->getPageLink('order');
+
         return new Cart(
             $prestashopCart->id,
             $customer,
@@ -69,7 +74,7 @@ class CartAdapter
             $prestashopCart->getOrderTotal(false),
             $prestashopCart->getOrderTotal(true),
             $currency->iso_code,
-            '',
+            $shopCartUrl,
             $prestashopCart->date_add,
             $prestashopCart->date_upd
         );

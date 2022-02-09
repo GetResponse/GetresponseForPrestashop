@@ -177,7 +177,7 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
 
         return json_encode(
             [
-                'plugin_version' => '1.0.1',
+                'plugin_version' => '1.0.2',
                 'prestashop_version' => _PS_VERSION_,
                 'php_version' => phpversion(),
                 'shops' => $shops,
