@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.3] - 2022-02-01
+### Fix
+- Validator
+
 ## [1.0.2] - 2022-02-01
 ### Fix
 - Added fix for missing cart url when sending cart
