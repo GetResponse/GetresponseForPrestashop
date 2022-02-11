@@ -17,6 +17,7 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
+
 namespace GetResponse\Contact\DomainModel;
 
 interface NewsletterRepository
@@ -24,6 +25,7 @@ interface NewsletterRepository
     /**
      * @param int $shopId
      * @param string $email
+     *
      * @return void
      */
     public function removeSubscriberFromNewsletter($shopId, $email);
@@ -31,6 +33,7 @@ interface NewsletterRepository
     /**
      * @param int $shopId
      * @param string $email
+     *
      * @return void
      */
     public function removeCustomerFromNewsletter($shopId, $email);

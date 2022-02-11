@@ -17,6 +17,7 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
+
 namespace GetResponse\Contact\Infrastructure;
 
 use Customer;
@@ -27,7 +28,7 @@ class NewsletterDbRepository implements NewsletterRepository
 {
     public function removeSubscriberFromNewsletter($shopId, $email)
     {
-        $sql = 'UPDATE `'._DB_PREFIX_.'newsletter` SET `active` = 0 WHERE `id_shop` = '.$shopId.' AND `email` = \''.$email.'\'';
+        $sql = 'UPDATE `' . _DB_PREFIX_ . 'newsletter` SET `active` = 0 WHERE `id_shop` = ' . $shopId . ' AND `email` = \'' . $email . '\'';
         Db::getInstance()->execute($sql);
     }
 
@@ -38,7 +39,7 @@ class NewsletterDbRepository implements NewsletterRepository
         foreach ($customers as $row) {
             if ($shopId === (int) $row['id_shop']) {
                 $customer = new Customer($row['id_customer']);
-                $customer->newsletter = (int)!$customer->newsletter;
+                $customer->newsletter = (int) !$customer->newsletter;
                 $customer->update();
             }
         }

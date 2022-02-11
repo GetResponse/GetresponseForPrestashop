@@ -17,7 +17,6 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-
 class WebserviceRequest extends WebserviceRequestCore
 {
     public static function getResources()
@@ -41,6 +40,6 @@ class WebserviceRequest extends WebserviceRequestCore
 
     public function getPayload()
     {
-        return json_decode($this->_inputXml,true);
+        return json_decode($this->_inputXml, true);
     }
 }

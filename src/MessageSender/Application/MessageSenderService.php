@@ -36,6 +36,7 @@ class MessageSenderService
 
     /**
      * @throws MessageSenderException
+     *
      * @param $url
      * @param JsonSerializable $object
      */
@@ -47,5 +48,4 @@ class MessageSenderService
             throw MessageSenderException::createFromPrevious($e);
         }
     }
-
 }

@@ -17,7 +17,6 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-
 include_once _PS_MODULE_DIR_ . '/getresponse/vendor/autoload.php';
 
 use GetResponse\Configuration\Application\Command\UpsertConfiguration;
@@ -96,6 +95,7 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
                 }
                 break;
         }
+
         return $this->wsObject->getOutputEnabled();
     }
 

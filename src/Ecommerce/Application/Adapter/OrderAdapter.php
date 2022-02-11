@@ -17,6 +17,7 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
+
 namespace GetResponse\Ecommerce\Application\Adapter;
 
 use Combination;
@@ -113,7 +114,6 @@ class OrderAdapter
         $lines = [];
 
         foreach ($order->getProducts() as $product) {
-
             if ((int) $product['product_attribute_id'] > 0) {
                 $combination = new Combination($product['product_attribute_id']);
                 $variantId = $combination->id;
