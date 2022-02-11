@@ -17,6 +17,7 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
+
 namespace GetResponse\Ecommerce\Application\Adapter;
 
 use GetResponse\Ecommerce\DomainModel\Image;
@@ -27,7 +28,7 @@ class ImageAdapter
     public function getImageById($imageId)
     {
         $image = new PrestashopImage($imageId);
-        $url = _PS_BASE_URL_._THEME_PROD_DIR_.$image->getExistingImgPath().".jpg";
+        $url = _PS_BASE_URL_ . _THEME_PROD_DIR_ . $image->getExistingImgPath() . '.jpg';
 
         return new Image($url, $image->position);
     }
