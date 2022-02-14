@@ -46,7 +46,7 @@ class Getresponse extends Module
         $this->version = '1.0.3';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
-        $this->module_key = 'b2dff089f1c2740a0ea180a1008fce6c';
+        $this->module_key = '311ef191c3135b237511d18c4bc27369';
         $this->ps_versions_compliancy = ['min' => '1.6', 'max' => _PS_VERSION_];
         $this->displayName = $this->l('GetResponse');
         $this->description = 'Add your Prestashop contacts to GetResponse. Automatically follow-up new subscriptions ';
