@@ -3,7 +3,7 @@
 	<name>grprestashop</name>
 	<displayName><![CDATA[GetResponse]]></displayName>
 	<version><![CDATA[1.0.3]]></version>
-	<description><![CDATA[Add your Prestashop contacts to GetResponse. Automatically follow-up new subscriptions with engaging email marketing campaigns]]></description>
+	<description><![CDATA[Add your Prestashop contacts to GetResponse.]]></description>
 	<author><![CDATA[GetResponse]]></author>
 	<tab><![CDATA[emailing]]></tab>
 	<confirmUninstall><![CDATA[Are you sure you want to uninstall?]]></confirmUninstall>
