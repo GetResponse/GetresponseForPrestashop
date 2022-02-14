@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
-	<name>getresponse</name>
+	<name>getresponse-for-prestashop</name>
 	<displayName><![CDATA[GetResponse]]></displayName>
 	<version><![CDATA[1.0.3]]></version>
 	<description><![CDATA[Add your Prestashop contacts to GetResponse. Automatically follow-up new subscriptions with engaging email marketing campaigns]]></description>
