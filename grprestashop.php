@@ -15,7 +15,7 @@ if (!defined('_PS_VERSION_')) {
 include_once _PS_MODULE_DIR_ . '/grprestashop/vendor/autoload.php';
 include_once _PS_MODULE_DIR_ . '/grprestashop/classes/WebserviceSpecificManagementGetresponseModule.php';
 
-class Getresponse extends Module
+class GrPrestashop extends Module
 {
     private $usedHooks = [
         'leftColumn',
