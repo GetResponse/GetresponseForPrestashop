@@ -13,17 +13,17 @@ app-php71-dev-build: ## Create environment with php7.1 for unit tests
 
 release: ## Create module archive for release
 	mkdir release
-	git archive -o ./release/getresponse-for-prestashop.zip --prefix=getresponse-for-prestashop/ HEAD
-	cd ./release && unzip getresponse-for-prestashop.zip
-	rm ./release/getresponse-for-prestashop.zip
-	rm -rf ./release/getresponse-for-prestashop/tests
-	rm -rf ./release/getresponse-for-prestashop/.gitlab-ci.yml
-	rm -rf ./release/getresponse-for-prestashop/Makefile
-	rm -rf ./release/getresponse-for-prestashop/Dockerfile
-	cd ./release/getresponse-for-prestashop && composer install --no-dev
-	cd ./release && git clone git@github.com:dg/php54-arrays.git && cd php54-arrays && php convert.php --reverse ../getresponse-for-prestashop
-	cd ./release && git clone git@github.com:jmcollin/autoindex.git && cd autoindex && php index.php ../getresponse-for-prestashop
-	cd ./release && zip -r ../getresponse-for-prestashop.zip getresponse-for-prestashop
+	git archive -o ./release/grprestashop.zip --prefix=grprestashop/ HEAD
+	cd ./release && unzip grprestashop.zip
+	rm ./release/grprestashop.zip
+	rm -rf ./release/grprestashop/tests
+	rm -rf ./release/grprestashop/.gitlab-ci.yml
+	rm -rf ./release/grprestashop/Makefile
+	rm -rf ./release/grprestashop/Dockerfile
+	cd ./release/grprestashop && composer install --no-dev
+	cd ./release && git clone git@github.com:dg/php54-arrays.git && cd php54-arrays && php convert.php --reverse ../grprestashop
+	cd ./release && git clone git@github.com:jmcollin/autoindex.git && cd autoindex && php index.php ../grprestashop
+	cd ./release && zip -r ../grprestashop.zip grprestashop
 	rm -rf release
 
 run-fixers: ## Runs fixers

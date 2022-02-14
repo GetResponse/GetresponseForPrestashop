@@ -7,12 +7,13 @@
  * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
+
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-include_once _PS_MODULE_DIR_ . '/getresponse-for-prestashop/vendor/autoload.php';
-include_once _PS_MODULE_DIR_ . '/getresponse-for-prestashop/classes/WebserviceSpecificManagementGetresponseModule.php';
+include_once _PS_MODULE_DIR_ . '/grprestashop/vendor/autoload.php';
+include_once _PS_MODULE_DIR_ . '/grprestashop/classes/WebserviceSpecificManagementGetresponseModule.php';
 
 class Getresponse extends Module
 {
@@ -41,7 +42,7 @@ class Getresponse extends Module
 
     public function __construct()
     {
-        $this->name = 'getresponse-for-prestashop';
+        $this->name = 'grprestashop';
         $this->tab = 'emailing';
         $this->version = '1.0.3';
         $this->author = 'GetResponse';
