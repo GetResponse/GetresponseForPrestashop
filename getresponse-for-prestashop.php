@@ -11,8 +11,8 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-include_once _PS_MODULE_DIR_ . '/getresponse/vendor/autoload.php';
-include_once _PS_MODULE_DIR_ . '/getresponse/classes/WebserviceSpecificManagementGetresponseModule.php';
+include_once _PS_MODULE_DIR_ . '/getresponse-for-prestashop/vendor/autoload.php';
+include_once _PS_MODULE_DIR_ . '/getresponse-for-prestashop/classes/WebserviceSpecificManagementGetresponseModule.php';
 
 class Getresponse extends Module
 {
@@ -41,7 +41,7 @@ class Getresponse extends Module
 
     public function __construct()
     {
-        $this->name = 'getresponse';
+        $this->name = 'getresponse-for-prestashop';
         $this->tab = 'emailing';
         $this->version = '1.0.3';
         $this->author = 'GetResponse';
