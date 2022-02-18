@@ -7,14 +7,15 @@
  * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
+
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-include_once _PS_MODULE_DIR_ . '/getresponse/vendor/autoload.php';
-include_once _PS_MODULE_DIR_ . '/getresponse/classes/WebserviceSpecificManagementGetresponseModule.php';
+include_once _PS_MODULE_DIR_ . '/grprestashop/vendor/autoload.php';
+include_once _PS_MODULE_DIR_ . '/grprestashop/classes/WebserviceSpecificManagementGetresponseModule.php';
 
-class Getresponse extends Module
+class GrPrestashop extends Module
 {
     private $usedHooks = [
         'leftColumn',
@@ -41,16 +42,15 @@ class Getresponse extends Module
 
     public function __construct()
     {
-        $this->name = 'getresponse';
+        $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '1.0.2';
+        $this->version = '1.0.3';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
-        $this->module_key = 'b2dff089f1c2740a0ea180a1008fce6c';
+        $this->module_key = '311ef191c3135b237511d18c4bc27369';
         $this->ps_versions_compliancy = ['min' => '1.6', 'max' => _PS_VERSION_];
         $this->displayName = $this->l('GetResponse');
-        $this->description = 'Add your Prestashop contacts to GetResponse. Automatically follow-up new subscriptions ';
-        $this->description .= 'with engaging email marketing campaigns';
+        $this->description = 'Add your Prestashop contacts to GetResponse.';
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
         $this->bootstrap = true;
 

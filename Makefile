@@ -13,18 +13,17 @@ app-php71-dev-build: ## Create environment with php7.1 for unit tests
 
 release: ## Create module archive for release
 	mkdir release
-	git archive -o ./release/getresponse.zip --prefix=getresponse/ HEAD
-	cd ./release && unzip getresponse.zip
-	rm ./release/getresponse.zip
-	rm -rf ./release/getresponse/tests
-	rm -rf ./release/getresponse/config.xml
-	rm -rf ./release/getresponse/release.sh
-	rm -rf ./release/getresponse/.gitlab-ci.yml
-	rm -rf ./release/getresponse/Makefile
-	cd ./release/getresponse && composer install --no-dev
-	cd ./release && git clone git@github.com:dg/php54-arrays.git && cd php54-arrays && php convert.php --reverse ../getresponse
-	cd ./release && git clone git@github.com:jmcollin/autoindex.git && cd autoindex && php index.php ../getresponse
-	cd ./release && zip -r ../getresponse.zip getresponse
+	git archive -o ./release/grprestashop.zip --prefix=grprestashop/ HEAD
+	cd ./release && unzip grprestashop.zip
+	rm ./release/grprestashop.zip
+	rm -rf ./release/grprestashop/tests
+	rm -rf ./release/grprestashop/.gitlab-ci.yml
+	rm -rf ./release/grprestashop/Makefile
+	rm -rf ./release/grprestashop/Dockerfile
+	cd ./release/grprestashop && composer install --no-dev
+	cd ./release && git clone git@github.com:dg/php54-arrays.git && cd php54-arrays && php convert.php --reverse ../grprestashop
+	cd ./release && git clone git@github.com:jmcollin/autoindex.git && cd autoindex && php index.php ../grprestashop
+	cd ./release && zip -r ../grprestashop.zip grprestashop
 	rm -rf release
 
 run-fixers: ## Runs fixers
