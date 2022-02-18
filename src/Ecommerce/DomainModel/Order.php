@@ -29,7 +29,7 @@ class Order implements JsonSerializable
     /** @var int */
     private $id;
     /** @var string */
-    private $orderNo;
+    private $orderNumber;
     /** @var int */
     private $cartId;
     /** @var string */
@@ -61,7 +61,7 @@ class Order implements JsonSerializable
 
     public function __construct(
         $id,
-        $orderNo,
+        $orderNumber,
         $cartId,
         $contactEmail,
         $customer,
@@ -78,7 +78,7 @@ class Order implements JsonSerializable
         $updatedAt
     ) {
         $this->id = $id;
-        $this->orderNo = $orderNo;
+        $this->orderNumber = $orderNumber;
         $this->cartId = $cartId;
         $this->contactEmail = $contactEmail;
         $this->customer = $customer;
@@ -108,7 +108,7 @@ class Order implements JsonSerializable
         return [
             'callback_type' => CallbackType::ORDER_UPDATE,
             'id' => $this->id,
-            'orderNo' => $this->orderNo,
+            'order_number' => $this->orderNumber,
             'cart_id' => $this->cartId,
             'contact_email' => $this->contactEmail,
             'customer' => $this->customer->jsonSerialize(),
