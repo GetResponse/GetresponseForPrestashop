@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.4] - 2022-02-18
+### Fix
+- Changed orderNo name to order_name in payload when sending order
+
 ## [1.0.3] - 2022-02-01
 ### Fix
 - Validator
