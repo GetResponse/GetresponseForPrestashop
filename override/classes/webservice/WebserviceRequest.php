@@ -22,7 +22,7 @@ class WebserviceRequest extends WebserviceRequestCore
 {
     public static function getResources()
     {
-        include_once _PS_MODULE_DIR_ . 'getresponse/classes/WebserviceSpecificManagementGetresponseModule.php';
+        include_once _PS_MODULE_DIR_ . 'grprestashop/classes/WebserviceSpecificManagementGetresponseModule.php';
 
         $resources = WebserviceRequestCore::getResources();
 
