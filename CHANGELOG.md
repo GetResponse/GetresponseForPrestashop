@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.5] - 2022-02-21
+### Fix
+- Added fix for changing namespaces
+
 ## [1.0.4] - 2022-02-18
 ### Fix
 - Changed orderNo name to order_name in payload when sending order
