@@ -20,7 +20,7 @@
 {if isset($webformUrl)}
 <!-- getresponse web form start -->
 <div id="getresponse_webform" class="getresponse_webform block" data-position="{$position}">
-    <script type="text/javascript" src="{$webformUrl}"></script>
+    <script type="text/javascript" src="{$webformUrl|escape:'url':'UTF-8'}"></script>
 </div>
 <!-- getresponse web form end -->
 {/if}

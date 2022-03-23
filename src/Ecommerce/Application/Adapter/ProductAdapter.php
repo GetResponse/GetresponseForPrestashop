@@ -53,9 +53,9 @@ class ProductAdapter
             $images[] = $imageAdapter->getImageById($image['id_image']);
         }
 
-        foreach ($product->getCategories() as $category) {
-            $prestashopCategory = new PrestashopCategory($category, $languageId);
-            $categories[] = new Category($prestashopCategory->id, $prestashopCategory->id_parent, $prestashopCategory->name);
+        foreach ($product->getCategories() as $productCategory) {
+            $category = new PrestashopCategory($productCategory, $languageId);
+            $categories[] = new Category($category->id, $category->id_parent, $category->name);
         }
 
         if ($product->hasAttributes()) {

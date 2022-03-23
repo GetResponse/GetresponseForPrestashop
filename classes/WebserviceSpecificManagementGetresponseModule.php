@@ -116,12 +116,18 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
                 $idShop,
                 !empty($settings['facebook_pixel_snippet']) ? $settings['facebook_pixel_snippet'] : null,
                 !empty($settings['facebook_ads_pixel_snippet']) ? $settings['facebook_ads_pixel_snippet'] : null,
-                !empty($settings['facebook_business_pixel_snippet']) ? $settings['facebook_business_pixel_snippet'] : null,
+                !empty($settings['facebook_business_pixel_snippet'])
+                    ? $settings['facebook_business_pixel_snippet']
+                    : null,
                 !empty($settings['getresponse_chat_snippet']) ? $settings['getresponse_chat_snippet'] : null,
-                !empty($settings['getresponse_web_tracking_snippet']) ? $settings['getresponse_web_tracking_snippet'] : null,
+                !empty($settings['getresponse_web_tracking_snippet'])
+                    ? $settings['getresponse_web_tracking_snippet']
+                    : null,
                 !empty($settings['getresponse_web_form_id']) ? $settings['getresponse_web_form_id'] : null,
                 !empty($settings['getresponse_web_form_url']) ? $settings['getresponse_web_form_url'] : null,
-                !empty($settings['getresponse_web_form_position']) ? $settings['getresponse_web_form_position'] : null,
+                !empty($settings['getresponse_web_form_position'])
+                    ? $settings['getresponse_web_form_position']
+                    : null,
                 !empty($settings['live_synchronization_url']) ? $settings['live_synchronization_url'] : null,
                 !empty($settings['live_synchronization_type']) ? $settings['live_synchronization_type'] : null
             )
@@ -178,7 +184,7 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
 
         return json_encode(
             [
-                'plugin_version' => '1.0.5',
+                'plugin_version' => '1.0.6',
                 'prestashop_version' => _PS_VERSION_,
                 'php_version' => phpversion(),
                 'shops' => $shops,

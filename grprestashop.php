@@ -44,7 +44,7 @@ class GrPrestashop extends Module
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '1.0.5';
+        $this->version = '1.0.6';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
@@ -104,7 +104,10 @@ class GrPrestashop extends Module
         );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
-        return $this->getGrWebFormSnippet($configuration, \GetResponse\Configuration\SharedKernel\WebFormPosition::TOP);
+        return $this->getGrWebFormSnippet(
+            $configuration,
+            \GetResponse\Configuration\SharedKernel\WebFormPosition::TOP
+        );
     }
 
     public function hookDisplayLeftColumn()
@@ -115,7 +118,10 @@ class GrPrestashop extends Module
         );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
-        return $this->getGrWebFormSnippet($configuration, \GetResponse\Configuration\SharedKernel\WebFormPosition::LEFT);
+        return $this->getGrWebFormSnippet(
+            $configuration,
+            \GetResponse\Configuration\SharedKernel\WebFormPosition::LEFT
+        );
     }
 
     public function hookDisplayRightColumn()
@@ -126,7 +132,10 @@ class GrPrestashop extends Module
         );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
-        return $this->getGrWebFormSnippet($configuration, \GetResponse\Configuration\SharedKernel\WebFormPosition::RIGHT);
+        return $this->getGrWebFormSnippet(
+            $configuration,
+            \GetResponse\Configuration\SharedKernel\WebFormPosition::RIGHT
+        );
     }
 
     public function hookDisplayFooter()
@@ -312,7 +321,9 @@ class GrPrestashop extends Module
                     )
                 );
 
-                $contactService->upsertSubscriber(new \GetResponse\Contact\Application\Command\UpsertSubscriber($email, true, $shop->id));
+                $contactService->upsertSubscriber(
+                    new \GetResponse\Contact\Application\Command\UpsertSubscriber($email, true, $shop->id)
+                );
             }
         } catch (\GetResponse\MessageSender\Application\MessageSenderException $e) {
             $this->logGetResponseError($e->getMessage());
@@ -604,7 +615,11 @@ class GrPrestashop extends Module
             );
 
             $productService->upsertProduct(
-                new \GetResponse\Ecommerce\Application\Command\UpsertProduct((int) $shopId, $product->id, (int) $languageId)
+                new \GetResponse\Ecommerce\Application\Command\UpsertProduct(
+                    (int) $shopId,
+                    $product->id, (int)
+                    $languageId
+                )
             );
         }
     }
@@ -626,6 +641,8 @@ class GrPrestashop extends Module
             )
         );
 
-        $orderService->upsertOrder(new GetResponse\Ecommerce\Application\Command\UpsertOrder($order->id, $order->id_shop));
+        $orderService->upsertOrder(
+            new GetResponse\Ecommerce\Application\Command\UpsertOrder($order->id, $order->id_shop)
+        );
     }
 }
