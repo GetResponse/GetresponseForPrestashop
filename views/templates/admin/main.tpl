@@ -37,7 +37,7 @@
 <div class="row">
 	<div class="col-lg-8 col-lg-offset-2">
 		<div class="panel gr-settings-shop">
-			<div class="h3"><span>{$shop_name|escape:'html_all':'UTF-8'}</span> shop configuration</div>
+			<div class="h3"><span>{$shop_name|escape:'htmlall':'UTF-8'}</span> shop configuration</div>
 
 			<div class="form-wrapper">
 				<div class="row">
@@ -110,7 +110,7 @@
 		color: #00AFEC;
 	}
 	.gr-settings-top .panel {
-		background: url({$shop_name|escape:'html_all':'UTF-8'}views/img/back.jpeg) no-repeat bottom right;
+		background: url({$shop_name|escape:'htmlall':'UTF-8'}views/img/back.jpeg) no-repeat bottom right;
 	}
 	.gr-settings-shop .h3 {
 		padding-bottom: 20px;

@@ -617,8 +617,8 @@ class GrPrestashop extends Module
             $productService->upsertProduct(
                 new \GetResponse\Ecommerce\Application\Command\UpsertProduct(
                     (int) $shopId,
-                    $product->id, (int)
-                    $languageId
+                    $product->id,
+                    (int) $languageId
                 )
             );
         }
