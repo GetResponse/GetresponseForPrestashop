@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.6] - 2022-03-23
+### Fix
+- Added fix for Prestashop validator
+
 ## [1.0.5] - 2022-02-21
 ### Fix
 - Added fix for changing namespaces

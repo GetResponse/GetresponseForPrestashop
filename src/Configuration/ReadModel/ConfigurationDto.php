@@ -196,7 +196,9 @@ class ConfigurationDto
      */
     public function isContactLiveSynchronizationActive()
     {
-        return (in_array($this->liveSynchronizationType, ['Contacts', 'FullEcommerce'])) && !empty($this->liveSynchronizationUrl);
+        $isContactType = in_array($this->liveSynchronizationType, ['Contacts', 'FullEcommerce']);
+
+        return ($isContactType) && !empty($this->liveSynchronizationUrl);
     }
 
     /**
@@ -204,7 +206,9 @@ class ConfigurationDto
      */
     public function isProductLiveSynchronizationActive()
     {
-        return (in_array($this->liveSynchronizationType, ['Products', 'FullEcommerce'])) && !empty($this->liveSynchronizationUrl);
+        $isProductType = in_array($this->liveSynchronizationType, ['Products', 'FullEcommerce']);
+
+        return ($isProductType) && !empty($this->liveSynchronizationUrl);
     }
 
     /**

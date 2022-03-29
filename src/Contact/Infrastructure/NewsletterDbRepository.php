@@ -28,7 +28,9 @@ class NewsletterDbRepository implements NewsletterRepository
 {
     public function removeSubscriberFromNewsletter($shopId, $email)
     {
-        $sql = 'UPDATE `' . _DB_PREFIX_ . 'newsletter` SET `active` = 0 WHERE `id_shop` = ' . $shopId . ' AND `email` = \'' . $email . '\'';
+        $table = _DB_PREFIX_ . 'newsletter';
+        $sql = sprintf("UPDATE %s SET active = %s WHERE id_shop = %s AND email = '%s'", $table, 0, $shopId, $email);
+
         Db::getInstance()->execute($sql);
     }
 
