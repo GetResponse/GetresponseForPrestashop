@@ -90,12 +90,12 @@ class Variant implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        $images = [];
+        $images = array();
         foreach ($this->images as $image) {
             $images[] = $image->jsonSerialize();
         }
 
-        return [
+        return array(
             'id' => $this->id,
             'name' => $this->name,
             'sku' => $this->sku,
@@ -110,6 +110,6 @@ class Variant implements JsonSerializable
             'short_description' => $this->shortDescription,
             'description' => $this->description,
             'images' => $images
-        ];
+        );
     }
 }

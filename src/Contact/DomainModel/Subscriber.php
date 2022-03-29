@@ -42,10 +42,10 @@ class Subscriber implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        return [
+        return array(
             'callback_type' => CallbackType::SUBSCRIBERS_UPDATE,
             'email' => $this->email,
             'accepts_marketing' => (bool)$this->marketingConsent
-        ];
+        );
     }
 }

@@ -34,14 +34,14 @@ class WebForm
 
     public function __construct($id, $url, $position)
     {
-        $availablePositions = [
+        $availablePositions = array(
             WebFormPosition::FOOTER,
             WebFormPosition::HOME,
             WebFormPosition::BOTTOM,
             WebFormPosition::TOP,
             WebFormPosition::LEFT,
             WebFormPosition::RIGHT,
-        ];
+        );
         Assertion::inArray($position, $availablePositions);
         $this->id = $id;
         $this->url = $url;
@@ -50,11 +50,11 @@ class WebForm
 
     public function __toString()
     {
-        $webForm = [
+        $webForm = array(
             'id' => $this->id,
             'url' => $this->url,
             'position' => $this->position,
-        ];
+        );
 
         return json_encode($webForm);
     }

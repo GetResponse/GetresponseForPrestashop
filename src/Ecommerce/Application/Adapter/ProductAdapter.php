@@ -42,9 +42,9 @@ class ProductAdapter
         $product = new PrestashopProduct($productId);
         $link = new Link();
 
-        $variants = [];
-        $images = [];
-        $categories = [];
+        $variants = array();
+        $images = array();
+        $categories = array();
         $productType = Product::SINGLE_TYPE;
 
         $productLink = $link->getProductLink($product, false, false, false, $languageId);
@@ -53,9 +53,9 @@ class ProductAdapter
             $images[] = $imageAdapter->getImageById($image['id_image']);
         }
 
-        foreach ($product->getCategories() as $category) {
-            $prestashopCategory = new PrestashopCategory($category, $languageId);
-            $categories[] = new Category($prestashopCategory->id, $prestashopCategory->id_parent, $prestashopCategory->name);
+        foreach ($product->getCategories() as $productCategory) {
+            $category = new PrestashopCategory($productCategory, $languageId);
+            $categories[] = new Category($category->id, $category->id_parent, $category->name);
         }
 
         if ($product->hasAttributes()) {
@@ -125,7 +125,7 @@ class ProductAdapter
      */
     private function prepareCombinations(array $combinations)
     {
-        $uniqueCombinations = [];
+        $uniqueCombinations = array();
 
         foreach ($combinations as $combination) {
             if (array_key_exists($combination['id_product_attribute'], $uniqueCombinations)) {
