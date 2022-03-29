@@ -37,7 +37,7 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
     /** @var WebserviceRequest */
     protected $wsObject;
     protected $urlSegment;
-    protected $errors = [];
+    protected $errors = array();
     protected $content;
 
     /**
@@ -116,12 +116,18 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
                 $idShop,
                 !empty($settings['facebook_pixel_snippet']) ? $settings['facebook_pixel_snippet'] : null,
                 !empty($settings['facebook_ads_pixel_snippet']) ? $settings['facebook_ads_pixel_snippet'] : null,
-                !empty($settings['facebook_business_pixel_snippet']) ? $settings['facebook_business_pixel_snippet'] : null,
+                !empty($settings['facebook_business_pixel_snippet'])
+                    ? $settings['facebook_business_pixel_snippet']
+                    : null,
                 !empty($settings['getresponse_chat_snippet']) ? $settings['getresponse_chat_snippet'] : null,
-                !empty($settings['getresponse_web_tracking_snippet']) ? $settings['getresponse_web_tracking_snippet'] : null,
+                !empty($settings['getresponse_web_tracking_snippet'])
+                    ? $settings['getresponse_web_tracking_snippet']
+                    : null,
                 !empty($settings['getresponse_web_form_id']) ? $settings['getresponse_web_form_id'] : null,
                 !empty($settings['getresponse_web_form_url']) ? $settings['getresponse_web_form_url'] : null,
-                !empty($settings['getresponse_web_form_position']) ? $settings['getresponse_web_form_position'] : null,
+                !empty($settings['getresponse_web_form_position'])
+                    ? $settings['getresponse_web_form_position']
+                    : null,
                 !empty($settings['live_synchronization_url']) ? $settings['live_synchronization_url'] : null,
                 !empty($settings['live_synchronization_type']) ? $settings['live_synchronization_type'] : null
             )
@@ -154,13 +160,13 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
 
     private function getPluginDetails()
     {
-        $shops = [];
+        $shops = array();
         $configurationReadModel = new ConfigurationReadModel(new ConfigurationRepository());
         $configurations = $configurationReadModel->getConfigurationForAllShops();
 
         /** @var ConfigurationDto $configuration */
         foreach ($configurations as $configuration) {
-            $shops[$configuration->getShopId()] = [
+            $shops[$configuration->getShopId()] = array(
                 'facebook_pixel_snippet' => $configuration->getFacebookPixelSnippet(),
                 'facebook_ads_pixel_snippet' => $configuration->getFacebookAdsPixelSnippet(),
                 'facebook_business_pixel_snippet' => $configuration->getFacebookBusinessExtensionSnippet(),
@@ -171,18 +177,18 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
                 'getresponse_web_form_position' => $configuration->getGetResponseWebFormPosition(),
                 'live_synchronization_url' => $configuration->getLiveSynchronizationUrl(),
                 'live_synchronization_type' => $configuration->getLiveSynchronizationType(),
-            ];
+            );
         }
 
         $this->objOutput->setHeaderParams('Content-Type', (new WebserviceOutputJSON())->getContentType());
 
         return json_encode(
-            [
-                'plugin_version' => '1.0.5',
+            array(
+                'plugin_version' => '1.0.6',
                 'prestashop_version' => _PS_VERSION_,
                 'php_version' => phpversion(),
                 'shops' => $shops,
-            ]
+            )
         );
     }
 

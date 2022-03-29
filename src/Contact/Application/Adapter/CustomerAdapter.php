@@ -46,7 +46,7 @@ class CustomerAdapter
             $customer->email,
             $address,
             $customer->newsletter,
-            ['birthday' => $customer->birthday]
+            array('birthday' => $customer->birthday)
         );
     }
 }

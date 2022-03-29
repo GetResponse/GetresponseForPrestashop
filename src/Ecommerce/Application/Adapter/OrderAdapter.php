@@ -40,7 +40,8 @@ class OrderAdapter
         $customerAdapter = new CustomerAdapter();
         $prestashopOrder = new PrestashopOrder($orderId);
         $customer = new PrestashopCustomer($prestashopOrder->id_customer);
-        $orderUrl = Tools::getHttpHost(true) . __PS_BASE_URI__ . '?controller=order-detail&id_order=' . $prestashopOrder->id;
+        $prestashopBaseUrl = Tools::getHttpHost(true) . __PS_BASE_URI__;
+        $orderUrl = $prestashopBaseUrl . '?controller=order-detail&id_order=' . $prestashopOrder->id;
 
         $currency = new Currency($prestashopOrder->id_currency);
 
@@ -111,7 +112,7 @@ class OrderAdapter
 
     private function getProducts(PrestashopOrder $order)
     {
-        $lines = [];
+        $lines = array();
 
         foreach ($order->getProducts() as $product) {
             if ((int) $product['product_attribute_id'] > 0) {

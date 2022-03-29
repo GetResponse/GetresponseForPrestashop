@@ -48,21 +48,21 @@ class HttpClient implements EventEmitter
      */
     private function sendRequest($url, JsonSerializable $object, $method = self::GET)
     {
-        $headers = [
+        $headers = array(
             'Content-Type: application/json',
             'X-Shop-Domain: ' . $this->shopDomain,
             'X-Hmac-Sha256: ' . $this->createHmac($object),
             'X-Timestamp: ' . date('Y-m-d H:i:s.') . gettimeofday()['usec']
-        ];
+        );
 
-        $options = [
+        $options = array(
             CURLOPT_URL            => $url,
             CURLOPT_ENCODING       => 'gzip,deflate',
             CURLOPT_FRESH_CONNECT  => 1,
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_TIMEOUT        => self::TIMEOUT,
             CURLOPT_HTTPHEADER     => $headers
-        ];
+        );
 
         if ($method === self::POST) {
             $options[CURLOPT_POST] = 1;

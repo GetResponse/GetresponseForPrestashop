@@ -56,9 +56,9 @@ class Image implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        return [
+        return array(
             'src' => $this->src,
             'position' => $this->position
-        ];
+        );
     }
 }

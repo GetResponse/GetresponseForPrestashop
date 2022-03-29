@@ -54,12 +54,12 @@ class Line implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        return [
+        return array(
             'variant_id' => $this->variantId,
             'price' => $this->price,
             'price_tax' => $this->priceTax,
             'quantity' => $this->quantity,
             'sku' => $this->sku
-        ];
+        );
     }
 }

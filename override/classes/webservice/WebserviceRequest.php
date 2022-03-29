@@ -30,10 +30,10 @@ class WebserviceRequest extends WebserviceRequestCore
             return $resources;
         }
 
-        $resources['getresponse_module'] = [
+        $resources['getresponse_module'] = array(
             'description' => 'Getresponse Integration',
             'specific_management' => true,
-        ];
+        );
         ksort($resources);
 
         return $resources;
