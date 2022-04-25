@@ -103,6 +103,7 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
     private function updateSettings()
     {
         $payload = $this->getPayload();
+
         $idShop = empty($payload['shop_id']) ? null : (int) $payload['shop_id'];
         $settings = empty($payload['settings']) ? null : $payload['settings'];
 
@@ -201,6 +202,7 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
 
     public function getPayload()
     {
-        return json_decode($_POST, true);
+        $json = file_get_contents('php://input');
+        return json_decode($json, true);
     }
 }
