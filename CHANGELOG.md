@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.7] - 2022-04-25
+### Fix
+- Fix in override webservice
+
 ## [1.0.6] - 2022-03-23
 ### Fix
 - Added fix for Prestashop validator
