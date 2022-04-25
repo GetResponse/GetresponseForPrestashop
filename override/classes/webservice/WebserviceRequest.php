@@ -20,27 +20,25 @@
 
 class WebserviceRequest extends WebserviceRequestCore
 {
-    public static function getResources()
+    public function __construct()
     {
         include_once _PS_MODULE_DIR_ . 'grprestashop/classes/WebserviceSpecificManagementGetresponseModule.php';
+    }
 
+    public static function getResources()
+    {
         $resources = WebserviceRequestCore::getResources();
 
         if (version_compare(_PS_VERSION_, '1.7', '>=')) {
             return $resources;
         }
 
-        $resources['getresponse_module'] = array(
+        $resources['getresponse_module'] = [
             'description' => 'Getresponse Integration',
             'specific_management' => true,
-        );
+        ];
         ksort($resources);
 
         return $resources;
-    }
-
-    public function getPayload()
-    {
-        return json_decode($this->_inputXml, true);
     }
 }

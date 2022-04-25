@@ -37,7 +37,7 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
     /** @var WebserviceRequest */
     protected $wsObject;
     protected $urlSegment;
-    protected $errors = array();
+    protected $errors = [];
     protected $content;
 
     /**
@@ -102,7 +102,8 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
 
     private function updateSettings()
     {
-        $payload = $this->wsObject->getPayload();
+        $payload = $this->getPayload();
+
         $idShop = empty($payload['shop_id']) ? null : (int) $payload['shop_id'];
         $settings = empty($payload['settings']) ? null : $payload['settings'];
 
@@ -141,7 +142,7 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
 
     private function unsubscribeContact()
     {
-        $payload = $this->wsObject->getPayload();
+        $payload = $this->getPayload();
 
         $shopId = empty($payload['shop_id']) ? null : (int) $payload['shop_id'];
         $email = empty($payload['email']) ? null : $payload['email'];
@@ -160,13 +161,13 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
 
     private function getPluginDetails()
     {
-        $shops = array();
+        $shops = [];
         $configurationReadModel = new ConfigurationReadModel(new ConfigurationRepository());
         $configurations = $configurationReadModel->getConfigurationForAllShops();
 
         /** @var ConfigurationDto $configuration */
         foreach ($configurations as $configuration) {
-            $shops[$configuration->getShopId()] = array(
+            $shops[$configuration->getShopId()] = [
                 'facebook_pixel_snippet' => $configuration->getFacebookPixelSnippet(),
                 'facebook_ads_pixel_snippet' => $configuration->getFacebookAdsPixelSnippet(),
                 'facebook_business_pixel_snippet' => $configuration->getFacebookBusinessExtensionSnippet(),
@@ -177,18 +178,18 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
                 'getresponse_web_form_position' => $configuration->getGetResponseWebFormPosition(),
                 'live_synchronization_url' => $configuration->getLiveSynchronizationUrl(),
                 'live_synchronization_type' => $configuration->getLiveSynchronizationType(),
-            );
+            ];
         }
 
         $this->objOutput->setHeaderParams('Content-Type', (new WebserviceOutputJSON())->getContentType());
 
         return json_encode(
-            array(
-                'plugin_version' => '1.0.6',
+            [
+                'plugin_version' => '1.0.7',
                 'prestashop_version' => _PS_VERSION_,
                 'php_version' => phpversion(),
                 'shops' => $shops,
-            )
+            ]
         );
     }
 
@@ -197,5 +198,11 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
         return isset($this->wsObject->urlSegment[1], $this->wsObject->urlSegment[2])
             && $this->wsObject->urlSegment[1] === 'contact'
             && $this->wsObject->urlSegment[2] === 'unsubscribe';
+    }
+
+    public function getPayload()
+    {
+        $json = file_get_contents('php://input');
+        return json_decode($json, true);
     }
 }
