@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.8] - 
+## [1.0.8] - 2022-08-23
 ### Fix
 - Fix in unsubscription process
 
