@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.8] - 
+### Fix
+- Fix in unsubscription process
+
 ## [1.0.7] - 2022-04-25
 ### Fix
 - Fix in override webservice

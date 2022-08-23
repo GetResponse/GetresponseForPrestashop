@@ -40,10 +40,12 @@ class SubscriberService
      */
     public function unsubscribe(UnsubscribeContact $command)
     {
-        $this->newsletterRepository->removeSubscriberFromNewsletter(
-            $command->getShopId(),
-            $command->getEmail()
-        );
+        if (0 === strpos(_PS_VERSION_, '1.6')) {
+            $this->newsletterRepository->removeSubscriberFromNewsletter(
+                $command->getShopId(),
+                $command->getEmail()
+            );
+        }
 
         $this->newsletterRepository->removeCustomerFromNewsletter(
             $command->getShopId(),
