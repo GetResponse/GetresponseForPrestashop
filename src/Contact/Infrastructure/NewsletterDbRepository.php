@@ -41,7 +41,7 @@ class NewsletterDbRepository implements NewsletterRepository
         foreach ($customers as $row) {
             if ($shopId === (int) $row['id_shop']) {
                 $customer = new Customer($row['id_customer']);
-                $customer->newsletter = (int) !$customer->newsletter;
+                $customer->newsletter = 0;
                 $customer->update();
             }
         }
