@@ -100,12 +100,12 @@ class Order implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        $lines = [];
+        $lines = array();
         foreach ($this->lines as $line) {
             $lines[] = $line->jsonSerialize();
         }
 
-        return [
+        return array(
             'callback_type' => CallbackType::ORDER_UPDATE,
             'id' => $this->id,
             'order_number' => $this->orderNumber,
@@ -120,10 +120,10 @@ class Order implements JsonSerializable
             'currency' => $this->currency,
             'status' => $this->status,
             'billing_status' => $this->status,
-            'shipping_address' => null !== $this->shippingAddress ? $this->shippingAddress->jsonSerialize() : [],
-            'billing_address' => null !== $this->billingAddress ? $this->billingAddress->jsonSerialize() : [],
+            'shipping_address' => null !== $this->shippingAddress ? $this->shippingAddress->jsonSerialize() : array(),
+            'billing_address' => null !== $this->billingAddress ? $this->billingAddress->jsonSerialize() : array(),
             'created_at' => $this->createdAt,
             'updated_at' => $this->updatedAt,
-        ];
+        );
     }
 }

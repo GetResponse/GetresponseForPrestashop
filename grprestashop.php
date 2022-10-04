@@ -17,7 +17,7 @@ include_once _PS_MODULE_DIR_ . '/grprestashop/classes/WebserviceSpecificManageme
 
 class GrPrestashop extends Module
 {
-    private $usedHooks = [
+    private $usedHooks = array(
         'leftColumn',
         'rightColumn',
         'header',
@@ -38,7 +38,7 @@ class GrPrestashop extends Module
         'actionNewsletterRegistrationAfter',
         'actionObjectAddressUpdateAfter',
         'actionObjectAddressAddAfter',
-    ];
+    );
 
     public function __construct()
     {
@@ -57,29 +57,29 @@ class GrPrestashop extends Module
         parent::__construct();
 
         if (!function_exists('curl_init')) {
-            $this->context->smarty->assign([
-                'flash_message' => [
+            $this->context->smarty->assign(array(
+                'flash_message' => array(
                     'message' => $this->l('Curl library not found'),
                     'status' => 'danger',
-                ],
-            ]);
+                ),
+            ));
         }
     }
 
     public function hookAddWebserviceResources()
     {
-        return [
-            'getresponse_module' => [
+        return array(
+            'getresponse_module' => array(
                 'description' => 'Getresponse Integration',
                 'specific_management' => true,
-                'resources' => [
-                    'getresponse_settings' => [
+                'resources' => array(
+                    'getresponse_settings' => array(
                         'description' => 'GetResponse Settings',
                         'class' => 'GetResponseSettingsCore',
-                    ],
-                ],
-            ],
-        ];
+                    ),
+                ),
+            ),
+        );
     }
 
     public function hookDisplayHome()
@@ -191,19 +191,19 @@ class GrPrestashop extends Module
 
         $shops = Shop::getShops();
 
-        $viewData = [];
+        $viewData = array();
 
         foreach ($shops as $shop) {
             $configuration = $configurationReadModel->getConfigurationForShop($shop['id_shop']);
 
-            $viewData['getresponse_settings'][$shop['name']] = [
+            $viewData['getresponse_settings'][$shop['name']] = array(
                 'fb_pixel' => !empty($configuration->getFacebookPixelSnippet()),
                 'fb_ads_pixel' => !empty($configuration->getFacebookAdsPixelSnippet()),
                 'fbe' => !empty($configuration->getFacebookBusinessExtensionSnippet()),
                 'gr_tracking' => !empty($configuration->getGetResponseWebTrackingSnippet()),
                 'web_form' => $configuration->hasWebForm(),
                 'live_synchronization' => $configuration->hasLiveSynchronization(),
-            ];
+            );
         }
 
         $this->smarty->assign($viewData);
@@ -245,7 +245,7 @@ class GrPrestashop extends Module
         $tab = new Tab();
         $tab->active = 1;
         $tab->class_name = 'AdminGetresponse';
-        $tab->name = [];
+        $tab->name = array();
         $tab->id_parent = strpos(_PS_VERSION_, '1.6') === 0 ? 0 : (int) Tab::getIdFromClassName('AdminAdmin');
         $tab->module = $this->name;
         foreach (Language::getLanguages(true) as $lang) {
@@ -518,7 +518,7 @@ class GrPrestashop extends Module
         }
 
         $customerEmail = $this->context->customer->email;
-        $this->smarty->assign(['customerEmail' => $customerEmail]);
+        $this->smarty->assign(array('customerEmail' => $customerEmail));
         $templatePath = 'views/templates/front/getresponse_web_tracking_set_customer_email_snippet.tpl';
 
         return $this->display(__FILE__, $templatePath);
@@ -534,7 +534,7 @@ class GrPrestashop extends Module
         if (empty($snippet)) {
             return null;
         }
-        $this->smarty->assign(['snippet' => $snippet]);
+        $this->smarty->assign(array('snippet' => $snippet));
         $templatePath = 'views/templates/front/getresponse_snippet.tpl';
 
         return $this->display(__FILE__, $templatePath);
@@ -556,10 +556,10 @@ class GrPrestashop extends Module
             return null;
         }
 
-        $templateVars = [
+        $templateVars = array(
             'webformUrl' => $configuration->getGetResponseWebFormUrl(),
             'position' => $configuration->getGetResponseWebFormPosition(),
-        ];
+        );
 
         $this->smarty->assign($templateVars);
 

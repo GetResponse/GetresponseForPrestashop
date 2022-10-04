@@ -31,17 +31,17 @@ class LiveSynchronization
 
     public function __construct($url, $type)
     {
-        Assertion::inArray($type, ['Contacts', 'Products', 'FullEcommerce']);
+        Assertion::inArray($type, array('Contacts', 'Products', 'FullEcommerce'));
         $this->url = $url;
         $this->type = $type;
     }
 
     public function __toString()
     {
-        $webForm = [
+        $webForm = array(
             'url' => $this->url,
             'type' => $this->type,
-        ];
+        );
 
         return json_encode($webForm);
     }

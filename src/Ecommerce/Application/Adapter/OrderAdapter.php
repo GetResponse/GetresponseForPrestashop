@@ -112,7 +112,7 @@ class OrderAdapter
 
     private function getProducts(PrestashopOrder $order)
     {
-        $lines = [];
+        $lines = array();
 
         foreach ($order->getProducts() as $product) {
             if ((int) $product['product_attribute_id'] > 0) {
