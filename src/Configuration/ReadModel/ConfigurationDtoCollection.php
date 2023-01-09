@@ -20,6 +20,7 @@
 
 namespace GetResponse\Configuration\ReadModel;
 
+use ArrayIterator;
 use IteratorAggregate;
 use Traversable;
 
@@ -37,6 +38,6 @@ class ConfigurationDtoCollection implements IteratorAggregate
      */
     public function getIterator()
     {
-        yield from $this->configurations;
+        return new ArrayIterator($this->configurations);
     }
 }
