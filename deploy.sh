@@ -51,17 +51,15 @@ git checkout tags/"$VERSION" -b "$VERSION"-branch
 git archive "$VERSION"-branch | tar -x -C "$GITHUB_PATH"
 
 echo ""
-echo "Build composer"
-composer install --no-dev --working-dir="$GITHUB_PATH"
-
-echo ""
 echo "Remove unused files"
 for file in ${FILES_TO_DELETE[@]}
 do
-  echo $file
+  rm -f $file
 done
 
 echo ""
+echo ""
+echo "----------------"
 echo "Github status:"
 cd $GITHUB_PATH && git status
 
@@ -70,7 +68,18 @@ read -p "Press [ENTER] to commit release $VERSION to Github"
 
 echo ""
 echo "Committing to Github... this may take a while"
-cd $GITHUB_PATH && git commit -m "Release $VERSION" || { echo "Unable to commit."; exit 1; }
+#cd $GITHUB_PATH && git commit -m "Release $VERSION" && git push || { echo "Unable to commit."; exit 1; }
+
+echo ""
+echo "Build composer"
+composer install --no-dev --working-dir="$GITHUB_PATH"
+
+echo ""
+echo "Create module archive"
+zip -rm grprestashop.zip "$GITHUB_PATH"
+
+echo ""
+echo "Create new release"
 
 echo ""
 echo "Remove temporary files"
