@@ -360,7 +360,7 @@ class GrPrestashop extends Module
 
     public function hookCart($params)
     {
-        if ($this->context->cart === null) {
+        if (null === $this->context->cart) {
             return;
         }
 
@@ -395,7 +395,7 @@ class GrPrestashop extends Module
             /** @var Address $address */
             $address = $params['object'];
 
-            if ($address !== null && null !== $address->id_customer) {
+            if (null !== $address && null !== $address->id_customer) {
                 $this->upsertCustomer(new Customer($address->id_customer));
             }
         } catch (\GetResponse\MessageSender\Application\MessageSenderException $e) {
@@ -409,7 +409,7 @@ class GrPrestashop extends Module
             /** @var Address $address */
             $address = $params['object'];
 
-            if ($address !== null && null !== $address->id_customer) {
+            if (null !== $address && null !== $address->id_customer) {
                 $this->upsertCustomer(new Customer($address->id_customer));
             }
         } catch (\GetResponse\MessageSender\Application\MessageSenderException $e) {

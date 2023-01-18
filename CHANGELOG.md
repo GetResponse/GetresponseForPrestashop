@@ -1,10 +1,5 @@
 # Changelog
 
-
-## [1.0.11] - 2023-01-16
-### Feat
-- Automatic deployment to Github
-
 ## [1.0.10] - 2023-01-09
 ### Fix
 - Fix for yield from function
