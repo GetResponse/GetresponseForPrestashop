@@ -7,7 +7,6 @@ GITHUB_PATH="$TMP_PATH/release"
 FILES_TO_DELETE=(
   "$GITHUB_PATH/.php_cs.dist"
   "$GITHUB_PATH/tests"
-  "$GITHUB_PATH/README.md"
   "$GITHUB_PATH/deploy.sh"
 )
 
