@@ -11,8 +11,10 @@ FILES_TO_DELETE=(
 )
 
 if [ -d "$TMP_PATH" ]
+then
   rmdir $TMP_PATH
 fi
+
 mkdir -p $TMP_PATH
 
 echo "--------------------------------------------"
