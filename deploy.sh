@@ -10,6 +10,9 @@ FILES_TO_DELETE=(
   "$GITHUB_PATH/deploy.sh"
 )
 
+if [ -d "$TMP_PATH" ]
+  rmdir $TMP_PATH
+fi
 mkdir -p $TMP_PATH
 
 echo "--------------------------------------------"
