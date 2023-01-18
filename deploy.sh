@@ -2,20 +2,22 @@
 
 TMP_PATH="`pwd`/tmp"
 GIT_PATH=`pwd`
-GITHUB_PATH="$TMP_PATH/release"
+GITHUB_PATH="$TMP_PATH/github"
+RELEASE_PATH="$TMP_PATH/release"
+RELEASE_FILE="grprestashop.zip"
 
 FILES_TO_DELETE=(
   "$GITHUB_PATH/.php_cs.dist"
-  "$GITHUB_PATH/tests"
   "$GITHUB_PATH/deploy.sh"
 )
 
 if [ -d "$TMP_PATH" ]
 then
-  rmdir $TMP_PATH
+  rm -rf $TMP_PATH
 fi
 
 mkdir -p $TMP_PATH
+mkdir -p $RELEASE_PATH
 
 echo "--------------------------------------------"
 echo "      Gitlab to Github RELEASER      "
@@ -58,7 +60,7 @@ echo ""
 echo "Remove unused files"
 for file in ${FILES_TO_DELETE[@]}
 do
-  rm -f $file
+  rm -rf $file
 done
 
 echo ""
@@ -72,18 +74,20 @@ read -p "Press [ENTER] to commit release $VERSION to Github"
 
 echo ""
 echo "Committing to Github... this may take a while"
-#cd $GITHUB_PATH && git commit -m "Release $VERSION" && git push || { echo "Unable to commit."; exit 1; }
+cd $GITHUB_PATH && git commit -a -m "Release $VERSION" && git push || { echo "Unable to commit."; exit 1; }
+
+echo ""
+echo "Create new directory for module"
+git archive --format=tar master | (cd "$RELEASE_PATH" && tar xf -)
 
 echo ""
 echo "Build composer"
-composer install --no-dev --working-dir="$GITHUB_PATH"
-
-echo ""
-echo "Create module archive"
-zip -rm grprestashop.zip "$GITHUB_PATH"
+composer install --no-dev --working-dir="$RELEASE_PATH"
 
 echo ""
 echo "Create new release"
+cd $RELEASE_PATH && zip -rm "$RELEASE_FILE" . -x ".git*"
+cd $GITHUB_PATH && gh release create "$VERSION" --generate-notes --latest --n "$VERSION" "$RELEASE_PATH/$RELEASE_FILE"
 
 echo ""
 echo "Remove temporary files"
