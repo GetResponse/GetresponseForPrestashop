@@ -44,7 +44,7 @@ class GrPrestashop extends Module
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '1.0.10';
+        $this->version = '1.0.11';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
@@ -360,7 +360,7 @@ class GrPrestashop extends Module
 
     public function hookCart($params)
     {
-        if ($this->context->cart === null) {
+        if (null === $this->context->cart) {
             return;
         }
 
@@ -395,7 +395,7 @@ class GrPrestashop extends Module
             /** @var Address $address */
             $address = $params['object'];
 
-            if ($address !== null && null !== $address->id_customer) {
+            if (null !== $address && null !== $address->id_customer) {
                 $this->upsertCustomer(new Customer($address->id_customer));
             }
         } catch (\GetResponse\MessageSender\Application\MessageSenderException $e) {
@@ -409,7 +409,7 @@ class GrPrestashop extends Module
             /** @var Address $address */
             $address = $params['object'];
 
-            if ($address !== null && null !== $address->id_customer) {
+            if (null !== $address && null !== $address->id_customer) {
                 $this->upsertCustomer(new Customer($address->id_customer));
             }
         } catch (\GetResponse\MessageSender\Application\MessageSenderException $e) {
