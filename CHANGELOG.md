@@ -2,6 +2,10 @@
 
 ## [1.0.10] - 2023-01-09
 ### Fix
+- Added deployment script
+- 
+## [1.0.10] - 2023-01-09
+### Fix
 - Fix for yield from function
 
 ## [1.0.9] - 2022-10-04
