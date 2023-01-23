@@ -2,6 +2,8 @@
 
 TMP_PATH="`pwd`/tmp"
 GIT_PATH=`pwd`
+GITLAB_REMOTE_URL="git@git.int.getresponse.com:integrations/prestashop/getresponse-for-prestashop.git"
+GITHUB_REMOTE_URL="git@github.com:GetResponse/GetresponseForPrestashop.git"
 GITHUB_PATH="$TMP_PATH/github"
 RELEASE_PATH="$TMP_PATH/release"
 RELEASE_FILE="grprestashop.zip"
@@ -47,14 +49,13 @@ clear
 if ! [ -d "$GITHUB_PATH" ]
 then
     echo "Clone Github repository... this may take a while"
-    git clone git@github.com:GetResponse/GetresponseForPrestashop.git $GITHUB_PATH
+    git clone $GITHUB_REMOTE_URL $GITHUB_PATH
 fi
 
 echo ""
 echo "Copy files"
 git fetch --all --tags
-git checkout tags/"$VERSION" -b "$VERSION"-branch
-git archive "$VERSION"-branch | tar -x -C "$GITHUB_PATH"
+git archive --remote="$GITLAB_REMOTE_URL" tags/"$VERSION" | tar -x -C "$GITHUB_PATH"
 
 echo ""
 echo "Remove unused files"
@@ -78,7 +79,7 @@ cd $GITHUB_PATH && git commit -a -m "Release $VERSION" && git push || { echo "Un
 
 echo ""
 echo "Create new directory for module"
-git archive --format=tar master | (cd "$RELEASE_PATH" && tar xf -)
+git archive --remote="$GITLAB_REMOTE_URL" tags/"$VERSION" | (cd "$RELEASE_PATH" && tar xf -)
 
 echo ""
 echo "Build composer"
