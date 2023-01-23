@@ -37,14 +37,14 @@ class GrPrestashop extends Module
         'actionOrderStatusPostUpdate',
         'actionNewsletterRegistrationAfter',
         'actionObjectAddressUpdateAfter',
-        'actionObjectAddressAddAfter'
+        'actionObjectAddressAddAfter',
     );
 
     public function __construct()
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '1.0.11';
+        $this->version = '1.0.12';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
