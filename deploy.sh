@@ -87,7 +87,7 @@ composer install --no-dev --working-dir="$RELEASE_PATH"
 echo ""
 echo "Create new release"
 cd $RELEASE_PATH && zip -rm "$RELEASE_FILE" . -x ".git*"
-cd $GITHUB_PATH && gh release create "$VERSION" --generate-notes --latest --n "$VERSION" "$RELEASE_PATH/$RELEASE_FILE"
+cd $GITHUB_PATH && gh release create "$VERSION" --generate-notes --latest -n "$VERSION" "$RELEASE_PATH/$RELEASE_FILE"
 
 echo ""
 echo "Remove temporary files"
