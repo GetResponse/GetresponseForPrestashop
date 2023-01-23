@@ -5,7 +5,8 @@ GIT_PATH=`pwd`
 GITLAB_REMOTE_URL="git@git.int.getresponse.com:integrations/prestashop/getresponse-for-prestashop.git"
 GITHUB_REMOTE_URL="git@github.com:GetResponse/GetresponseForPrestashop.git"
 GITHUB_PATH="$TMP_PATH/github"
-RELEASE_PATH="$TMP_PATH/release"
+RELEASE_DIR="grprestashop"
+RELEASE_PATH="$TMP_PATH/$RELEASE_DIR"
 RELEASE_FILE="grprestashop.zip"
 
 FILES_TO_DELETE=(
@@ -81,14 +82,19 @@ echo ""
 echo "Create new directory for module"
 git archive --remote="$GITLAB_REMOTE_URL" tags/"$VERSION" | (cd "$RELEASE_PATH" && tar xf -)
 
+for file in ${FILES_TO_DELETE[@]}
+do
+  rm -rf $file
+done
+
 echo ""
 echo "Build composer"
 composer install --no-dev --working-dir="$RELEASE_PATH"
 
 echo ""
 echo "Create new release"
-cd $RELEASE_PATH && zip -rm "$RELEASE_FILE" . -x ".git*"
-cd $GITHUB_PATH && gh release create "$VERSION" --generate-notes --latest -n "$VERSION" "$RELEASE_PATH/$RELEASE_FILE"
+cd $TMP_PATH && zip -rm "$RELEASE_FILE" "$RELEASE_DIR" -x ".git*"
+cd $GITHUB_PATH && gh release create "$VERSION" --generate-notes --latest -n "$VERSION" "$TMP_PATH/$RELEASE_FILE"
 
 echo ""
 echo "Remove temporary files"

@@ -37,7 +37,7 @@ class GrPrestashop extends Module
         'actionOrderStatusPostUpdate',
         'actionNewsletterRegistrationAfter',
         'actionObjectAddressUpdateAfter',
-        'actionObjectAddressAddAfter',
+        'actionObjectAddressAddAfter'
     );
 
     public function __construct()
