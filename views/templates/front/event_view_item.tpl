@@ -13,7 +13,11 @@
                 "price": "{$product.price_without_reduction_without_tax}",
                 "currency": "{$currency.iso_code}"
             },
-            "categories": []
+            "categories": [
+                {
+                    "name": "{$product.category_name}"
+                }
+            ]
         }
     );
 

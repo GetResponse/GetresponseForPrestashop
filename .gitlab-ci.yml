@@ -27,7 +27,7 @@ composer install:php56:
     - php composer-setup.php
     - php -r "unlink('composer-setup.php');"
   script:
-    - php composer.phar update --prefer-dist --no-progress --optimize-autoloader --ignore-platform-reqs
+    - php composer.phar update --ignore-platform-reqs
   artifacts:
     paths:
       - vendor/
@@ -44,7 +44,7 @@ composer install:php71:
     - php composer-setup.php
     - php -r "unlink('composer-setup.php');"
   script:
-    - php composer.phar install --prefer-dist --no-progress --optimize-autoloader
+    - php composer.phar install
   artifacts:
     paths:
       - vendor/
