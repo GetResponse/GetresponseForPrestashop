@@ -158,6 +158,16 @@ class GrPrestashop extends Module
         $html .= $this->getWebTrackingCustomerEmailSnippet($configuration);
         $html .= '<!-- getresponse end -->';
 
+        if (null !== $configuration->getGetresponseShopId()) {
+            if (isset($this->context->controller->php_self) && $this->context->controller->php_self == 'product') {
+                /** @var ProductControllerCore $productController */
+                $productController = $this->context->controller;
+                $product = $productController->getProduct();
+                $shopId = $configuration->getGetresponseShopId();
+                $html .= "<script type=\"application/javascript\">console.log('product: {$product->name}, shop-id: {$shopId}');</script>";
+            }
+        }
+
         return $html;
     }
 
