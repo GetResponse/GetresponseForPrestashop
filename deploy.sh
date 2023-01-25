@@ -10,8 +10,11 @@ RELEASE_PATH="$TMP_PATH/$RELEASE_DIR"
 RELEASE_FILE="grprestashop.zip"
 
 FILES_TO_DELETE=(
-  "$GITHUB_PATH/.php_cs.dist"
-  "$GITHUB_PATH/deploy.sh"
+  ".php_cs.dist"
+  "deploy.sh"
+  ".gitlab-ci.yml"
+  "Dockerfile"
+  "Makefile"
 )
 
 if [ -d "$TMP_PATH" ]
@@ -62,7 +65,7 @@ echo ""
 echo "Remove unused files"
 for file in ${FILES_TO_DELETE[@]}
 do
-  rm -rf $file
+  rm -rf "$GITHUB_PATH/$file"
 done
 
 echo ""
@@ -84,7 +87,7 @@ git archive --remote="$GITLAB_REMOTE_URL" tags/"$VERSION" | (cd "$RELEASE_PATH" 
 
 for file in ${FILES_TO_DELETE[@]}
 do
-  rm -rf $file
+  rm -rf "$RELEASE_PATH/$file"
 done
 
 echo ""

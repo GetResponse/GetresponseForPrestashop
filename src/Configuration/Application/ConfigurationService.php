@@ -20,6 +20,7 @@
 
 namespace GetResponse\Configuration\Application;
 
+use GetResponse\Configuration\Application\Command\UpsertConfiguration;
 use GetResponse\Configuration\Domain\Configuration;
 use GetResponse\Configuration\Domain\ConfigurationRepository;
 use GetResponse\Configuration\Domain\LiveSynchronization;
@@ -38,7 +39,7 @@ class ConfigurationService
     }
 
     /**
-     * @param $updateConfiguration
+     * @param UpsertConfiguration $updateConfiguration
      */
     public function upsertConfiguration($updateConfiguration)
     {
@@ -51,7 +52,8 @@ class ConfigurationService
                 $updateConfiguration->getGetResponseChatSnippet(),
                 $updateConfiguration->getGetResponseWebTrackingSnippet(),
                 $this->getWebForm($updateConfiguration),
-                $this->getLiveSynchronization($updateConfiguration)
+                $this->getLiveSynchronization($updateConfiguration),
+                $updateConfiguration->getGetresponseShopId()
             )
         );
     }

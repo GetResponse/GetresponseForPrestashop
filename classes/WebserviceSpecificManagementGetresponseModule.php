@@ -130,7 +130,8 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
                     ? $settings['getresponse_web_form_position']
                     : null,
                 !empty($settings['live_synchronization_url']) ? $settings['live_synchronization_url'] : null,
-                !empty($settings['live_synchronization_type']) ? $settings['live_synchronization_type'] : null
+                !empty($settings['live_synchronization_type']) ? $settings['live_synchronization_type'] : null,
+                !empty($settings['getresponse_shop_id']) ? $settings['getresponse_shop_id'] : null
             )
         );
     }
@@ -178,6 +179,7 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
                 'getresponse_web_form_position' => $configuration->getGetResponseWebFormPosition(),
                 'live_synchronization_url' => $configuration->getLiveSynchronizationUrl(),
                 'live_synchronization_type' => $configuration->getLiveSynchronizationType(),
+                'getresponse_shop_id' => $configuration->getGetresponseShopId(),
             ];
         }
 

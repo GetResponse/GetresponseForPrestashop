@@ -44,6 +44,8 @@ class ConfigurationDto
     private $liveSynchronizationUrl;
     /** @var string|null */
     private $liveSynchronizationType;
+    /** @var string|null */
+    private $getresponseShopId;
 
     /**
      * @param int $shopId
@@ -57,6 +59,7 @@ class ConfigurationDto
      * @param string|null $getResponseWebFormPosition
      * @param string|null $liveSynchronizationUrl
      * @param string|null $liveSynchronizationType
+     * @param string|null $getresponseShopId
      */
     public function __construct(
         $shopId,
@@ -69,7 +72,8 @@ class ConfigurationDto
         $getResponseWebFormUrl,
         $getResponseWebFormPosition,
         $liveSynchronizationUrl,
-        $liveSynchronizationType
+        $liveSynchronizationType,
+        $getresponseShopId
     ) {
         $this->shopId = $shopId;
         $this->facebookPixelSnippet = $facebookPixelSnippet;
@@ -82,6 +86,7 @@ class ConfigurationDto
         $this->getResponseWebFormPosition = $getResponseWebFormPosition;
         $this->liveSynchronizationUrl = $liveSynchronizationUrl;
         $this->liveSynchronizationType = $liveSynchronizationType;
+        $this->getresponseShopId = $getresponseShopId;
     }
 
     /**
@@ -170,6 +175,14 @@ class ConfigurationDto
     public function getLiveSynchronizationType()
     {
         return $this->liveSynchronizationType;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGetresponseShopId()
+    {
+        return $this->getresponseShopId;
     }
 
     /**
