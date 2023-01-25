@@ -15,8 +15,7 @@ workflow:
 
 .exclude-master: &exclude-master
   rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
+    - if: $CI_COMMIT_BRANCH != "master"
 
 composer install:php56:
   image: php:5.6-cli
