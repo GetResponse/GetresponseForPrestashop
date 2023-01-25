@@ -16,10 +16,8 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  *}
-{if isset($customerEmail)}
 <script type='text/javascript'>
     window.onload = function() {
         GrTracking('setUserId', '{$customerEmail|escape:'htmlall':'UTF-8'}');
     };
 </script>
-{/if}

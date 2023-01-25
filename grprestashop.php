@@ -157,10 +157,6 @@ class GrPrestashop extends Module
             $configuration,
             \GetResponse\Configuration\SharedKernel\WebFormPosition::FOOTER
         );
-        $html .= $this->getWebTrackingCustomerEmailSnippet($configuration);
-
-        $html .= $this->renderViewItemSnippet($configuration);
-        $html .= $this->renderViewCategorySnippet($configuration);
 
         $html .= "\n<!-- getresponse end -->\n";
 
@@ -183,7 +179,20 @@ class GrPrestashop extends Module
         );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
-        return $this->renderSnippet($configuration->getGetResponseWebTrackingSnippet());
+        $webConnectSnippet = $configuration->getGetResponseWebTrackingSnippet();
+
+        if (empty($webConnectSnippet)) {
+            return null;
+        }
+
+        $snippet = "\n<!-- getresponse start -->\n";
+        $snippet .= $this->renderSnippet($webConnectSnippet);
+        $snippet .= $this->renderSetUserIdSnippet();
+        $snippet .= $this->renderViewItemSnippet($configuration);
+        $snippet .= $this->renderViewCategorySnippet($configuration);
+        $snippet .= "\n<!-- getresponse end -->\n";
+
+        return $snippet;
     }
 
     /**
@@ -517,18 +526,13 @@ class GrPrestashop extends Module
      *
      * @return false|string|null
      */
-    private function getWebTrackingCustomerEmailSnippet($configurationDto)
+    private function renderSetUserIdSnippet()
     {
-        if (empty($configurationDto->getGetResponseWebTrackingSnippet())) {
+        if(empty($this->context->customer->email)) {
             return null;
         }
 
-        if (empty($this->context->customer->email)) {
-            return null;
-        }
-
-        $customerEmail = $this->context->customer->email;
-        $this->smarty->assign(array('customerEmail' => $customerEmail));
+        $this->smarty->assign(array('customerEmail' => $this->context->customer->email));
         $templatePath = 'views/templates/front/getresponse_web_tracking_set_customer_email_snippet.tpl';
 
         return $this->display(__FILE__, $templatePath);
@@ -583,6 +587,7 @@ class GrPrestashop extends Module
     private function renderViewItemSnippet($configuration)
     {
         if (null !== $configuration->getGetresponseShopId()) {
+
             if (isset($this->context->controller->php_self) && $this->context->controller->php_self == 'product') {
                 $this->smarty->assign(['shop_id' => $configuration->getGetresponseShopId()]);
                 return $this->display(__FILE__, 'views/templates/front/event_view_item.tpl');;
