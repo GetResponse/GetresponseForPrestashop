@@ -8,6 +8,8 @@
  *  International Registered Trademark & Property of PrestaShop SA
  */
 
+use GetResponse\Configuration\ReadModel\ConfigurationDto;
+
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -146,7 +148,7 @@ class GrPrestashop extends Module
         );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
-        $html = "<!-- getresponse start -->\n";
+        $html = "\n<!-- getresponse start -->\n";
         $html .= $this->renderSnippet($configuration->getFacebookPixelSnippet());
         $html .= $this->renderSnippet($configuration->getFacebookAdsPixelSnippet());
         $html .= $this->renderSnippet($configuration->getFacebookBusinessExtensionSnippet());
@@ -156,17 +158,11 @@ class GrPrestashop extends Module
             \GetResponse\Configuration\SharedKernel\WebFormPosition::FOOTER
         );
         $html .= $this->getWebTrackingCustomerEmailSnippet($configuration);
-        $html .= '<!-- getresponse end -->';
 
-        if (null !== $configuration->getGetresponseShopId()) {
-            if (isset($this->context->controller->php_self) && $this->context->controller->php_self == 'product') {
-                /** @var ProductControllerCore $productController */
-                $productController = $this->context->controller;
-                $product = $productController->getProduct();
-                $shopId = $configuration->getGetresponseShopId();
-                $html .= "<script type=\"application/javascript\">console.log('product: {$product->name}, shop-id: {$shopId}');</script>";
-            }
-        }
+        $html .= $this->renderViewItemSnippet($configuration);
+        $html .= $this->renderViewCategorySnippet($configuration);
+
+        $html .= "\n<!-- getresponse end -->\n";
 
         return $html;
     }
@@ -517,7 +513,7 @@ class GrPrestashop extends Module
     }
 
     /**
-     * @param \GetResponse\Configuration\ReadModel\ConfigurationDto $configurationDto
+     * @param ConfigurationDto $configurationDto
      *
      * @return false|string|null
      */
@@ -555,7 +551,7 @@ class GrPrestashop extends Module
     }
 
     /**
-     * @param \GetResponse\Configuration\ReadModel\ConfigurationDto $configuration
+     * @param ConfigurationDto $configuration
      * @param string $position
      *
      * @return false|string|null
@@ -579,6 +575,39 @@ class GrPrestashop extends Module
 
         return $this->display(__FILE__, 'views/templates/front/getresponse_webform.tpl');
     }
+
+    /**
+     * @param ConfigurationDto $configuration
+     * @return string|null
+     */
+    private function renderViewItemSnippet($configuration)
+    {
+        if (null !== $configuration->getGetresponseShopId()) {
+            if (isset($this->context->controller->php_self) && $this->context->controller->php_self == 'product') {
+                $this->smarty->assign(['shop_id' => $configuration->getGetresponseShopId()]);
+                return $this->display(__FILE__, 'views/templates/front/event_view_item.tpl');;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param ConfigurationDto $configuration
+     * @return string|null
+     */
+    private function renderViewCategorySnippet($configuration)
+    {
+        if (null !== $configuration->getGetresponseShopId()) {
+            if (isset($this->context->controller->php_self) && $this->context->controller->php_self == 'category') {
+                $this->smarty->assign(['shop_id' => $configuration->getGetresponseShopId()]);
+                return $this->display(__FILE__, 'views/templates/front/event_view_category.tpl');;
+            }
+        }
+
+        return null;
+    }
+
 
     /**
      * @throws \GetResponse\MessageSender\Application\MessageSenderException
