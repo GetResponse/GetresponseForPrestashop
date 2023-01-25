@@ -27,7 +27,7 @@ composer install:php56:
     - php composer-setup.php
     - php -r "unlink('composer-setup.php');"
   script:
-    - php composer.phar update --ignore-platform-reqs
+    - php composer.phar install --ignore-platform-reqs
   artifacts:
     paths:
       - vendor/
