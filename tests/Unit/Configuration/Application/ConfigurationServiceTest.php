@@ -57,6 +57,7 @@ class ConfigurationServiceTest extends BaseTestCase
             null,
             null,
             null,
+            null,
             null
         );
 
@@ -66,6 +67,7 @@ class ConfigurationServiceTest extends BaseTestCase
             ->with(
                 new Configuration(
                     1, 'facebookPixelSnippet',
+                    null,
                     null,
                     null,
                     null,
