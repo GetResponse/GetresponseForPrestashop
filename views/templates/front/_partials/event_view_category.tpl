@@ -1,4 +1,3 @@
-<script type="text/javascript">
 
 GrTracking('importScript', 'ec');
 GrTracking(
@@ -9,5 +8,3 @@ GrTracking(
         "name": "{$category.name}"
     }
 );
-
-</script>
