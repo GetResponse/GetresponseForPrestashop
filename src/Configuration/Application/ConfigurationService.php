@@ -53,7 +53,7 @@ class ConfigurationService
                 $updateConfiguration->getGetResponseWebTrackingSnippet(),
                 $this->getWebForm($updateConfiguration),
                 $this->getLiveSynchronization($updateConfiguration),
-                $updateConfiguration->getGetresponseShopId()
+                $updateConfiguration->getGetResponseShopId()
             )
         );
     }
