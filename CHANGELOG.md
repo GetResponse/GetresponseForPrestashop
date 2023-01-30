@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.1.0] - 
+## [1.1.0] - 2023-01-30
 ### Feature
 - Web events: view_items, view_category
 
