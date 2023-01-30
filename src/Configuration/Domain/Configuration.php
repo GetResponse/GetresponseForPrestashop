@@ -38,6 +38,8 @@ class Configuration
     private $getResponseWebForm;
     /** @var LiveSynchronization|null */
     private $liveSynchronization;
+    /** @var string|null */
+    private $getresponseShopId;
 
     public function __construct(
         $shopId,
@@ -47,7 +49,8 @@ class Configuration
         $getResponseChatSnippet,
         $getResponseWebTrackingSnippet,
         $getResponseWebForm,
-        $liveSynchronization
+        $liveSynchronization,
+        $getresponseShopId
     ) {
         $this->shopId = $shopId;
         $this->facebookPixelSnippet = $facebookPixelSnippet;
@@ -57,6 +60,7 @@ class Configuration
         $this->getResponseWebTrackingSnippet = $getResponseWebTrackingSnippet;
         $this->getResponseWebForm = $getResponseWebForm;
         $this->liveSynchronization = $liveSynchronization;
+        $this->getresponseShopId = $getresponseShopId;
     }
 
     public function getShopId()
@@ -118,5 +122,13 @@ class Configuration
     public function getLiveSynchronization()
     {
         return $this->liveSynchronization;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGetresponseShopId()
+    {
+        return $this->getresponseShopId;
     }
 }

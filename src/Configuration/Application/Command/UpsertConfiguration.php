@@ -44,6 +44,8 @@ class UpsertConfiguration
     private $liveSynchronizationUrl;
     /** @var string|null */
     private $liveSynchronizationType;
+    /** @var string|null */
+    private $getResponseShopId;
 
     /**
      * @param int $shopId
@@ -57,6 +59,7 @@ class UpsertConfiguration
      * @param string|null $getResponseWebFormPosition
      * @param string|null $liveSynchronizationUrl
      * @param string|null $liveSynchronizationType
+     * @param string|null $getResponseShopId
      */
     public function __construct(
         $shopId,
@@ -69,7 +72,8 @@ class UpsertConfiguration
         $getResponseWebFormUrl,
         $getResponseWebFormPosition,
         $liveSynchronizationUrl,
-        $liveSynchronizationType
+        $liveSynchronizationType,
+        $getResponseShopId
     ) {
         $this->shopId = $shopId;
         $this->facebookPixelSnippet = $facebookPixelSnippet;
@@ -82,6 +86,7 @@ class UpsertConfiguration
         $this->getResponseWebFormPosition = $getResponseWebFormPosition;
         $this->liveSynchronizationUrl = $liveSynchronizationUrl;
         $this->liveSynchronizationType = $liveSynchronizationType;
+        $this->getResponseShopId = $getResponseShopId;
     }
 
     public function getShopId()
@@ -167,5 +172,10 @@ class UpsertConfiguration
     public function getLiveSynchronizationType()
     {
         return $this->liveSynchronizationType;
+    }
+
+    public function getGetResponseShopId()
+    {
+        return $this->getResponseShopId;
     }
 }

@@ -3,6 +3,20 @@ stages:
   - test
   - upload_to_s3
 
+workflow:
+  rules:
+    # Run detached pipeline for Merge Requests
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    # Do NOT run redundant pipeline for branch if MR is opened for that branch
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    # Run pipeline for branches without related MR (jobs' rules will narrow this requirement)
+    - if: '$CI_COMMIT_BRANCH || $CI_COMMIT_TAG'
+
+.exclude-master: &exclude-master
+  rules:
+    - if: $CI_COMMIT_BRANCH != "master"
+
 composer install:php56:
   image: php:5.6-cli
   stage: install_dependencies
@@ -13,14 +27,12 @@ composer install:php56:
     - php composer-setup.php
     - php -r "unlink('composer-setup.php');"
   script:
-    - php composer.phar update --prefer-dist --no-progress --optimize-autoloader
+    - php composer.phar install --ignore-platform-reqs
   artifacts:
     paths:
       - vendor/
     expire_in: 2 hrs
-  only:
-    - develop
-    - tags
+  <<: *exclude-master
 
 composer install:php71:
   image: php:7.1-cli
@@ -32,14 +44,12 @@ composer install:php71:
     - php composer-setup.php
     - php -r "unlink('composer-setup.php');"
   script:
-    - php composer.phar install --prefer-dist --no-progress --optimize-autoloader
+    - php composer.phar install
   artifacts:
     paths:
       - vendor/
     expire_in: 2 hrs
-  only:
-    - develop
-    - tags
+  <<: *exclude-master
 
 test:app-php56:
   image: php:5.6-cli
@@ -48,9 +58,7 @@ test:app-php56:
     - kubernetes-ci
   script:
     - ./vendor/bin/phpunit --testsuite unit --configuration ./tests/phpunit.xml --colors=never
-  only:
-    - develop
-    - tags
+  <<: *exclude-master
   dependencies:
     - composer install:php56
 
@@ -61,16 +69,15 @@ test:app-php71:
     - kubernetes-ci
   script:
     - ./vendor/bin/phpunit --testsuite unit --configuration ./tests/phpunit.xml --colors=never
-  only:
-    - develop
-    - tags
+  <<: *exclude-master
   dependencies:
     - composer install:php71
 
 upload to s3:
   stage: upload_to_s3
-  only:
-    - tags
+  rules:
+    - if: $CI_COMMIT_TAG
+
   tags:
     - kubernetes-us
   script:

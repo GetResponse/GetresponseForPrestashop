@@ -35,6 +35,7 @@ class ConfigurationRepository implements Repository
     const GR_TRACKING_SNIPPET = 'GR_CONFIG_GR_TRACKING_SNIPPET';
     const GR_FORM = 'GR_CONFIG_GR_FORM';
     const GR_LIVE_SYNC = 'GR_CONFIG_GR_LIVE_SYNC';
+    const GR_SHOP_ID = 'GR_CONFIG_GR_SHOP_ID';
 
     /**
      * @param Configuration $configuration
@@ -50,6 +51,7 @@ class ConfigurationRepository implements Repository
         $this->updateConfig(self::GR_TRACKING_SNIPPET, $configuration->getGetResponseWebTrackingSnippet());
         $this->updateConfig(self::GR_FORM, $configuration->getGetResponseWebForm());
         $this->updateConfig(self::GR_LIVE_SYNC, $configuration->getLiveSynchronization());
+        $this->updateConfig(self::GR_SHOP_ID, $configuration->getGetresponseShopId());
     }
 
     public function deleteAllConfigurations()
@@ -61,6 +63,7 @@ class ConfigurationRepository implements Repository
         PrestaShopConfiguration::deleteByName(self::GR_TRACKING_SNIPPET);
         PrestaShopConfiguration::deleteByName(self::GR_FORM);
         PrestaShopConfiguration::deleteByName(self::GR_LIVE_SYNC);
+        PrestaShopConfiguration::deleteByName(self::GR_SHOP_ID);
     }
 
     private function updateConfig(string $key, $value)
@@ -106,7 +109,8 @@ class ConfigurationRepository implements Repository
             $getResponseWebFormUrl,
             $getResponseWebFormBlock,
             $getResponseLiveSyncUrl,
-            $getResponseLiveSyncType
+            $getResponseLiveSyncType,
+            PrestaShopConfiguration::get(self::GR_SHOP_ID) ?: null
         );
     }
 }
