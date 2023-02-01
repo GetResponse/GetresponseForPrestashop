@@ -3,7 +3,9 @@ GrTracking('importScript', 'ec');
 GrTracking(
     'viewItem',
     {
-        "shop_id": "{$shop_id}",
+        "shop": {
+            "id": "{$shop_id}"
+        },
         "product": {
             "id": "{$product.id}",
             "name": "{$product.name}",
