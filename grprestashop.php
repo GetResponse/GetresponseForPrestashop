@@ -49,7 +49,7 @@ class GrPrestashop extends Module
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '1.1.0';
+        $this->version = '1.1.1';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
@@ -208,6 +208,8 @@ class GrPrestashop extends Module
 
         $shops = Shop::getShops();
 
+        $contextShopId = $this->context->shop->id;
+
         $viewData = array();
 
         foreach ($shops as $shop) {
@@ -222,6 +224,8 @@ class GrPrestashop extends Module
                 'live_synchronization' => $configuration->hasLiveSynchronization(),
             );
         }
+
+        Shop::setContext(Shop::CONTEXT_SHOP, $contextShopId);
 
         $this->smarty->assign($viewData);
 
