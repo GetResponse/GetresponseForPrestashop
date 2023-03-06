@@ -216,8 +216,6 @@ class GrPrestashop extends Module
             $contextId = null;
         }
 
-//        var_dump($shopContext . ' ' . $contextId); die();
-
         $viewData = array();
 
         $shops = Shop::getShops();
