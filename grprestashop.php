@@ -206,11 +206,21 @@ class GrPrestashop extends Module
             new ConfigurationRepository()
         );
 
-        $shops = Shop::getShops();
+        $context = Context::getContext();
+        $shopContext = Shop::getContext();
+        if ($shopContext === Shop::CONTEXT_SHOP) {
+            $contextId = (int) $context->shop->getContextualShopId();
+        } elseif ($shopContext === Shop::CONTEXT_GROUP) {
+            $contextId = (int) $context->shop->getContextShopGroupID();
+        } else {
+            $contextId = null;
+        }
 
-        $contextShopId = $this->context->shop->id;
+//        var_dump($shopContext . ' ' . $contextId); die();
 
         $viewData = array();
+
+        $shops = Shop::getShops();
 
         foreach ($shops as $shop) {
             $configuration = $configurationReadModel->getConfigurationForShop($shop['id_shop']);
@@ -225,7 +235,8 @@ class GrPrestashop extends Module
             );
         }
 
-        Shop::setContext(Shop::CONTEXT_SHOP, $contextShopId);
+
+        Shop::setContext($shopContext, $contextId);
 
         $this->smarty->assign($viewData);
 
