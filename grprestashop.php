@@ -233,7 +233,6 @@ class GrPrestashop extends Module
             );
         }
 
-
         Shop::setContext($shopContext, $contextId);
 
         $this->smarty->assign($viewData);
