@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.1] - 2023-03-06
+### Fix
+- Correct shop context in GetResponse plugin view
+
 ## [1.1.0] - 2023-01-30
 ### Feature
 - Web events: view_items, view_category
