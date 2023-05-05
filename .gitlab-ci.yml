@@ -21,8 +21,6 @@ composer install:php56:
   image: php:5.6-cli
   stage: install_dependencies
   before_script:
-    - apt-get update
-    - apt-get install -y git unzip
     - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     - php composer-setup.php
     - php -r "unlink('composer-setup.php');"
