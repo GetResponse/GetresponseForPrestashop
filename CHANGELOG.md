@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.2] - 2023-05-08
+### Fix
+- Fix for incompatibile function name (for Prestashop 1.6)
+
 ## [1.1.1] - 2023-03-06
 ### Fix
 - Correct shop context in GetResponse plugin view
