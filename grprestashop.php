@@ -209,7 +209,7 @@ class GrPrestashop extends Module
         $context = Context::getContext();
         $shopContext = Shop::getContext();
         if ($shopContext === Shop::CONTEXT_SHOP) {
-            $contextId = (int) $context->shop->getContextualShopId();
+            $contextId = (int) $context->shop->getContextShopID();
         } elseif ($shopContext === Shop::CONTEXT_GROUP) {
             $contextId = (int) $context->shop->getContextShopGroupID();
         } else {
