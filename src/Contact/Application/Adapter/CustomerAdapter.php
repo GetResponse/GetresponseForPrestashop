@@ -28,6 +28,7 @@ class CustomerAdapter
 {
     /**
      * @param $customerId
+     *
      * @return Customer
      */
     public function getCustomerById($customerId)
@@ -39,14 +40,15 @@ class CustomerAdapter
         if (!empty($addresses)) {
             $address = Address::createFromArray(reset($addresses));
         }
+
         return new Customer(
-            (int)$customer->id,
+            (int) $customer->id,
             $customer->firstname,
             $customer->lastname,
             $customer->email,
             $address,
             $customer->newsletter,
-            array('birthday' => $customer->birthday)
+            ['birthday' => $customer->birthday]
         );
     }
 }

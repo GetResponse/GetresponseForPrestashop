@@ -105,7 +105,7 @@ class Address implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        return array(
+        return [
             'name' => $this->name,
             'country_code' => $this->country,
             'first_name' => $this->firstName,
@@ -118,6 +118,6 @@ class Address implements JsonSerializable
             'province_code' => $this->provinceCode,
             'phone' => $this->phone,
             'company' => $this->company,
-        );
+        ];
     }
 }

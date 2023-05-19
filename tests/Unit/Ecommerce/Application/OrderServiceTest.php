@@ -17,6 +17,7 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
+
 namespace GetResponse\Tests\Unit\Ecommerce\Application;
 
 use GetResponse\Configuration\ReadModel\ConfigurationDto;
@@ -111,5 +112,4 @@ class OrderServiceTest extends BaseTestCase
         $command = new UpsertOrder($orderId, $shopId);
         $this->sut->upsertOrder($command);
     }
-
 }

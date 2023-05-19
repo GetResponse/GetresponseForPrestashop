@@ -20,7 +20,6 @@
 
 namespace GetResponse\Contact\DomainModel;
 
-use GetResponse\Ecommerce\DomainModel\Address;
 use GetResponse\SharedKernel\CallbackType;
 use JsonSerializable;
 
@@ -42,10 +41,10 @@ class Subscriber implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        return array(
+        return [
             'callback_type' => CallbackType::SUBSCRIBERS_UPDATE,
             'email' => $this->email,
-            'accepts_marketing' => (bool)$this->marketingConsent
-        );
+            'accepts_marketing' => (bool) $this->marketingConsent,
+        ];
     }
 }

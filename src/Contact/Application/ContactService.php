@@ -45,6 +45,7 @@ class ContactService
 
     /**
      * @throws MessageSenderException
+     *
      * @param UpsertCustomer $command
      */
     public function upsertCustomer(UpsertCustomer $command)
@@ -65,6 +66,7 @@ class ContactService
 
     /**
      * @throws MessageSenderException
+     *
      * @param UpsertSubscriber $command
      */
     public function upsertSubscriber(UpsertSubscriber $command)

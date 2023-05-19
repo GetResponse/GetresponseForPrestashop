@@ -43,6 +43,7 @@ class OrderService
 
     /**
      * @throws MessageSenderException
+     *
      * @param UpsertOrder $command
      */
     public function upsertOrder(UpsertOrder $command)

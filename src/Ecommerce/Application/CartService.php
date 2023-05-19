@@ -43,6 +43,7 @@ class CartService
 
     /**
      * @throws MessageSenderException
+     *
      * @param UpsertCart $command
      */
     public function upsertCart(UpsertCart $command)

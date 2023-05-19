@@ -17,7 +17,6 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-
 require_once __DIR__ . '/Unit/PrestashopMock/Customer.php';
 require_once __DIR__ . '/Unit/PrestashopMock/MockParams/CustomerParams.php';
 require_once __DIR__ . '/Unit/PrestashopMock/Currency.php';

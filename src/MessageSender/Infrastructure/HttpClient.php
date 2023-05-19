@@ -41,28 +41,30 @@ class HttpClient implements EventEmitter
 
     /**
      * @throws EventEmitterException
+     *
      * @param string $url
      * @param JsonSerializable $object
      * @param string $method
+     *
      * @return array
      */
     private function sendRequest($url, JsonSerializable $object, $method = self::GET)
     {
-        $headers = array(
+        $headers = [
             'Content-Type: application/json',
             'X-Shop-Domain: ' . $this->shopDomain,
             'X-Hmac-Sha256: ' . $this->createHmac($object),
-            'X-Timestamp: ' . date('Y-m-d H:i:s.') . gettimeofday()['usec']
-        );
+            'X-Timestamp: ' . date('Y-m-d H:i:s.') . gettimeofday()['usec'],
+        ];
 
-        $options = array(
-            CURLOPT_URL            => $url,
-            CURLOPT_ENCODING       => 'gzip,deflate',
-            CURLOPT_FRESH_CONNECT  => 1,
+        $options = [
+            CURLOPT_URL => $url,
+            CURLOPT_ENCODING => 'gzip,deflate',
+            CURLOPT_FRESH_CONNECT => 1,
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_TIMEOUT        => self::TIMEOUT,
-            CURLOPT_HTTPHEADER     => $headers
-        );
+            CURLOPT_TIMEOUT => self::TIMEOUT,
+            CURLOPT_HTTPHEADER => $headers,
+        ];
 
         if ($method === self::POST) {
             $options[CURLOPT_POST] = 1;
@@ -87,8 +89,10 @@ class HttpClient implements EventEmitter
 
     /**
      * @throws EventEmitterException
+     *
      * @param string $url
      * @param JsonSerializable $object
+     *
      * @return array
      */
     public function emit($url, JsonSerializable $object)

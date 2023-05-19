@@ -43,6 +43,7 @@ class ProductService
 
     /**
      * @throws MessageSenderException
+     *
      * @param UpsertProduct $command
      */
     public function upsertProduct(UpsertProduct $command)

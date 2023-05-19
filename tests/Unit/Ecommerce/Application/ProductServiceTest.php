@@ -61,11 +61,11 @@ class ProductServiceTest extends BaseTestCase
         $updatedOn = '2020-01-06 12:34:12';
 
         $categories = [
-            new Category(3, 1, 'Default category')
+            new Category(3, 1, 'Default category'),
         ];
 
         $images = [
-            new Image('https://my-prestashop.com/img/p/2.jpg', 2)
+            new Image('https://my-prestashop.com/img/p/2.jpg', 2),
         ];
 
         $variants = [
@@ -84,7 +84,7 @@ class ProductServiceTest extends BaseTestCase
                 'description short2',
                 'description2',
                 $images
-            )
+            ),
         ];
 
         $productMock = new Product($productId, 'Test Product2', Product::CONFIGURABLE_TYPE, 'https://my-prestashop.com/product/2', 'VendorName', $categories, $variants, $createdOn,
