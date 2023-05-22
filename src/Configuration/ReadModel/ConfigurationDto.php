@@ -211,7 +211,7 @@ class ConfigurationDto
     {
         $isContactType = in_array($this->liveSynchronizationType, ['Contacts', 'FullEcommerce']);
 
-        return ($isContactType) && !empty($this->liveSynchronizationUrl);
+        return $isContactType && !empty($this->liveSynchronizationUrl);
     }
 
     /**
@@ -221,7 +221,7 @@ class ConfigurationDto
     {
         $isProductType = in_array($this->liveSynchronizationType, ['Products', 'FullEcommerce']);
 
-        return ($isProductType) && !empty($this->liveSynchronizationUrl);
+        return $isProductType && !empty($this->liveSynchronizationUrl);
     }
 
     /**

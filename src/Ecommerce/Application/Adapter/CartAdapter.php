@@ -31,9 +31,9 @@ use GetResponse\Ecommerce\DomainModel\Line;
 class CartAdapter
 {
     /**
-     * @return Cart
-     *
      * @param $cartId
+     *
+     * @return Cart
      */
     public function getCartById($cartId)
     {

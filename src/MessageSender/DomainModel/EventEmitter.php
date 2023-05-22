@@ -25,12 +25,11 @@ use JsonSerializable;
 interface EventEmitter
 {
     /**
-     * @throws EventEmitterException
-     *
      * @param string $url
      * @param JsonSerializable $object
      *
      * @return array
+     * @throws EventEmitterException
      */
     public function emit($url, JsonSerializable $object);
 }

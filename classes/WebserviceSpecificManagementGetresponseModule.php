@@ -203,7 +203,7 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
 
     public function getPayload()
     {
-        $json = file_get_contents('php://input');
+        $json = Tools::file_get_contents('php://input');
 
         return json_decode($json, true);
     }

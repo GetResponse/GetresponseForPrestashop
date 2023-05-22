@@ -12,6 +12,7 @@ RELEASE_FILE="grprestashop.zip"
 FILES_TO_DELETE=(
   ".php_cs.dist"
   "deploy.sh"
+  "create_zip_from_current_files.sh"
   ".gitlab-ci.yml"
   "Dockerfile"
   "Makefile"

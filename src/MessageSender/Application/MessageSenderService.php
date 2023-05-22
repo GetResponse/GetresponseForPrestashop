@@ -35,10 +35,10 @@ class MessageSenderService
     }
 
     /**
-     * @throws MessageSenderException
-     *
      * @param $url
      * @param JsonSerializable $object
+     *
+     * @throws MessageSenderException
      */
     public function send($url, JsonSerializable $object)
     {

@@ -241,7 +241,6 @@ class GrPrestashop extends Module
 
     /**
      * @return bool
-     *
      * @throws PrestaShopDatabaseException
      * @throws PrestaShopException
      */
@@ -287,7 +286,6 @@ class GrPrestashop extends Module
 
     /**
      * @return bool
-     *
      * @throws PrestaShopDatabaseException
      * @throws PrestaShopException
      */
@@ -317,7 +315,6 @@ class GrPrestashop extends Module
 
     /**
      * @return bool
-     *
      * @throws PrestaShopDatabaseException
      * @throws PrestaShopException
      */
@@ -557,9 +554,8 @@ class GrPrestashop extends Module
     }
 
     /**
-     * @throws \GetResponse\MessageSender\Application\MessageSenderException
-     *
      * @param Customer $customer
+     * @throws \GetResponse\MessageSender\Application\MessageSenderException
      */
     private function upsertCustomer(Customer $customer)
     {
@@ -579,9 +575,8 @@ class GrPrestashop extends Module
     }
 
     /**
-     * @throws \GetResponse\MessageSender\Application\MessageSenderException
-     *
      * @param Product $product
+     * @throws \GetResponse\MessageSender\Application\MessageSenderException
      */
     private function upsertProduct(Product $product)
     {
@@ -615,9 +610,8 @@ class GrPrestashop extends Module
     }
 
     /**
-     * @throws \GetResponse\MessageSender\Application\MessageSenderException
-     *
      * @param Order $order
+     * @throws \GetResponse\MessageSender\Application\MessageSenderException
      */
     private function upsertOrder(Order $order)
     {
