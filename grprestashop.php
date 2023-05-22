@@ -22,7 +22,7 @@ include_once _PS_MODULE_DIR_ . '/grprestashop/classes/WebserviceSpecificManageme
 
 class GrPrestashop extends Module
 {
-    private $usedHooks = array(
+    private $usedHooks = [
         'leftColumn',
         'rightColumn',
         'header',
@@ -42,18 +42,18 @@ class GrPrestashop extends Module
         'actionOrderStatusPostUpdate',
         'actionNewsletterRegistrationAfter',
         'actionObjectAddressUpdateAfter',
-        'actionObjectAddressAddAfter'
-    );
+        'actionObjectAddressAddAfter',
+    ];
 
     public function __construct()
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '1.1.2';
+        $this->version = '1.1.3';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
-        $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
+        $this->ps_versions_compliancy = ['min' => '1.6', 'max' => _PS_VERSION_];
         $this->displayName = $this->l('GetResponse');
         $this->description = 'Add your Prestashop contacts to GetResponse.';
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
@@ -62,29 +62,29 @@ class GrPrestashop extends Module
         parent::__construct();
 
         if (!function_exists('curl_init')) {
-            $this->context->smarty->assign(array(
-                'flash_message' => array(
+            $this->context->smarty->assign([
+                'flash_message' => [
                     'message' => $this->l('Curl library not found'),
                     'status' => 'danger',
-                ),
-            ));
+                ],
+            ]);
         }
     }
 
     public function hookAddWebserviceResources()
     {
-        return array(
-            'getresponse_module' => array(
+        return [
+            'getresponse_module' => [
                 'description' => 'Getresponse Integration',
                 'specific_management' => true,
-                'resources' => array(
-                    'getresponse_settings' => array(
+                'resources' => [
+                    'getresponse_settings' => [
                         'description' => 'GetResponse Settings',
                         'class' => 'GetResponseSettingsCore',
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
     }
 
     public function hookDisplayHome()
@@ -176,7 +176,6 @@ class GrPrestashop extends Module
             $getresponseShopId = $configuration->getGetresponseShopId();
 
             if (null !== $getresponseShopId) {
-
                 $this->smarty->assign('shop_id', $getresponseShopId);
 
                 if (isset($this->context->controller->php_self) && $this->context->controller->php_self == 'product') {
@@ -216,21 +215,21 @@ class GrPrestashop extends Module
             $contextId = null;
         }
 
-        $viewData = array();
+        $viewData = [];
 
         $shops = Shop::getShops();
 
         foreach ($shops as $shop) {
             $configuration = $configurationReadModel->getConfigurationForShop($shop['id_shop']);
 
-            $viewData['getresponse_settings'][$shop['name']] = array(
+            $viewData['getresponse_settings'][$shop['name']] = [
                 'fb_pixel' => !empty($configuration->getFacebookPixelSnippet()),
                 'fb_ads_pixel' => !empty($configuration->getFacebookAdsPixelSnippet()),
                 'fbe' => !empty($configuration->getFacebookBusinessExtensionSnippet()),
                 'gr_tracking' => !empty($configuration->getGetResponseWebTrackingSnippet()),
                 'web_form' => $configuration->hasWebForm(),
                 'live_synchronization' => $configuration->hasLiveSynchronization(),
-            );
+            ];
         }
 
         Shop::setContext($shopContext, $contextId);
@@ -242,7 +241,6 @@ class GrPrestashop extends Module
 
     /**
      * @return bool
-     *
      * @throws PrestaShopDatabaseException
      * @throws PrestaShopException
      */
@@ -274,7 +272,7 @@ class GrPrestashop extends Module
         $tab = new Tab();
         $tab->active = 1;
         $tab->class_name = 'AdminGetresponse';
-        $tab->name = array();
+        $tab->name = [];
         $tab->id_parent = strpos(_PS_VERSION_, '1.6') === 0 ? 0 : (int) Tab::getIdFromClassName('AdminAdmin');
         $tab->module = $this->name;
         foreach (Language::getLanguages(true) as $lang) {
@@ -288,7 +286,6 @@ class GrPrestashop extends Module
 
     /**
      * @return bool
-     *
      * @throws PrestaShopDatabaseException
      * @throws PrestaShopException
      */
@@ -318,7 +315,6 @@ class GrPrestashop extends Module
 
     /**
      * @return bool
-     *
      * @throws PrestaShopDatabaseException
      * @throws PrestaShopException
      */
@@ -547,10 +543,10 @@ class GrPrestashop extends Module
             return null;
         }
 
-        $templateVars = array(
+        $templateVars = [
             'webformUrl' => $configuration->getGetResponseWebFormUrl(),
             'position' => $configuration->getGetResponseWebFormPosition(),
-        );
+        ];
 
         $this->smarty->assign($templateVars);
 
@@ -558,9 +554,8 @@ class GrPrestashop extends Module
     }
 
     /**
-     * @throws \GetResponse\MessageSender\Application\MessageSenderException
-     *
      * @param Customer $customer
+     * @throws \GetResponse\MessageSender\Application\MessageSenderException
      */
     private function upsertCustomer(Customer $customer)
     {
@@ -580,9 +575,8 @@ class GrPrestashop extends Module
     }
 
     /**
-     * @throws \GetResponse\MessageSender\Application\MessageSenderException
-     *
      * @param Product $product
+     * @throws \GetResponse\MessageSender\Application\MessageSenderException
      */
     private function upsertProduct(Product $product)
     {
@@ -616,9 +610,8 @@ class GrPrestashop extends Module
     }
 
     /**
-     * @throws \GetResponse\MessageSender\Application\MessageSenderException
-     *
      * @param Order $order
+     * @throws \GetResponse\MessageSender\Application\MessageSenderException
      */
     private function upsertOrder(Order $order)
     {

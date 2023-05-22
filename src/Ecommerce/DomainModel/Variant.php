@@ -50,7 +50,7 @@ class Variant implements JsonSerializable
     private $shortDescription;
     /** @var string */
     private $description;
-    /** @var null|Image[] */
+    /** @var Image[]|null */
     private $images;
 
     public function __construct(
@@ -90,12 +90,12 @@ class Variant implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        $images = array();
+        $images = [];
         foreach ($this->images as $image) {
             $images[] = $image->jsonSerialize();
         }
 
-        return array(
+        return [
             'id' => $this->id,
             'name' => $this->name,
             'sku' => $this->sku,
@@ -109,7 +109,7 @@ class Variant implements JsonSerializable
             'barcode' => $this->barcode,
             'short_description' => $this->shortDescription,
             'description' => $this->description,
-            'images' => $images
-        );
+            'images' => $images,
+        ];
     }
 }

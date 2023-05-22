@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.3] - 2023-05-22
+### Fix
+- Added fixes for prestashop validator
+
 ## [1.1.2] - 2023-05-08
 ### Fix
 - Fix for incompatibile function name (for Prestashop 1.6)

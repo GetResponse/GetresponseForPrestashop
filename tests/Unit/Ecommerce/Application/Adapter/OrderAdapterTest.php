@@ -17,19 +17,17 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
+
 namespace GetResponse\Tests\Unit\Ecommerce\Application\Adapter;
 
+use Currency;
 use GetResponse\Contact\DomainModel\Customer;
 use GetResponse\Ecommerce\Application\Adapter\OrderAdapter;
 use GetResponse\Ecommerce\DomainModel\Address;
 use GetResponse\Ecommerce\DomainModel\Order;
 use GetResponse\Tests\Unit\BaseTestCase;
-use Address as AddressModel;
-use Currency;
-use Customer as CustomerModel;
 use Order as OrderModel;
 use OrderState;
-use Shop;
 
 class OrderAdapterTest extends BaseTestCase
 {

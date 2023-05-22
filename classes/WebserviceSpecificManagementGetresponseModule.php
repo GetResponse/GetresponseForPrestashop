@@ -17,7 +17,6 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-
 include_once _PS_MODULE_DIR_ . '/grprestashop/vendor/autoload.php';
 
 use GetResponse\Configuration\Application\Command\UpsertConfiguration;
@@ -187,7 +186,7 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
 
         return json_encode(
             [
-                'plugin_version' => '1.1.2',
+                'plugin_version' => '1.1.3',
                 'prestashop_version' => _PS_VERSION_,
                 'php_version' => phpversion(),
                 'shops' => $shops,
@@ -204,7 +203,8 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
 
     public function getPayload()
     {
-        $json = file_get_contents('php://input');
+        $json = Tools::file_get_contents('php://input');
+
         return json_decode($json, true);
     }
 }

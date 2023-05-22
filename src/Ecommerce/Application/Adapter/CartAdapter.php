@@ -31,9 +31,9 @@ use GetResponse\Ecommerce\DomainModel\Line;
 class CartAdapter
 {
     /**
-     * @return Cart
-     *
      * @param $cartId
+     *
+     * @return Cart
      */
     public function getCartById($cartId)
     {
@@ -42,7 +42,7 @@ class CartAdapter
         $customer = $customerAdapter->getCustomerById($prestashopCart->id_customer);
 
         $currency = new Currency($prestashopCart->id_currency);
-        $lines = array();
+        $lines = [];
 
         foreach ($prestashopCart->getProducts(true) as $product) {
             if ((int) $product['id_product_attribute'] > 0) {
@@ -64,7 +64,7 @@ class CartAdapter
         }
 
         $shopCartUrl = version_compare(_PS_VERSION_, '1.7', '>=')
-            ? Context::getContext()->link->getPageLink('cart', null, null, array('action' => 'show'))
+            ? Context::getContext()->link->getPageLink('cart', null, null, ['action' => 'show'])
             : Context::getContext()->link->getPageLink('order');
 
         return new Cart(

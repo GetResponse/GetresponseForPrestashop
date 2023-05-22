@@ -26,7 +26,6 @@ use GetResponse\Ecommerce\DomainModel\Image;
 use GetResponse\Ecommerce\DomainModel\Product;
 use GetResponse\Ecommerce\DomainModel\Variant;
 use GetResponse\Tests\Unit\BaseTestCase;
-use Product as PrestashopProduct;
 
 class ProductAdapterTest extends BaseTestCase
 {
@@ -49,15 +48,15 @@ class ProductAdapterTest extends BaseTestCase
         $product = $this->sut->getProductById($productId, $languageId);
 
         $categories = [
-            new Category(3, 1, 'Default category')
+            new Category(3, 1, 'Default category'),
         ];
 
         $images = [
-            new Image('https://my-prestashop.com/img/p/2.jpg', 2)
+            new Image('https://my-prestashop.com/img/p/2.jpg', 2),
         ];
 
         $variants = [
-            new Variant(1, 'Test Product', 'test_product_1', 19.99, 19.99, null, null, 10, 'https://my-prestashop.com/product/1', null, null, 'description short', 'description', $images)
+            new Variant(1, 'Test Product', 'test_product_1', 19.99, 19.99, null, null, 10, 'https://my-prestashop.com/product/1', null, null, 'description short', 'description', $images),
         ];
 
         self::assertEquals($productId, $product->getId());
@@ -82,15 +81,15 @@ class ProductAdapterTest extends BaseTestCase
         $product = $this->sut->getProductById($productId, $languageId);
 
         $categories = [
-            new Category(3, 1, 'Default category')
+            new Category(3, 1, 'Default category'),
         ];
 
         $images = [
-            new Image('https://my-prestashop.com/img/p/2.jpg', 2)
+            new Image('https://my-prestashop.com/img/p/2.jpg', 2),
         ];
 
         $variants = [
-            new Variant(12, 'Size - Size L', 'test_product_1', 19.99, 19.99, null, null, 10, 'https://my-prestashop.com/product/2', null, null, 'description short', 'description', $images)
+            new Variant(12, 'Size - Size L', 'test_product_1', 19.99, 19.99, null, null, 10, 'https://my-prestashop.com/product/2', null, null, 'description short', 'description', $images),
         ];
 
         self::assertEquals($productId, $product->getId());

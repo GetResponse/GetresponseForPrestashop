@@ -119,17 +119,17 @@ class Product implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        $categories = array();
+        $categories = [];
         foreach ($this->categories as $category) {
             $categories[] = $category->jsonSerialize();
         }
 
-        $variants = array();
+        $variants = [];
         foreach ($this->variants as $variant) {
             $variants[] = $variant->jsonSerialize();
         }
 
-        return array(
+        return [
             'callback_type' => CallbackType::PRODUCT_UPDATE,
             'id' => $this->id,
             'name' => $this->name,
@@ -140,6 +140,6 @@ class Product implements JsonSerializable
             'updated_at' => $this->updatedAt,
             'categories' => $categories,
             'variants' => $variants,
-        );
+        ];
     }
 }
