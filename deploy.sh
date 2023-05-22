@@ -34,11 +34,11 @@ echo "--------------------------------------------"
 echo ""
 echo "Before continuing, confirm that you have done the following :)"
 echo ""
-#read -p " - Added a changelog for "$VERSION" to CHANGELOG.md file?"
-#read -p " - Set version in the main file to "$VERSION"?"
-#read -p " - Set version in the Webservice configuration file to "$VERSION"?"
-#read -p " - Set stable tag in the config.xml file to "$VERSION"?"
-#read -p " - Committed all changes up to Gitlab?"
+read -p " - Added a changelog for "$VERSION" to CHANGELOG.md file?"
+read -p " - Set version in the main file to "$VERSION"?"
+read -p " - Set version in the Webservice configuration file to "$VERSION"?"
+read -p " - Set stable tag in the config.xml file to "$VERSION"?"
+read -p " - Committed all changes up to Gitlab?"
 
 echo ""
 git ls-remote --exit-code --tags origin $VERSION >/dev/null 2>&1
@@ -78,10 +78,9 @@ cd $GITHUB_PATH && git status
 echo ""
 read -p "Press [ENTER] to commit release $VERSION to Github"
 
-#echo ""
-#echo "Committing to Github... this may take a while"
-#cd $GITHUB_PATH && git add .
-#cd $GITHUB_PATH && git commit -a -m "Release $VERSION" && git push || { echo "Unable to commit."; exit 1; }
+echo ""
+echo "Committing to Github... this may take a while"
+cd $GITHUB_PATH && git commit -a -m "Release $VERSION" && git push || { echo "Unable to commit."; exit 1; }
 
 echo ""
 echo "Create new directory for module"
@@ -99,11 +98,11 @@ composer install --no-dev --working-dir="$RELEASE_PATH"
 echo ""
 echo "Create new release"
 cd $TMP_PATH && zip -rm "$RELEASE_FILE" "$RELEASE_DIR" -x ".git*"
-#cd $GITHUB_PATH && gh release create "$VERSION" --generate-notes --latest -n "$VERSION" "$TMP_PATH/$RELEASE_FILE"
-#
-#echo ""
-#echo "Remove temporary files"
-#rm -rf "$TMP_PATH"
-#
-#echo ""
-#echo "Release done."
+cd $GITHUB_PATH && gh release create "$VERSION" --generate-notes --latest -n "$VERSION" "$TMP_PATH/$RELEASE_FILE"
+
+echo ""
+echo "Remove temporary files"
+rm -rf "$TMP_PATH"
+
+echo ""
+echo "Release done."
