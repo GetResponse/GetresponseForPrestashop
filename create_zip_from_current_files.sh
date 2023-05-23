@@ -13,6 +13,7 @@ FILES_TO_DELETE=(
   "Dockerfile"
   "Makefile"
   "tests"
+  "vendor"
   "tmp"
 )
 
