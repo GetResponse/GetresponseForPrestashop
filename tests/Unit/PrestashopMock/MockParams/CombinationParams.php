@@ -33,7 +33,7 @@ class CombinationParams
         1 => [
             'id' => 1,
             'reference' => 'product_combination_1',
-
+            'quantity' => 100
         ]
     ];
 

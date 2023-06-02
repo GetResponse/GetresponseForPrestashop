@@ -55,6 +55,8 @@ class Product
     public $date_upd;
     /** @var string */
     public $id_manufacturer;
+    /** @var string */
+    public $active;
 
     public function __construct($id)
     {
@@ -74,6 +76,7 @@ class Product
         $this->date_add = $params['date_add'];
         $this->date_upd = $params['date_upd'];
         $this->id_manufacturer = $params['id_manufacturer'];
+        $this->active = $params['active'];
     }
 
     public function getImages($languageId)

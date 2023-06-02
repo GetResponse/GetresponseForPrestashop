@@ -79,7 +79,7 @@ read -p "Press [ENTER] to commit release $VERSION to Github"
 
 echo ""
 echo "Committing to Github... this may take a while"
-cd $GITHUB_PATH && git commit -a -m "Release $VERSION" && git push || { echo "Unable to commit."; exit 1; }
+cd $GITHUB_PATH && git add -A && git commit -a -m "Release $VERSION" && git push || { echo "Unable to commit."; exit 1; }
 
 echo ""
 echo "Create new directory for module"
