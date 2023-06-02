@@ -30,6 +30,9 @@ use Product as PrestashopProduct;
 
 class ProductAdapter
 {
+    const PRODUCT_STATUS_PUBLISH = 'publish';
+    const PRODUCT_STATUS_DRAFT = 'draft';
+
     /**
      * @param int $languageId
      * @param int $productId
@@ -73,13 +76,14 @@ class ProductAdapter
                     $product->getPrice(true, $combination['id_product_attribute']),
                     null,
                     null,
-                    $product->quantity,
+                    $combination['quantity'],
                     $productLink,
                     null,
                     null,
                     $this->getShortDescription($product, $languageId),
                     $this->getDescription($product, $languageId),
-                    $images
+                    $images,
+                    $product->active ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
                 );
 
                 $variants[] = $variant;
@@ -99,7 +103,8 @@ class ProductAdapter
                 null,
                 $this->getShortDescription($product, $languageId),
                 $this->getDescription($product, $languageId),
-                $images
+                $images,
+                $product->active ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
             );
         }
 
@@ -114,7 +119,8 @@ class ProductAdapter
             $categories,
             $variants,
             $product->date_add,
-            $product->date_upd
+            $product->date_upd,
+            $product->active ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
         );
     }
 
