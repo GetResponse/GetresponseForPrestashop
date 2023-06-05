@@ -58,7 +58,7 @@ class ProductParams
             'date_add' => '2020-01-05 12:45:22',
             'date_upd' => '2020-01-06 12:34:12',
             'id_manufacturer' => 1,
-            'active' => 1,
+            'active' => '1',
         ],
         2 => [
             'id' => 2,
@@ -88,7 +88,7 @@ class ProductParams
             'date_add' => '2020-01-05 12:45:22',
             'date_upd' => '2020-01-06 12:34:12',
             'id_manufacturer' => 1,
-            'active' => 1,
+            'active' => '1',
         ],
     ];
 
