@@ -53,6 +53,7 @@ class ProductParams
             'date_upd' => '2020-01-06 12:34:12',
             'id_manufacturer' => 1,
             'active' => '1',
+            'wsStockAvailables' => [['id' => '12']]
         ],
         2 => [
             'id' => 2,
@@ -83,6 +84,7 @@ class ProductParams
             'date_upd' => '2020-01-06 12:34:12',
             'id_manufacturer' => 1,
             'active' => '1',
+            'wsStockAvailables' => [['id' => '12']]
         ],
     ];
 

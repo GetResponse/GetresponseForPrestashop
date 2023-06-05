@@ -27,7 +27,7 @@ use GetResponse\Ecommerce\DomainModel\Variant;
 use Link;
 use Manufacturer;
 use Product as PrestashopProduct;
-use StockAvailable as PrestashopStockAvailable;
+use GetResponse\Tests\Unit\PrestashopMock\StockAvailable as PrestashopStockAvailable;
 
 class ProductAdapter
 {
@@ -99,7 +99,6 @@ class ProductAdapter
                 null,
                 null,
                 $this->getSimpleProductQuantity($product),
-                $product->quantity,
                 $productLink,
                 null,
                 null,

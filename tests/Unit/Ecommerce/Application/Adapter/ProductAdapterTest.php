@@ -64,7 +64,7 @@ class ProductAdapterTest extends BaseTestCase
                 19.99,
                 null,
                 null,
-                10,
+                100,
                 'https://my-prestashop.com/product/1',
                 null,
                 null,
