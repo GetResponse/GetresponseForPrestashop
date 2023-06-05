@@ -27,6 +27,7 @@ use GetResponse\Ecommerce\DomainModel\Variant;
 use Link;
 use Manufacturer;
 use Product as PrestashopProduct;
+use StockAvailable as PrestashopStockAvailable;
 
 class ProductAdapter
 {
@@ -97,6 +98,7 @@ class ProductAdapter
                 $product->getPrice(),
                 null,
                 null,
+                $this->getSimpleProductQuantity($product),
                 $product->quantity,
                 $productLink,
                 null,
@@ -178,5 +180,20 @@ class ProductAdapter
         }
 
         return $description;
+    }
+
+    private function getSimpleProductQuantity(PrestashopProduct $product): int
+    {
+        if (empty($product->getWsStockAvailables())) {
+            return 0;
+        }
+
+        if (!is_countable($product->getWsStockAvailables()) || count($product->getWsStockAvailables()) !== 1) {
+            return 0;
+        }
+
+        $stockAvailableId = $product->getWsStockAvailables()[0]['id'];
+
+        return (new PrestashopStockAvailable($stockAvailableId))->quantity;
     }
 }
