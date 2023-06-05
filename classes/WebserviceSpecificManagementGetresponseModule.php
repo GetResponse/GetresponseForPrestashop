@@ -120,6 +120,7 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
                     ? $settings['facebook_business_pixel_snippet']
                     : null,
                 !empty($settings['getresponse_chat_snippet']) ? $settings['getresponse_chat_snippet'] : null,
+                !empty($settings['getresponse_recommendation_snippet']) ? $settings['getresponse_recommendation_snippet'] : null,
                 !empty($settings['getresponse_web_tracking_snippet'])
                     ? $settings['getresponse_web_tracking_snippet']
                     : null,
@@ -172,6 +173,7 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
                 'facebook_ads_pixel_snippet' => $configuration->getFacebookAdsPixelSnippet(),
                 'facebook_business_pixel_snippet' => $configuration->getFacebookBusinessExtensionSnippet(),
                 'getresponse_chat_snippet' => $configuration->getGetResponseChatSnippet(),
+                'getresponse_recommendation_snippet' => $configuration->getGetResponseRecommendationSnippet(),
                 'getresponse_web_tracking_snippet' => $configuration->getGetResponseWebTrackingSnippet(),
                 'getresponse_web_form_id' => $configuration->getGetResponseWebFormId(),
                 'getresponse_web_form_url' => $configuration->getGetResponseWebFormUrl(),

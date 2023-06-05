@@ -192,6 +192,7 @@ class GrPrestashop extends Module
         $this->smarty->assign('facebook_ads_pixel_snippet', $configuration->getFacebookAdsPixelSnippet());
         $this->smarty->assign('facebook_business_extension_snippet', $configuration->getFacebookBusinessExtensionSnippet());
         $this->smarty->assign('getresponse_chat_snippet', $configuration->getGetResponseChatSnippet());
+        $this->smarty->assign('getresponse_recommendation_snippet', $configuration->getGetResponseRecommendationSnippet());
 
         return $this->display(__FILE__, 'views/templates/front/head_snippet.tpl');
     }

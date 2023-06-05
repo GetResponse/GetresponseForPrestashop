@@ -40,6 +40,10 @@
         {$getresponse_chat_snippet|cleanHtml nofilter}
     {/if}
 
+    {if $getresponse_recommendation_snippet}
+    {$getresponse_recommendation_snippet|cleanHtml nofilter}
+    {/if}
+
 
 </script>
 <!-- getresponse end -->
