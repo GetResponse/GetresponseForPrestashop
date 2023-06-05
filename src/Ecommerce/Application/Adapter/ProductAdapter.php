@@ -187,7 +187,7 @@ class ProductAdapter
             return 0;
         }
 
-        if (!is_countable($product->getWsStockAvailables()) || count($product->getWsStockAvailables()) !== 1) {
+        if (!is_array($product->getWsStockAvailables()) || count($product->getWsStockAvailables()) !== 1) {
             return 0;
         }
 
