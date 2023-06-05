@@ -192,7 +192,10 @@ class GrPrestashop extends Module
         $this->smarty->assign('facebook_ads_pixel_snippet', $configuration->getFacebookAdsPixelSnippet());
         $this->smarty->assign('facebook_business_extension_snippet', $configuration->getFacebookBusinessExtensionSnippet());
         $this->smarty->assign('getresponse_chat_snippet', $configuration->getGetResponseChatSnippet());
-        $this->smarty->assign('getresponse_recommendation_snippet', $configuration->getGetResponseRecommendationSnippet());
+
+        if (!empty($configuration->getGetResponseRecommendationSnippet())) {
+            $this->assignRecommendationObject($configuration->getGetResponseRecommendationSnippet());
+        }
 
         return $this->display(__FILE__, 'views/templates/front/head_snippet.tpl');
     }
@@ -629,5 +632,80 @@ class GrPrestashop extends Module
         $orderService->upsertOrder(
             new GetResponse\Ecommerce\Application\Command\UpsertOrder($order->id, $order->id_shop)
         );
+    }
+
+    private function assignRecommendationObject($recommendationSnippet)
+    {
+        $this->smarty->assign('getresponse_recommendation_snippet', str_replace('src', 'async src', $recommendationSnippet));
+
+        $pageType = '';
+        $pageData = [];
+
+        switch ($this->context->controller->php_self) {
+            case 'index':
+                $pageType = 'home';
+                break;
+            case 'cart':
+                $pageType = 'cart';
+                break;
+            case 'category':
+                $pageType = 'category';
+                break;
+            case 'pagenotfound':
+                $pageType = 'error';
+                break;
+            case 'product':
+                $pageType = 'product';
+                $productId = Tools::getValue('id_product');
+                $languageId = \Configuration::get('PS_LANG_DEFAULT');
+                $productAdapter = new \GetResponse\Ecommerce\Application\Adapter\ProductAdapter();
+                $product = $productAdapter->getProductById($productId, $languageId);
+                /** @var \GetResponse\Ecommerce\DomainModel\Variant $variant */
+                $variant = !empty($product->getVariants()) ? $product->getVariants()[0] : null;
+
+                if (null === $variant) {
+                    break;
+                }
+
+                /** @var \GetResponse\Ecommerce\DomainModel\Image $imageUrl */
+                $imageUrl = !empty($variant->getImages()) ? $variant->getImages()[0]->getSrc() : null;
+                $description = strlen($variant->getDescription()) > 30000
+                    ? substr($variant->getDescription(), 0, 30000 - 3) . '...'
+                    : $variant->getDescription();
+                $description = str_replace(['\n', '\r'], '', strip_tags($description));
+
+                $previousPrice = $variant->getPreviousPriceTax() !== null
+                    ? number_format($variant->getPreviousPriceTax(), 2)
+                    : null;
+
+                /** @var GetResponse\Ecommerce\DomainModel\Category $category */
+                $categories = array_map(function($category) { return $category->getName(); }, $product->getCategories());
+                $category = implode(' > ', $categories);
+
+                $pageData = [
+                    'productUrl' => $product->getUrl(),
+                    'pageUrl' => $product->getUrl(),
+                    'productExternalId' => $product->getId(),
+                    'productName' => $product->getName(),
+                    'price' => number_format($variant->getPriceTax(), 2),
+                    'imageUrl' => $imageUrl,
+                    'description' => $description,
+                    'category' => $category,
+                    'available' => true,
+                    'sku' => $variant->getSku(),
+                    'attribute1' => $previousPrice,
+                    'attribute2' => null,
+                    'attribute3' => null,
+                    'attribute4' => null
+                ];
+                break;
+        }
+
+        $object = [
+            'pageType' => $pageType,
+            'pageData' => $pageData
+        ];
+
+        $this->smarty->assign('getresponse_recommendation_object', json_encode($object));
     }
 }

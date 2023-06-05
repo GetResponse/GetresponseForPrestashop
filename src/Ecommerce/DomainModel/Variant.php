@@ -86,6 +86,118 @@ class Variant implements JsonSerializable
     }
 
     /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSku()
+    {
+        return $this->sku;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPriceTax()
+    {
+        return $this->priceTax;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getPreviousPrice()
+    {
+        return $this->previousPrice;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getPreviousPriceTax()
+    {
+        return $this->previousPriceTax;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getBarcode()
+    {
+        return $this->barcode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShortDescription()
+    {
+        return $this->shortDescription;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return Image[]|null
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()

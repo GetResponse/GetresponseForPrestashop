@@ -44,6 +44,10 @@
     {$getresponse_recommendation_snippet|cleanHtml nofilter}
     {/if}
 
+    {if $getresponse_recommendation_object}
+        const recommendationPayload = {$getresponse_recommendation_object|cleanHtml nofilter}
+    {/if}
+
 
 </script>
 <!-- getresponse end -->
