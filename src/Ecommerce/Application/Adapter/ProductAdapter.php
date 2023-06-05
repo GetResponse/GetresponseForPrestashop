@@ -83,7 +83,7 @@ class ProductAdapter
                     $this->getShortDescription($product, $languageId),
                     $this->getDescription($product, $languageId),
                     $images,
-                    $product->active ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
+                    $product->active === '1' ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
                 );
 
                 $variants[] = $variant;
@@ -104,7 +104,7 @@ class ProductAdapter
                 $this->getShortDescription($product, $languageId),
                 $this->getDescription($product, $languageId),
                 $images,
-                $product->active ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
+                $product->active === '1' ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
             );
         }
 
@@ -120,7 +120,7 @@ class ProductAdapter
             $variants,
             $product->date_add,
             $product->date_upd,
-            $product->active ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
+            $product->active === '1' ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
         );
     }
 
