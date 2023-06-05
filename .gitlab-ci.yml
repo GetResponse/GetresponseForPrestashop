@@ -18,10 +18,9 @@ workflow:
     - if: $CI_COMMIT_BRANCH != "master"
 
 composer install:php56:
-  image: php:5.6-cli
+  image: 5.6-cli-alpine
   stage: install_dependencies
   before_script:
-    - echo -e "deb http://deb.debian.org/archive.debian.org jessie main\ndeb http://archive.debian.org jessie/updates main" > /etc/apt/sources.list
     - apt-get update
     - apt-get install -y git unzip
     - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
