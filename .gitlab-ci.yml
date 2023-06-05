@@ -18,7 +18,7 @@ workflow:
     - if: $CI_COMMIT_BRANCH != "master"
 
 composer install:php56:
-  image: 5.6-cli-alpine
+  image: 5.6-cli-stretch
   stage: install_dependencies
   before_script:
     - apt-get update
