@@ -43,7 +43,7 @@ test:app-php71:
     - ./vendor/bin/phpunit --testsuite unit --configuration ./tests/phpunit.xml --colors=never
   <<: *exclude-master
   dependencies:
-    - composer install:php71
+    - composer update:php71
 
 upload to s3:
   stage: upload_to_s3
