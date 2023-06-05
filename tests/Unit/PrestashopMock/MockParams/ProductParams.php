@@ -37,6 +37,7 @@ class ProductParams
             'hasAttributes' => false,
             'link_rewrite' => [1 => 'link_rewrite', 2 => 'link_rewrite2'],
             'price' => 19.99,
+            'priceWithoutReduct' => 29.99,
             'attributeCombinations' => [
                 [
                     'id_product_attribute' => 12,
@@ -65,6 +66,7 @@ class ProductParams
             'hasAttributes' => true,
             'link_rewrite' => [1 => 'link_rewrite', 2 => 'link_rewrite2'],
             'price' => 19.99,
+            'priceWithoutReduct' => 29.99,
             'attributeCombinations' => [
                 [
                     'id_product_attribute' => 12,
