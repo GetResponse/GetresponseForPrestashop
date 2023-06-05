@@ -27,7 +27,7 @@ use GetResponse\Ecommerce\DomainModel\Variant;
 use Link;
 use Manufacturer;
 use Product as PrestashopProduct;
-use GetResponse\Tests\Unit\PrestashopMock\StockAvailable as PrestashopStockAvailable;
+use StockAvailable as PrestashopStockAvailable;
 
 class ProductAdapter
 {

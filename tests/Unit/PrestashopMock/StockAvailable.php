@@ -1,9 +1,4 @@
 <?php
-
-namespace GetResponse\Tests\Unit\PrestashopMock;
-
-use GetResponse\Tests\Unit\PrestashopMock\MockParams\StockAvailableParams;
-
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
