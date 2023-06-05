@@ -47,7 +47,8 @@ class ProductParams
                 [
                     'id_product_attribute' => 12,
                     'group_name' => 'Size',
-                    'attribute_name' => 'Size L'
+                    'attribute_name' => 'Size L',
+                    'quantity' => 10,
                 ]
             ],
             'reference' => 'test_product_1',
@@ -57,6 +58,7 @@ class ProductParams
             'date_add' => '2020-01-05 12:45:22',
             'date_upd' => '2020-01-06 12:34:12',
             'id_manufacturer' => 1,
+            'active' => 1,
         ],
         2 => [
             'id' => 2,
@@ -75,7 +77,8 @@ class ProductParams
                 [
                     'id_product_attribute' => 12,
                     'group_name' => 'Size',
-                    'attribute_name' => 'Size L'
+                    'attribute_name' => 'Size L',
+                    'quantity' => 10,
                 ]
             ],
             'reference' => 'test_product_1',
@@ -85,6 +88,7 @@ class ProductParams
             'date_add' => '2020-01-05 12:45:22',
             'date_upd' => '2020-01-06 12:34:12',
             'id_manufacturer' => 1,
+            'active' => 1,
         ],
     ];
 
