@@ -144,12 +144,12 @@ class Cart implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        $lines = array();
+        $lines = [];
         foreach ($this->lines as $line) {
             $lines[] = $line->jsonSerialize();
         }
 
-        return array(
+        return [
             'callback_type' => CallbackType::CHECKOUT_UPDATE,
             'id' => $this->id,
             'contact_email' => $this->customer->getEmail(),
@@ -161,7 +161,7 @@ class Cart implements JsonSerializable
             'url' => $this->url,
             'created_at' => $this->createdAt,
             'updated_at' => $this->updatedAt,
-        );
+        ];
     }
 
     /**

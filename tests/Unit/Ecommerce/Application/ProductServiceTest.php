@@ -62,11 +62,11 @@ class ProductServiceTest extends BaseTestCase
         $status = 'publish';
 
         $categories = [
-            new Category(3, 1, 'Default category')
+            new Category(3, 1, 'Default category'),
         ];
 
         $images = [
-            new Image('https://my-prestashop.com/img/p/2.jpg', 2)
+            new Image('https://my-prestashop.com/img/p/2.jpg', 2),
         ];
 
         $variants = [

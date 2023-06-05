@@ -110,7 +110,6 @@ class ContactServiceTest extends BaseTestCase
             ->method('isContactLiveSynchronizationActive')
             ->willReturn(false);
 
-
         $command = new UpsertCustomer(1, 1, 'John', 'Doe', 'john.doe@example.com', true);
 
         $this->configurationReadModelMock

@@ -120,16 +120,16 @@ class Customer implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        return array(
+        return [
             'callback_type' => CallbackType::CUSTOMER_UPDATE,
             'id' => $this->id,
             'email' => $this->email,
             'first_name' => $this->firstName,
             'last_name' => $this->lastName,
-            'accepts_marketing' => (bool)$this->marketingConsent,
-            'address' => null !== $this->address ? $this->address->jsonSerialize() : array(),
-            'tags' => array(),
-            'customFields' => $this->customFields
-        );
+            'accepts_marketing' => (bool) $this->marketingConsent,
+            'address' => null !== $this->address ? $this->address->jsonSerialize() : [],
+            'tags' => [],
+            'customFields' => $this->customFields,
+        ];
     }
 }

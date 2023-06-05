@@ -54,12 +54,12 @@ class Category implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        return array(
+        return [
             'id' => $this->id,
             'parent_id' => $this->parentId,
             'name' => $this->name,
             'is_default' => $this->isDefault,
             'url' => $this->url,
-        );
+        ];
     }
 }

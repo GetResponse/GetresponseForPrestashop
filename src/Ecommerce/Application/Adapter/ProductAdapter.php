@@ -45,9 +45,9 @@ class ProductAdapter
         $product = new PrestashopProduct($productId);
         $link = new Link();
 
-        $variants = array();
-        $images = array();
-        $categories = array();
+        $variants = [];
+        $images = [];
+        $categories = [];
         $productType = Product::SINGLE_TYPE;
 
         $productLink = $link->getProductLink($product, false, false, false, $languageId);
@@ -131,7 +131,7 @@ class ProductAdapter
      */
     private function prepareCombinations(array $combinations)
     {
-        $uniqueCombinations = array();
+        $uniqueCombinations = [];
 
         foreach ($combinations as $combination) {
             if (array_key_exists($combination['id_product_attribute'], $uniqueCombinations)) {
