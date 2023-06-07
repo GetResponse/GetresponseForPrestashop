@@ -8,11 +8,6 @@
  *  International Registered Trademark & Property of PrestaShop SA
  */
 
-use GetResponse\Configuration\Infrastructure\ConfigurationRepository;
-use GetResponse\Configuration\ReadModel\ConfigurationDto;
-use GetResponse\Configuration\ReadModel\ConfigurationReadModel;
-use GetResponse\Configuration\SharedKernel\WebFormPosition;
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -90,66 +85,70 @@ class GrPrestashop extends Module
     public function hookDisplayHome()
     {
         $currentShopId = $this->context->shop->id;
-        $configurationReadModel = new ConfigurationReadModel(
-            new ConfigurationRepository()
+        $configurationReadModel = new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+            new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
         );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
         return $this->getGrWebFormSnippet(
             $configuration,
-            WebFormPosition::HOME
+            \GetResponse\Configuration\SharedKernel\WebFormPosition::HOME
         );
     }
 
     public function hookDisplayTop()
     {
         $currentShopId = $this->context->shop->id;
-        $configurationReadModel = new ConfigurationReadModel(
-            new ConfigurationRepository()
+        $configurationReadModel = new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+            new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
         );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
         return $this->getGrWebFormSnippet(
             $configuration,
-            WebFormPosition::TOP
+            \GetResponse\Configuration\SharedKernel\WebFormPosition::TOP
         );
     }
 
     public function hookDisplayLeftColumn()
     {
         $currentShopId = $this->context->shop->id;
-        $configurationReadModel = new ConfigurationReadModel(
-            new ConfigurationRepository()
+        $configurationReadModel = new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+            new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
         );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
         return $this->getGrWebFormSnippet(
             $configuration,
-            WebFormPosition::LEFT
+            \GetResponse\Configuration\SharedKernel\WebFormPosition::LEFT
         );
     }
 
     public function hookDisplayRightColumn()
     {
         $currentShopId = $this->context->shop->id;
-        $configurationReadModel = new ConfigurationReadModel(new ConfigurationRepository());
+        $configurationReadModel = new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+            new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+        );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
         return $this->getGrWebFormSnippet(
             $configuration,
-            WebFormPosition::RIGHT
+            \GetResponse\Configuration\SharedKernel\WebFormPosition::RIGHT
         );
     }
 
     public function hookDisplayFooter()
     {
         $currentShopId = $this->context->shop->id;
-        $configurationReadModel = new ConfigurationReadModel(new ConfigurationRepository());
+        $configurationReadModel = new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+            new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+        );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
         return $this->getGrWebFormSnippet(
             $configuration,
-            WebFormPosition::FOOTER
+            \GetResponse\Configuration\SharedKernel\WebFormPosition::FOOTER
         );
     }
 
@@ -164,7 +163,9 @@ class GrPrestashop extends Module
     public function hookDisplayHeader()
     {
         $currentShopId = $this->context->shop->id;
-        $configurationReadModel = new ConfigurationReadModel(new ConfigurationRepository());
+        $configurationReadModel = new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+            new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+        );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
         $webConnectSnippet = $configuration->getGetResponseWebTrackingSnippet();
@@ -193,9 +194,7 @@ class GrPrestashop extends Module
         $this->smarty->assign('facebook_business_extension_snippet', $configuration->getFacebookBusinessExtensionSnippet());
         $this->smarty->assign('getresponse_chat_snippet', $configuration->getGetResponseChatSnippet());
 
-        if (!empty($configuration->getGetResponseRecommendationSnippet())) {
-            $this->assignRecommendationObject($configuration->getGetResponseRecommendationSnippet());
-        }
+        $this->assignRecommendationObject($configuration->getGetResponseRecommendationSnippet());
 
         return $this->display(__FILE__, 'views/templates/front/head_snippet.tpl');
     }
@@ -205,8 +204,8 @@ class GrPrestashop extends Module
      */
     public function getContent()
     {
-        $configurationReadModel = new ConfigurationReadModel(
-            new ConfigurationRepository()
+        $configurationReadModel = new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+            new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
         );
 
         $context = Context::getContext();
@@ -306,7 +305,7 @@ class GrPrestashop extends Module
         }
 
         $configurationService = new \GetResponse\Configuration\Application\ConfigurationService(
-            new ConfigurationRepository()
+            new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
         );
         $configurationService->deleteAllConfigurations();
 
@@ -345,8 +344,8 @@ class GrPrestashop extends Module
                     new \GetResponse\MessageSender\Application\MessageSenderService(
                         new \GetResponse\MessageSender\Infrastructure\HttpClient($shop->getBaseURL())
                     ),
-                    new ConfigurationReadModel(
-                        new ConfigurationRepository()
+                    new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+                        new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
                     )
                 );
 
@@ -408,8 +407,8 @@ class GrPrestashop extends Module
                 new \GetResponse\MessageSender\Application\MessageSenderService(
                     new \GetResponse\MessageSender\Infrastructure\HttpClient($shop->getBaseURL())
                 ),
-                new ConfigurationReadModel(
-                    new ConfigurationRepository()
+                new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+                    new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
                 )
             );
             $cartService->upsertCart(new \GetResponse\Ecommerce\Application\Command\UpsertCart($cart->id, $shop->id));
@@ -536,7 +535,7 @@ class GrPrestashop extends Module
     }
 
     /**
-     * @param ConfigurationDto $configuration
+     * @param \GetResponse\Configuration\ReadModel\ConfigurationDto $configuration
      * @param string $position
      *
      * @return false|string|null
@@ -568,8 +567,8 @@ class GrPrestashop extends Module
             new \GetResponse\MessageSender\Application\MessageSenderService(
                 new \GetResponse\MessageSender\Infrastructure\HttpClient($shop->getBaseURL())
             ),
-            new ConfigurationReadModel(
-                new ConfigurationRepository()
+            new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+                new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
             )
         );
 
@@ -598,8 +597,8 @@ class GrPrestashop extends Module
                 new \GetResponse\MessageSender\Application\MessageSenderService(
                     new \GetResponse\MessageSender\Infrastructure\HttpClient($shop->getBaseURL())
                 ),
-                new ConfigurationReadModel(
-                    new ConfigurationRepository()
+                new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+                    new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
                 )
             );
 
@@ -624,88 +623,41 @@ class GrPrestashop extends Module
             new \GetResponse\MessageSender\Application\MessageSenderService(
                 new \GetResponse\MessageSender\Infrastructure\HttpClient($shop->getBaseURL())
             ),
-            new ConfigurationReadModel(
-                new ConfigurationRepository()
+            new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+                new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
             )
         );
 
         $orderService->upsertOrder(
-            new GetResponse\Ecommerce\Application\Command\UpsertOrder($order->id, $order->id_shop)
+            new \GetResponse\Ecommerce\Application\Command\UpsertOrder($order->id, $order->id_shop)
         );
     }
 
     private function assignRecommendationObject($recommendationSnippet)
     {
-        $this->smarty->assign('getresponse_recommendation_snippet', str_replace('src', 'async src', $recommendationSnippet));
+        $service = new \GetResponse\Ecommerce\Application\RecommendationService(
+            new \GetResponse\Ecommerce\Application\Adapter\ProductAdapter()
+        );
+        $pageType = $service->getPageType($this->context->controller->php_self);
 
-        $pageType = '';
-        $pageData = [];
-
-        switch ($this->context->controller->php_self) {
-            case 'index':
-                $pageType = 'home';
-                break;
-            case 'cart':
-                $pageType = 'cart';
-                break;
-            case 'category':
-                $pageType = 'category';
-                break;
-            case 'pagenotfound':
-                $pageType = 'error';
-                break;
-            case 'product':
-                $pageType = 'product';
-                $productId = Tools::getValue('id_product');
-                $languageId = \Configuration::get('PS_LANG_DEFAULT');
-                $productAdapter = new \GetResponse\Ecommerce\Application\Adapter\ProductAdapter();
-                $product = $productAdapter->getProductById($productId, $languageId);
-                /** @var \GetResponse\Ecommerce\DomainModel\Variant $variant */
-                $variant = !empty($product->getVariants()) ? $product->getVariants()[0] : null;
-
-                if (null === $variant) {
-                    break;
-                }
-
-                /** @var \GetResponse\Ecommerce\DomainModel\Image $imageUrl */
-                $imageUrl = !empty($variant->getImages()) ? $variant->getImages()[0]->getSrc() : null;
-                $description = strlen($variant->getDescription()) > 30000
-                    ? substr($variant->getDescription(), 0, 30000 - 3) . '...'
-                    : $variant->getDescription();
-                $description = str_replace(['\n', '\r'], '', strip_tags($description));
-
-                $previousPrice = $variant->getPreviousPriceTax() !== null
-                    ? number_format($variant->getPreviousPriceTax(), 2)
-                    : null;
-
-                /** @var GetResponse\Ecommerce\DomainModel\Category $category */
-                $categories = array_map(function($category) { return $category->getName(); }, $product->getCategories());
-                $category = implode(' > ', $categories);
-
-                $pageData = [
-                    'productUrl' => $product->getUrl(),
-                    'pageUrl' => $product->getUrl(),
-                    'productExternalId' => $product->getId(),
-                    'productName' => $product->getName(),
-                    'price' => number_format($variant->getPriceTax(), 2),
-                    'imageUrl' => $imageUrl,
-                    'description' => $description,
-                    'category' => $category,
-                    'available' => true,
-                    'sku' => $variant->getSku(),
-                    'attribute1' => $previousPrice,
-                    'attribute2' => null,
-                    'attribute3' => null,
-                    'attribute4' => null
-                ];
-                break;
+        if ($pageType === null || empty($recommendationSnippet)) {
+            return;
         }
 
-        $object = [
-            'pageType' => $pageType,
-            'pageData' => $pageData
-        ];
+        $pageData = [];
 
-        $this->smarty->assign('getresponse_recommendation_object', json_encode($object));
+        if ($pageType === 'product') {
+            $command = new \GetResponse\Ecommerce\Application\Command\RecommendedProductCommand(
+                Tools::getValue('id_product'),
+                Configuration::get('PS_LANG_DEFAULT')
+            );
+            $product = $service->createRecommendedProduct($command);
+            $pageData = $product !== null ? $product->toArray() : [];
+        }
+
+        $this->smarty->assign(
+            'getresponse_recommendation_object',
+            json_encode(['pageType' => $pageType, 'pageData' => $pageData])
+        );
     }
 }
