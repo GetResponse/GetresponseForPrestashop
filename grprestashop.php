@@ -644,6 +644,8 @@ class GrPrestashop extends Module
             return;
         }
 
+        $this->smarty->assign('getresponse_recommendation_snippet', $recommendationSnippet);
+
         $pageData = [];
 
         if ($pageType === 'product') {
