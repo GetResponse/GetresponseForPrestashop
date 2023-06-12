@@ -17,15 +17,29 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-class StockAvailable
-{
-    /** @var string */
-    public $quantity;
 
-    public function __construct($id)
+namespace GetResponse\Ecommerce\Application\Command;
+
+class RecommendedProductCommand
+{
+    /** @var int */
+    private $productId;
+    /** @var int */
+    private $languageId;
+
+    public function __construct($productId, $languageId)
     {
-        $params = StockAvailableParams::getStockAvailableById($id);
-        $this->quantity = $params['quantity'];
+        $this->productId = $productId;
+        $this->languageId = $languageId;
     }
 
+    public function getProductId()
+    {
+        return $this->productId;
+    }
+
+    public function getLanguageId()
+    {
+        return $this->languageId;
+    }
 }

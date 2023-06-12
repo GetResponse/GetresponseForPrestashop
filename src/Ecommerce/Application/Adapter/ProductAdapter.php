@@ -27,7 +27,7 @@ use GetResponse\Ecommerce\DomainModel\Variant;
 use Link;
 use Manufacturer;
 use Product as PrestashopProduct;
-use StockAvailable as PrestashopStockAvailable;
+use StockAvailableCore as PrestashopStockAvailable;
 
 class ProductAdapter
 {
@@ -75,8 +75,8 @@ class ProductAdapter
                     !empty($combination['reference']) ? $combination['reference'] : $product->reference,
                     $product->getPrice(false, $combination['id_product_attribute']),
                     $product->getPrice(true, $combination['id_product_attribute']),
-                    null,
-                    null,
+                    $product->getPriceWithoutReduct(true),
+                    $product->getPriceWithoutReduct(false),
                     $combination['quantity'],
                     $productLink,
                     null,
@@ -96,8 +96,8 @@ class ProductAdapter
                 $product->reference,
                 $product->getPrice(false),
                 $product->getPrice(),
-                null,
-                null,
+                $product->getPriceWithoutReduct(true),
+                $product->getPriceWithoutReduct(false),
                 $this->getSimpleProductQuantity($product),
                 $productLink,
                 null,
@@ -181,7 +181,7 @@ class ProductAdapter
         return $description;
     }
 
-    private function getSimpleProductQuantity(PrestashopProduct $product): int
+    private function getSimpleProductQuantity(PrestashopProduct $product)
     {
         if (empty($product->getWsStockAvailables())) {
             return 0;

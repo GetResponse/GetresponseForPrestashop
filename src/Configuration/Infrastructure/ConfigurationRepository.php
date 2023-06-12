@@ -32,6 +32,7 @@ class ConfigurationRepository implements Repository
     const FB_ADS_PIXEL_SNIPPET = 'GR_CONFIG_FB_ADS_PIXEL_SNIPPET';
     const FB_BUSINESS_EXT_SNIPPET = 'GR_CONFIG_FB_BE_SNIPPET';
     const GR_CHAT_SNIPPET = 'GR_CONFIG_GR_CHAT_SNIPPET';
+    const GR_RECOMMENDATION_SNIPPET = 'GR_CONFIG_GR_RECOMMENDATION_SNIPPET';
     const GR_TRACKING_SNIPPET = 'GR_CONFIG_GR_TRACKING_SNIPPET';
     const GR_FORM = 'GR_CONFIG_GR_FORM';
     const GR_LIVE_SYNC = 'GR_CONFIG_GR_LIVE_SYNC';
@@ -48,6 +49,7 @@ class ConfigurationRepository implements Repository
         $this->updateConfig(self::FB_ADS_PIXEL_SNIPPET, $configuration->getFacebookAdsPixelSnippet());
         $this->updateConfig(self::FB_BUSINESS_EXT_SNIPPET, $configuration->getFacebookBusinessExtensionSnippet());
         $this->updateConfig(self::GR_CHAT_SNIPPET, $configuration->getGetResponseChatSnippet());
+        $this->updateConfig(self::GR_RECOMMENDATION_SNIPPET, $configuration->getGetResponseRecommendationSnippet());
         $this->updateConfig(self::GR_TRACKING_SNIPPET, $configuration->getGetResponseWebTrackingSnippet());
         $this->updateConfig(self::GR_FORM, $configuration->getGetResponseWebForm());
         $this->updateConfig(self::GR_LIVE_SYNC, $configuration->getLiveSynchronization());
@@ -60,6 +62,7 @@ class ConfigurationRepository implements Repository
         PrestaShopConfiguration::deleteByName(self::FB_ADS_PIXEL_SNIPPET);
         PrestaShopConfiguration::deleteByName(self::FB_BUSINESS_EXT_SNIPPET);
         PrestaShopConfiguration::deleteByName(self::GR_CHAT_SNIPPET);
+        PrestaShopConfiguration::deleteByName(self::GR_RECOMMENDATION_SNIPPET);
         PrestaShopConfiguration::deleteByName(self::GR_TRACKING_SNIPPET);
         PrestaShopConfiguration::deleteByName(self::GR_FORM);
         PrestaShopConfiguration::deleteByName(self::GR_LIVE_SYNC);
@@ -104,6 +107,7 @@ class ConfigurationRepository implements Repository
             PrestaShopConfiguration::get(self::FB_ADS_PIXEL_SNIPPET) ?: null,
             PrestaShopConfiguration::get(self::FB_BUSINESS_EXT_SNIPPET) ?: null,
             PrestaShopConfiguration::get(self::GR_CHAT_SNIPPET) ?: null,
+            PrestaShopConfiguration::get(self::GR_RECOMMENDATION_SNIPPET) ?: null,
             PrestaShopConfiguration::get(self::GR_TRACKING_SNIPPET) ?: null,
             $getResponseWebFormId,
             $getResponseWebFormUrl,
