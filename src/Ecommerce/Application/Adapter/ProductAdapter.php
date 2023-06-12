@@ -27,7 +27,7 @@ use GetResponse\Ecommerce\DomainModel\Variant;
 use Link;
 use Manufacturer;
 use Product as PrestashopProduct;
-use StockAvailable as PrestashopStockAvailable;
+use StockAvailableCore as PrestashopStockAvailable;
 
 class ProductAdapter
 {
@@ -181,7 +181,7 @@ class ProductAdapter
         return $description;
     }
 
-    private function getSimpleProductQuantity(PrestashopProduct $product): int
+    private function getSimpleProductQuantity(PrestashopProduct $product)
     {
         if (empty($product->getWsStockAvailables())) {
             return 0;

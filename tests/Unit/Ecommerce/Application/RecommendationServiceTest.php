@@ -63,6 +63,7 @@ class RecommendationServiceTest extends BaseTestCase
         $images = [
             new Image('https://my-prestashop.com/img/p/2.jpg', 2),
         ];
+        $status = 'publish';
 
         $variants = [
             new Variant(
@@ -79,7 +80,8 @@ class RecommendationServiceTest extends BaseTestCase
                 null,
                 'description short2',
                 'description2',
-                $images
+                $images,
+                $status
             ),
         ];
 
@@ -92,7 +94,8 @@ class RecommendationServiceTest extends BaseTestCase
             $categories,
             $variants,
             '2023-06-01 12:00:01',
-            '2023-06-01 12:00:05'
+            '2023-06-01 12:00:05',
+            $status
         );
 
         $this->productAdapterMock

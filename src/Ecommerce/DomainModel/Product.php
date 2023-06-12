@@ -118,7 +118,7 @@ class Product implements JsonSerializable
         return $this->updatedAt;
     }
 
-    public function getStatus(): string
+    public function getStatus()
     {
         return $this->status;
     }
