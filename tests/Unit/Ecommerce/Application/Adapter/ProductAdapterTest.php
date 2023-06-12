@@ -56,7 +56,23 @@ class ProductAdapterTest extends BaseTestCase
         ];
 
         $variants = [
-            new Variant(1, 'Test Product', 'test_product_1', 19.99, 19.99, 29.99, 29.99, 10, 'https://my-prestashop.com/product/1', null, null, 'description short', 'description', $images),
+            new Variant(
+                1,
+                'Test Product',
+                'test_product_1',
+                19.99,
+                19.99,
+                29.99,
+                29.99,
+                100,
+                'https://my-prestashop.com/product/1',
+                null,
+                null,
+                'description short',
+                'description',
+                $images,
+                'publish'
+            ),
         ];
 
         self::assertEquals($productId, $product->getId());
@@ -89,7 +105,23 @@ class ProductAdapterTest extends BaseTestCase
         ];
 
         $variants = [
-            new Variant(12, 'Size - Size L', 'test_product_1', 19.99, 19.99, 29.99, 29.99, 10, 'https://my-prestashop.com/product/2', null, null, 'description short', 'description', $images),
+            new Variant(
+                12,
+                'Size - Size L',
+                'test_product_1',
+                19.99,
+                19.99,
+                29.99,
+                29.99,
+                10,
+                'https://my-prestashop.com/product/2',
+                null,
+                null,
+                'description short',
+                'description',
+                $images,
+                'publish'
+            )
         ];
 
         self::assertEquals($productId, $product->getId());

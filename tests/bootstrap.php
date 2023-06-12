@@ -49,6 +49,8 @@ require_once __DIR__ . '/Unit/PrestashopMock/MockParams/CombinationParams.php';
 require_once __DIR__ . '/Unit/PrestashopMock/Tools.php';
 require_once __DIR__ . '/Unit/PrestashopMock/MockParams/ManufacturerParams.php';
 require_once __DIR__ . '/Unit/PrestashopMock/Manufacturer.php';
+require_once __DIR__ . '/Unit/PrestashopMock/MockParams/StockAvailableParams.php';
+require_once __DIR__ . '/Unit/PrestashopMock/StockAvailable.php';
 require_once __DIR__ . '/Unit/PrestashopMock/Context.php';
 
 define('__PS_BASE_URI__', 'https://my-prestashop.com/');

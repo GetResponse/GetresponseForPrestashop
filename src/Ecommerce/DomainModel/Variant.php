@@ -52,6 +52,8 @@ class Variant implements JsonSerializable
     private $description;
     /** @var Image[]|null */
     private $images;
+    /** @var string */
+    private $status;
 
     public function __construct(
         $id,
@@ -67,7 +69,8 @@ class Variant implements JsonSerializable
         $barcode,
         $shortDescription,
         $description,
-        $images
+        $images,
+        $status
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -83,6 +86,7 @@ class Variant implements JsonSerializable
         $this->shortDescription = $shortDescription;
         $this->description = $description;
         $this->images = $images;
+        $this->status = $status;
     }
 
     /**
@@ -222,6 +226,7 @@ class Variant implements JsonSerializable
             'short_description' => $this->shortDescription,
             'description' => $this->description,
             'images' => $images,
+            'status' => $this->status
         ];
     }
 }

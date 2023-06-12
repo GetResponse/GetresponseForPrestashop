@@ -46,6 +46,8 @@ class Product implements JsonSerializable
     private $createdAt;
     /** @var string|null */
     private $updatedAt;
+    /** @var string */
+    private $status;
 
     public function __construct(
         $id,
@@ -56,7 +58,8 @@ class Product implements JsonSerializable
         $categories,
         $variants,
         $createdAt,
-        $updatedAt
+        $updatedAt,
+        $status
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -67,6 +70,7 @@ class Product implements JsonSerializable
         $this->variants = $variants;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
+        $this->status = $status;
     }
 
     public function getId()
@@ -114,6 +118,11 @@ class Product implements JsonSerializable
         return $this->updatedAt;
     }
 
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
     /**
      * @return array
      */
@@ -140,6 +149,7 @@ class Product implements JsonSerializable
             'updated_at' => $this->updatedAt,
             'categories' => $categories,
             'variants' => $variants,
+            'status' => $this->status
         ];
     }
 }

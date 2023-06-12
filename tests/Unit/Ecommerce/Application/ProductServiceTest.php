@@ -59,6 +59,7 @@ class ProductServiceTest extends BaseTestCase
         $languageId = 2;
         $createdOn = '2020-01-05 12:45:22';
         $updatedOn = '2020-01-06 12:34:12';
+        $status = 'publish';
 
         $categories = [
             new Category(3, 1, 'Default category'),
@@ -83,12 +84,23 @@ class ProductServiceTest extends BaseTestCase
                 null,
                 'description short2',
                 'description2',
-                $images
-            ),
+                $images,
+                $status
+            )
         ];
 
-        $productMock = new Product($productId, 'Test Product2', Product::CONFIGURABLE_TYPE, 'https://my-prestashop.com/product/2', 'VendorName', $categories, $variants, $createdOn,
-            $updatedOn);
+        $productMock = new Product(
+            $productId,
+            'Test Product2',
+            Product::CONFIGURABLE_TYPE,
+            'https://my-prestashop.com/product/2',
+            'VendorName',
+            $categories,
+            $variants,
+            $createdOn,
+            $updatedOn,
+            $status
+        );
 
         $liveSynchronizationUrl = 'https://app.getreponse.com/callback/ecommerce/33983';
 
