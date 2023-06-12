@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -18,26 +17,15 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-class CombinationParams
+class StockAvailable
 {
-    /**
-     * @var array
-     */
-    private static $combination = [
-        1 => [
-            'id' => 1,
-            'reference' => 'product_combination_1',
-            'quantity' => 100
-        ]
-    ];
+    /** @var string */
+    public $quantity;
 
-    /**
-     * @param int $id
-     *
-     * @return array
-     */
-    public static function getCombinationById($id)
+    public function __construct($id)
     {
-        return static::$combination[$id];
+        $params = StockAvailableParams::getStockAvailableById($id);
+        $this->quantity = $params['quantity'];
     }
+
 }

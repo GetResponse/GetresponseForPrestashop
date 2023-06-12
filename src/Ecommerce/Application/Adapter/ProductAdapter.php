@@ -27,9 +27,13 @@ use GetResponse\Ecommerce\DomainModel\Variant;
 use Link;
 use Manufacturer;
 use Product as PrestashopProduct;
+use StockAvailable as PrestashopStockAvailable;
 
 class ProductAdapter
 {
+    const PRODUCT_STATUS_PUBLISH = 'publish';
+    const PRODUCT_STATUS_DRAFT = 'draft';
+
     /**
      * @param int $languageId
      * @param int $productId
@@ -73,13 +77,14 @@ class ProductAdapter
                     $product->getPrice(true, $combination['id_product_attribute']),
                     null,
                     null,
-                    $product->quantity,
+                    $combination['quantity'],
                     $productLink,
                     null,
                     null,
                     $this->getShortDescription($product, $languageId),
                     $this->getDescription($product, $languageId),
-                    $images
+                    $images,
+                    $product->active === '1' ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
                 );
 
                 $variants[] = $variant;
@@ -93,13 +98,14 @@ class ProductAdapter
                 $product->getPrice(),
                 null,
                 null,
-                $product->quantity,
+                $this->getSimpleProductQuantity($product),
                 $productLink,
                 null,
                 null,
                 $this->getShortDescription($product, $languageId),
                 $this->getDescription($product, $languageId),
-                $images
+                $images,
+                $product->active === '1' ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
             );
         }
 
@@ -114,7 +120,8 @@ class ProductAdapter
             $categories,
             $variants,
             $product->date_add,
-            $product->date_upd
+            $product->date_upd,
+            $product->active === '1' ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
         );
     }
 
@@ -172,5 +179,20 @@ class ProductAdapter
         }
 
         return $description;
+    }
+
+    private function getSimpleProductQuantity(PrestashopProduct $product): int
+    {
+        if (empty($product->getWsStockAvailables())) {
+            return 0;
+        }
+
+        if (!is_array($product->getWsStockAvailables()) || count($product->getWsStockAvailables()) !== 1) {
+            return 0;
+        }
+
+        $stockAvailableId = $product->getWsStockAvailables()[0]['id'];
+
+        return (new PrestashopStockAvailable($stockAvailableId))->quantity;
     }
 }

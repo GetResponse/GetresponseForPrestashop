@@ -27,7 +27,7 @@ composer install:php71:
     - php composer-setup.php
     - php -r "unlink('composer-setup.php');"
   script:
-    - php composer.phar install
+    - php composer.phar update
   artifacts:
     paths:
       - vendor/

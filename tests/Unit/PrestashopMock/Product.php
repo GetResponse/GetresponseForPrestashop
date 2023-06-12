@@ -49,6 +49,10 @@ class Product
     public $date_upd;
     /** @var string */
     public $id_manufacturer;
+    /** @var string */
+    public $active;
+    /** @var array */
+    private $wsStockAvailables;
 
     public function __construct($id)
     {
@@ -68,6 +72,8 @@ class Product
         $this->date_add = $params['date_add'];
         $this->date_upd = $params['date_upd'];
         $this->id_manufacturer = $params['id_manufacturer'];
+        $this->active = $params['active'];
+        $this->wsStockAvailables = $params['wsStockAvailables'];
     }
 
     public function getImages($languageId)
@@ -94,4 +100,10 @@ class Product
     {
         return $this->price;
     }
+
+    public function getWsStockAvailables()
+    {
+        return $this->wsStockAvailables;
+    }
+
 }

@@ -18,17 +18,16 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-class CombinationParams
+class StockAvailableParams
 {
     /**
      * @var array
      */
-    private static $combination = [
-        1 => [
-            'id' => 1,
-            'reference' => 'product_combination_1',
-            'quantity' => 100
-        ]
+    private static $stockAvailable = [
+        12 => [
+            'id' => 12,
+            'quantity' => '100'
+        ],
     ];
 
     /**
@@ -36,8 +35,8 @@ class CombinationParams
      *
      * @return array
      */
-    public static function getCombinationById($id)
+    public static function getStockAvailableById($id)
     {
-        return static::$combination[$id];
+        return static::$stockAvailable[$id];
     }
 }
