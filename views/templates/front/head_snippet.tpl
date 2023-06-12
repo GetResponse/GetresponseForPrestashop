@@ -40,14 +40,13 @@
         {$getresponse_chat_snippet|cleanHtml nofilter}
     {/if}
 
-    {if isset($getresponse_recommendation_snippet)}
-        {$getresponse_recommendation_snippet|cleanHtml nofilter}
-    {/if}
-
     {if isset($getresponse_recommendation_object)}
         const recommendationPayload = {$getresponse_recommendation_object|cleanHtml nofilter}
     {/if}
 
-
 </script>
+
+{if isset($getresponse_recommendation_snippet)}
+    <script src="{$getresponse_recommendation_snippet|cleanHtml nofilter}" async></script>
+{/if}
 <!-- getresponse end -->
