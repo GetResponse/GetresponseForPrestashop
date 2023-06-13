@@ -25,17 +25,8 @@ class RecommendedProduct
     /** @var float|null */
     private $previousPrice;
 
-    public function __construct(
-        string $url,
-        int $externalId,
-        string $name,
-        float $price,
-        string $imageUrl,
-        string $description,
-        array $categories,
-        string $sku,
-        float $previousPrice
-    ) {
+    public function __construct($url, $externalId, $name, $price, $imageUrl, $description, $categories, $sku, $previousPrice)
+    {
         $this->url = $url;
         $this->externalId = $externalId;
         $this->name = $name;
@@ -97,6 +88,9 @@ class RecommendedProduct
 
     public function getDescriptionWithoutHtmlTags()
     {
+        if (empty($this->description)) {
+            return '';
+        }
         $description = strlen($this->description) > 30000
             ? substr($this->description, 0, 30000 - 3) . '...'
             : $this->description;
