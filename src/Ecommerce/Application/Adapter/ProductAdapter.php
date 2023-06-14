@@ -77,7 +77,7 @@ class ProductAdapter
                     $product->getPrice(true, $combination['id_product_attribute']),
                     $product->getPriceWithoutReduct(true),
                     $product->getPriceWithoutReduct(false),
-                    $combination['quantity'],
+                    $this->getProductQuantity($product, (int) $combination['id_product_attribute']),
                     $productLink,
                     null,
                     null,
@@ -98,7 +98,7 @@ class ProductAdapter
                 $product->getPrice(),
                 $product->getPriceWithoutReduct(true),
                 $product->getPriceWithoutReduct(false),
-                $this->getSimpleProductQuantity($product),
+                $this->getProductQuantity($product, 0),
                 $productLink,
                 null,
                 null,
@@ -181,17 +181,21 @@ class ProductAdapter
         return $description;
     }
 
-    private function getSimpleProductQuantity(PrestashopProduct $product)
+    private function getProductQuantity(PrestashopProduct $product, int $idProductAttribute)
     {
         if (empty($product->getWsStockAvailables())) {
             return 0;
         }
 
-        if (!is_array($product->getWsStockAvailables()) || count($product->getWsStockAvailables()) !== 1) {
+        if (!is_array($product->getWsStockAvailables())) {
             return 0;
         }
 
-        $stockAvailableId = $product->getWsStockAvailables()[0]['id'];
+        $stockAvailableId = $this->getStockAvailableId($product, $idProductAttribute);
+
+        if ($stockAvailableId === null) {
+            return 0;
+        }
 
         if (class_exists('StockAvailable')) {
             return (new \StockAvailable($stockAvailableId))->quantity;
@@ -216,5 +220,23 @@ class ProductAdapter
         }
 
         return self::SKU_PREFIX . $product->id;
+    }
+
+    private function getStockAvailableId(PrestashopProduct $product, int $idProductAttribute)
+    {
+        foreach ($product->getWsStockAvailables() as $stockAvailable) {
+            if (!is_array($stockAvailable)) {
+                continue;
+            }
+            if (!isset($stockAvailable['id_product_attribute'])) {
+                continue;
+            }
+            if (is_numeric($stockAvailable['id_product_attribute'])
+                && (int)$stockAvailable['id_product_attribute'] === $idProductAttribute) {
+                return (int)$stockAvailable['id'];
+            }
+        }
+
+        return null;
     }
 }
