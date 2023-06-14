@@ -26,8 +26,12 @@ class StockAvailableParams
     private static $stockAvailable = [
         12 => [
             'id' => 12,
-            'quantity' => '100'
+            'quantity' => 100
         ],
+        13 => [
+            'id' => 13,
+            'quantity' => 100
+        ]
     ];
 
     /**

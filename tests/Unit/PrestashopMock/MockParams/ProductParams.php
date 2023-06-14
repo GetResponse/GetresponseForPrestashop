@@ -44,6 +44,7 @@ class ProductParams
                     'group_name' => 'Size',
                     'attribute_name' => 'Size L',
                     'quantity' => 10,
+                    'reference' => 'test_product_1',
                 ]
             ],
             'reference' => 'test_product_1',
@@ -54,7 +55,10 @@ class ProductParams
             'date_upd' => '2020-01-06 12:34:12',
             'id_manufacturer' => 1,
             'active' => '1',
-            'wsStockAvailables' => [['id' => '12']]
+            'wsStockAvailables' => [
+                ['id' => '12', 'id_product_attribute' => '0'],
+                ['id' => '13', 'id_product_attribute' => '12'],
+            ]
         ],
         2 => [
             'id' => 2,
@@ -76,6 +80,7 @@ class ProductParams
                     'group_name' => 'Size',
                     'attribute_name' => 'Size L',
                     'quantity' => 10,
+                    'reference' => 'test_product_1',
                 ]
             ],
             'reference' => 'test_product_1',
@@ -86,7 +91,10 @@ class ProductParams
             'date_upd' => '2020-01-06 12:34:12',
             'id_manufacturer' => 1,
             'active' => '1',
-            'wsStockAvailables' => [['id' => '12']]
+            'wsStockAvailables' => [
+                ['id' => '12', 'id_product_attribute' => '0'],
+                ['id' => '13', 'id_product_attribute' => '12'],
+            ]
         ],
     ];
 
