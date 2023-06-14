@@ -27,12 +27,12 @@ use GetResponse\Ecommerce\DomainModel\Variant;
 use Link;
 use Manufacturer;
 use Product as PrestashopProduct;
-use StockAvailable as PrestashopStockAvailable;
 
 class ProductAdapter
 {
     const PRODUCT_STATUS_PUBLISH = 'publish';
     const PRODUCT_STATUS_DRAFT = 'draft';
+    const SKU_PREFIX = 'sku_';
 
     /**
      * @param int $languageId
@@ -72,11 +72,11 @@ class ProductAdapter
                 $variant = new Variant(
                     (int) $combination['id_product_attribute'],
                     $combination['name'],
-                    !empty($combination['reference']) ? $combination['reference'] : $product->reference,
+                    $this->getProductConfigurableSku($combination),
                     $product->getPrice(false, $combination['id_product_attribute']),
                     $product->getPrice(true, $combination['id_product_attribute']),
-                    null,
-                    null,
+                    $product->getPriceWithoutReduct(true),
+                    $product->getPriceWithoutReduct(false),
                     $combination['quantity'],
                     $productLink,
                     null,
@@ -93,11 +93,11 @@ class ProductAdapter
             $variants[] = new Variant(
                 $product->id,
                 $product->name[$languageId],
-                $product->reference,
+                $this->getProductSimpleSku($product),
                 $product->getPrice(false),
                 $product->getPrice(),
-                null,
-                null,
+                $product->getPriceWithoutReduct(true),
+                $product->getPriceWithoutReduct(false),
                 $this->getSimpleProductQuantity($product),
                 $productLink,
                 null,
@@ -181,7 +181,7 @@ class ProductAdapter
         return $description;
     }
 
-    private function getSimpleProductQuantity(PrestashopProduct $product): int
+    private function getSimpleProductQuantity(PrestashopProduct $product)
     {
         if (empty($product->getWsStockAvailables())) {
             return 0;
@@ -193,6 +193,28 @@ class ProductAdapter
 
         $stockAvailableId = $product->getWsStockAvailables()[0]['id'];
 
-        return (new PrestashopStockAvailable($stockAvailableId))->quantity;
+        if (class_exists('StockAvailable')) {
+            return (new \StockAvailable($stockAvailableId))->quantity;
+        }
+
+        return (new \StockAvailableCore($stockAvailableId))->quantity;
+    }
+
+    private function getProductConfigurableSku(array $combination)
+    {
+        if (!empty($combination['reference'])) {
+            return $combination['reference'];
+        }
+
+        return self::SKU_PREFIX . $combination['id_product_attribute'];
+    }
+
+    private function getProductSimpleSku(PrestashopProduct $product)
+    {
+        if (!empty($product->reference)) {
+            return $product->reference;
+        }
+
+        return self::SKU_PREFIX . $product->id;
     }
 }
