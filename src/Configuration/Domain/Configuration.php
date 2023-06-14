@@ -33,6 +33,8 @@ class Configuration
     /** @var string|null */
     private $getResponseChatSnippet;
     /** @var string|null */
+    private $getResponseRecommendationSnippet;
+    /** @var string|null */
     private $getResponseWebTrackingSnippet;
     /** @var WebForm|null */
     private $getResponseWebForm;
@@ -47,6 +49,7 @@ class Configuration
         $facebookAdsPixelSnippet,
         $facebookBusinessExtensionSnippet,
         $getResponseChatSnippet,
+        $getResponseRecommendationSnippet,
         $getResponseWebTrackingSnippet,
         $getResponseWebForm,
         $liveSynchronization,
@@ -57,6 +60,7 @@ class Configuration
         $this->facebookAdsPixelSnippet = $facebookAdsPixelSnippet;
         $this->facebookBusinessExtensionSnippet = $facebookBusinessExtensionSnippet;
         $this->getResponseChatSnippet = $getResponseChatSnippet;
+        $this->getResponseRecommendationSnippet = $getResponseRecommendationSnippet;
         $this->getResponseWebTrackingSnippet = $getResponseWebTrackingSnippet;
         $this->getResponseWebForm = $getResponseWebForm;
         $this->liveSynchronization = $liveSynchronization;
@@ -130,5 +134,13 @@ class Configuration
     public function getGetresponseShopId()
     {
         return $this->getresponseShopId;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGetResponseRecommendationSnippet()
+    {
+        return $this->getResponseRecommendationSnippet;
     }
 }

@@ -44,7 +44,7 @@ class GrPrestashop extends Module
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '1.1.3';
+        $this->version = '1.1.4';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
@@ -85,66 +85,70 @@ class GrPrestashop extends Module
     public function hookDisplayHome()
     {
         $currentShopId = $this->context->shop->id;
-        $configurationReadModel = new GetResponse\Configuration\ReadModel\ConfigurationReadModel(
-            new GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+        $configurationReadModel = new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+            new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
         );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
         return $this->getGrWebFormSnippet(
             $configuration,
-            GetResponse\Configuration\SharedKernel\WebFormPosition::HOME
+            \GetResponse\Configuration\SharedKernel\WebFormPosition::HOME
         );
     }
 
     public function hookDisplayTop()
     {
         $currentShopId = $this->context->shop->id;
-        $configurationReadModel = new GetResponse\Configuration\ReadModel\ConfigurationReadModel(
-            new GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+        $configurationReadModel = new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+            new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
         );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
         return $this->getGrWebFormSnippet(
             $configuration,
-            GetResponse\Configuration\SharedKernel\WebFormPosition::TOP
+            \GetResponse\Configuration\SharedKernel\WebFormPosition::TOP
         );
     }
 
     public function hookDisplayLeftColumn()
     {
         $currentShopId = $this->context->shop->id;
-        $configurationReadModel = new GetResponse\Configuration\ReadModel\ConfigurationReadModel(
-            new GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+        $configurationReadModel = new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+            new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
         );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
         return $this->getGrWebFormSnippet(
             $configuration,
-            GetResponse\Configuration\SharedKernel\WebFormPosition::LEFT
+            \GetResponse\Configuration\SharedKernel\WebFormPosition::LEFT
         );
     }
 
     public function hookDisplayRightColumn()
     {
         $currentShopId = $this->context->shop->id;
-        $configurationReadModel = new GetResponse\Configuration\ReadModel\ConfigurationReadModel(new GetResponse\Configuration\Infrastructure\ConfigurationRepository());
+        $configurationReadModel = new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+            new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+        );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
         return $this->getGrWebFormSnippet(
             $configuration,
-            GetResponse\Configuration\SharedKernel\WebFormPosition::RIGHT
+            \GetResponse\Configuration\SharedKernel\WebFormPosition::RIGHT
         );
     }
 
     public function hookDisplayFooter()
     {
         $currentShopId = $this->context->shop->id;
-        $configurationReadModel = new GetResponse\Configuration\ReadModel\ConfigurationReadModel(new GetResponse\Configuration\Infrastructure\ConfigurationRepository());
+        $configurationReadModel = new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+            new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+        );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
         return $this->getGrWebFormSnippet(
             $configuration,
-            GetResponse\Configuration\SharedKernel\WebFormPosition::FOOTER
+            \GetResponse\Configuration\SharedKernel\WebFormPosition::FOOTER
         );
     }
 
@@ -159,7 +163,9 @@ class GrPrestashop extends Module
     public function hookDisplayHeader()
     {
         $currentShopId = $this->context->shop->id;
-        $configurationReadModel = new GetResponse\Configuration\ReadModel\ConfigurationReadModel(new GetResponse\Configuration\Infrastructure\ConfigurationRepository());
+        $configurationReadModel = new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+            new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+        );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
         $webConnectSnippet = $configuration->getGetResponseWebTrackingSnippet();
@@ -188,6 +194,8 @@ class GrPrestashop extends Module
         $this->smarty->assign('facebook_business_extension_snippet', $configuration->getFacebookBusinessExtensionSnippet());
         $this->smarty->assign('getresponse_chat_snippet', $configuration->getGetResponseChatSnippet());
 
+        $this->assignRecommendationObject($configuration->getGetResponseRecommendationSnippet());
+
         return $this->display(__FILE__, 'views/templates/front/head_snippet.tpl');
     }
 
@@ -196,8 +204,8 @@ class GrPrestashop extends Module
      */
     public function getContent()
     {
-        $configurationReadModel = new GetResponse\Configuration\ReadModel\ConfigurationReadModel(
-            new GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+        $configurationReadModel = new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+            new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
         );
 
         $context = Context::getContext();
@@ -297,7 +305,7 @@ class GrPrestashop extends Module
         }
 
         $configurationService = new \GetResponse\Configuration\Application\ConfigurationService(
-            new GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+            new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
         );
         $configurationService->deleteAllConfigurations();
 
@@ -336,8 +344,8 @@ class GrPrestashop extends Module
                     new \GetResponse\MessageSender\Application\MessageSenderService(
                         new \GetResponse\MessageSender\Infrastructure\HttpClient($shop->getBaseURL())
                     ),
-                    new GetResponse\Configuration\ReadModel\ConfigurationReadModel(
-                        new GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+                    new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+                        new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
                     )
                 );
 
@@ -399,8 +407,8 @@ class GrPrestashop extends Module
                 new \GetResponse\MessageSender\Application\MessageSenderService(
                     new \GetResponse\MessageSender\Infrastructure\HttpClient($shop->getBaseURL())
                 ),
-                new GetResponse\Configuration\ReadModel\ConfigurationReadModel(
-                    new GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+                new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+                    new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
                 )
             );
             $cartService->upsertCart(new \GetResponse\Ecommerce\Application\Command\UpsertCart($cart->id, $shop->id));
@@ -527,7 +535,7 @@ class GrPrestashop extends Module
     }
 
     /**
-     * @param GetResponse\Configuration\ReadModel\ConfigurationDto $configuration
+     * @param \GetResponse\Configuration\ReadModel\ConfigurationDto $configuration
      * @param string $position
      *
      * @return false|string|null
@@ -559,8 +567,8 @@ class GrPrestashop extends Module
             new \GetResponse\MessageSender\Application\MessageSenderService(
                 new \GetResponse\MessageSender\Infrastructure\HttpClient($shop->getBaseURL())
             ),
-            new GetResponse\Configuration\ReadModel\ConfigurationReadModel(
-                new GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+            new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+                new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
             )
         );
 
@@ -589,8 +597,8 @@ class GrPrestashop extends Module
                 new \GetResponse\MessageSender\Application\MessageSenderService(
                     new \GetResponse\MessageSender\Infrastructure\HttpClient($shop->getBaseURL())
                 ),
-                new GetResponse\Configuration\ReadModel\ConfigurationReadModel(
-                    new GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+                new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+                    new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
                 )
             );
 
@@ -615,13 +623,43 @@ class GrPrestashop extends Module
             new \GetResponse\MessageSender\Application\MessageSenderService(
                 new \GetResponse\MessageSender\Infrastructure\HttpClient($shop->getBaseURL())
             ),
-            new GetResponse\Configuration\ReadModel\ConfigurationReadModel(
-                new GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+            new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+                new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
             )
         );
 
         $orderService->upsertOrder(
-            new GetResponse\Ecommerce\Application\Command\UpsertOrder($order->id, $order->id_shop)
+            new \GetResponse\Ecommerce\Application\Command\UpsertOrder($order->id, $order->id_shop)
+        );
+    }
+
+    private function assignRecommendationObject($recommendationSnippet)
+    {
+        $service = new \GetResponse\Ecommerce\Application\RecommendationService(
+            new \GetResponse\Ecommerce\Application\Adapter\ProductAdapter()
+        );
+        $pageType = $service->getPageType($this->context->controller->php_self);
+
+        if ($pageType === null || empty($recommendationSnippet)) {
+            return;
+        }
+
+        $this->smarty->assign('getresponse_recommendation_snippet', $recommendationSnippet);
+
+        $pageData = [];
+
+        if ($pageType === 'product') {
+            $command = new \GetResponse\Ecommerce\Application\Command\RecommendedProductCommand(
+                Tools::getValue('id_product'),
+                Configuration::get('PS_LANG_DEFAULT')
+            );
+            $product = $service->createRecommendedProduct($command);
+            $pageData = $product !== null ? $product->toArray() : [];
+        }
+
+        $this->smarty->assign(
+            'getresponse_recommendation_object',
+            json_encode(['pageType' => $pageType, 'pageData' => $pageData])
         );
     }
 }

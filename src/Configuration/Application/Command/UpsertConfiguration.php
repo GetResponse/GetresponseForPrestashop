@@ -33,6 +33,8 @@ class UpsertConfiguration
     /** @var string|null */
     private $getResponseChatSnippet;
     /** @var string|null */
+    private $getResponseRecommendationSnippet;
+    /** @var string|null */
     private $getResponseWebTrackingSnippet;
     /** @var int|null */
     private $getResponseWebFormId;
@@ -67,6 +69,7 @@ class UpsertConfiguration
         $facebookAdsPixelSnippet,
         $facebookBusinessExtensionSnippet,
         $getResponseChatSnippet,
+        $getResponseRecommendationSnippet,
         $getResponseWebTrackingSnippet,
         $getResponseWebFormId,
         $getResponseWebFormUrl,
@@ -80,6 +83,7 @@ class UpsertConfiguration
         $this->facebookAdsPixelSnippet = $facebookAdsPixelSnippet;
         $this->facebookBusinessExtensionSnippet = $facebookBusinessExtensionSnippet;
         $this->getResponseChatSnippet = $getResponseChatSnippet;
+        $this->getResponseRecommendationSnippet = $getResponseRecommendationSnippet;
         $this->getResponseWebTrackingSnippet = $getResponseWebTrackingSnippet;
         $this->getResponseWebFormId = $getResponseWebFormId;
         $this->getResponseWebFormUrl = $getResponseWebFormUrl;
@@ -174,8 +178,19 @@ class UpsertConfiguration
         return $this->liveSynchronizationType;
     }
 
+    /**
+     * @return string|null
+     */
     public function getGetResponseShopId()
     {
         return $this->getResponseShopId;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGetResponseRecommendationSnippet()
+    {
+        return $this->getResponseRecommendationSnippet;
     }
 }

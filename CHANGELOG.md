@@ -1,6 +1,11 @@
 # Changelog
 
-## [1.1.3] - 2023-05-22
+## [1.1.4] - 2023-06-12
+### Feature
+- Added Recostream events
+- Added status and quantity import
+
+- ## [1.1.3] - 2023-05-22
 ### Fix
 - Added fixes for prestashop validator
 

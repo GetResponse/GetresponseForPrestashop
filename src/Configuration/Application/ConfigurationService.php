@@ -50,6 +50,7 @@ class ConfigurationService
                 $updateConfiguration->getFacebookAdsPixelSnippet(),
                 $updateConfiguration->getFacebookBusinessExtensionSnippet(),
                 $updateConfiguration->getGetResponseChatSnippet(),
+                $updateConfiguration->getGetResponseRecommendationSnippet(),
                 $updateConfiguration->getGetResponseWebTrackingSnippet(),
                 $this->getWebForm($updateConfiguration),
                 $this->getLiveSynchronization($updateConfiguration),

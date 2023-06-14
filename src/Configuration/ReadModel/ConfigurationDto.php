@@ -33,6 +33,8 @@ class ConfigurationDto
     /** @var string|null */
     private $getResponseChatSnippet;
     /** @var string|null */
+    private $getResponseRecommendationSnippet;
+    /** @var string|null */
     private $getResponseWebTrackingSnippet;
     /** @var int|null */
     private $getResponseWebFormId;
@@ -53,6 +55,7 @@ class ConfigurationDto
      * @param string|null $facebookAdsPixelSnippet
      * @param string|null $facebookBusinessExtensionSnippet
      * @param string|null $getResponseChatSnippet
+     * @param string|null $getResponseRecommendationSnippet
      * @param string|null $getResponseWebTrackingSnippet
      * @param int|null $getResponseWebFormId
      * @param string|null $getResponseWebFormUrl
@@ -67,6 +70,7 @@ class ConfigurationDto
         $facebookAdsPixelSnippet,
         $facebookBusinessExtensionSnippet,
         $getResponseChatSnippet,
+        $getResponseRecommendationSnippet,
         $getResponseWebTrackingSnippet,
         $getResponseWebFormId,
         $getResponseWebFormUrl,
@@ -80,6 +84,7 @@ class ConfigurationDto
         $this->facebookAdsPixelSnippet = $facebookAdsPixelSnippet;
         $this->facebookBusinessExtensionSnippet = $facebookBusinessExtensionSnippet;
         $this->getResponseChatSnippet = $getResponseChatSnippet;
+        $this->getResponseRecommendationSnippet = $getResponseRecommendationSnippet;
         $this->getResponseWebTrackingSnippet = $getResponseWebTrackingSnippet;
         $this->getResponseWebFormId = $getResponseWebFormId;
         $this->getResponseWebFormUrl = $getResponseWebFormUrl;
@@ -183,6 +188,11 @@ class ConfigurationDto
     public function getGetresponseShopId()
     {
         return $this->getresponseShopId;
+    }
+
+    public function getGetResponseRecommendationSnippet()
+    {
+        return $this->getResponseRecommendationSnippet;
     }
 
     /**

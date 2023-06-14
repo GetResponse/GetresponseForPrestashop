@@ -35,6 +35,8 @@ class Product
     public $link_rewrite;
     /** @var float */
     public $price;
+    /** @var float */
+    public $priceWithoutReduct;
     /** @var string */
     public $reference;
     /** @var int */
@@ -65,6 +67,7 @@ class Product
         $this->attributeCombinations = $params['attributeCombinations'];
         $this->link_rewrite = $params['link_rewrite'];
         $this->price = $params['price'];
+        $this->priceWithoutReduct = $params['priceWithoutReduct'];
         $this->reference = $params['reference'];
         $this->quantity = $params['quantity'];
         $this->description_short = $params['description_short'];
@@ -106,4 +109,8 @@ class Product
         return $this->wsStockAvailables;
     }
 
+    public function getPriceWithoutReduct($withTax = false)
+    {
+        return $this->priceWithoutReduct;
+    }
 }
