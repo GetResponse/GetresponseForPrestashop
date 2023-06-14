@@ -27,12 +27,12 @@ use GetResponse\Ecommerce\DomainModel\Variant;
 use Link;
 use Manufacturer;
 use Product as PrestashopProduct;
-use StockAvailableCore as PrestashopStockAvailable;
 
 class ProductAdapter
 {
     const PRODUCT_STATUS_PUBLISH = 'publish';
     const PRODUCT_STATUS_DRAFT = 'draft';
+    const SKU_PREFIX = 'sku_';
 
     /**
      * @param int $languageId
@@ -72,12 +72,12 @@ class ProductAdapter
                 $variant = new Variant(
                     (int) $combination['id_product_attribute'],
                     $combination['name'],
-                    !empty($combination['reference']) ? $combination['reference'] : $product->reference,
+                    $this->getProductConfigurableSku($combination),
                     $product->getPrice(false, $combination['id_product_attribute']),
                     $product->getPrice(true, $combination['id_product_attribute']),
                     $product->getPriceWithoutReduct(true),
                     $product->getPriceWithoutReduct(false),
-                    $combination['quantity'],
+                    $this->getProductQuantity($product, (int) $combination['id_product_attribute']),
                     $productLink,
                     null,
                     null,
@@ -93,12 +93,12 @@ class ProductAdapter
             $variants[] = new Variant(
                 $product->id,
                 $product->name[$languageId],
-                $product->reference,
+                $this->getProductSimpleSku($product),
                 $product->getPrice(false),
                 $product->getPrice(),
                 $product->getPriceWithoutReduct(true),
                 $product->getPriceWithoutReduct(false),
-                $this->getSimpleProductQuantity($product),
+                $this->getProductQuantity($product, 0),
                 $productLink,
                 null,
                 null,
@@ -181,18 +181,62 @@ class ProductAdapter
         return $description;
     }
 
-    private function getSimpleProductQuantity(PrestashopProduct $product)
+    private function getProductQuantity(PrestashopProduct $product, int $idProductAttribute)
     {
         if (empty($product->getWsStockAvailables())) {
             return 0;
         }
 
-        if (!is_array($product->getWsStockAvailables()) || count($product->getWsStockAvailables()) !== 1) {
+        if (!is_array($product->getWsStockAvailables())) {
             return 0;
         }
 
-        $stockAvailableId = $product->getWsStockAvailables()[0]['id'];
+        $stockAvailableId = $this->getStockAvailableId($product, $idProductAttribute);
 
-        return (new PrestashopStockAvailable($stockAvailableId))->quantity;
+        if ($stockAvailableId === null) {
+            return 0;
+        }
+
+        if (class_exists('StockAvailable')) {
+            return (new \StockAvailable($stockAvailableId))->quantity;
+        }
+
+        return (new \StockAvailableCore($stockAvailableId))->quantity;
+    }
+
+    private function getProductConfigurableSku(array $combination)
+    {
+        if (!empty($combination['reference'])) {
+            return $combination['reference'];
+        }
+
+        return self::SKU_PREFIX . $combination['id_product_attribute'];
+    }
+
+    private function getProductSimpleSku(PrestashopProduct $product)
+    {
+        if (!empty($product->reference)) {
+            return $product->reference;
+        }
+
+        return self::SKU_PREFIX . $product->id;
+    }
+
+    private function getStockAvailableId(PrestashopProduct $product, int $idProductAttribute)
+    {
+        foreach ($product->getWsStockAvailables() as $stockAvailable) {
+            if (!is_array($stockAvailable)) {
+                continue;
+            }
+            if (!isset($stockAvailable['id_product_attribute'])) {
+                continue;
+            }
+            if (is_numeric($stockAvailable['id_product_attribute'])
+                && (int)$stockAvailable['id_product_attribute'] === $idProductAttribute) {
+                return (int)$stockAvailable['id'];
+            }
+        }
+
+        return null;
     }
 }
