@@ -232,8 +232,8 @@ class ProductAdapter
                 continue;
             }
             if (is_numeric($stockAvailable['id_product_attribute'])
-                && (int)$stockAvailable['id_product_attribute'] === $idProductAttribute) {
-                return (int)$stockAvailable['id'];
+                && (int) $stockAvailable['id_product_attribute'] === $idProductAttribute) {
+                return (int) $stockAvailable['id'];
             }
         }
 

@@ -20,7 +20,6 @@
 
 namespace GetResponse\Ecommerce\Application;
 
-use GetResponse\Ecommerce\Application\Adapter\ProductAdapter;
 use GetResponse\Ecommerce\Application\Command\RecommendedProductCommand;
 use GetResponse\Ecommerce\DomainModel\RecommendedProduct;
 use GetResponse\Ecommerce\DomainModel\Variant;
@@ -56,7 +55,7 @@ class RecommendationService
             $variant->getPriceTax(),
             $imageUrl,
             $variant->getDescription(),
-            array_map(function($category) { return $category->getName(); }, $product->getCategories()),
+            $this->getCategories($product),
             $variant->getSku(),
             $variant->getPreviousPriceTax()
         );
@@ -72,9 +71,19 @@ class RecommendationService
             'cart' => 'cart',
             'category' => 'category',
             'pagenotfound' => 'error',
-            'product' => 'product'
+            'product' => 'product',
         ];
 
         return isset($mapping[$pageId]) ? $mapping[$pageId] : null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCategories($product)
+    {
+        return array_map(static function ($category) {
+            return $category->getName();
+        }, $product->getCategories());
     }
 }

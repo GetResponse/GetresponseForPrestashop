@@ -39,6 +39,7 @@ done
 echo ""
 echo "Build composer"
 composer install --no-dev --working-dir="$RELEASE_PATH"
+composer run-fixers
 
 echo ""
 echo "Create new zip"

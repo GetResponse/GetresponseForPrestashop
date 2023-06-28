@@ -226,7 +226,7 @@ class Variant implements JsonSerializable
             'short_description' => $this->shortDescription,
             'description' => $this->description,
             'images' => $images,
-            'status' => $this->status
+            'status' => $this->status,
         ];
     }
 }

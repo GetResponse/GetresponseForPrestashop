@@ -149,7 +149,7 @@ class Product implements JsonSerializable
             'updated_at' => $this->updatedAt,
             'categories' => $categories,
             'variants' => $variants,
-            'status' => $this->status
+            'status' => $this->status,
         ];
     }
 }
