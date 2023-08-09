@@ -34,6 +34,7 @@ GrTracking(
         },
         "categories": [
             {
+                "id": "{$product.id_category_default}",
                 "name": "{$product.category_name}"
             }
         ]
