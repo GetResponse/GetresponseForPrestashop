@@ -79,7 +79,7 @@ class ContactService
 
         $this->messageSenderService->send(
             $configuration->getLiveSynchronizationUrl(),
-            new Subscriber($command->getEmail(), $command->isMarketingConsent())
+            new Subscriber($command->getEmail(), $command->isMarketingConsent(), $command->getName())
         );
     }
 }

@@ -29,11 +29,14 @@ class Subscriber implements JsonSerializable
     private $email;
     /** @var bool */
     private $marketingConsent;
+    /** @var string|null */
+    private $name;
 
-    public function __construct($email, $marketingConsent)
+    public function __construct($email, $marketingConsent, $name)
     {
         $this->email = $email;
         $this->marketingConsent = $marketingConsent;
+        $this->name = $name;
     }
 
     /**
@@ -44,6 +47,7 @@ class Subscriber implements JsonSerializable
         return [
             'callback_type' => CallbackType::SUBSCRIBERS_UPDATE,
             'email' => $this->email,
+            'name' => $this->name,
             'accepts_marketing' => (bool) $this->marketingConsent,
         ];
     }

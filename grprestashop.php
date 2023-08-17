@@ -43,7 +43,7 @@ class GrPrestashop extends Module
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '1.1.4';
+        $this->version = '1.1.5';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
@@ -336,6 +336,7 @@ class GrPrestashop extends Module
     {
         try {
             $email = $params['email'];
+            $name = $params['name'] ?? null;
 
             if (null !== $email) {
                 $shop = new Shop($this->context->shop->id);
@@ -349,7 +350,7 @@ class GrPrestashop extends Module
                 );
 
                 $contactService->upsertSubscriber(
-                    new \GetResponse\Contact\Application\Command\UpsertSubscriber($email, true, $shop->id)
+                    new \GetResponse\Contact\Application\Command\UpsertSubscriber($email, true, $shop->id, $name)
                 );
             }
         } catch (\GetResponse\MessageSender\Application\MessageSenderException $e) {

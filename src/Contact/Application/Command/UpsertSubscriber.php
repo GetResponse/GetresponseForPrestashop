@@ -28,12 +28,15 @@ class UpsertSubscriber
     private $email;
     /** @var bool */
     private $marketingConsent;
+    /** @var string|null */
+    private $name;
 
-    public function __construct($email, $marketingConsent, $shopId)
+    public function __construct($email, $marketingConsent, $shopId, $name)
     {
         $this->email = $email;
         $this->marketingConsent = $marketingConsent;
         $this->shopId = $shopId;
+        $this->name = $name;
     }
 
     public function getEmail()
@@ -49,5 +52,10 @@ class UpsertSubscriber
     public function getShopId()
     {
         return $this->shopId;
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 }
