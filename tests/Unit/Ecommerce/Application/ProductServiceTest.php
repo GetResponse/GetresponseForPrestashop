@@ -86,7 +86,7 @@ class ProductServiceTest extends BaseTestCase
                 'description2',
                 $images,
                 $status
-            )
+            ),
         ];
 
         $productMock = new Product(

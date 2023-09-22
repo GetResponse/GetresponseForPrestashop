@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -26,12 +25,12 @@ class StockAvailableParams
     private static $stockAvailable = [
         12 => [
             'id' => 12,
-            'quantity' => 100
+            'quantity' => 100,
         ],
         13 => [
             'id' => 13,
-            'quantity' => 100
-        ]
+            'quantity' => 100,
+        ],
     ];
 
     /**

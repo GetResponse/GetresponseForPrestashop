@@ -45,6 +45,7 @@ class HttpClient implements EventEmitter
      * @param string $method
      *
      * @return array
+     *
      * @throws EventEmitterException
      */
     private function sendRequest($url, JsonSerializable $object, $method = self::GET)
@@ -91,6 +92,7 @@ class HttpClient implements EventEmitter
      * @param JsonSerializable $object
      *
      * @return array
+     *
      * @throws EventEmitterException
      */
     public function emit($url, JsonSerializable $object)

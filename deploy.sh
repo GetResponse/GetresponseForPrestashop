@@ -79,8 +79,8 @@ echo ""
 read -p "Press [ENTER] to commit release $VERSION to Github"
 
 echo ""
-echo "Committing to Github... this may take a while"
-cd $GITHUB_PATH && git add -A && git commit -a -m "Release $VERSION" && git push || { echo "Unable to commit."; exit 1; }
+#echo "Committing to Github... this may take a while"
+#cd $GITHUB_PATH && git add -A && git commit -a -m "Release $VERSION" && git push || { echo "Unable to commit."; exit 1; }
 
 echo ""
 echo "Create new directory for module"
@@ -98,11 +98,11 @@ composer install --no-dev --working-dir="$RELEASE_PATH"
 echo ""
 echo "Create new release"
 cd $TMP_PATH && zip -rm "$RELEASE_FILE" "$RELEASE_DIR" -x ".git*"
-cd $GITHUB_PATH && gh release create "$VERSION" --generate-notes --latest -n "$VERSION" "$TMP_PATH/$RELEASE_FILE"
+#cd $GITHUB_PATH && gh release create "$VERSION" --generate-notes --latest -n "$VERSION" "$TMP_PATH/$RELEASE_FILE"
 
 echo ""
-echo "Remove temporary files"
-rm -rf "$TMP_PATH"
+#echo "Remove temporary files"
+#rm -rf "$TMP_PATH"
 
 echo ""
 echo "Release done."

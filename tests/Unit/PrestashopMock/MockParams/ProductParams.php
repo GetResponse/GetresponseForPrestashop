@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -45,7 +44,7 @@ class ProductParams
                     'attribute_name' => 'Size L',
                     'quantity' => 10,
                     'reference' => 'test_product_1',
-                ]
+                ],
             ],
             'reference' => 'test_product_1',
             'quantity' => 10,
@@ -58,7 +57,7 @@ class ProductParams
             'wsStockAvailables' => [
                 ['id' => '12', 'id_product_attribute' => '0'],
                 ['id' => '13', 'id_product_attribute' => '12'],
-            ]
+            ],
         ],
         2 => [
             'id' => 2,
@@ -81,7 +80,7 @@ class ProductParams
                     'attribute_name' => 'Size L',
                     'quantity' => 10,
                     'reference' => 'test_product_1',
-                ]
+                ],
             ],
             'reference' => 'test_product_1',
             'quantity' => 10,
@@ -94,7 +93,7 @@ class ProductParams
             'wsStockAvailables' => [
                 ['id' => '12', 'id_product_attribute' => '0'],
                 ['id' => '13', 'id_product_attribute' => '12'],
-            ]
+            ],
         ],
     ];
 
