@@ -33,7 +33,7 @@ class OrderAdapterTest extends BaseTestCase
      */
     public function shouldCreateOrderFromCommand()
     {
-        $order = new \OrderModel(1);
+        $order = new \Order(1);
 
         $orderUrl = 'https://my-prestashop.com/?controller=order-detail&id_order=' . $order->id;
 

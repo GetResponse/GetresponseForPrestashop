@@ -95,7 +95,7 @@ echo ""
 echo "Build composer"
 composer install --no-dev --working-dir="$RELEASE_PATH"
 
-cp tests/index.php vendor/index.php
+cp "$RELEASE_PATH/tests/index.php" "$RELEASE_PATH/vendor/index.php"
 
 echo ""
 echo "Create new release"
