@@ -95,6 +95,8 @@ echo ""
 echo "Build composer"
 composer install --no-dev --working-dir="$RELEASE_PATH"
 
+cp tests/index.php vendor/index.php
+
 echo ""
 echo "Create new release"
 cd $TMP_PATH && zip -rm "$RELEASE_FILE" "$RELEASE_DIR" -x ".git*"

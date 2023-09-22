@@ -20,10 +20,6 @@
 
 namespace GetResponse\Ecommerce\Application\Adapter;
 
-use Cart as PrestashopCart;
-use Combination;
-use Context;
-use Currency;
 use GetResponse\Contact\Application\Adapter\CustomerAdapter;
 use GetResponse\Ecommerce\DomainModel\Cart;
 use GetResponse\Ecommerce\DomainModel\Line;
@@ -37,16 +33,16 @@ class CartAdapter
      */
     public function getCartById($cartId)
     {
-        $prestashopCart = new PrestashopCart($cartId);
+        $prestashopCart = new \PrestashopCart($cartId);
         $customerAdapter = new CustomerAdapter();
         $customer = $customerAdapter->getCustomerById($prestashopCart->id_customer);
 
-        $currency = new Currency($prestashopCart->id_currency);
+        $currency = new \Currency($prestashopCart->id_currency);
         $lines = [];
 
         foreach ($prestashopCart->getProducts(true) as $product) {
             if ((int) $product['id_product_attribute'] > 0) {
-                $combination = new Combination($product['id_product_attribute']);
+                $combination = new \Combination($product['id_product_attribute']);
                 $variantId = $combination->id;
                 $variantReference = $combination->reference;
             } else {
@@ -64,8 +60,8 @@ class CartAdapter
         }
 
         $shopCartUrl = version_compare(_PS_VERSION_, '1.7', '>=')
-            ? Context::getContext()->link->getPageLink('cart', null, null, ['action' => 'show'])
-            : Context::getContext()->link->getPageLink('order');
+            ? \Context::getContext()->link->getPageLink('cart', null, null, ['action' => 'show'])
+            : \Context::getContext()->link->getPageLink('order');
 
         return new Cart(
             $prestashopCart->id,
