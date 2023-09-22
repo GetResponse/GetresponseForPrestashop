@@ -21,9 +21,8 @@
 namespace GetResponse\Ecommerce\DomainModel;
 
 use GetResponse\SharedKernel\CallbackType;
-use JsonSerializable;
 
-class Product implements JsonSerializable
+class Product implements \JsonSerializable
 {
     const CONFIGURABLE_TYPE = 'configurable';
     const SINGLE_TYPE = 'single';

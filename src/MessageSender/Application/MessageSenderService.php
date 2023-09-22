@@ -22,7 +22,6 @@ namespace GetResponse\MessageSender\Application;
 
 use GetResponse\MessageSender\DomainModel\EventEmitter;
 use GetResponse\MessageSender\DomainModel\EventEmitterException;
-use JsonSerializable;
 
 class MessageSenderService
 {
@@ -36,11 +35,11 @@ class MessageSenderService
 
     /**
      * @param $url
-     * @param JsonSerializable $object
+     * @param \JsonSerializable $object
      *
      * @throws MessageSenderException
      */
-    public function send($url, JsonSerializable $object)
+    public function send($url, $object)
     {
         try {
             $this->eventEmitter->emit($url, $object);

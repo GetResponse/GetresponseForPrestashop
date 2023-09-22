@@ -20,9 +20,7 @@
 
 namespace GetResponse\Ecommerce\DomainModel;
 
-use JsonSerializable;
-
-class Line implements JsonSerializable
+class Line implements \JsonSerializable
 {
     /** @var int */
     private $variantId;

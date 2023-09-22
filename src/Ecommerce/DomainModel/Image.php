@@ -20,9 +20,7 @@
 
 namespace GetResponse\Ecommerce\DomainModel;
 
-use JsonSerializable;
-
-class Image implements JsonSerializable
+class Image implements \JsonSerializable
 {
     /** @var string */
     private $src;

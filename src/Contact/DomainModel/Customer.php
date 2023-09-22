@@ -22,9 +22,8 @@ namespace GetResponse\Contact\DomainModel;
 
 use GetResponse\Ecommerce\DomainModel\Address;
 use GetResponse\SharedKernel\CallbackType;
-use JsonSerializable;
 
-class Customer implements JsonSerializable
+class Customer implements \JsonSerializable
 {
     /** @var int */
     private $id;

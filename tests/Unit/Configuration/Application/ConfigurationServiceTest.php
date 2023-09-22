@@ -25,14 +25,13 @@ use GetResponse\Configuration\Application\ConfigurationService;
 use GetResponse\Configuration\Domain\Configuration;
 use GetResponse\Configuration\Domain\ConfigurationRepository;
 use GetResponse\Tests\Unit\BaseTestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 class ConfigurationServiceTest extends BaseTestCase
 {
     /** @var ConfigurationService */
     private $sut;
 
-    /** @var ConfigurationRepository|PHPUnit_Framework_MockObject_MockObject */
+    /** @var ConfigurationRepository|\PHPUnit_Framework_MockObject_MockObject */
     private $configurationRepositoryMock;
 
     protected function setUp()

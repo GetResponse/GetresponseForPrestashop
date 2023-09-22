@@ -22,8 +22,6 @@ namespace GetResponse\MessageSender\Infrastructure;
 
 use GetResponse\MessageSender\DomainModel\EventEmitter;
 use GetResponse\MessageSender\DomainModel\EventEmitterException;
-use JsonSerializable;
-
 class HttpClient implements EventEmitter
 {
     const GET = 'GET';
@@ -41,14 +39,14 @@ class HttpClient implements EventEmitter
 
     /**
      * @param string $url
-     * @param JsonSerializable $object
+     * @param \JsonSerializable $object
      * @param string $method
      *
      * @return array
      *
      * @throws EventEmitterException
      */
-    private function sendRequest($url, JsonSerializable $object, $method = self::GET)
+    private function sendRequest($url, $object, $method = self::GET)
     {
         $headers = [
             'Content-Type: application/json',
@@ -89,18 +87,22 @@ class HttpClient implements EventEmitter
 
     /**
      * @param string $url
-     * @param JsonSerializable $object
+     * @param \JsonSerializable $object
      *
      * @return array
      *
      * @throws EventEmitterException
      */
-    public function emit($url, JsonSerializable $object)
+    public function emit($url, $object)
     {
         return $this->sendRequest($url, $object, self::POST);
     }
 
-    private function createHmac(JsonSerializable $object)
+    /**
+     * @param \JsonSerializable $object
+     * @return string
+     */
+    private function createHmac($object)
     {
         return base64_encode(
             hash_hmac('sha256', json_encode($object->jsonSerialize()), self::API_APP_SECRET, true)

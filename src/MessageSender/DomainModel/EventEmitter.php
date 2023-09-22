@@ -20,17 +20,15 @@
 
 namespace GetResponse\MessageSender\DomainModel;
 
-use JsonSerializable;
-
 interface EventEmitter
 {
     /**
      * @param string $url
-     * @param JsonSerializable $object
+     * @param \JsonSerializable $object
      *
      * @return array
      *
      * @throws EventEmitterException
      */
-    public function emit($url, JsonSerializable $object);
+    public function emit($url, $object);
 }

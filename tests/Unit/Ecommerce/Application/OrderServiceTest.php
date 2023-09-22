@@ -26,13 +26,12 @@ use GetResponse\Ecommerce\Application\Command\UpsertOrder;
 use GetResponse\Ecommerce\Application\OrderService;
 use GetResponse\MessageSender\Application\MessageSenderService;
 use GetResponse\Tests\Unit\BaseTestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 class OrderServiceTest extends BaseTestCase
 {
-    /** @var MessageSenderService|PHPUnit_Framework_MockObject_MockObject */
+    /** @var MessageSenderService|\PHPUnit_Framework_MockObject_MockObject */
     private $messageSenderServiceMock;
-    /** @var ConfigurationReadModel|PHPUnit_Framework_MockObject_MockObject */
+    /** @var ConfigurationReadModel|\PHPUnit_Framework_MockObject_MockObject */
     private $configurationReadModelMock;
     /** @var OrderService() */
     private $sut;

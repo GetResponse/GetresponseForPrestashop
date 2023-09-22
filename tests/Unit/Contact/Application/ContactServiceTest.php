@@ -28,13 +28,12 @@ use GetResponse\Contact\DomainModel\Customer;
 use GetResponse\Ecommerce\DomainModel\Address;
 use GetResponse\MessageSender\Application\MessageSenderService;
 use GetResponse\Tests\Unit\BaseTestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 class ContactServiceTest extends BaseTestCase
 {
-    /** @var MessageSenderService|PHPUnit_Framework_MockObject_MockObject */
+    /** @var MessageSenderService|\PHPUnit_Framework_MockObject_MockObject */
     private $messageSenderServiceMock;
-    /** @var ConfigurationReadModel|PHPUnit_Framework_MockObject_MockObject */
+    /** @var ConfigurationReadModel|\PHPUnit_Framework_MockObject_MockObject */
     private $configurationReadModelMock;
 
     /** @var ContactService */

@@ -20,11 +20,7 @@
 
 namespace GetResponse\Configuration\ReadModel;
 
-use ArrayIterator;
-use IteratorAggregate;
-use Traversable;
-
-class ConfigurationDtoCollection implements IteratorAggregate
+class ConfigurationDtoCollection implements \IteratorAggregate
 {
     private $configurations;
 
@@ -33,11 +29,8 @@ class ConfigurationDtoCollection implements IteratorAggregate
         $this->configurations[] = $configuration;
     }
 
-    /**
-     * @return Traversable
-     */
     public function getIterator()
     {
-        return new ArrayIterator($this->configurations);
+        return new \ArrayIterator($this->configurations);
     }
 }

@@ -33,7 +33,7 @@ class CartAdapter
      */
     public function getCartById($cartId)
     {
-        $prestashopCart = new \PrestashopCart($cartId);
+        $prestashopCart = new \Cart($cartId);
         $customerAdapter = new CustomerAdapter();
         $customer = $customerAdapter->getCustomerById($prestashopCart->id_customer);
 

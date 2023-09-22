@@ -20,8 +20,6 @@
 
 namespace GetResponse\Contact\Infrastructure;
 
-use Customer;
-use Db;
 use GetResponse\Contact\DomainModel\NewsletterRepository;
 
 class NewsletterDbRepository implements NewsletterRepository
@@ -31,16 +29,16 @@ class NewsletterDbRepository implements NewsletterRepository
         $table = _DB_PREFIX_ . 'newsletter';
         $sql = sprintf("UPDATE %s SET active = %s WHERE id_shop = %s AND email = '%s'", $table, 0, $shopId, $email);
 
-        Db::getInstance()->execute($sql);
+        \Db::getInstance()->execute($sql);
     }
 
     public function removeCustomerFromNewsletter($shopId, $email)
     {
-        $customers = Customer::getCustomersByEmail($email);
+        $customers = \Customer::getCustomersByEmail($email);
 
         foreach ($customers as $row) {
             if ($shopId === (int) $row['id_shop']) {
-                $customer = new Customer($row['id_customer']);
+                $customer = new \Customer($row['id_customer']);
                 $customer->newsletter = 0;
                 $customer->update();
             }

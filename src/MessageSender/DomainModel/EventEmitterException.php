@@ -20,9 +20,7 @@
 
 namespace GetResponse\MessageSender\DomainModel;
 
-use Exception;
-
-class EventEmitterException extends Exception
+class EventEmitterException extends \Exception
 {
     const INVALID_CURL_RESPONSE = 10001;
 
