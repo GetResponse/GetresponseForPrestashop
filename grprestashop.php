@@ -17,22 +17,21 @@ include_once _PS_MODULE_DIR_ . '/grprestashop/classes/WebserviceSpecificManageme
 class GrPrestashop extends Module
 {
     private $usedHooks = [
-        'leftColumn',
-        'rightColumn',
-        'header',
-        'footer',
-        'top',
-        'home',
+        'displayLeftColumn',
+        'displayRightColumn',
+        'displayHeader',
+        'displayFooter',
+        'displayTop',
+        'displayHome',
         'addWebserviceResources',
         'displayBackOfficeHeader',
         'actionCustomerAccountAdd',
-        'actionObjectCustomerUpdateBefore',
         'actionProductAdd',
         'actionProductUpdate',
         'actionObjectCustomerUpdateAfter',
-        'cart',
+        'actionCartSave',
         'actionOrderEdited',
-        'newOrder',
+        'actionOrderStatusUpdate',
         'actionOrderStatusPostUpdate',
         'actionNewsletterRegistrationAfter',
         'actionObjectAddressUpdateAfter',
@@ -43,7 +42,7 @@ class GrPrestashop extends Module
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '1.1.5';
+        $this->version = '1.1.6';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
@@ -386,7 +385,7 @@ class GrPrestashop extends Module
         }
     }
 
-    public function hookCart($params)
+    public function hookActionCartSave($params)
     {
         if (null === $this->context->cart) {
             return;
@@ -473,7 +472,7 @@ class GrPrestashop extends Module
         }
     }
 
-    public function hookNewOrder($params)
+    public function hookActionOrderStatusUpdate($params)
     {
         try {
             /** @var Order $order */

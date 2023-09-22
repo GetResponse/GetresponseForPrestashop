@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.6] - 2023-09-22
+### Fix
+- adjust hooks compatibility for Prestashop 1.7 and 8.1
+
 ## [1.1.5] - 2023-08-09
 ### Fix
 - Handled subscriber name for callback 
