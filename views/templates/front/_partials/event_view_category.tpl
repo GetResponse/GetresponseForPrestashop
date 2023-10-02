@@ -22,9 +22,9 @@ GrTracking(
     'viewCategory',
     {
         "shop": {
-            "id": "{$shop_id}"
+            "id": "{$shop_id|cleanHtml nofilter}"
         },
-        "id": "{$category.id}",
-        "name": "{$category.name}"
+        "id": "{$category.id|cleanHtml nofilter}",
+        "name": "{$category.name|cleanHtml nofilter}"
     }
 );

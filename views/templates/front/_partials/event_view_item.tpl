@@ -22,20 +22,20 @@ GrTracking(
     'viewItem',
     {
         "shop": {
-            "id": "{$shop_id}"
+            "id": "{$shop_id|cleanHtml nofilter}"
         },
         "product": {
-            "id": "{$product.id}",
-            "name": "{$product.name}",
-            "sku": "{if $product.reference}{$product.reference}{else}{$product.id}{/if}",
+            "id": "{$product.id|cleanHtml nofilter}",
+            "name": "{$product.name|cleanHtml nofilter}",
+            "sku": "{if $product.reference}{$product.reference|cleanHtml nofilter}{else}{$product.id|cleanHtml nofilter}{/if}",
             "vendor": {if $product_manufacturer->name}"{$product_manufacturer->name|escape:'html':'UTF-8'}"{else}null{/if},
-            "price": "{$product.price_without_reduction_without_tax}",
-            "currency": "{$currency.iso_code}"
+            "price": "{$product.price_without_reduction_without_tax|cleanHtml nofilter}",
+            "currency": "{$currency.iso_code|cleanHtml nofilter}"
         },
         "categories": [
             {
-                "id": "{$product.id_category_default}",
-                "name": "{$product.category_name}"
+                "id": "{$product.id_category_default|cleanHtml nofilter}",
+                "name": "{$product.category_name|escape:'html':'UTF-8'}"
             }
         ]
     }

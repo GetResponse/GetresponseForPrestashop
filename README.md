@@ -18,10 +18,10 @@ Send personalized, targeted offers to maximize conversions and increase sales.
 ####Detailed instructions can be found [here](https://www.getresponse.com/help/how-can-i-fully-integrate-my-prestashop-with-getresponse.html)
 
 ## Requirements
-- PrestaShop in one of the supported versions: 1.6.1.x or 1.7.x
+- PrestaShop in one of the supported versions: 1.7.x or 8.x
 - PHP version:
-  - 5.6 or higher for PrestaShop 1.6.x – 1.7.6
-  - 7.1 or higher for PrestaShop 1.7.7 – 1.7.8 
+  - 7.4 for PrestaShop 1.7.x
+  - 8.1 or higher for PrestaShop 8.x
 - Prestshop response time (for request from GetResponse) no longer than 15 seconds
 
 ## Known issues

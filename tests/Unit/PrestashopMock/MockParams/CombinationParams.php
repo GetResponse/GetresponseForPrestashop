@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -27,8 +26,8 @@ class CombinationParams
         1 => [
             'id' => 1,
             'reference' => 'product_combination_1',
-            'quantity' => 100
-        ]
+            'quantity' => 100,
+        ],
     ];
 
     /**

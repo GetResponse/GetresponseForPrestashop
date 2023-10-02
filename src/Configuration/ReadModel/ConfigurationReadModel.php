@@ -21,7 +21,6 @@
 namespace GetResponse\Configuration\ReadModel;
 
 use GetResponse\Configuration\Infrastructure\ConfigurationRepository;
-use Shop;
 
 class ConfigurationReadModel
 {
@@ -43,7 +42,7 @@ class ConfigurationReadModel
     {
         $collection = new ConfigurationDtoCollection();
 
-        foreach (Shop::getShops() as $shop) {
+        foreach (\Shop::getShops() as $shop) {
             $collection->add($this->repository->getConfigurationForShop((int) $shop['id_shop']));
         }
 

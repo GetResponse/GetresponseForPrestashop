@@ -20,11 +20,9 @@
 
 namespace GetResponse\Configuration\Infrastructure;
 
-use Configuration as PrestaShopConfiguration;
 use GetResponse\Configuration\Domain\Configuration;
 use GetResponse\Configuration\Domain\ConfigurationRepository as Repository;
 use GetResponse\Configuration\ReadModel\ConfigurationDto;
-use Shop;
 
 class ConfigurationRepository implements Repository
 {
@@ -43,7 +41,7 @@ class ConfigurationRepository implements Repository
      */
     public function upsertConfiguration($configuration)
     {
-        Shop::setContext(Shop::CONTEXT_SHOP, $configuration->getShopId());
+        \Shop::setContext(\Shop::CONTEXT_SHOP, $configuration->getShopId());
 
         $this->updateConfig(self::FB_PIXEL_SNIPPET, $configuration->getFacebookPixelSnippet());
         $this->updateConfig(self::FB_ADS_PIXEL_SNIPPET, $configuration->getFacebookAdsPixelSnippet());
@@ -58,15 +56,15 @@ class ConfigurationRepository implements Repository
 
     public function deleteAllConfigurations()
     {
-        PrestaShopConfiguration::deleteByName(self::FB_PIXEL_SNIPPET);
-        PrestaShopConfiguration::deleteByName(self::FB_ADS_PIXEL_SNIPPET);
-        PrestaShopConfiguration::deleteByName(self::FB_BUSINESS_EXT_SNIPPET);
-        PrestaShopConfiguration::deleteByName(self::GR_CHAT_SNIPPET);
-        PrestaShopConfiguration::deleteByName(self::GR_RECOMMENDATION_SNIPPET);
-        PrestaShopConfiguration::deleteByName(self::GR_TRACKING_SNIPPET);
-        PrestaShopConfiguration::deleteByName(self::GR_FORM);
-        PrestaShopConfiguration::deleteByName(self::GR_LIVE_SYNC);
-        PrestaShopConfiguration::deleteByName(self::GR_SHOP_ID);
+        \Configuration::deleteByName(self::FB_PIXEL_SNIPPET);
+        \Configuration::deleteByName(self::FB_ADS_PIXEL_SNIPPET);
+        \Configuration::deleteByName(self::FB_BUSINESS_EXT_SNIPPET);
+        \Configuration::deleteByName(self::GR_CHAT_SNIPPET);
+        \Configuration::deleteByName(self::GR_RECOMMENDATION_SNIPPET);
+        \Configuration::deleteByName(self::GR_TRACKING_SNIPPET);
+        \Configuration::deleteByName(self::GR_FORM);
+        \Configuration::deleteByName(self::GR_LIVE_SYNC);
+        \Configuration::deleteByName(self::GR_SHOP_ID);
     }
 
     private function updateConfig(string $key, $value)
@@ -74,17 +72,17 @@ class ConfigurationRepository implements Repository
         $value = is_object($value) ? (string) $value : $value;
 
         $keyWithPrefix = $key;
-        PrestaShopConfiguration::updateValue($keyWithPrefix, $value);
+        \Configuration::updateValue($keyWithPrefix, $value);
     }
 
     public function getConfigurationForShop($shopId)
     {
-        Shop::setContext(Shop::CONTEXT_SHOP, $shopId);
+        \Shop::setContext(\Shop::CONTEXT_SHOP, $shopId);
 
         $getResponseWebFormId = null;
         $getResponseWebFormUrl = null;
         $getResponseWebFormBlock = null;
-        $getResponseWebForm = PrestaShopConfiguration::get(self::GR_FORM);
+        $getResponseWebForm = \Configuration::get(self::GR_FORM);
         if (!empty($getResponseWebForm)) {
             $webForm = json_decode($getResponseWebForm, true);
             $getResponseWebFormId = $webForm['id'];
@@ -94,7 +92,7 @@ class ConfigurationRepository implements Repository
 
         $getResponseLiveSyncType = null;
         $getResponseLiveSyncUrl = null;
-        $getResponseLiveSync = PrestaShopConfiguration::get(self::GR_LIVE_SYNC);
+        $getResponseLiveSync = \Configuration::get(self::GR_LIVE_SYNC);
         if (!empty($getResponseLiveSync)) {
             $liveSync = json_decode($getResponseLiveSync, true);
             $getResponseLiveSyncType = $liveSync['type'];
@@ -103,18 +101,18 @@ class ConfigurationRepository implements Repository
 
         return new ConfigurationDto(
             $shopId,
-            PrestaShopConfiguration::get(self::FB_PIXEL_SNIPPET) ?: null,
-            PrestaShopConfiguration::get(self::FB_ADS_PIXEL_SNIPPET) ?: null,
-            PrestaShopConfiguration::get(self::FB_BUSINESS_EXT_SNIPPET) ?: null,
-            PrestaShopConfiguration::get(self::GR_CHAT_SNIPPET) ?: null,
-            PrestaShopConfiguration::get(self::GR_RECOMMENDATION_SNIPPET) ?: null,
-            PrestaShopConfiguration::get(self::GR_TRACKING_SNIPPET) ?: null,
+            \Configuration::get(self::FB_PIXEL_SNIPPET) ?: null,
+            \Configuration::get(self::FB_ADS_PIXEL_SNIPPET) ?: null,
+            \Configuration::get(self::FB_BUSINESS_EXT_SNIPPET) ?: null,
+            \Configuration::get(self::GR_CHAT_SNIPPET) ?: null,
+            \Configuration::get(self::GR_RECOMMENDATION_SNIPPET) ?: null,
+            \Configuration::get(self::GR_TRACKING_SNIPPET) ?: null,
             $getResponseWebFormId,
             $getResponseWebFormUrl,
             $getResponseWebFormBlock,
             $getResponseLiveSyncUrl,
             $getResponseLiveSyncType,
-            PrestaShopConfiguration::get(self::GR_SHOP_ID) ?: null
+            \Configuration::get(self::GR_SHOP_ID) ?: null
         );
     }
 }

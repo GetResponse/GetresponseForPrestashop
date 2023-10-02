@@ -20,11 +20,9 @@
 
 namespace GetResponse\MessageSender\Application;
 
-use Exception;
-
-class MessageSenderException extends Exception
+class MessageSenderException extends \Exception
 {
-    public static function createFromPrevious(Exception $e)
+    public static function createFromPrevious(\Exception $e)
     {
         return new self($e->getMessage(), $e->getCode(), $e);
     }

@@ -121,7 +121,7 @@ class ProductAdapterTest extends BaseTestCase
                 'description',
                 $images,
                 'publish'
-            )
+            ),
         ];
 
         self::assertEquals($productId, $product->getId());

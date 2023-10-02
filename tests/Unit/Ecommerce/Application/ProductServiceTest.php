@@ -30,13 +30,12 @@ use GetResponse\Ecommerce\DomainModel\Product;
 use GetResponse\Ecommerce\DomainModel\Variant;
 use GetResponse\MessageSender\Application\MessageSenderService;
 use GetResponse\Tests\Unit\BaseTestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 class ProductServiceTest extends BaseTestCase
 {
-    /** @var MessageSenderService|PHPUnit_Framework_MockObject_MockObject */
+    /** @var MessageSenderService|\PHPUnit_Framework_MockObject_MockObject */
     private $messageSenderMock;
-    /** @var ConfigurationReadModel|PHPUnit_Framework_MockObject_MockObject */
+    /** @var ConfigurationReadModel|\PHPUnit_Framework_MockObject_MockObject */
     private $configurationReadModelMock;
     /** @var ProductService */
     private $sut;
@@ -86,7 +85,7 @@ class ProductServiceTest extends BaseTestCase
                 'description2',
                 $images,
                 $status
-            )
+            ),
         ];
 
         $productMock = new Product(

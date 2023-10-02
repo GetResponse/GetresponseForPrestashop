@@ -20,7 +20,6 @@
 
 namespace GetResponse\Configuration\Application;
 
-use GetResponse\Configuration\Application\Command\UpsertConfiguration;
 use GetResponse\Configuration\Domain\Configuration;
 use GetResponse\Configuration\Domain\ConfigurationRepository;
 use GetResponse\Configuration\Domain\LiveSynchronization;
@@ -38,23 +37,20 @@ class ConfigurationService
         $this->configurationRepository = $configurationRepository;
     }
 
-    /**
-     * @param UpsertConfiguration $updateConfiguration
-     */
-    public function upsertConfiguration($updateConfiguration)
+    public function upsertConfiguration($configuration)
     {
         $this->configurationRepository->upsertConfiguration(
             new Configuration(
-                $updateConfiguration->getShopId(),
-                $updateConfiguration->getFacebookPixelSnippet(),
-                $updateConfiguration->getFacebookAdsPixelSnippet(),
-                $updateConfiguration->getFacebookBusinessExtensionSnippet(),
-                $updateConfiguration->getGetResponseChatSnippet(),
-                $updateConfiguration->getGetResponseRecommendationSnippet(),
-                $updateConfiguration->getGetResponseWebTrackingSnippet(),
-                $this->getWebForm($updateConfiguration),
-                $this->getLiveSynchronization($updateConfiguration),
-                $updateConfiguration->getGetResponseShopId()
+                $configuration->getShopId(),
+                $configuration->getFacebookPixelSnippet(),
+                $configuration->getFacebookAdsPixelSnippet(),
+                $configuration->getFacebookBusinessExtensionSnippet(),
+                $configuration->getGetResponseChatSnippet(),
+                $configuration->getGetResponseRecommendationSnippet(),
+                $configuration->getGetResponseWebTrackingSnippet(),
+                $this->getWebForm($configuration),
+                $this->getLiveSynchronization($configuration),
+                $configuration->getGetResponseShopId()
             )
         );
     }
@@ -85,17 +81,12 @@ class ConfigurationService
      *
      * @return LiveSynchronization|null
      */
-    private function getLiveSynchronization($updateConfiguration)
+    private function getLiveSynchronization($configuration)
     {
-        if (null !== $updateConfiguration->getLiveSynchronizationType() &&
-            null !== $updateConfiguration->getLiveSynchronizationUrl()) {
-            return new LiveSynchronization(
-                $updateConfiguration->getLiveSynchronizationUrl(),
-                $updateConfiguration->getLiveSynchronizationType()
-            );
-        }
+        $type = $configuration->getLiveSynchronizationType();
+        $url = $configuration->getLiveSynchronizationUrl();
 
-        return null;
+        return null !== $type && null !== $url ? new LiveSynchronization($url, $type) : null;
     }
 
     public function deleteAllConfigurations()

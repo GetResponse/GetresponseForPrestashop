@@ -18,7 +18,6 @@
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
 
-
 namespace GetResponse\Tests\Unit\Ecommerce\DomainModel;
 
 use GetResponse\Ecommerce\DomainModel\RecommendedProduct;
@@ -50,13 +49,13 @@ class RecommendedProductTest extends BaseTestCase
             'price' => 12.99,
             'imageUrl' => 'https://my-prestashop.com/product/image/1.jpg',
             'description' => 'This is productDescription',
-            'category' => "FirstCategory > SecondCategory",
+            'category' => 'FirstCategory > SecondCategory',
             'available' => true,
             'sku' => 'product-sku',
             'attribute1' => 19.99,
             'attribute2' => null,
             'attribute3' => null,
-            'attribute4' => null
+            'attribute4' => null,
         ];
 
         $product = new RecommendedProduct($url, $externalId, $name, $price, $imageUrl, $description, [$category1, $category2], $sku, $previousPrice);
@@ -76,7 +75,7 @@ class RecommendedProductTest extends BaseTestCase
                 'FirstCategory',
                 'SecondCategory',
                 'product-sku',
-                19.99
+                19.99,
             ],
             [
                 'https://my-prestashop.com/product/1',
@@ -88,8 +87,8 @@ class RecommendedProductTest extends BaseTestCase
                 'FirstCategory',
                 'SecondCategory',
                 'product-sku',
-                19.99000001
-            ]
+                19.99000001,
+            ],
         ];
     }
 }

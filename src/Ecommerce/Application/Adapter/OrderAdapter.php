@@ -20,38 +20,30 @@
 
 namespace GetResponse\Ecommerce\Application\Adapter;
 
-use Combination;
-use Country;
-use Currency;
-use Customer as PrestashopCustomer;
 use GetResponse\Contact\Application\Adapter\CustomerAdapter;
 use GetResponse\Ecommerce\DomainModel\Address;
 use GetResponse\Ecommerce\DomainModel\Line;
 use GetResponse\Ecommerce\DomainModel\Order;
-use Order as PrestashopOrder;
-use OrderState;
-use State;
-use Tools;
 
 class OrderAdapter
 {
     public function getOrderById($orderId)
     {
         $customerAdapter = new CustomerAdapter();
-        $prestashopOrder = new PrestashopOrder($orderId);
-        $customer = new PrestashopCustomer($prestashopOrder->id_customer);
-        $prestashopBaseUrl = Tools::getHttpHost(true) . __PS_BASE_URI__;
+        $prestashopOrder = new \Order($orderId);
+        $customer = new \Customer($prestashopOrder->id_customer);
+        $prestashopBaseUrl = \Tools::getHttpHost(true) . __PS_BASE_URI__;
         $orderUrl = $prestashopBaseUrl . '?controller=order-detail&id_order=' . $prestashopOrder->id;
 
-        $currency = new Currency($prestashopOrder->id_currency);
+        $currency = new \Currency($prestashopOrder->id_currency);
 
         $shippingAddress = null;
         $billingAddress = null;
 
         if ($prestashopOrder->id_address_delivery) {
             $address = new \Address($prestashopOrder->id_address_delivery);
-            $country = new Country($address->id_country);
-            $state = new State($address->id_state);
+            $country = new \Country($address->id_country);
+            $state = new \State($address->id_state);
 
             $shippingAddress = new Address(
                 $address->alias,
@@ -71,8 +63,8 @@ class OrderAdapter
 
         if ($prestashopOrder->id_address_invoice) {
             $address = new \Address($prestashopOrder->id_address_invoice);
-            $country = new Country($address->id_country);
-            $state = new State($address->id_state);
+            $country = new \Country($address->id_country);
+            $state = new \State($address->id_state);
 
             $billingAddress = new Address(
                 $address->alias,
@@ -110,13 +102,13 @@ class OrderAdapter
         );
     }
 
-    private function getProducts(PrestashopOrder $order)
+    private function getProducts(\Order $order)
     {
         $lines = [];
 
         foreach ($order->getProducts() as $product) {
             if ((int) $product['product_attribute_id'] > 0) {
-                $combination = new Combination($product['product_attribute_id']);
+                $combination = new \Combination($product['product_attribute_id']);
                 $variantId = $combination->id;
                 $variantReference = $combination->reference;
             } else {
@@ -136,9 +128,9 @@ class OrderAdapter
         return $lines;
     }
 
-    private function getOrderStatus(PrestashopOrder $order)
+    private function getOrderStatus(\Order $order)
     {
-        $status = (new OrderState($order->getCurrentState(), $order->id_lang))->name;
+        $status = (new \OrderState($order->getCurrentState(), $order->id_lang))->name;
 
         return empty($status) ? 'new' : $status;
     }

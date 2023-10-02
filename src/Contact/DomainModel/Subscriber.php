@@ -21,9 +21,7 @@
 namespace GetResponse\Contact\DomainModel;
 
 use GetResponse\SharedKernel\CallbackType;
-use JsonSerializable;
-
-class Subscriber implements JsonSerializable
+class Subscriber implements \JsonSerializable
 {
     /** @var string */
     private $email;

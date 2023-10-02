@@ -20,14 +20,11 @@
 
 namespace GetResponse\Tests\Unit\Ecommerce\Application\Adapter;
 
-use Currency;
 use GetResponse\Contact\DomainModel\Customer;
 use GetResponse\Ecommerce\Application\Adapter\OrderAdapter;
 use GetResponse\Ecommerce\DomainModel\Address;
 use GetResponse\Ecommerce\DomainModel\Order;
 use GetResponse\Tests\Unit\BaseTestCase;
-use Order as OrderModel;
-use OrderState;
 
 class OrderAdapterTest extends BaseTestCase
 {
@@ -36,13 +33,13 @@ class OrderAdapterTest extends BaseTestCase
      */
     public function shouldCreateOrderFromCommand()
     {
-        $order = new OrderModel(1);
+        $order = new \Order(1);
 
         $orderUrl = 'https://my-prestashop.com/?controller=order-detail&id_order=' . $order->id;
 
         $productLines = [];
-        $currency = new Currency($order->id_currency);
-        $orderStatus = new OrderState($order->getCurrentState(), $order->id_lang);
+        $currency = new \Currency($order->id_currency);
+        $orderStatus = new \OrderState($order->getCurrentState(), $order->id_lang);
 
         $customerAddress = new Address('home', 'Poland', 'John', 'Doe', 'Street 1', '', 'City', 'PostCode', 'State', '', '544 404 400', '');
         $customer = new Customer(1, 'John', 'Doe', 'john.doe@example.com', $customerAddress, 1, ['birthday' => '1987-09-04']);

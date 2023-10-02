@@ -24,11 +24,10 @@ use GetResponse\Contact\Application\Command\UnsubscribeContact;
 use GetResponse\Contact\Application\SubscriberService;
 use GetResponse\Contact\DomainModel\NewsletterRepository;
 use GetResponse\Tests\Unit\BaseTestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 class SubscriberServiceTest extends BaseTestCase
 {
-    /** @var NewsletterRepository|PHPUnit_Framework_MockObject_MockObject */
+    /** @var NewsletterRepository|\PHPUnit_Framework_MockObject_MockObject */
     private $newsletterRepositoryMock;
 
     /** @var SubscriberService */

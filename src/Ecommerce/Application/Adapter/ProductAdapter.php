@@ -20,13 +20,9 @@
 
 namespace GetResponse\Ecommerce\Application\Adapter;
 
-use Category as PrestashopCategory;
 use GetResponse\Ecommerce\DomainModel\Category;
 use GetResponse\Ecommerce\DomainModel\Product;
 use GetResponse\Ecommerce\DomainModel\Variant;
-use Link;
-use Manufacturer;
-use Product as PrestashopProduct;
 
 class ProductAdapter
 {
@@ -43,8 +39,8 @@ class ProductAdapter
     public function getProductById($productId, $languageId)
     {
         $imageAdapter = new ImageAdapter();
-        $product = new PrestashopProduct($productId);
-        $link = new Link();
+        $product = new \Product($productId);
+        $link = new \Link();
 
         $variants = [];
         $images = [];
@@ -58,7 +54,7 @@ class ProductAdapter
         }
 
         foreach ($product->getCategories() as $productCategory) {
-            $category = new PrestashopCategory($productCategory, $languageId);
+            $category = new \Category($productCategory, $languageId);
             $categories[] = new Category($category->id, $category->id_parent, $category->name);
         }
 
@@ -109,7 +105,7 @@ class ProductAdapter
             );
         }
 
-        $manufacture = new Manufacturer($product->id_manufacturer);
+        $manufacture = new \Manufacturer($product->id_manufacturer);
 
         return new Product(
             $product->id,
@@ -148,12 +144,12 @@ class ProductAdapter
     }
 
     /**
-     * @param PrestashopProduct $product
+     * @param \Product $product
      * @param $languageId
      *
      * @return mixed|null
      */
-    private function getDescription(PrestashopProduct $product, $languageId)
+    private function getDescription(\Product $product, $languageId)
     {
         $description = $product->description[$languageId];
 
@@ -165,12 +161,12 @@ class ProductAdapter
     }
 
     /**
-     * @param PrestashopProduct $product
+     * @param \Product $product
      * @param $languageId
      *
      * @return mixed|null
      */
-    private function getShortDescription(PrestashopProduct $product, $languageId)
+    private function getShortDescription(\Product $product, $languageId)
     {
         $description = $product->description_short[$languageId];
 
@@ -181,7 +177,7 @@ class ProductAdapter
         return $description;
     }
 
-    private function getProductQuantity(PrestashopProduct $product, int $idProductAttribute)
+    private function getProductQuantity(\Product $product, int $idProductAttribute)
     {
         if (empty($product->getWsStockAvailables())) {
             return 0;
@@ -213,7 +209,7 @@ class ProductAdapter
         return self::SKU_PREFIX . $combination['id_product_attribute'];
     }
 
-    private function getProductSimpleSku(PrestashopProduct $product)
+    private function getProductSimpleSku(\Product $product)
     {
         if (!empty($product->reference)) {
             return $product->reference;
@@ -222,7 +218,7 @@ class ProductAdapter
         return self::SKU_PREFIX . $product->id;
     }
 
-    private function getStockAvailableId(PrestashopProduct $product, int $idProductAttribute)
+    private function getStockAvailableId(\Product $product, int $idProductAttribute)
     {
         foreach ($product->getWsStockAvailables() as $stockAvailable) {
             if (!is_array($stockAvailable)) {

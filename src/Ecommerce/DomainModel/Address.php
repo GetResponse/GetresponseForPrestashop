@@ -20,9 +20,7 @@
 
 namespace GetResponse\Ecommerce\DomainModel;
 
-use JsonSerializable;
-
-class Address implements JsonSerializable
+class Address implements \JsonSerializable
 {
     /** @var string */
     private $name;

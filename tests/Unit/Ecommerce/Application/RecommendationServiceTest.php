@@ -104,7 +104,6 @@ class RecommendationServiceTest extends BaseTestCase
             ->with($productId, $languageId)
             ->willReturn($productMock);
 
-
         $command = new RecommendedProductCommand($productId, $languageId);
 
         $product = $this->sut->createRecommendedProduct($command);
