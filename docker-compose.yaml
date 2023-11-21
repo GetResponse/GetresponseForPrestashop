@@ -1,0 +1,13 @@
+services:
+  php71:
+    build:
+      context: .
+      target: php7
+    volumes:
+      - ./:/plugin:consistent
+  php56:
+    build:
+      context: .
+      target: php5
+    volumes:
+      - ./:/plugin:consistent

@@ -13,7 +13,7 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y \
         unzip
-RUN composer install --no-interaction --prefer-dist --no-suggest --no-cache
+RUN composer update --no-interaction --prefer-dist --no-suggest --no-cache
 ENTRYPOINT [ "/bin/bash", "-c", "tail -f /dev/null" ]
 
 FROM php:7.1-cli as php7
