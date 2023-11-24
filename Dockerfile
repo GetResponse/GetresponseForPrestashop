@@ -13,7 +13,7 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y \
         unzip
-RUN composer install --no-interaction --prefer-dist --no-suggest --no-cache
+RUN composer update --no-interaction --prefer-dist --no-suggest --no-cache
 ENTRYPOINT [ "/bin/bash", "-c", "tail -f /dev/null" ]
 
 FROM php:7.1-cli as php7
@@ -28,7 +28,7 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y \
         unzip
-RUN composer install --no-interaction --prefer-dist --no-suggest --no-cache
+RUN composer update --no-interaction --prefer-dist --no-suggest --no-cache
 RUN printf "zend_extension=xdebug.so\nxdebug.remote_autostart=off\nxdebug.remote_enable=on\nxdebug.remote_port=9003\nxdebug.idekey=PHPSTORM\nxdebug.remote_connect_back=off\nxdebug.remote_log=/proc/self/fd/2\nxdebug.remote_host=host.docker.internal" > $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini
 ENTRYPOINT [ "/bin/bash", "-c", "tail -f /dev/null" ]
 

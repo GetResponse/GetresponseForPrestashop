@@ -177,7 +177,7 @@ class ProductAdapter
         return $description;
     }
 
-    private function getProductQuantity(\Product $product, int $idProductAttribute)
+    private function getProductQuantity(\Product $product, $idProductAttribute)
     {
         if (empty($product->getWsStockAvailables())) {
             return 0;
@@ -218,7 +218,7 @@ class ProductAdapter
         return self::SKU_PREFIX . $product->id;
     }
 
-    private function getStockAvailableId(\Product $product, int $idProductAttribute)
+    private function getStockAvailableId(\Product $product, $idProductAttribute)
     {
         foreach ($product->getWsStockAvailables() as $stockAvailable) {
             if (!is_array($stockAvailable)) {

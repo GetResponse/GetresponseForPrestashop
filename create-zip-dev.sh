@@ -4,14 +4,17 @@ TMP_PATH="`pwd`/tmp"
 RELEASE_DIR="grprestashop"
 RELEASE_PATH="$TMP_PATH/$RELEASE_DIR"
 RELEASE_FILE="grprestashop.zip"
+COMPOSER_REMOTE_PROJECT_PATH="/plugin/tmp/$RELEASE_DIR"
 
 FILES_TO_DELETE=(
   ".php_cs.dist"
   "deploy.sh"
-  "create_zip_from_current_files.sh"
+  "create-zip-dev.sh"
   ".gitlab-ci.yml"
   "Dockerfile"
+  "docker-compose.yaml"
   "Makefile"
+  ".env"
   "tests"
   "vendor"
   "tmp"
@@ -38,8 +41,7 @@ done
 
 echo ""
 echo "Build composer"
-composer install --no-dev --working-dir="$RELEASE_PATH"
-composer run-fixers
+docker compose exec php71 composer install --no-dev --working-dir="$COMPOSER_REMOTE_PROJECT_PATH"
 
 echo ""
 echo "Create new zip"

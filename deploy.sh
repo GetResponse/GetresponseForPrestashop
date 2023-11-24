@@ -1,21 +1,23 @@
 #!/bin/sh
 
 TMP_PATH="`pwd`/tmp"
-GIT_PATH=`pwd`
 GITLAB_REMOTE_URL="git@git.int.getresponse.com:integrations/prestashop/getresponse-for-prestashop.git"
 GITHUB_REMOTE_URL="git@github.com:GetResponse/GetresponseForPrestashop.git"
 GITHUB_PATH="$TMP_PATH/github"
 RELEASE_DIR="grprestashop"
 RELEASE_PATH="$TMP_PATH/$RELEASE_DIR"
 RELEASE_FILE="grprestashop.zip"
+COMPOSER_REMOTE_PROJECT_PATH="/plugin/tmp/$RELEASE_DIR"
 
 FILES_TO_DELETE=(
   ".php_cs.dist"
   "deploy.sh"
-  "create_zip_from_current_files.sh"
+  "create-zip-dev.sh"
   ".gitlab-ci.yml"
   "Dockerfile"
+  "docker-compose.yaml"
   "Makefile"
+  ".env"
 )
 
 if [ -d "$TMP_PATH" ]
@@ -32,15 +34,42 @@ echo "--------------------------------------------"
 read -p "TAG AND RELEASE VERSION: " VERSION
 echo "--------------------------------------------"
 echo ""
-echo "Before continuing, confirm that you have done the following :)"
+echo "Before continuing, confirm that:"
 echo ""
-read -p " - Added a changelog for "$VERSION" to CHANGELOG.md file?"
-read -p " - Set version in the main file to "$VERSION"?"
-read -p " - Set version in the Webservice configuration file to "$VERSION"?"
-read -p " - Set stable tag in the config.xml file to "$VERSION"?"
 read -p " - Committed all changes up to Gitlab?"
 
-echo ""
+# validate version in grprestashop.php
+PLUGIN_VERSION=`grep '$this->version =' grprestashop.php | awk -F"'" '{print $2}'`
+if [ "$VERSION" != "$PLUGIN_VERSION" ]
+then
+    echo "Version: $VERSION not found in grprestashop.php file"
+    exit 1
+fi
+
+# validate version in CHANGELOG.md
+if ! grep -q "## \[$VERSION\]" CHANGELOG.md; then
+    echo "Version: $VERSION not found in CHANGELOG.md file"
+    exit 1
+fi
+
+# validate version in webservice file
+PLUGIN_VERSION=`grep "'plugin_version' => " classes/WebserviceSpecificManagementGetresponseModule.php | awk -F"'" '{print $4}'`
+if [ "$VERSION" != "$PLUGIN_VERSION" ]
+then
+    echo "Version: $VERSION not found in WebserviceSpecificManagementGetresponseModule.php file"
+    exit 1
+fi
+
+# validate version in config.xml
+PLUGIN_VERSION=$(grep '<version>' config.xml | sed -n 's/.*<version><!\[CDATA\[\([^]]*\)\]\]><\/version>.*/\1/p')
+echo $PLUGIN_VERSION;
+if [ "$VERSION" != "$PLUGIN_VERSION" ]
+then
+    echo "Version: $VERSION not found in config.xml file"
+    exit 1
+fi
+
+# validate if tag exists in GitLab
 git ls-remote --exit-code --tags origin $VERSION >/dev/null 2>&1
 if ! [ $? == 0 ]
 then
@@ -93,13 +122,14 @@ done
 
 echo ""
 echo "Build composer"
-composer install --no-dev --working-dir="$RELEASE_PATH"
+docker compose exec php71 composer install --no-dev --working-dir="$COMPOSER_REMOTE_PROJECT_PATH"
 
 cp "$RELEASE_PATH/tests/index.php $RELEASE_PATH/vendor/index.php"
 
 echo ""
 echo "Create new release"
 cd $TMP_PATH && zip -rm "$RELEASE_FILE" "$RELEASE_DIR" -x ".git*"
+
 cd $GITHUB_PATH && gh release create "$VERSION" --generate-notes --latest -n "$VERSION" "$TMP_PATH/$RELEASE_FILE"
 
 echo ""
