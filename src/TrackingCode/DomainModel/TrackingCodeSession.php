@@ -24,13 +24,24 @@ use Context;
 
 class TrackingCodeSession
 {
+    const CART_HASH_COOKIE_NAME = 'gr4prestashop_cart_hash';
     const CART_COOKIE_NAME = 'gr4prestashop_cart';
     const ORDER_COOKIE_NAME = 'gr4prestashop_order';
 
     public function addCartToBuffer(Cart $cart)
     {
         $context = Context::getContext();
+
+        if ($context->cookie->__isset(self::CART_HASH_COOKIE_NAME)) {
+            $lastCartHash = $context->cookie->__get(self::CART_HASH_COOKIE_NAME);
+
+            if ($lastCartHash === $cart->getHash()) {
+                return;
+            }
+        }
+
         $context->cookie->__set(self::CART_COOKIE_NAME, json_encode($cart->toArray()));
+        $context->cookie->__set(self::CART_HASH_COOKIE_NAME, $cart->getHash());
     }
 
     public function getCartFromBuffer()

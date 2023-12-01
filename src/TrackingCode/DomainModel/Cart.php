@@ -80,4 +80,9 @@ class Cart
         return $this->id !== 0;
     }
 
+    public function getHash()
+    {
+        return md5(serialize($this->toArray()));
+    }
+
 }
