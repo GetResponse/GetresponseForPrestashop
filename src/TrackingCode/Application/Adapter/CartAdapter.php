@@ -30,10 +30,7 @@ class CartAdapter
     {
         $prestashopCart = new \Cart($cartId);
         $currency = new \Currency($prestashopCart->id_currency);
-        $shopCartUrl = version_compare(_PS_VERSION_, '1.7', '>=')
-            ? \Context::getContext()->link->getPageLink('cart', null, null, ['action' => 'show'])
-            : \Context::getContext()->link->getPageLink('order');
-
+        $shopCartUrl = \Context::getContext()->link->getPageLink('cart', null, null, ['action' => 'show']);
 
         $products = [];
 
