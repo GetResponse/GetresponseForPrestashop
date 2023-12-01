@@ -17,12 +17,12 @@
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  *}
 
+{if isset($web_connect)}
+    {include file='modules/grprestashop/views/templates/front/_partials/web_connect.tpl'}
+{/if}
+
 <!-- getresponse start -->
 <script type="text/javascript">
-
-    {if isset($web_connect)}
-        {include file='modules/grprestashop//views/templates/front/_partials/web_connect.tpl'}
-    {/if}
 
     {if $facebook_pixel_snippet}
         {$facebook_pixel_snippet|cleanHtml nofilter}
