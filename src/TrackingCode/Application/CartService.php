@@ -23,22 +23,22 @@ namespace GetResponse\TrackingCode\Application;
 use GetResponse\Configuration\ReadModel\ConfigurationReadModel;
 use GetResponse\TrackingCode\Application\Adapter\CartAdapter;
 use GetResponse\TrackingCode\Application\Command\AddCartToBuffer;
-use GetResponse\TrackingCode\DomainModel\TrackingCodeSession;
+use GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService;
 
 class CartService
 {
     /** @var ConfigurationReadModel */
     private $configurationReadModel;
-    /** @var TrackingCodeSession */
-    private $session;
+    /** @var TrackingCodeBufferService */
+    private $service;
 
     public function __construct(
         ConfigurationReadModel $configurationReadModel,
-        TrackingCodeSession $session
+        TrackingCodeBufferService $service
 
     ) {
         $this->configurationReadModel = $configurationReadModel;
-        $this->session = $session;
+        $this->service = $service;
     }
 
     public function addCartToBuffer($cartId, $shopId)
@@ -53,7 +53,7 @@ class CartService
         $cart = $cartAdapter->getCartById($cartId);
 
         if ($cart->isValuable()) {
-            $this->session->addCartToBuffer($cart);
+            $this->service->addCartToBuffer($cart);
         }
     }
 
@@ -65,6 +65,6 @@ class CartService
             return null;
         }
 
-        return $this->session->getCartFromBuffer();
+        return $this->service->getCartFromBuffer();
     }
 }

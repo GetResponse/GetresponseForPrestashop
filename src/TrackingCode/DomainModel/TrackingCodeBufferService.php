@@ -22,7 +22,7 @@ namespace GetResponse\TrackingCode\DomainModel;
 
 use Context;
 
-class TrackingCodeSession
+class TrackingCodeBufferService
 {
     const CART_HASH_COOKIE_NAME = 'gr4prestashop_cart_hash';
     const CART_COOKIE_NAME = 'gr4prestashop_cart';

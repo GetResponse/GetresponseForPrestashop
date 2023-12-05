@@ -42,7 +42,7 @@ class GrPrestashop extends Module
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '1.2.1';
+        $this->version = '1.3.0';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
@@ -175,7 +175,7 @@ class GrPrestashop extends Module
             $getresponseShopId = $configuration->getGetresponseShopId();
 
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                $session = new \GetResponse\TrackingCode\DomainModel\TrackingCodeSession();
+                $session = new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService();
                 $cartService = new \GetResponse\TrackingCode\Application\CartService($configurationReadModel, $session);
 
                 $bufferedCart = $cartService->getCartFromBuffer($currentShopId);
@@ -437,7 +437,7 @@ class GrPrestashop extends Module
 
             $trackingCodeCartService = new \GetResponse\TrackingCode\Application\CartService(
                 $configurationReadModel,
-                new \GetResponse\TrackingCode\DomainModel\TrackingCodeSession()
+                new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService()
             );
             $trackingCodeCartService->addCartToBuffer($cart->id, $shop->id);
 
@@ -665,7 +665,7 @@ class GrPrestashop extends Module
 
         $trackingCodeOrderService = new \GetResponse\TrackingCode\Application\OrderService(
             $configurationReadModel,
-            new \GetResponse\TrackingCode\DomainModel\TrackingCodeSession()
+            new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService()
         );
 
         $trackingCodeOrderService->addOrderToBuffer($order->id, $order->id_shop);
