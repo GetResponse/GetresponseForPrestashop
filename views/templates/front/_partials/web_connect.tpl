@@ -16,9 +16,11 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  *}
-{$web_connect|unescape:'all' nofilter}
 
 <script type="text/javascript">
+
+{$web_connect|unescape:'all' nofilter}
+
 {if $user_email}
     GrTracking('setUserId', '{$user_email|escape:'htmlall':'UTF-8'}');
 {/if}

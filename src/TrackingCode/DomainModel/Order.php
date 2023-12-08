@@ -58,7 +58,7 @@ class Order
 
             $products[] = [
                 'product' => $product->toArray(),
-                'quantity' => $product->getQuantity(),
+                'quantity' => (int) $product->getQuantity(),
                 'categories' => $categories
             ];
         }
