@@ -142,6 +142,11 @@ class ConfigurationDto
         return $this->getResponseWebTrackingSnippet;
     }
 
+    public function isGetResponseWebTrackingActive()
+    {
+        return '' !== $this->getResponseWebTrackingSnippet;
+    }
+
     /**
      * @return int|null
      */

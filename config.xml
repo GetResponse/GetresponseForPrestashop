@@ -2,7 +2,7 @@
 <module>
 	<name>grprestashop</name>
 	<displayName><![CDATA[GetResponse]]></displayName>
-	<version><![CDATA[1.2.0]]></version>
+	<version><![CDATA[1.3.0]]></version>
 	<description><![CDATA[Add your Prestashop contacts to GetResponse.]]></description>
 	<author><![CDATA[GetResponse]]></author>
 	<tab><![CDATA[emailing]]></tab>

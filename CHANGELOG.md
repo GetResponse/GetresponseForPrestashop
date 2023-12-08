@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.0] - 2023-12-01
+### Feature
+- Added TrackingCode events: cart_updated & order_created
+- 
 ## [1.2.0] - 2023-09-22
 ### Fix
 - adjust hooks compatibility for Prestashop 1.7 and 8.1

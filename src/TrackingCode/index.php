@@ -1,4 +1,5 @@
-{**
+<?php
+/**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
  *
@@ -15,29 +16,13 @@
  * @author    PrestaShop SA and Contributors <contact@prestashop.com>
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
- *}
-{$web_connect|unescape:'all' nofilter}
+ */
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 
-<script type="text/javascript">
-{if $user_email}
-    GrTracking('setUserId', '{$user_email|escape:'htmlall':'UTF-8'}');
-{/if}
+header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Cache-Control: post-check=0, pre-check=0', false);
+header('Pragma: no-cache');
 
-{if isset($include_view_item)}
-    {include file='modules/grprestashop/views/templates/front/_partials/event_view_item.tpl'}
-{/if}
-
-{if isset($include_view_category)}
-    {include file='modules/grprestashop/views/templates/front/_partials/event_view_category.tpl'}
-{/if}
-
-{if isset($buffered_cart)}
-    GrTracking('importScript', 'ec');
-    GrTracking('cartUpdate', {$buffered_cart|unescape:'all' nofilter});
-{/if}
-
-{if isset($buffered_order)}
-GrTracking('importScript', 'ec');
-GrTracking('orderPlaced', {$buffered_order|unescape:'all' nofilter});
-{/if}
-</script>
+header('Location: ../');
+exit;

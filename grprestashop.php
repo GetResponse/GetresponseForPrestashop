@@ -42,7 +42,7 @@ class GrPrestashop extends Module
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '1.2.0';
+        $this->version = '1.3.0';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
@@ -166,22 +166,43 @@ class GrPrestashop extends Module
         );
         $configuration = $configurationReadModel->getConfigurationForShop($currentShopId);
 
-        $webConnectSnippet = $configuration->getGetResponseWebTrackingSnippet();
+        $isWebConnectActive = $configuration->isGetResponseWebTrackingActive();
 
-        if (!empty($webConnectSnippet)) {
-            $this->smarty->assign('web_connect', $webConnectSnippet);
+        if ($isWebConnectActive) {
+            $this->smarty->assign('web_connect', $configuration->getGetResponseWebTrackingSnippet());
             $this->smarty->assign('user_email', $this->context->customer->email);
 
             $getresponseShopId = $configuration->getGetresponseShopId();
 
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $session = new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService();
+                $cartService = new \GetResponse\TrackingCode\Application\CartService($configurationReadModel, $session);
+
+                $bufferedCart = $cartService->getCartFromBuffer($currentShopId);
+
+                if (null !== $bufferedCart) {
+                    $this->smarty->assign('buffered_cart', $bufferedCart);
+                }
+
+                if (isset($this->context->controller->php_self) && $this->context->controller->php_self === 'order-confirmation') {
+                    $orderService = new \GetResponse\TrackingCode\Application\OrderService($configurationReadModel, $session);
+                    $bufferedOrder = $orderService->getOrderFromBuffer($currentShopId);
+
+                    if (null !== $bufferedOrder) {
+
+                        $this->smarty->assign('buffered_order', $bufferedOrder);
+                    }
+                }
+            }
+
             if (null !== $getresponseShopId) {
                 $this->smarty->assign('shop_id', $getresponseShopId);
 
-                if (isset($this->context->controller->php_self) && $this->context->controller->php_self == 'product') {
+                if (isset($this->context->controller->php_self) && $this->context->controller->php_self === 'product') {
                     $this->smarty->assign('include_view_item', true);
                 }
 
-                if (isset($this->context->controller->php_self) && $this->context->controller->php_self == 'category') {
+                if (isset($this->context->controller->php_self) && $this->context->controller->php_self === 'category') {
                     $this->smarty->assign('include_view_category', true);
                 }
             }
@@ -402,15 +423,24 @@ class GrPrestashop extends Module
 
             $shop = new Shop($cart->id_shop);
 
+            $configurationReadModel = new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+                new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+            );
+
             $cartService = new \GetResponse\Ecommerce\Application\CartService(
                 new \GetResponse\MessageSender\Application\MessageSenderService(
                     new \GetResponse\MessageSender\Infrastructure\HttpClient($shop->getBaseURL())
                 ),
-                new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
-                    new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
-                )
+                $configurationReadModel
             );
             $cartService->upsertCart(new \GetResponse\Ecommerce\Application\Command\UpsertCart($cart->id, $shop->id));
+
+            $trackingCodeCartService = new \GetResponse\TrackingCode\Application\CartService(
+                $configurationReadModel,
+                new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService()
+            );
+            $trackingCodeCartService->addCartToBuffer($cart->id, $shop->id);
+
         } catch (\GetResponse\MessageSender\Application\MessageSenderException $e) {
             $this->logGetResponseError($e->getMessage());
         }
@@ -476,7 +506,7 @@ class GrPrestashop extends Module
     {
         try {
             /** @var Order $order */
-            $order = $params['order'];
+            $order = isset($params['order']) ? $params['order'] : null;
 
             if (null === $order) {
                 return;
@@ -618,18 +648,27 @@ class GrPrestashop extends Module
     private function upsertOrder(Order $order)
     {
         $shop = new \Shop($order->id_shop);
+        $configurationReadModel = new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
+            new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
+        );
+
         $orderService = new GetResponse\Ecommerce\Application\OrderService(
             new \GetResponse\MessageSender\Application\MessageSenderService(
                 new \GetResponse\MessageSender\Infrastructure\HttpClient($shop->getBaseURL())
             ),
-            new \GetResponse\Configuration\ReadModel\ConfigurationReadModel(
-                new \GetResponse\Configuration\Infrastructure\ConfigurationRepository()
-            )
+            $configurationReadModel
         );
 
         $orderService->upsertOrder(
             new \GetResponse\Ecommerce\Application\Command\UpsertOrder($order->id, $order->id_shop)
         );
+
+        $trackingCodeOrderService = new \GetResponse\TrackingCode\Application\OrderService(
+            $configurationReadModel,
+            new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService()
+        );
+
+        $trackingCodeOrderService->addOrderToBuffer($order->id, $order->id_shop);
     }
 
     private function assignRecommendationObject($recommendationSnippet)
