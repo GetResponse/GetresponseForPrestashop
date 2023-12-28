@@ -181,7 +181,7 @@ class GrPrestashop extends Module
                 $bufferedCart = $cartService->getCartFromBuffer($currentShopId);
 
                 if (null !== $bufferedCart) {
-                    $this->smarty->assign('buffered_cart', $bufferedCart);
+                    $this->smarty->assign('buffered_cart', json_encode($bufferedCart));
                 }
 
                 if (isset($this->context->controller->php_self) && $this->context->controller->php_self === 'order-confirmation') {
@@ -190,7 +190,7 @@ class GrPrestashop extends Module
 
                     if (null !== $bufferedOrder) {
 
-                        $this->smarty->assign('buffered_order', $bufferedOrder);
+                        $this->smarty->assign('buffered_order', json_encode($bufferedOrder));
                     }
                 }
             }

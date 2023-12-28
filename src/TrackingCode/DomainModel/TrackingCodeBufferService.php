@@ -40,7 +40,7 @@ class TrackingCodeBufferService
             }
         }
 
-        $context->cookie->__set(self::CART_COOKIE_NAME, json_encode($cart->toArray()));
+        $context->cookie->__set(self::CART_COOKIE_NAME, serialize($cart->toArray()));
         $context->cookie->__set(self::CART_HASH_COOKIE_NAME, $cart->getHash());
     }
 
@@ -55,13 +55,13 @@ class TrackingCodeBufferService
         $cart = $context->cookie->__get(self::CART_COOKIE_NAME);
         $context->cookie->__unset(self::CART_COOKIE_NAME);
 
-        return $cart;
+        return (array) unserialize($cart);
     }
 
     public function addOrderToBuffer(Order $order)
     {
         $context = Context::getContext();
-        $context->cookie->__set(self::ORDER_COOKIE_NAME, json_encode($order->toArray()));
+        $context->cookie->__set(self::ORDER_COOKIE_NAME, serialize($order->toArray()));
     }
 
     public function getOrderFromBuffer()
@@ -75,6 +75,6 @@ class TrackingCodeBufferService
         $order = $context->cookie->__get(self::ORDER_COOKIE_NAME);
         $context->cookie->__unset(self::ORDER_COOKIE_NAME);
 
-        return $order;
+        return (array) unserialize($order);
     }
 }
