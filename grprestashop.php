@@ -175,7 +175,8 @@ class GrPrestashop extends Module
             $getresponseShopId = $configuration->getGetresponseShopId();
 
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                $session = new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService();
+                $storage = new \GetResponse\SharedKernel\SessionStorage();
+                $session = new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($storage);
                 $cartService = new \GetResponse\TrackingCode\Application\CartService($configurationReadModel, $session);
 
                 $bufferedCart = $cartService->getCartFromBuffer($currentShopId);
@@ -435,9 +436,10 @@ class GrPrestashop extends Module
             );
             $cartService->upsertCart(new \GetResponse\Ecommerce\Application\Command\UpsertCart($cart->id, $shop->id));
 
+            $sessionStorage = new \GetResponse\SharedKernel\SessionStorage();
             $trackingCodeCartService = new \GetResponse\TrackingCode\Application\CartService(
                 $configurationReadModel,
-                new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService()
+                new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($sessionStorage)
             );
             $trackingCodeCartService->addCartToBuffer($cart->id, $shop->id);
 
@@ -663,9 +665,11 @@ class GrPrestashop extends Module
             new \GetResponse\Ecommerce\Application\Command\UpsertOrder($order->id, $order->id_shop)
         );
 
+        $sessionStorage = new \GetResponse\SharedKernel\SessionStorage();
+
         $trackingCodeOrderService = new \GetResponse\TrackingCode\Application\OrderService(
             $configurationReadModel,
-            new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService()
+            new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($sessionStorage)
         );
 
         $trackingCodeOrderService->addOrderToBuffer($order->id, $order->id_shop);
