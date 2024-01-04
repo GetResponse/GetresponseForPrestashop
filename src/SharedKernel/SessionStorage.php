@@ -37,13 +37,7 @@ class SessionStorage
 
     public function set($keyName, $payload)
     {
-        $payload = serialize($payload);
-
-        if (preg_match('/¤|\|/', $payload)) {
-            $payload = preg_replace('/(¤|\|)/', ' ', $payload);
-        }
-
-        $this->context->cookie->__set($keyName, $payload);
+        $this->context->cookie->__set($keyName, base64_encode($payload));
     }
 
     public function remove($keyName)
@@ -57,6 +51,6 @@ class SessionStorage
             return null;
         }
 
-        return unserialize($this->context->cookie->__get($keyName));
+        return base64_decode($this->context->cookie->__get($keyName));
     }
 }

@@ -24,50 +24,73 @@ class Product
 {
     /** @var int */
     private $id;
-    /** @var string */
-    private $name;
     /** @var float */
     private $price;
-    /** @var string */
-    private $sku;
     /** @var string */
     private $currency;
     /** @var int */
     private $quantity;
-    /** @var array<Category> */
-    private $categories;
 
-    public function __construct($id, $name, $price, $sku, $currency, $quantity, $categories)
+    public function __construct($id, $price, $currency, $quantity)
     {
         $this->id = $id;
-        $this->name = $name;
         $this->price = $price;
-        $this->sku = $sku;
         $this->currency = $currency;
         $this->quantity = $quantity;
-        $this->categories = $categories;
     }
 
-    public function getCategories()
+    /**
+     * @return int
+     */
+    public function getId()
     {
-        return $this->categories;
+        return $this->id;
     }
 
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @return int
+     */
     public function getQuantity()
     {
         return $this->quantity;
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         return [
             'id' => (string) $this->id,
-            'name' => $this->name,
-            'price' => number_format($this->price, 2),
-            'sku' => $this->sku,
-            'currency' => $this->currency
+            'price' => $this->price,
+            'currency' => $this->currency,
+            'quantity' => (int) $this->quantity
         ];
     }
 
+    /**
+     * @param array $product
+     * @return self
+     */
+    public static function createFromArray($product)
+    {
+        return new self($product['id'], $product['price'], $product['currency'], $product['quantity']);
+    }
 
 }

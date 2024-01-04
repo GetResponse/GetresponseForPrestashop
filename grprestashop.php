@@ -179,19 +179,21 @@ class GrPrestashop extends Module
                 $session = new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($storage);
                 $cartService = new \GetResponse\TrackingCode\Application\CartService($configurationReadModel, $session);
 
-                $bufferedCart = $cartService->getCartFromBuffer($currentShopId);
+                $cart = $cartService->getCartFromBuffer($currentShopId);
 
-                if (null !== $bufferedCart) {
-                    $this->smarty->assign('buffered_cart', json_encode($bufferedCart));
+                if (null !== $cart) {
+                    $cartPresenter = new \GetResponse\TrackingCode\Presenter\CartPresenter($cart);
+                    $this->smarty->assign('buffered_cart', json_encode($cartPresenter->present()));
                 }
 
                 if (isset($this->context->controller->php_self) && $this->context->controller->php_self === 'order-confirmation') {
                     $orderService = new \GetResponse\TrackingCode\Application\OrderService($configurationReadModel, $session);
-                    $bufferedOrder = $orderService->getOrderFromBuffer($currentShopId);
+                    $order = $orderService->getOrderFromBuffer($currentShopId);
 
-                    if (null !== $bufferedOrder) {
+                    if (null !== $order) {
 
-                        $this->smarty->assign('buffered_order', json_encode($bufferedOrder));
+                        $orderPresenter = new \GetResponse\TrackingCode\Presenter\OrderPresenter($order);
+                        $this->smarty->assign('buffered_order', json_encode($orderPresenter->present()));
                     }
                 }
             }

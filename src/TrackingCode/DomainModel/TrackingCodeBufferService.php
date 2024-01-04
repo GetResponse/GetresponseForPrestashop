@@ -38,7 +38,6 @@ class TrackingCodeBufferService
 
     public function addCartToBuffer(Cart $cart)
     {
-
         if ($this->sessionStorage->exists(self::CART_HASH_COOKIE_NAME)) {
             $lastCartHash = $this->sessionStorage->get(self::CART_HASH_COOKIE_NAME);
 
@@ -47,10 +46,13 @@ class TrackingCodeBufferService
             }
         }
 
-        $this->sessionStorage->set(self::CART_COOKIE_NAME, $cart->toArray());
+        $this->sessionStorage->set(self::CART_COOKIE_NAME, serialize($cart->toArray()));
         $this->sessionStorage->set(self::CART_HASH_COOKIE_NAME, $cart->getHash());
     }
 
+    /**
+     * @return Cart|null
+     */
     public function getCartFromBuffer()
     {
         if (false === $this->sessionStorage->exists(self::CART_COOKIE_NAME)) {
@@ -58,16 +60,23 @@ class TrackingCodeBufferService
         }
 
         $cart = $this->sessionStorage->get(self::CART_COOKIE_NAME);
-        $this->sessionStorage->remove(self::CART_COOKIE_NAME);
 
-        return (array) $cart;
+        if (null === $cart) {
+            return null;
+        }
+
+        $this->sessionStorage->remove(self::CART_COOKIE_NAME);
+        return Cart::createFromArray(unserialize($cart));
     }
 
     public function addOrderToBuffer(Order $order)
     {
-        $this->sessionStorage->set(self::ORDER_COOKIE_NAME, $order->toArray());
+        $this->sessionStorage->set(self::ORDER_COOKIE_NAME, serialize($order->toArray()));
     }
 
+    /**
+     * @return Order|null
+     */
     public function getOrderFromBuffer()
     {
         if (false === $this->sessionStorage->exists(self::ORDER_COOKIE_NAME)) {
@@ -75,8 +84,12 @@ class TrackingCodeBufferService
         }
 
         $order = $this->sessionStorage->get(self::ORDER_COOKIE_NAME);
-        $this->sessionStorage->remove(self::ORDER_COOKIE_NAME);
 
-        return (array) $order;
+        if (null === $order) {
+            return null;
+        }
+
+        $this->sessionStorage->remove(self::ORDER_COOKIE_NAME);
+        return Order::createFromArray(unserialize($order));
     }
 }
