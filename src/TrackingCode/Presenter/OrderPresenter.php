@@ -18,36 +18,45 @@
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
 
-namespace GetResponse\TrackingCode\Application\Adapter;
+namespace GetResponse\TrackingCode\Presenter;
 
 use GetResponse\TrackingCode\DomainModel\Order;
-use GetResponse\TrackingCode\DomainModel\Product;
 
-class OrderAdapter
+class OrderPresenter extends EcommercePresenter
 {
-    public function getOrderById($orderId)
-    {
-        $order = new \Order($orderId);
-        $currency = new \Currency($order->id_currency);
+    /** @var Order */
+    private $order;
 
+    /**
+     * @param Order $order
+     */
+    public function __construct($order)
+    {
+        $this->order = $order;
+    }
+
+    /**
+     * @return array
+     */
+    public function present()
+    {
         $products = [];
 
-        foreach ($order->getProducts() as $product) {
+        foreach ($this->order->getProducts() as $product) {
 
-            $products[] = new Product(
-                $product['id_product'],
-                $product['product_price_wt'],
-                $currency->iso_code,
-                $product['product_quantity']
-            );
+            $products[] = [
+                'product' => $this->getProduct($product),
+                'quantity' => (int) $product->getQuantity(),
+                'categories' => $this->getProductCategories($product->getId())
+            ];
         }
 
-        return new Order(
-            $order->id,
-            $order->id_cart,
-            $order->total_paid_tax_incl,
-            $currency->iso_code,
-            $products
-        );
+        return [
+            'price' => (float) $this->order->getPrice(),
+            'cartId' => (string) $this->order->getCartId(),
+            'orderId' => (string) $this->order->getId(),
+            'currency' => $this->order->getCurrency(),
+            'products' => $products
+        ];
     }
 }

@@ -43,6 +43,21 @@ class Cart
     }
 
     /**
+     * @param array $cart
+     * @return self
+     */
+    public static function createFromArray($cart)
+    {
+        $products = [];
+
+        foreach ($cart['products'] as $product) {
+            $products[] = Product::createFromArray($product);
+        }
+
+        return new self($cart['id'], $cart['price'], $cart['currency'], $cart['url'], $products);
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -50,26 +65,56 @@ class Cart
         $products = [];
 
         foreach ($this->products as $product) {
-            $categories = [];
-
-            foreach ($product->getCategories() as $category) {
-                $categories[] = $category->toArray();
-            }
-
-            $products[] = [
-                'product' => $product->toArray(),
-                'quantity' => $product->getQuantity(),
-                'categories' => $categories
-            ];
+            $products[] = $product->toArray();
         }
 
         return [
+            'id' => $this->id,
             'price' => $this->price,
-            'cartId' => (string) $this->id,
             'currency' => $this->currency,
-            'cartUrl' => $this->url,
+            'url' => $this->url,
             'products' => $products
         ];
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @return Product[]
+     */
+    public function getProducts()
+    {
+        return $this->products;
     }
 
     /**
@@ -80,9 +125,11 @@ class Cart
         return $this->id !== 0;
     }
 
+    /**
+     * @return string
+     */
     public function getHash()
     {
         return md5(serialize($this->toArray()));
     }
-
 }

@@ -20,7 +20,7 @@
 
 namespace GetResponse\TrackingCode\DomainModel;
 
-use Context;
+use GetResponse\SharedKernel\SessionStorage;
 
 class TrackingCodeBufferService
 {
@@ -28,53 +28,68 @@ class TrackingCodeBufferService
     const CART_COOKIE_NAME = 'gr4prestashop_cart';
     const ORDER_COOKIE_NAME = 'gr4prestashop_order';
 
+    /** @var SessionStorage */
+    private $sessionStorage;
+
+    public function __construct($sessionStorage)
+    {
+        $this->sessionStorage = $sessionStorage;
+    }
+
     public function addCartToBuffer(Cart $cart)
     {
-        $context = Context::getContext();
-
-        if ($context->cookie->__isset(self::CART_HASH_COOKIE_NAME)) {
-            $lastCartHash = $context->cookie->__get(self::CART_HASH_COOKIE_NAME);
+        if ($this->sessionStorage->exists(self::CART_HASH_COOKIE_NAME)) {
+            $lastCartHash = $this->sessionStorage->get(self::CART_HASH_COOKIE_NAME);
 
             if ($lastCartHash === $cart->getHash()) {
                 return;
             }
         }
 
-        $context->cookie->__set(self::CART_COOKIE_NAME, json_encode($cart->toArray()));
-        $context->cookie->__set(self::CART_HASH_COOKIE_NAME, $cart->getHash());
+        $this->sessionStorage->set(self::CART_COOKIE_NAME, serialize($cart->toArray()));
+        $this->sessionStorage->set(self::CART_HASH_COOKIE_NAME, $cart->getHash());
     }
 
+    /**
+     * @return Cart|null
+     */
     public function getCartFromBuffer()
     {
-        $context = Context::getContext();
-
-        if (false === $context->cookie->__isset(self::CART_COOKIE_NAME)) {
+        if (false === $this->sessionStorage->exists(self::CART_COOKIE_NAME)) {
             return null;
         }
 
-        $cart = $context->cookie->__get(self::CART_COOKIE_NAME);
-        $context->cookie->__unset(self::CART_COOKIE_NAME);
+        $cart = $this->sessionStorage->get(self::CART_COOKIE_NAME);
 
-        return $cart;
+        if (null === $cart) {
+            return null;
+        }
+
+        $this->sessionStorage->remove(self::CART_COOKIE_NAME);
+        return Cart::createFromArray(unserialize($cart));
     }
 
     public function addOrderToBuffer(Order $order)
     {
-        $context = Context::getContext();
-        $context->cookie->__set(self::ORDER_COOKIE_NAME, json_encode($order->toArray()));
+        $this->sessionStorage->set(self::ORDER_COOKIE_NAME, serialize($order->toArray()));
     }
 
+    /**
+     * @return Order|null
+     */
     public function getOrderFromBuffer()
     {
-        $context = Context::getContext();
-
-        if (false === $context->cookie->__isset(self::ORDER_COOKIE_NAME)) {
+        if (false === $this->sessionStorage->exists(self::ORDER_COOKIE_NAME)) {
             return null;
         }
 
-        $order = $context->cookie->__get(self::ORDER_COOKIE_NAME);
-        $context->cookie->__unset(self::ORDER_COOKIE_NAME);
+        $order = $this->sessionStorage->get(self::ORDER_COOKIE_NAME);
 
-        return $order;
+        if (null === $order) {
+            return null;
+        }
+
+        $this->sessionStorage->remove(self::ORDER_COOKIE_NAME);
+        return Order::createFromArray(unserialize($order));
     }
 }

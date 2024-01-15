@@ -18,26 +18,39 @@
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
 
-namespace GetResponse\TrackingCode\DomainModel;
+namespace GetResponse\SharedKernel;
 
-class Category
+use Context;
+
+class SessionStorage
 {
-    /** @var int */
-    private $id;
-    /** @var string */
-    private $name;
-
-    public function __construct($id, $name)
+    private $context;
+    public function __construct()
     {
-        $this->id = $id;
-        $this->name = $name;
+        $this->context = Context::getContext();
     }
 
-    public function toArray()
+    public function exists($keyName)
     {
-        return [
-            'id' => (string) $this->id,
-            'name' => $this->name
-        ];
+        return (bool) $this->context->cookie->__isset($keyName);
+    }
+
+    public function set($keyName, $payload)
+    {
+        $this->context->cookie->__set($keyName, base64_encode($payload));
+    }
+
+    public function remove($keyName)
+    {
+        $this->context->cookie->__unset($keyName);
+    }
+
+    public function get($keyName)
+    {
+        if (false === $this->exists($keyName)) {
+            return null;
+        }
+
+        return base64_decode($this->context->cookie->__get($keyName));
     }
 }

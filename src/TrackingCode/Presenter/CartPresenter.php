@@ -18,37 +18,44 @@
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
 
-namespace GetResponse\TrackingCode\Application\Adapter;
+namespace GetResponse\TrackingCode\Presenter;
 
 use GetResponse\TrackingCode\DomainModel\Cart;
-use GetResponse\TrackingCode\DomainModel\Product;
 
-class CartAdapter
+class CartPresenter extends EcommercePresenter
 {
-    public function getCartById($cartId)
+    /** @var Cart */
+    private $cart;
+    /**
+     * @param Cart $cart
+     */
+    public function __construct($cart)
     {
-        $prestashopCart = new \Cart($cartId);
-        $currency = new \Currency($prestashopCart->id_currency);
-        $shopCartUrl = \Context::getContext()->link->getPageLink('cart', null, null, ['action' => 'show']);
+        $this->cart = $cart;
+    }
 
+    /**
+     * @return array
+     */
+    public function present()
+    {
         $products = [];
 
-        foreach ($prestashopCart->getProducts(true) as $product) {
+        foreach ($this->cart->getProducts() as $product) {
 
-            $products[] = new Product(
-                $product['id_product'],
-                $product['price_wt'],
-                $currency->iso_code,
-                $product['quantity']
-            );
+            $products[] = [
+                'product' => $this->getProduct($product),
+                'quantity' => $product->getQuantity(),
+                'categories' => $this->getProductCategories($product->getId())
+            ];
         }
 
-        return new Cart(
-            $prestashopCart->id,
-            $prestashopCart->getOrderTotal(true),
-            $currency->iso_code,
-            $shopCartUrl,
-            $products
-        );
+        return [
+            'price' => $this->cart->getPrice(),
+            'cartId' => (string) $this->cart->getId(),
+            'currency' => $this->cart->getCurrency(),
+            'cartUrl' => $this->cart->getUrl(),
+            'products' => $products
+        ];
     }
 }

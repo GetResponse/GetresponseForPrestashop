@@ -43,6 +43,46 @@ class Order
     }
 
     /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCartId()
+    {
+        return $this->cartId;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @return Product[]
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -50,26 +90,31 @@ class Order
         $products = [];
 
         foreach ($this->products as $product) {
-            $categories = [];
-
-            foreach ($product->getCategories() as $category) {
-                $categories[] = $category->toArray();
-            }
-
-            $products[] = [
-                'product' => $product->toArray(),
-                'quantity' => (int) $product->getQuantity(),
-                'categories' => $categories
-            ];
+            $products[] = $product->toArray();
         }
 
         return [
-            'price' => (float) $this->price,
+            'id' => (string) $this->id,
             'cartId' => (string) $this->cartId,
-            'orderId' => (string) $this->id,
+            'price' => (float) $this->price,
             'currency' => $this->currency,
             'products' => $products
         ];
+    }
+
+    /**
+     * @param array $order
+     * @return self
+     */
+    public static function createFromArray($order)
+    {
+        $products = [];
+
+        foreach ($order['products'] as $product) {
+            $products[] = Product::createFromArray($product);
+        }
+
+        return new self($order['id'], $order['cartId'], $order['price'], $order['currency'], $products);
     }
 
     /**

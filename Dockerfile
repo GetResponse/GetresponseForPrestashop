@@ -1,7 +1,7 @@
 FROM php:5.6-cli as php5
 RUN mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
-RUN pecl update-channels
-RUN pecl install xdebug-2.5.5 \
+RUN pecl channel-update pecl.php.net
+RUN pecl install http://pecl.php.net/get/xdebug-2.5.5.tgz \
     && docker-php-ext-enable xdebug
 WORKDIR /plugin
 COPY --from=docker.int.getresponse.com/docker/composer:2.2.9 /usr/bin/composer /usr/bin/composer
@@ -18,8 +18,8 @@ ENTRYPOINT [ "/bin/bash", "-c", "tail -f /dev/null" ]
 
 FROM php:7.1-cli as php7
 RUN mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
-RUN pecl update-channels
-RUN pecl install xdebug-2.9.0 \
+RUN pecl channel-update pecl.php.net
+RUN pecl install http://pecl.php.net/get/xdebug-2.9.0.tgz \
     && docker-php-ext-enable xdebug
 WORKDIR /plugin
 COPY --from=docker.int.getresponse.com/docker/composer:2.2.9 /usr/bin/composer /usr/bin/composer

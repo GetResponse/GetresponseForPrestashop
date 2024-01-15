@@ -42,7 +42,7 @@ class GrPrestashop extends Module
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '1.3.0';
+        $this->version = '1.3.1';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
@@ -175,22 +175,25 @@ class GrPrestashop extends Module
             $getresponseShopId = $configuration->getGetresponseShopId();
 
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                $session = new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService();
+                $storage = new \GetResponse\SharedKernel\SessionStorage();
+                $session = new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($storage);
                 $cartService = new \GetResponse\TrackingCode\Application\CartService($configurationReadModel, $session);
 
-                $bufferedCart = $cartService->getCartFromBuffer($currentShopId);
+                $cart = $cartService->getCartFromBuffer($currentShopId);
 
-                if (null !== $bufferedCart) {
-                    $this->smarty->assign('buffered_cart', $bufferedCart);
+                if (null !== $cart) {
+                    $cartPresenter = new \GetResponse\TrackingCode\Presenter\CartPresenter($cart);
+                    $this->smarty->assign('buffered_cart', json_encode($cartPresenter->present()));
                 }
 
                 if (isset($this->context->controller->php_self) && $this->context->controller->php_self === 'order-confirmation') {
                     $orderService = new \GetResponse\TrackingCode\Application\OrderService($configurationReadModel, $session);
-                    $bufferedOrder = $orderService->getOrderFromBuffer($currentShopId);
+                    $order = $orderService->getOrderFromBuffer($currentShopId);
 
-                    if (null !== $bufferedOrder) {
+                    if (null !== $order) {
 
-                        $this->smarty->assign('buffered_order', $bufferedOrder);
+                        $orderPresenter = new \GetResponse\TrackingCode\Presenter\OrderPresenter($order);
+                        $this->smarty->assign('buffered_order', json_encode($orderPresenter->present()));
                     }
                 }
             }
@@ -435,9 +438,10 @@ class GrPrestashop extends Module
             );
             $cartService->upsertCart(new \GetResponse\Ecommerce\Application\Command\UpsertCart($cart->id, $shop->id));
 
+            $sessionStorage = new \GetResponse\SharedKernel\SessionStorage();
             $trackingCodeCartService = new \GetResponse\TrackingCode\Application\CartService(
                 $configurationReadModel,
-                new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService()
+                new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($sessionStorage)
             );
             $trackingCodeCartService->addCartToBuffer($cart->id, $shop->id);
 
@@ -663,9 +667,11 @@ class GrPrestashop extends Module
             new \GetResponse\Ecommerce\Application\Command\UpsertOrder($order->id, $order->id_shop)
         );
 
+        $sessionStorage = new \GetResponse\SharedKernel\SessionStorage();
+
         $trackingCodeOrderService = new \GetResponse\TrackingCode\Application\OrderService(
             $configurationReadModel,
-            new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService()
+            new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($sessionStorage)
         );
 
         $trackingCodeOrderService->addOrderToBuffer($order->id, $order->id_shop);
