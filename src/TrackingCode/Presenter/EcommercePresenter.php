@@ -20,7 +20,8 @@ class EcommercePresenter
 
         foreach ($product->getCategories() as $productCategory) {
             $category = new \Category($productCategory);
-            $categories[] = [$category->id, $category->name];
+            $categoryName = is_array($category->name) ? reset($category->name) : $category->name;
+            $categories[] = ['id' => (string) $category->id, 'name' => $categoryName];
         }
 
         return $categories;
@@ -34,9 +35,11 @@ class EcommercePresenter
     {
         $prestashopProduct = new \Product($product->getId());
 
+        $productName = is_array($prestashopProduct->name) ? reset($prestashopProduct->name) : $prestashopProduct->name;
+
         return [
             'id' => (string) $product->getId(),
-            'name' => $prestashopProduct->name,
+            'name' => $productName,
             'price' => number_format($product->getPrice(), 2),
             'sku' => $prestashopProduct->reference,
             'currency' => $product->getCurrency()

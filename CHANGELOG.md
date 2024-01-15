@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.1] - 2024-01-15
+### Fix
+- Added TrackingCode events optimisation
+
 ## [1.3.0] - 2023-12-01
 ### Feature
 - Added TrackingCode events: cart_updated & order_created
