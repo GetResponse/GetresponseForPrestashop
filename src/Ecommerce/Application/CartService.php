@@ -26,6 +26,10 @@ use GetResponse\Ecommerce\Application\Command\UpsertCart;
 use GetResponse\MessageSender\Application\MessageSenderException;
 use GetResponse\MessageSender\Application\MessageSenderService;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class CartService
 {
     /** @var MessageSenderService */

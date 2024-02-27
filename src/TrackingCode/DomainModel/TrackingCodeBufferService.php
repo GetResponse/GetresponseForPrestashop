@@ -22,6 +22,10 @@ namespace GetResponse\TrackingCode\DomainModel;
 
 use GetResponse\SharedKernel\SessionStorage;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class TrackingCodeBufferService
 {
     const CART_HASH_COOKIE_NAME = 'gr4prestashop_cart_hash';

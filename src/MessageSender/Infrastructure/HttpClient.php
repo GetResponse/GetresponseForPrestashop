@@ -22,6 +22,11 @@ namespace GetResponse\MessageSender\Infrastructure;
 
 use GetResponse\MessageSender\DomainModel\EventEmitter;
 use GetResponse\MessageSender\DomainModel\EventEmitterException;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class HttpClient implements EventEmitter
 {
     const GET = 'GET';

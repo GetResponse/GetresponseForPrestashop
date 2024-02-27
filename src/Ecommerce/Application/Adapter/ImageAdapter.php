@@ -23,6 +23,10 @@ namespace GetResponse\Ecommerce\Application\Adapter;
 use GetResponse\Ecommerce\DomainModel\Image;
 use Image as PrestashopImage;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class ImageAdapter
 {
     public function getImageById($imageId)

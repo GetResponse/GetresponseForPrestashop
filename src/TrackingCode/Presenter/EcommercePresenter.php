@@ -1,10 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
 namespace GetResponse\TrackingCode\Presenter;
 
 use GetResponse\TrackingCode\DomainModel\Product;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class EcommercePresenter
 {

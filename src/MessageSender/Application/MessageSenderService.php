@@ -23,6 +23,10 @@ namespace GetResponse\MessageSender\Application;
 use GetResponse\MessageSender\DomainModel\EventEmitter;
 use GetResponse\MessageSender\DomainModel\EventEmitterException;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class MessageSenderService
 {
     /** @var EventEmitter */

@@ -20,6 +20,10 @@
 
 namespace GetResponse\Configuration\ReadModel;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class ConfigurationDtoCollection implements \IteratorAggregate
 {
     private $configurations;

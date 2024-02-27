@@ -26,6 +26,10 @@ use GetResponse\Ecommerce\Application\Command\UpsertOrder;
 use GetResponse\MessageSender\Application\MessageSenderException;
 use GetResponse\MessageSender\Application\MessageSenderService;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class OrderService
 {
     /** @var MessageSenderService */

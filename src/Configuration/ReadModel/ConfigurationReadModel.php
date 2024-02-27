@@ -22,6 +22,10 @@ namespace GetResponse\Configuration\ReadModel;
 
 use GetResponse\Configuration\Infrastructure\ConfigurationRepository;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class ConfigurationReadModel
 {
     /** @var ConfigurationRepository */

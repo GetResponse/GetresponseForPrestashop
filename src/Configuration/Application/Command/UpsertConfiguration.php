@@ -20,6 +20,10 @@
 
 namespace GetResponse\Configuration\Application\Command;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class UpsertConfiguration
 {
     /** @var int */

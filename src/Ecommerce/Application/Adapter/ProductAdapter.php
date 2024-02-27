@@ -24,6 +24,10 @@ use GetResponse\Ecommerce\DomainModel\Category;
 use GetResponse\Ecommerce\DomainModel\Product;
 use GetResponse\Ecommerce\DomainModel\Variant;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class ProductAdapter
 {
     const PRODUCT_STATUS_PUBLISH = 'publish';

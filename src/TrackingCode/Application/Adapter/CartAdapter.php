@@ -23,6 +23,10 @@ namespace GetResponse\TrackingCode\Application\Adapter;
 use GetResponse\TrackingCode\DomainModel\Cart;
 use GetResponse\TrackingCode\DomainModel\Product;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class CartAdapter
 {
     public function getCartById($cartId)

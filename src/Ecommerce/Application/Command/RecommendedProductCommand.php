@@ -20,6 +20,10 @@
 
 namespace GetResponse\Ecommerce\Application\Command;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class RecommendedProductCommand
 {
     /** @var int */

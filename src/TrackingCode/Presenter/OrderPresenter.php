@@ -22,6 +22,10 @@ namespace GetResponse\TrackingCode\Presenter;
 
 use GetResponse\TrackingCode\DomainModel\Order;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class OrderPresenter extends EcommercePresenter
 {
     /** @var Order */

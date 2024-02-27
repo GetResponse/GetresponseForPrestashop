@@ -28,6 +28,10 @@ use GetResponse\Contact\DomainModel\Subscriber;
 use GetResponse\MessageSender\Application\MessageSenderException;
 use GetResponse\MessageSender\Application\MessageSenderService;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class ContactService
 {
     /** @var MessageSenderService */

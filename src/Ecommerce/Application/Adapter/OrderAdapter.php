@@ -25,6 +25,10 @@ use GetResponse\Ecommerce\DomainModel\Address;
 use GetResponse\Ecommerce\DomainModel\Line;
 use GetResponse\Ecommerce\DomainModel\Order;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class OrderAdapter
 {
     public function getOrderById($orderId)

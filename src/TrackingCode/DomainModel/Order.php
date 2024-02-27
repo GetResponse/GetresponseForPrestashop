@@ -20,6 +20,10 @@
 
 namespace GetResponse\TrackingCode\DomainModel;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class Order
 {
     /** @var int */

@@ -22,6 +22,10 @@ namespace GetResponse\TrackingCode\Presenter;
 
 use GetResponse\TrackingCode\DomainModel\Cart;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class CartPresenter extends EcommercePresenter
 {
     /** @var Cart */

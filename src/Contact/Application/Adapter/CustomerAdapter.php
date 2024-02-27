@@ -24,6 +24,10 @@ use Customer as PrestashopCustomer;
 use GetResponse\Contact\DomainModel\Customer;
 use GetResponse\Ecommerce\DomainModel\Address;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class CustomerAdapter
 {
     /**

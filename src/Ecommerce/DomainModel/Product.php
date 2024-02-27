@@ -22,6 +22,10 @@ namespace GetResponse\Ecommerce\DomainModel;
 
 use GetResponse\SharedKernel\CallbackType;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class Product implements \JsonSerializable
 {
     const CONFIGURABLE_TYPE = 'configurable';

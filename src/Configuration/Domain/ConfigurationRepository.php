@@ -20,6 +20,9 @@
 
 namespace GetResponse\Configuration\Domain;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 interface ConfigurationRepository
 {
     /**

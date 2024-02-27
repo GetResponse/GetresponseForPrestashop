@@ -26,6 +26,10 @@ use GetResponse\TrackingCode\Application\Command\AddCartToBuffer;
 use GetResponse\TrackingCode\DomainModel\Cart;
 use GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class CartService
 {
     /** @var ConfigurationReadModel */
