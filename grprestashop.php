@@ -1,6 +1,6 @@
 <?php
 /**
- * This module integrate GetResponse and PrestaShop Allows subscribe via checkout page and export your contacts.
+ * This module integrate GetResponse and PrestaShop. Allows to subscribe via checkout page and export your contacts.
  *
  * @author Getresponse <grintegrations@getresponse.com>
  * @copyright GetResponse
@@ -42,11 +42,11 @@ class GrPrestashop extends Module
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '1.3.1';
+        $this->version = '1.3.2';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
-        $this->ps_versions_compliancy = ['min' => '1.6', 'max' => _PS_VERSION_];
+        $this->ps_versions_compliancy = ['min' => '1.6', 'max' => '8.1.4'];
         $this->displayName = $this->l('GetResponse');
         $this->description = 'Add your Prestashop contacts to GetResponse.';
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall?');

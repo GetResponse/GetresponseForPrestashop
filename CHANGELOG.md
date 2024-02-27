@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.1] - 2024-02-27
+### Feature
+- Added prestashop 8 support
+
 ## [1.3.1] - 2024-01-15
 ### Fix
 - Added TrackingCode events optimisation
