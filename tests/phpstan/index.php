@@ -17,50 +17,12 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 
-namespace GetResponse\Ecommerce\DomainModel;
+header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Cache-Control: post-check=0, pre-check=0', false);
+header('Pragma: no-cache');
 
-if (!defined('_PS_VERSION_')) {
-    exit;
-}
-
-class Image implements \JsonSerializable
-{
-    /** @var string */
-    private $src;
-    /** @var int */
-    private $position;
-
-    public function __construct($src, $position)
-    {
-        $this->src = $src;
-        $this->position = $position;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSrc()
-    {
-        return $this->src;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
-    {
-        return [
-            'src' => $this->src,
-            'position' => $this->position,
-        ];
-    }
-}
+header('Location: ../');
+exit;

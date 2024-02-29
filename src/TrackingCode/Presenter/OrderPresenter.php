@@ -22,6 +22,10 @@ namespace GetResponse\TrackingCode\Presenter;
 
 use GetResponse\TrackingCode\DomainModel\Order;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class OrderPresenter extends EcommercePresenter
 {
     /** @var Order */
@@ -43,11 +47,10 @@ class OrderPresenter extends EcommercePresenter
         $products = [];
 
         foreach ($this->order->getProducts() as $product) {
-
             $products[] = [
                 'product' => $this->getProduct($product),
                 'quantity' => (int) $product->getQuantity(),
-                'categories' => $this->getProductCategories($product->getId())
+                'categories' => $this->getProductCategories($product->getId()),
             ];
         }
 
@@ -56,7 +59,7 @@ class OrderPresenter extends EcommercePresenter
             'cartId' => (string) $this->order->getCartId(),
             'orderId' => (string) $this->order->getId(),
             'currency' => $this->order->getCurrency(),
-            'products' => $products
+            'products' => $products,
         ];
     }
 }

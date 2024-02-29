@@ -22,6 +22,10 @@ namespace GetResponse\Contact\Infrastructure;
 
 use GetResponse\Contact\DomainModel\NewsletterRepository;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class NewsletterDbRepository implements NewsletterRepository
 {
     public function removeSubscriberFromNewsletter($shopId, $email)

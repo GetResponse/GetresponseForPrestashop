@@ -20,6 +20,10 @@
 
 namespace GetResponse\Contact\Application\Command;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class UpsertCustomer
 {
     /** @var int */

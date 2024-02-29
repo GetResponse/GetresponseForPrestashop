@@ -23,6 +23,10 @@ namespace GetResponse\Contact\Application;
 use GetResponse\Contact\Application\Command\UnsubscribeContact;
 use GetResponse\Contact\DomainModel\NewsletterRepository;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class SubscriberService
 {
     /** @var NewsletterRepository */

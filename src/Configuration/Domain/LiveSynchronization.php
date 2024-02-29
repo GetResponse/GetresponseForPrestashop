@@ -22,6 +22,10 @@ namespace GetResponse\Configuration\Domain;
 
 use Assert\Assertion;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class LiveSynchronization
 {
     /** @var string */

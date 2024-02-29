@@ -20,6 +20,10 @@
 
 namespace GetResponse\Ecommerce\DomainModel;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class Line implements \JsonSerializable
 {
     /** @var int */

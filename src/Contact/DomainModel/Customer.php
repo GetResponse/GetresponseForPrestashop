@@ -23,6 +23,10 @@ namespace GetResponse\Contact\DomainModel;
 use GetResponse\Ecommerce\DomainModel\Address;
 use GetResponse\SharedKernel\CallbackType;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class Customer implements \JsonSerializable
 {
     /** @var int */

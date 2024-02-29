@@ -20,6 +20,10 @@
 
 namespace GetResponse\SharedKernel;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class CallbackType
 {
     const CHECKOUT_CREATE = 'checkouts/create';

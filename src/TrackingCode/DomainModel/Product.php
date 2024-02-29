@@ -20,6 +20,10 @@
 
 namespace GetResponse\TrackingCode\DomainModel;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class Product
 {
     /** @var int */
@@ -80,17 +84,17 @@ class Product
             'id' => (string) $this->id,
             'price' => $this->price,
             'currency' => $this->currency,
-            'quantity' => (int) $this->quantity
+            'quantity' => (int) $this->quantity,
         ];
     }
 
     /**
      * @param array $product
+     *
      * @return self
      */
     public static function createFromArray($product)
     {
         return new self($product['id'], $product['price'], $product['currency'], $product['quantity']);
     }
-
 }

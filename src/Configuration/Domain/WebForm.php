@@ -23,6 +23,10 @@ namespace GetResponse\Configuration\Domain;
 use Assert\Assertion;
 use GetResponse\Configuration\SharedKernel\WebFormPosition;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class WebForm
 {
     /** @var string */

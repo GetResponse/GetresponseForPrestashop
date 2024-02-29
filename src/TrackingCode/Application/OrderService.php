@@ -21,11 +21,13 @@
 namespace GetResponse\TrackingCode\Application;
 
 use GetResponse\Configuration\ReadModel\ConfigurationReadModel;
-use GetResponse\TrackingCode\Application\Adapter\CartAdapter;
 use GetResponse\TrackingCode\Application\Adapter\OrderAdapter;
-use GetResponse\TrackingCode\Application\Command\AddCartToBuffer;
 use GetResponse\TrackingCode\DomainModel\Order;
 use GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class OrderService
 {
@@ -62,6 +64,7 @@ class OrderService
 
     /**
      * @param int $shopId
+     *
      * @return Order|null
      */
     public function getOrderFromBuffer($shopId)

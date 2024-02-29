@@ -24,6 +24,10 @@ use GetResponse\Configuration\Domain\Configuration;
 use GetResponse\Configuration\Domain\ConfigurationRepository as Repository;
 use GetResponse\Configuration\ReadModel\ConfigurationDto;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class ConfigurationRepository implements Repository
 {
     const FB_PIXEL_SNIPPET = 'GR_CONFIG_FB_PIXEL_SNIPPET';
