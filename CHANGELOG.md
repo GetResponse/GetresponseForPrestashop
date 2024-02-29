@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.3.1] - 2024-02-27
+## [1.3.2] - 2024-02-27
 ### Feature
 - Added prestashop 8 support
 
