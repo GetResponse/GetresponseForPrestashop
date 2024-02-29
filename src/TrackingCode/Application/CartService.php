@@ -22,7 +22,6 @@ namespace GetResponse\TrackingCode\Application;
 
 use GetResponse\Configuration\ReadModel\ConfigurationReadModel;
 use GetResponse\TrackingCode\Application\Adapter\CartAdapter;
-use GetResponse\TrackingCode\Application\Command\AddCartToBuffer;
 use GetResponse\TrackingCode\DomainModel\Cart;
 use GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService;
 

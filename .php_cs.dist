@@ -7,6 +7,7 @@ $config
         'class_attributes_separation',
         'global_namespace_import',
         'no_unused_imports',
+        'no_extra_blank_lines',
         'fully_qualified_strict_types',
         'phpdoc_separation',
     ])
