@@ -20,14 +20,17 @@
 
 namespace GetResponse\SharedKernel;
 
-use Context;
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class SessionStorage
 {
     private $context;
+
     public function __construct()
     {
-        $this->context = Context::getContext();
+        $this->context = \Context::getContext();
     }
 
     public function exists($keyName)

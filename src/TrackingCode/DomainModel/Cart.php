@@ -20,6 +20,10 @@
 
 namespace GetResponse\TrackingCode\DomainModel;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class Cart
 {
     /** @var int */
@@ -44,6 +48,7 @@ class Cart
 
     /**
      * @param array $cart
+     *
      * @return self
      */
     public static function createFromArray($cart)
@@ -73,7 +78,7 @@ class Cart
             'price' => $this->price,
             'currency' => $this->currency,
             'url' => $this->url,
-            'products' => $products
+            'products' => $products,
         ];
     }
 

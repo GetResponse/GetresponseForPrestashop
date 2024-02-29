@@ -20,6 +20,10 @@
 
 namespace GetResponse\MessageSender\Application;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class MessageSenderException extends \Exception
 {
     public static function createFromPrevious(\Exception $e)

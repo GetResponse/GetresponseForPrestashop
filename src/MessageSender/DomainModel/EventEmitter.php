@@ -20,6 +20,10 @@
 
 namespace GetResponse\MessageSender\DomainModel;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 interface EventEmitter
 {
     /**

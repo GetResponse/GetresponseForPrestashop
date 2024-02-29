@@ -24,6 +24,10 @@ use GetResponse\Contact\Application\Adapter\CustomerAdapter;
 use GetResponse\Ecommerce\DomainModel\Cart;
 use GetResponse\Ecommerce\DomainModel\Line;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class CartAdapter
 {
     /**

@@ -20,6 +20,9 @@
 
 namespace GetResponse\Contact\DomainModel;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 interface NewsletterRepository
 {
     /**

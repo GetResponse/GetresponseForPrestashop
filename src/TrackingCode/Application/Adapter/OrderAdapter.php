@@ -23,6 +23,10 @@ namespace GetResponse\TrackingCode\Application\Adapter;
 use GetResponse\TrackingCode\DomainModel\Order;
 use GetResponse\TrackingCode\DomainModel\Product;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class OrderAdapter
 {
     public function getOrderById($orderId)
@@ -33,7 +37,6 @@ class OrderAdapter
         $products = [];
 
         foreach ($order->getProducts() as $product) {
-
             $products[] = new Product(
                 $product['id_product'],
                 $product['product_price_wt'],

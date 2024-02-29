@@ -25,6 +25,10 @@ use GetResponse\Configuration\Domain\ConfigurationRepository;
 use GetResponse\Configuration\Domain\LiveSynchronization;
 use GetResponse\Configuration\Domain\WebForm;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class ConfigurationService
 {
     private $configurationRepository;

@@ -21,6 +21,11 @@
 namespace GetResponse\Contact\DomainModel;
 
 use GetResponse\SharedKernel\CallbackType;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class Subscriber implements \JsonSerializable
 {
     /** @var string */

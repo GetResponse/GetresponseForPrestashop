@@ -20,6 +20,10 @@
 
 namespace GetResponse\Configuration\SharedKernel;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 class WebFormPosition
 {
     const FOOTER = 'footer';

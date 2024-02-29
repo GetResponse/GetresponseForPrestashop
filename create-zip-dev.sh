@@ -1,13 +1,19 @@
 #!/bin/sh
 
 TMP_PATH="`pwd`/tmp"
+PROJECT_DIR="`pwd`"
 RELEASE_DIR="grprestashop"
 RELEASE_PATH="$TMP_PATH/$RELEASE_DIR"
 RELEASE_FILE="grprestashop.zip"
 COMPOSER_REMOTE_PROJECT_PATH="/plugin/tmp/$RELEASE_DIR"
 
 FILES_TO_DELETE=(
+  ".idea"
+  ".git"
+  ".DS_Store"
   ".php_cs.dist"
+  ".php_cs.cache"
+  ".php-cs-fixer.cache"
   "deploy.sh"
   "create-zip-dev.sh"
   ".gitlab-ci.yml"
@@ -30,7 +36,7 @@ mkdir -p $RELEASE_PATH
 
 echo ""
 echo "Copy files"
-cp -R * "$RELEASE_PATH"
+rsync -av . "$RELEASE_PATH" --exclude TMP_PATH
 
 echo ""
 echo "Remove unused files"
