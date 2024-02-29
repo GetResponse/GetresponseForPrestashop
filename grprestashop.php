@@ -520,7 +520,7 @@ class GrPrestashop extends Module
             $this->upsertOrder($order);
         } catch (GetResponse\MessageSender\Application\MessageSenderException $e) {
             $this->logGetResponseError($e->getMessage());
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->logGetResponseError($e->getMessage());
         }
     }
@@ -537,7 +537,7 @@ class GrPrestashop extends Module
             $this->upsertOrder($order);
         } catch (GetResponse\MessageSender\Application\MessageSenderException $e) {
             $this->logGetResponseError($e->getMessage());
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->logGetResponseError($e->getMessage());
         }
     }
@@ -555,7 +555,7 @@ class GrPrestashop extends Module
             $this->upsertOrder($order);
         } catch (GetResponse\MessageSender\Application\MessageSenderException $e) {
             $this->logGetResponseError($e->getMessage());
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->logGetResponseError($e->getMessage());
         }
     }
@@ -619,15 +619,15 @@ class GrPrestashop extends Module
      */
     private function upsertProduct(Product $product)
     {
-        if (null === \ShopCore::getContextShopID()) {
+        if (null === ShopCore::getContextShopID()) {
             return;
         }
 
-        $languageId = \Configuration::get('PS_LANG_DEFAULT');
+        $languageId = Configuration::get('PS_LANG_DEFAULT');
         $shops = $product->getAssociatedShops();
 
         foreach ($shops as $shopId) {
-            $shop = new \Shop($shopId);
+            $shop = new Shop($shopId);
 
             $productService = new GetResponse\Ecommerce\Application\ProductService(
                 new GetResponse\MessageSender\Application\MessageSenderService(
@@ -655,7 +655,7 @@ class GrPrestashop extends Module
      */
     private function upsertOrder(Order $order)
     {
-        $shop = new \Shop($order->id_shop);
+        $shop = new Shop($order->id_shop);
         $configurationReadModel = new GetResponse\Configuration\ReadModel\ConfigurationReadModel(
             new GetResponse\Configuration\Infrastructure\ConfigurationRepository()
         );
