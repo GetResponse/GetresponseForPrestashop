@@ -38,7 +38,6 @@ class CartAdapter
         $products = [];
 
         foreach ($prestashopCart->getProducts(true) as $product) {
-
             $products[] = new Product(
                 $product['id_product'],
                 $product['price_wt'],

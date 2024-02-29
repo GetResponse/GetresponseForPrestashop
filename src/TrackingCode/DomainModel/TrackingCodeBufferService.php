@@ -70,6 +70,7 @@ class TrackingCodeBufferService
         }
 
         $this->sessionStorage->remove(self::CART_COOKIE_NAME);
+
         return Cart::createFromArray(unserialize($cart));
     }
 
@@ -94,6 +95,7 @@ class TrackingCodeBufferService
         }
 
         $this->sessionStorage->remove(self::ORDER_COOKIE_NAME);
+
         return Order::createFromArray(unserialize($order));
     }
 }

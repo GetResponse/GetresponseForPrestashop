@@ -105,6 +105,7 @@ class HttpClient implements EventEmitter
 
     /**
      * @param \JsonSerializable $object
+     *
      * @return string
      */
     private function createHmac($object)

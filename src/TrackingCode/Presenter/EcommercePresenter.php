@@ -18,7 +18,6 @@
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
 
-
 namespace GetResponse\TrackingCode\Presenter;
 
 use GetResponse\TrackingCode\DomainModel\Product;
@@ -31,6 +30,7 @@ class EcommercePresenter
 {
     /**
      * @param int $productId
+     *
      * @return array
      */
     protected function getProductCategories($productId)
@@ -50,9 +50,10 @@ class EcommercePresenter
 
     /**
      * @param Product $product
+     *
      * @return array
      */
-    protected function getProduct( $product)
+    protected function getProduct($product)
     {
         $prestashopProduct = new \Product($product->getId());
 
@@ -63,7 +64,7 @@ class EcommercePresenter
             'name' => $productName,
             'price' => number_format($product->getPrice(), 2),
             'sku' => $prestashopProduct->reference,
-            'currency' => $product->getCurrency()
+            'currency' => $product->getCurrency(),
         ];
     }
 }

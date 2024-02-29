@@ -37,7 +37,6 @@ class OrderAdapter
         $products = [];
 
         foreach ($order->getProducts() as $product) {
-
             $products[] = new Product(
                 $product['id_product'],
                 $product['product_price_wt'],

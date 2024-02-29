@@ -64,6 +64,7 @@ class OrderService
 
     /**
      * @param int $shopId
+     *
      * @return Order|null
      */
     public function getOrderFromBuffer($shopId)

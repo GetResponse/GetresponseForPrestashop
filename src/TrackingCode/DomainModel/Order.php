@@ -102,12 +102,13 @@ class Order
             'cartId' => (string) $this->cartId,
             'price' => (float) $this->price,
             'currency' => $this->currency,
-            'products' => $products
+            'products' => $products,
         ];
     }
 
     /**
      * @param array $order
+     *
      * @return self
      */
     public static function createFromArray($order)

@@ -3,6 +3,13 @@
 $config = new PrestaShop\CodingStandards\CsFixer\Config();
 
 $config
+    ->setRules([
+        'class_attributes_separation',
+        'global_namespace_import',
+        'no_unused_imports',
+        'fully_qualified_strict_types',
+        'phpdoc_separation',
+    ])
     ->setUsingCache(true)
     ->getFinder()
     ->in(__DIR__)

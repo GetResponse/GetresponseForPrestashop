@@ -48,6 +48,7 @@ class Cart
 
     /**
      * @param array $cart
+     *
      * @return self
      */
     public static function createFromArray($cart)
@@ -77,7 +78,7 @@ class Cart
             'price' => $this->price,
             'currency' => $this->currency,
             'url' => $this->url,
-            'products' => $products
+            'products' => $products,
         ];
     }
 

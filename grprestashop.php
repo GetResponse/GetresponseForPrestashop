@@ -191,7 +191,6 @@ class GrPrestashop extends Module
                     $order = $orderService->getOrderFromBuffer($currentShopId);
 
                     if (null !== $order) {
-
                         $orderPresenter = new \GetResponse\TrackingCode\Presenter\OrderPresenter($order);
                         $this->smarty->assign('buffered_order', json_encode($orderPresenter->present()));
                     }
@@ -266,6 +265,7 @@ class GrPrestashop extends Module
 
     /**
      * @return bool
+     *
      * @throws PrestaShopDatabaseException
      * @throws PrestaShopException
      */
@@ -311,6 +311,7 @@ class GrPrestashop extends Module
 
     /**
      * @return bool
+     *
      * @throws PrestaShopDatabaseException
      * @throws PrestaShopException
      */
@@ -340,6 +341,7 @@ class GrPrestashop extends Module
 
     /**
      * @return bool
+     *
      * @throws PrestaShopDatabaseException
      * @throws PrestaShopException
      */
@@ -444,7 +446,6 @@ class GrPrestashop extends Module
                 new \GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($sessionStorage)
             );
             $trackingCodeCartService->addCartToBuffer($cart->id, $shop->id);
-
         } catch (\GetResponse\MessageSender\Application\MessageSenderException $e) {
             $this->logGetResponseError($e->getMessage());
         }
@@ -591,6 +592,7 @@ class GrPrestashop extends Module
 
     /**
      * @param Customer $customer
+     *
      * @throws \GetResponse\MessageSender\Application\MessageSenderException
      */
     private function upsertCustomer(Customer $customer)
@@ -612,6 +614,7 @@ class GrPrestashop extends Module
 
     /**
      * @param Product $product
+     *
      * @throws \GetResponse\MessageSender\Application\MessageSenderException
      */
     private function upsertProduct(Product $product)
@@ -647,6 +650,7 @@ class GrPrestashop extends Module
 
     /**
      * @param Order $order
+     *
      * @throws \GetResponse\MessageSender\Application\MessageSenderException
      */
     private function upsertOrder(Order $order)

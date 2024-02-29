@@ -30,6 +30,7 @@ class CartPresenter extends EcommercePresenter
 {
     /** @var Cart */
     private $cart;
+
     /**
      * @param Cart $cart
      */
@@ -46,11 +47,10 @@ class CartPresenter extends EcommercePresenter
         $products = [];
 
         foreach ($this->cart->getProducts() as $product) {
-
             $products[] = [
                 'product' => $this->getProduct($product),
                 'quantity' => $product->getQuantity(),
-                'categories' => $this->getProductCategories($product->getId())
+                'categories' => $this->getProductCategories($product->getId()),
             ];
         }
 
@@ -59,7 +59,7 @@ class CartPresenter extends EcommercePresenter
             'cartId' => (string) $this->cart->getId(),
             'currency' => $this->cart->getCurrency(),
             'cartUrl' => $this->cart->getUrl(),
-            'products' => $products
+            'products' => $products,
         ];
     }
 }

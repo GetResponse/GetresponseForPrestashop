@@ -65,6 +65,7 @@ class CartService
 
     /**
      * @param int $shopId
+     *
      * @return Cart|null
      */
     public function getCartFromBuffer($shopId)

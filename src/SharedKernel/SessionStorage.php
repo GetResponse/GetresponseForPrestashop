@@ -29,6 +29,7 @@ if (!defined('_PS_VERSION_')) {
 class SessionStorage
 {
     private $context;
+
     public function __construct()
     {
         $this->context = Context::getContext();
