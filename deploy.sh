@@ -23,6 +23,7 @@ FILES_TO_DELETE=(
   "Makefile"
   ".env"
   "vendor"
+  "tests"
   "tmp"
 )
 
