@@ -11,7 +11,6 @@ COMPOSER_REMOTE_PROJECT_PATH="/plugin/tmp/$RELEASE_DIR"
 
 FILES_TO_DELETE=(
   ".idea"
-  ".git"
   ".DS_Store"
   ".php_cs.dist"
   ".php_cs.cache"
@@ -23,7 +22,6 @@ FILES_TO_DELETE=(
   "docker-compose.yaml"
   "Makefile"
   ".env"
-  "tests"
   "vendor"
   "tmp"
 )
