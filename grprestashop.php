@@ -42,7 +42,7 @@ class GrPrestashop extends Module
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '1.3.2';
+        $this->version = '1.3.3';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
@@ -361,7 +361,7 @@ class GrPrestashop extends Module
     {
         try {
             $email = $params['email'];
-            $name = isset($params['name']) ? $params['name'] : null;
+            $name = isset($_POST['name']) ? $_POST['name'] : null;
 
             if (null !== $email) {
                 $shop = new Shop($this->context->shop->id);
