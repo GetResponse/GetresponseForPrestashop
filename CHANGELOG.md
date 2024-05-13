@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.3] - 2024-05-13
+### Fix
+- Fixed: newsletter name field getting from $_POST array
+
 ## [1.3.2] - 2024-02-27
 ### Feature
 - Added prestashop 8 support
