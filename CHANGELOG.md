@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.4] - 2024-07-02
+### Fix
+- Fixed: missing vendor catalog
+
 ## [1.3.3] - 2024-05-13
 ### Fix
 - Fixed: newsletter name field getting from $_POST array
