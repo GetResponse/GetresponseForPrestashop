@@ -129,7 +129,13 @@ done
 
 echo ""
 echo "Build composer"
+docker compose up -d php71
 docker compose exec php71 composer install --no-dev --working-dir="$COMPOSER_REMOTE_PROJECT_PATH"
+
+if ! docker ps | grep -q php71; then
+    echo "Docker does not seem to be running, run it first and retry!"
+    exit 1
+fi
 
 cp "$RELEASE_PATH/tests/index.php $RELEASE_PATH/vendor/index.php"
 
