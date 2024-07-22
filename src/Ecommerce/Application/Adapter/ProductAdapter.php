@@ -71,6 +71,7 @@ class ProductAdapter
             foreach ($combinations as $combination) {
                 $variant = new Variant(
                     (int) $combination['id_product_attribute'],
+                    $product->id,
                     $combination['name'],
                     $this->getProductConfigurableSku($combination),
                     $product->getPrice(false, $combination['id_product_attribute']),
@@ -91,6 +92,7 @@ class ProductAdapter
             }
         } else {
             $variants[] = new Variant(
+                $product->id,
                 $product->id,
                 $product->name[$languageId],
                 $this->getProductSimpleSku($product),

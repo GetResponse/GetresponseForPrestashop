@@ -58,6 +58,7 @@ class ProductAdapterTest extends BaseTestCase
         $variants = [
             new Variant(
                 1,
+                1,
                 'Test Product',
                 'test_product_1',
                 19.99,
@@ -107,6 +108,7 @@ class ProductAdapterTest extends BaseTestCase
         $variants = [
             new Variant(
                 12,
+                2,
                 'Size - Size L',
                 'test_product_1',
                 19.99,
