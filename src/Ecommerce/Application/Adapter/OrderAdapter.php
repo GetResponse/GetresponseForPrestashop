@@ -121,6 +121,7 @@ class OrderAdapter
             }
 
             $lines[] = new Line(
+                $product['product_id'],
                 $variantId,
                 $product['product_price'],
                 $product['product_price_wt'],

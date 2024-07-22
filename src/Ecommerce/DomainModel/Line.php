@@ -27,6 +27,8 @@ if (!defined('_PS_VERSION_')) {
 class Line implements \JsonSerializable
 {
     /** @var int */
+    private $productId;
+    /** @var int */
     private $variantId;
     /** @var float */
     private $price;
@@ -38,12 +40,14 @@ class Line implements \JsonSerializable
     private $sku;
 
     public function __construct(
+        $productId,
         $variantId,
         $price,
         $priceTax,
         $quantity,
         $sku
     ) {
+        $this->productId = $productId;
         $this->variantId = $variantId;
         $this->price = $price;
         $this->priceTax = $priceTax;
@@ -57,6 +61,7 @@ class Line implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
+            'product_id' => $this->productId,
             'variant_id' => $this->variantId,
             'price' => $this->price,
             'price_tax' => $this->priceTax,

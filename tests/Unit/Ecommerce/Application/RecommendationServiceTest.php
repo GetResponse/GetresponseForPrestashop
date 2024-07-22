@@ -68,6 +68,7 @@ class RecommendationServiceTest extends BaseTestCase
         $variants = [
             new Variant(
                 12,
+                1,
                 'Size - Size L',
                 $sku,
                 $price,

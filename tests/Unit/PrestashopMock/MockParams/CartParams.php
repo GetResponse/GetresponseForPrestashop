@@ -35,6 +35,7 @@ class CartParams
             'products' => [
                 [
                     'id_product' => 34,
+                    'variant_id' => 1,
                     'quantity' => 1,
                     'price' => 29.99,
                     'price_wt' => 34.43,

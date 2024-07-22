@@ -67,11 +67,10 @@ class Cart
     }
 
     /**
-     * @param bool $refresh
      *
      * @return array
      */
-    public function getProducts($refresh)
+    public function getProducts()
     {
         return $this->products;
     }
