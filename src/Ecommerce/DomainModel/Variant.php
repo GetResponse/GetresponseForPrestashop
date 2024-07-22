@@ -28,6 +28,8 @@ class Variant implements \JsonSerializable
 {
     /** @var int */
     private $id;
+    /** @var int */
+    private $productId;
     /** @var string */
     private $name;
     /** @var string */
@@ -59,6 +61,7 @@ class Variant implements \JsonSerializable
 
     public function __construct(
         $id,
+        $productId,
         $name,
         $sku,
         $price,
@@ -75,6 +78,7 @@ class Variant implements \JsonSerializable
         $status
     ) {
         $this->id = $id;
+        $this->productId = $productId;
         $this->name = $name;
         $this->sku = $sku;
         $this->price = $price;
@@ -97,6 +101,14 @@ class Variant implements \JsonSerializable
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProductId()
+    {
+        return $this->productId;
     }
 
     /**
@@ -215,6 +227,7 @@ class Variant implements \JsonSerializable
 
         return [
             'id' => $this->id,
+            'product_id' => $this->productId,
             'name' => $this->name,
             'sku' => $this->sku,
             'price' => $this->price,

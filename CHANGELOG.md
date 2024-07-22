@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.0] - 2024-07-16
+### Feature
+- Added product_id in payload when sending product, order and customer
+
 ## [1.3.4] - 2024-07-02
 ### Fix
 - Fixed: missing vendor catalog

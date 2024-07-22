@@ -55,6 +55,7 @@ class CartAdapter
             }
 
             $lines[] = new Line(
+                $product['id_product'],
                 $variantId,
                 $product['price'],
                 $product['price_wt'],
