@@ -9,6 +9,10 @@ RELEASE_PATH="$TMP_PATH/$RELEASE_DIR"
 RELEASE_FILE="grprestashop.zip"
 COMPOSER_REMOTE_PROJECT_PATH="/plugin/tmp/$RELEASE_DIR"
 
+CLI_RED='\033[0;31m'
+CLI_BLUE='\033[0;34m'
+CLI_NOCOLOR='\033[0m'
+
 FILES_TO_DELETE=(
   ".idea"
   ".DS_Store"
@@ -26,6 +30,18 @@ FILES_TO_DELETE=(
   "tests"
   "tmp"
 )
+
+if ! command -v gh > /dev/null 2>&1; then
+    echo ""
+    echo ""
+    echo "--------------------------------------------"
+    echo "${CLI_RED}GitHub CLI (gh) is not installed.${CLI_NOCOLOR}"
+    echo ""
+    echo "To install GitHub CLI using Homebrew type:"
+    echo "${CLI_BLUE}brew install gh${CLI_NOCOLOR}"
+    echo "--------------------------------------------"
+    exit 1
+fi
 
 if [ -d "$TMP_PATH" ]
 then
