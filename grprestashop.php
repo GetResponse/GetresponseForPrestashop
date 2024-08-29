@@ -175,7 +175,7 @@ class GrPrestashop extends Module
             $getresponseShopId = $configuration->getGetresponseShopId();
 
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                $storage = new GetResponse\SharedKernel\SessionStorage();
+                $storage = new \GetResponse\SharedKernel\Session\SessionStorage();
                 $session = new GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($storage);
                 $cartService = new GetResponse\TrackingCode\Application\CartService($configurationReadModel, $session);
 
@@ -440,7 +440,7 @@ class GrPrestashop extends Module
             );
             $cartService->upsertCart(new GetResponse\Ecommerce\Application\Command\UpsertCart($cart->id, $shop->id));
 
-            $sessionStorage = new GetResponse\SharedKernel\SessionStorage();
+            $sessionStorage = new \GetResponse\SharedKernel\Session\SessionStorage();
             $trackingCodeCartService = new GetResponse\TrackingCode\Application\CartService(
                 $configurationReadModel,
                 new GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($sessionStorage)
@@ -671,7 +671,7 @@ class GrPrestashop extends Module
             new GetResponse\Ecommerce\Application\Command\UpsertOrder($order->id, $order->id_shop)
         );
 
-        $sessionStorage = new GetResponse\SharedKernel\SessionStorage();
+        $sessionStorage = new \GetResponse\SharedKernel\Session\SessionStorage();
 
         $trackingCodeOrderService = new GetResponse\TrackingCode\Application\OrderService(
             $configurationReadModel,

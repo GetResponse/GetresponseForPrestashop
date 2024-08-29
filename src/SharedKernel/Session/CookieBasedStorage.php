@@ -18,17 +18,18 @@
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
 
-namespace GetResponse\SharedKernel;
+namespace GetResponse\SharedKernel\Session;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class SessionStorage
+class CookieBasedStorage implements SessionStorage
 {
     private $context;
 
-    public function __construct()
+    /** @var Cookie $storage */
+    public function __construct($storage)
     {
         $this->context = \Context::getContext();
     }

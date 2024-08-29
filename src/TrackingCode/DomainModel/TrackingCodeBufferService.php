@@ -20,7 +20,7 @@
 
 namespace GetResponse\TrackingCode\DomainModel;
 
-use GetResponse\SharedKernel\SessionStorage;
+use GetResponse\SharedKernel\Session\SessionStorage;
 
 if (!defined('_PS_VERSION_')) {
     exit;
