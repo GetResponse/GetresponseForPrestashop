@@ -20,41 +20,42 @@
 
 namespace GetResponse\SharedKernel\Session;
 
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
 class SessionBasedStorage implements SessionStorage
 {
-    private $context;
+    private $session;
 
-    /** @var Cookie */
-    public function __construct($cookie)
+    public function __construct(SessionInterface $session)
     {
-        $this->context = \Context::getContext();
+        $this->session = $session;
     }
 
     public function exists($keyName)
     {
-        return (bool) $this->context->cookie->__isset($keyName);
+        return $this->session->has($keyName);
     }
 
     public function set($keyName, $payload)
     {
-        $this->context->cookie->__set($keyName, base64_encode($payload));
+        $this->session->set($keyName, base64_encode($payload));
     }
 
     public function remove($keyName)
     {
-        $this->context->cookie->__unset($keyName);
+        $this->session->remove($keyName);
     }
 
     public function get($keyName)
     {
-        if (false === $this->exists($keyName)) {
+        if (!$this->exists($keyName)) {
             return null;
         }
 
-        return base64_decode($this->context->cookie->__get($keyName));
+        return base64_decode($this->session->get($keyName));
     }
 }
