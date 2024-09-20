@@ -24,7 +24,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class CookieBasedStorage implements SessionStorage
+class CookieStorage implements Storage
 {
     private $context;
 
