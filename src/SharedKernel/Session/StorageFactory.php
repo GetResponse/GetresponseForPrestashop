@@ -5,7 +5,7 @@ namespace GetResponse\SharedKernel\Session;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-class SessionStorageFactory
+class StorageFactory
 {
     public function create()
     {
@@ -15,11 +15,11 @@ class SessionStorageFactory
         $session = $context->session;
 
         if ($session instanceof SessionInterface) {
-            return new SessionBasedStorage($session);
+            return new SessionStorage($session);
         }
 
         if ($context->cookie) {
-            return new CookieBasedStorage($context->cookie);
+            return new CookieStorage($context->cookie);
         }
 
         throw new RuntimeException('No suitable storage available in the current context.');

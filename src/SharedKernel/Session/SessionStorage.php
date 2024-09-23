@@ -20,17 +20,42 @@
 
 namespace GetResponse\SharedKernel\Session;
 
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-interface SessionStorage
+class SessionStorage implements Storage
 {
-    public function exists($keyName);
+    private $session;
 
-    public function set($keyName, $payload);
+    public function __construct(SessionInterface $session)
+    {
+        $this->session = $session;
+    }
 
-    public function remove($keyName);
+    public function exists($keyName)
+    {
+        return $this->session->has($keyName);
+    }
 
-    public function get($keyName);
+    public function set($keyName, $payload)
+    {
+        $this->session->set($keyName, base64_encode($payload));
+    }
+
+    public function remove($keyName)
+    {
+        $this->session->remove($keyName);
+    }
+
+    public function get($keyName)
+    {
+        if (!$this->exists($keyName)) {
+            return null;
+        }
+
+        return base64_decode($this->session->get($keyName));
+    }
 }
