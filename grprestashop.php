@@ -175,7 +175,8 @@ class GrPrestashop extends Module
             $getresponseShopId = $configuration->getGetresponseShopId();
 
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                $storage = new GetResponse\SharedKernel\SessionStorage();
+                $sessionStorage = new \GetResponse\SharedKernel\Session\StorageFactory();
+                $storage = $sessionStorage->create();
                 $session = new GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($storage);
                 $cartService = new GetResponse\TrackingCode\Application\CartService($configurationReadModel, $session);
 
@@ -440,10 +441,11 @@ class GrPrestashop extends Module
             );
             $cartService->upsertCart(new GetResponse\Ecommerce\Application\Command\UpsertCart($cart->id, $shop->id));
 
-            $sessionStorage = new GetResponse\SharedKernel\SessionStorage();
+            $sessionStorage = new \GetResponse\SharedKernel\Session\StorageFactory();
+            $storage = $sessionStorage->create();
             $trackingCodeCartService = new GetResponse\TrackingCode\Application\CartService(
                 $configurationReadModel,
-                new GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($sessionStorage)
+                new GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($storage)
             );
             $trackingCodeCartService->addCartToBuffer($cart->id, $shop->id);
         } catch (GetResponse\MessageSender\Application\MessageSenderException $e) {
@@ -671,11 +673,12 @@ class GrPrestashop extends Module
             new GetResponse\Ecommerce\Application\Command\UpsertOrder($order->id, $order->id_shop)
         );
 
-        $sessionStorage = new GetResponse\SharedKernel\SessionStorage();
+        $sessionStorage = new \GetResponse\SharedKernel\Session\StorageFactory();
+        $storage = $sessionStorage->create();
 
         $trackingCodeOrderService = new GetResponse\TrackingCode\Application\OrderService(
             $configurationReadModel,
-            new GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($sessionStorage)
+            new GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($storage)
         );
 
         $trackingCodeOrderService->addOrderToBuffer($order->id, $order->id_shop);

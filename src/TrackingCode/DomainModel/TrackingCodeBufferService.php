@@ -20,7 +20,7 @@
 
 namespace GetResponse\TrackingCode\DomainModel;
 
-use GetResponse\SharedKernel\SessionStorage;
+use GetResponse\SharedKernel\Session\Storage;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -32,7 +32,7 @@ class TrackingCodeBufferService
     const CART_COOKIE_NAME = 'gr4prestashop_cart';
     const ORDER_COOKIE_NAME = 'gr4prestashop_order';
 
-    /** @var SessionStorage */
+    /** @var Storage */
     private $sessionStorage;
 
     public function __construct($sessionStorage)
