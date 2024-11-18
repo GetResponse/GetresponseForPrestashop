@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.2] - 2024-10-31
+### Feature
+- Change storage from cookie to session
+
 ## [1.4.1] - 2024-07-26
 ### Feature
 - Compatibility verified for Prestashop 8.1.7
