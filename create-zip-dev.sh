@@ -47,6 +47,10 @@ done
 
 echo ""
 echo "Build composer"
+if ! docker compose ps | grep -q "php71"; then
+  echo "Container php71 is not running. Starting it..."
+  docker compose up -d php71
+fi
 docker compose exec php71 composer install --no-dev --working-dir="$COMPOSER_REMOTE_PROJECT_PATH"
 
 echo ""
