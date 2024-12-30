@@ -36,11 +36,20 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
 {
     /** @var WebserviceOutputBuilderCore */
     protected $objOutput;
+
+    /** @var array<string, mixed> */
     protected $output;
-    /** @var WebserviceRequest */
+
+    /** @var WebserviceRequestCore */
     protected $wsObject;
+
+    /** @var array<string> */
     protected $urlSegment;
+
+    /** @var array<string> */
     protected $errors = [];
+
+    /** @var string */
     protected $content;
 
     /**
@@ -48,43 +57,61 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
      *
      * @return WebserviceSpecificManagementInterface
      */
-    public function setObjectOutput(WebserviceOutputBuilderCore $obj)
+    public function setObjectOutput(WebserviceOutputBuilderCore $obj): WebserviceSpecificManagementInterface
     {
         $this->objOutput = $obj;
 
         return $this;
     }
 
-    public function setWsObject(WebserviceRequestCore $obj)
+    /**
+     * @param WebserviceRequestCore $obj
+     *
+     * @return void
+     */
+    public function setWsObject(WebserviceRequestCore $obj): void
     {
         $this->wsObject = $obj;
-
-        return $this;
     }
 
-    public function getWsObject()
+    /**
+     * @return WebserviceRequestCore
+     */
+    public function getWsObject(): WebserviceRequestCore
     {
         return $this->wsObject;
     }
 
-    public function getObjectOutput()
+    /**
+     * @return WebserviceOutputBuilderCore
+     */
+    public function getObjectOutput(): WebserviceOutputBuilderCore
     {
         return $this->objOutput;
     }
 
-    public function setUrlSegment($segments)
+    /**
+     * @param array<string> $segments
+     *
+     * @return void
+     */
+    public function setUrlSegment(array $segments): void
     {
         $this->urlSegment = $segments;
-
-        return $this;
     }
 
-    public function getUrlSegment()
+    /**
+     * @return array<string>
+     */
+    public function getUrlSegment(): array
     {
         return $this->urlSegment;
     }
 
-    public function manage()
+    /**
+     * @return bool
+     */
+    public function manage(): bool
     {
         switch ($this->wsObject->method) {
             case 'GET':
@@ -103,7 +130,10 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
         return $this->wsObject->getOutputEnabled();
     }
 
-    private function updateSettings()
+    /**
+     * @return void
+     */
+    private function updateSettings(): void
     {
         $payload = $this->getPayload();
 
@@ -140,12 +170,20 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
         );
     }
 
-    public function getContent()
+    /**
+     * @return array<string, mixed>
+     */
+    public function getContent(): array
     {
-        return $this->content;
+        return [
+            'content' => $this->content,
+        ];
     }
 
-    private function unsubscribeContact()
+    /**
+     * @return void
+     */
+    private function unsubscribeContact(): void
     {
         $payload = $this->getPayload();
 
@@ -164,7 +202,10 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
         );
     }
 
-    private function getPluginDetails()
+    /**
+     * @return string
+     */
+    private function getPluginDetails(): string
     {
         $shops = [];
         $configurationReadModel = new ConfigurationReadModel(new ConfigurationRepository());
@@ -200,14 +241,20 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
         );
     }
 
-    private function isUnsubscribeContactPath()
+    /**
+     * @return bool
+     */
+    private function isUnsubscribeContactPath(): bool
     {
         return isset($this->wsObject->urlSegment[1], $this->wsObject->urlSegment[2])
             && $this->wsObject->urlSegment[1] === 'contact'
             && $this->wsObject->urlSegment[2] === 'unsubscribe';
     }
 
-    public function getPayload()
+    /**
+     * @return array<string, mixed>
+     */
+    public function getPayload(): array
     {
         $json = Tools::file_get_contents('php://input');
 

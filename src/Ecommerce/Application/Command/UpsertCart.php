@@ -31,18 +31,18 @@ class UpsertCart
     /** @var int */
     private $shopId;
 
-    public function __construct($cartId, $shopId)
+    public function __construct(int $cartId, int $shopId)
     {
         $this->cartId = $cartId;
         $this->shopId = $shopId;
     }
 
-    public function getCartId()
+    public function getCartId(): int
     {
         return $this->cartId;
     }
 
-    public function getShopId()
+    public function getShopId(): int
     {
         return $this->shopId;
     }

@@ -26,7 +26,12 @@ if (!defined('_PS_VERSION_')) {
 
 class MessageSenderException extends \Exception
 {
-    public static function createFromPrevious(\Exception $e)
+    /**
+     * @param \Exception $e
+     *
+     * @return self
+     */
+    public static function createFromPrevious(\Exception $e): self
     {
         return new self($e->getMessage(), $e->getCode(), $e);
     }

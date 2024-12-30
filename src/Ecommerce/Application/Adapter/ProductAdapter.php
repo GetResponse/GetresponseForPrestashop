@@ -40,7 +40,7 @@ class ProductAdapter
      *
      * @return Product
      */
-    public function getProductById($productId, $languageId)
+    public function getProductById(int $productId, int $languageId): Product
     {
         $imageAdapter = new ImageAdapter();
         $product = new \Product($productId);
@@ -51,10 +51,10 @@ class ProductAdapter
         $categories = [];
         $productType = Product::SINGLE_TYPE;
 
-        $productLink = $link->getProductLink($product, false, false, false, $languageId);
+        $productLink = $link->getProductLink($product, null, null, null, $languageId);
 
         foreach ($product->getImages($languageId) as $image) {
-            $images[] = $imageAdapter->getImageById($image['id_image']);
+            $images[] = $imageAdapter->getImageById((int) $image['id_image']);
         }
 
         foreach ($product->getCategories() as $productCategory) {
@@ -128,11 +128,11 @@ class ProductAdapter
     }
 
     /**
-     * @param array $combinations
+     * @param array<int, array<string, mixed>> $combinations
      *
-     * @return array
+     * @return array<int, array<string, mixed>>
      */
-    private function prepareCombinations(array $combinations)
+    private function prepareCombinations(array $combinations): array
     {
         $uniqueCombinations = [];
 
@@ -151,11 +151,11 @@ class ProductAdapter
 
     /**
      * @param \Product $product
-     * @param $languageId
+     * @param int $languageId
      *
      * @return mixed|null
      */
-    private function getDescription(\Product $product, $languageId)
+    private function getDescription(\Product $product, int $languageId)
     {
         $description = $product->description[$languageId];
 
@@ -168,11 +168,11 @@ class ProductAdapter
 
     /**
      * @param \Product $product
-     * @param $languageId
+     * @param int $languageId
      *
      * @return mixed|null
      */
-    private function getShortDescription(\Product $product, $languageId)
+    private function getShortDescription(\Product $product, int $languageId)
     {
         $description = $product->description_short[$languageId];
 
@@ -183,7 +183,13 @@ class ProductAdapter
         return $description;
     }
 
-    private function getProductQuantity(\Product $product, $idProductAttribute)
+    /**
+     * @param \Product $product
+     * @param int $idProductAttribute
+     *
+     * @return int
+     */
+    private function getProductQuantity(\Product $product, int $idProductAttribute): int
     {
         if (empty($product->getWsStockAvailables())) {
             return 0;
@@ -206,7 +212,12 @@ class ProductAdapter
         return (new \StockAvailableCore($stockAvailableId))->quantity;
     }
 
-    private function getProductConfigurableSku(array $combination)
+    /**
+     * @param array<string, mixed> $combination
+     *
+     * @return string
+     */
+    private function getProductConfigurableSku(array $combination): string
     {
         if (!empty($combination['reference'])) {
             return $combination['reference'];
@@ -215,7 +226,12 @@ class ProductAdapter
         return self::SKU_PREFIX . $combination['id_product_attribute'];
     }
 
-    private function getProductSimpleSku(\Product $product)
+    /**
+     * @param \Product $product
+     *
+     * @return string
+     */
+    private function getProductSimpleSku(\Product $product): string
     {
         if (!empty($product->reference)) {
             return $product->reference;
@@ -224,7 +240,13 @@ class ProductAdapter
         return self::SKU_PREFIX . $product->id;
     }
 
-    private function getStockAvailableId(\Product $product, $idProductAttribute)
+    /**
+     * @param \Product $product
+     * @param int $idProductAttribute
+     *
+     * @return int|null
+     */
+    private function getStockAvailableId(\Product $product, int $idProductAttribute): ?int
     {
         foreach ($product->getWsStockAvailables() as $stockAvailable) {
             if (!is_array($stockAvailable)) {

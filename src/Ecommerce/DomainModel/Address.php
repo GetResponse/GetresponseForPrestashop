@@ -52,18 +52,18 @@ class Address implements \JsonSerializable
     private $company;
 
     public function __construct(
-        $name,
-        $country,
-        $firstName,
-        $lastName,
-        $address1,
-        $address2,
-        $city,
-        $zip,
-        $province,
-        $provinceCode,
-        $phone,
-        $company
+        string $name,
+        string $country,
+        string $firstName,
+        string $lastName,
+        string $address1,
+        ?string $address2,
+        string $city,
+        string $zip,
+        ?string $province,
+        ?string $provinceCode,
+        ?string $phone,
+        ?string $company
     ) {
         $this->name = $name;
         $this->country = $country;
@@ -80,11 +80,11 @@ class Address implements \JsonSerializable
     }
 
     /**
-     * @param array $params
+     * @param array<string, mixed> $params
      *
      * @return self
      */
-    public static function createFromArray($params)
+    public static function createFromArray(array $params): self
     {
         return new self(
             $params['alias'],
@@ -103,9 +103,9 @@ class Address implements \JsonSerializable
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'name' => $this->name,

@@ -37,7 +37,7 @@ class HttpClient implements EventEmitter
     /** @var string */
     private $shopDomain;
 
-    public function __construct($shopDomain)
+    public function __construct(string $shopDomain)
     {
         $this->shopDomain = $shopDomain;
     }
@@ -47,11 +47,11 @@ class HttpClient implements EventEmitter
      * @param \JsonSerializable $object
      * @param string $method
      *
-     * @return array
+     * @return array<string, mixed>
      *
      * @throws EventEmitterException
      */
-    private function sendRequest($url, $object, $method = self::GET)
+    private function sendRequest(string $url, \JsonSerializable $object, string $method = self::GET): array
     {
         $headers = [
             'Content-Type: application/json',
@@ -94,11 +94,11 @@ class HttpClient implements EventEmitter
      * @param string $url
      * @param \JsonSerializable $object
      *
-     * @return array
+     * @return array<string, mixed>
      *
      * @throws EventEmitterException
      */
-    public function emit($url, $object)
+    public function emit($url, $object): array
     {
         return $this->sendRequest($url, $object, self::POST);
     }
@@ -108,7 +108,7 @@ class HttpClient implements EventEmitter
      *
      * @return string
      */
-    private function createHmac($object)
+    private function createHmac(\JsonSerializable $object): string
     {
         return base64_encode(
             hash_hmac('sha256', json_encode($object->jsonSerialize()), self::API_APP_SECRET, true)

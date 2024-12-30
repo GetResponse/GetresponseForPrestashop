@@ -40,12 +40,12 @@ class Line implements \JsonSerializable
     private $sku;
 
     public function __construct(
-        $productId,
-        $variantId,
-        $price,
-        $priceTax,
-        $quantity,
-        $sku
+        int $productId,
+        int $variantId,
+        float $price,
+        float $priceTax,
+        int $quantity,
+        string $sku
     ) {
         $this->productId = $productId;
         $this->variantId = $variantId;
@@ -56,9 +56,9 @@ class Line implements \JsonSerializable
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'product_id' => $this->productId,

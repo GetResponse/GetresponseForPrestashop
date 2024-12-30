@@ -31,18 +31,18 @@ class UnsubscribeContact
     /** @var string */
     private $email;
 
-    public function __construct($shopId, $email)
+    public function __construct(int $shopId, string $email)
     {
         $this->shopId = $shopId;
         $this->email = $email;
     }
 
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function getShopId()
+    public function getShopId(): int
     {
         return $this->shopId;
     }

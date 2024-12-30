@@ -67,7 +67,6 @@ class Cart
     }
 
     /**
-     *
      * @return array
      */
     public function getProducts()

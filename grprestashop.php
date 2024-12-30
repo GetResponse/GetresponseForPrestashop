@@ -272,7 +272,7 @@ class GrPrestashop extends Module
      */
     public function install()
     {
-        if (!parent::install() || !$this->installTab()) {
+        if (!parent::install() || !$this->installTab() || !$this->isPrestaShopVersionCompatible()) {
             return false;
         }
 
@@ -299,7 +299,7 @@ class GrPrestashop extends Module
         $tab->active = 1;
         $tab->class_name = 'AdminGetresponse';
         $tab->name = [];
-        $tab->id_parent = strpos(_PS_VERSION_, '1.6') === 0 ? 0 : (int) Tab::getIdFromClassName('AdminAdmin');
+        $tab->id_parent = (int) Tab::getIdFromClassName('AdminAdmin');
         $tab->module = $this->name;
         foreach (Language::getLanguages(true) as $lang) {
             $tab->name[$lang['id_lang']] = 'GetResponse';
@@ -712,5 +712,10 @@ class GrPrestashop extends Module
             'getresponse_recommendation_object',
             json_encode(['pageType' => $pageType, 'pageData' => $pageData])
         );
+    }
+
+    private function isPrestaShopVersionCompatible()
+    {
+        return version_compare(_PS_VERSION_, '1.7', '>=');
     }
 }

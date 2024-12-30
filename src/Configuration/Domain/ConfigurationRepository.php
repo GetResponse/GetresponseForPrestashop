@@ -30,7 +30,7 @@ interface ConfigurationRepository
      *
      * @return void
      */
-    public function upsertConfiguration($configuration);
+    public function upsertConfiguration(Configuration $configuration);
 
     /**
      * @return void

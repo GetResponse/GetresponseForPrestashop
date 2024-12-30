@@ -20,6 +20,7 @@
 
 namespace GetResponse\Configuration\Infrastructure;
 
+use GetResponse\Configuration\Application\Command\UpsertConfiguration;
 use GetResponse\Configuration\Domain\Configuration;
 use GetResponse\Configuration\Domain\ConfigurationRepository as Repository;
 use GetResponse\Configuration\ReadModel\ConfigurationDto;
@@ -41,7 +42,7 @@ class ConfigurationRepository implements Repository
     const GR_SHOP_ID = 'GR_CONFIG_GR_SHOP_ID';
 
     /**
-     * @param Configuration $configuration
+     * @param Configuration|UpsertConfiguration $configuration
      */
     public function upsertConfiguration($configuration)
     {
@@ -71,7 +72,13 @@ class ConfigurationRepository implements Repository
         \Configuration::deleteByName(self::GR_SHOP_ID);
     }
 
-    private function updateConfig(string $key, $value)
+    /**
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return void
+     */
+    private function updateConfig(string $key, $value): void
     {
         $value = is_object($value) ? (string) $value : $value;
 
@@ -79,7 +86,12 @@ class ConfigurationRepository implements Repository
         \Configuration::updateValue($keyWithPrefix, $value);
     }
 
-    public function getConfigurationForShop($shopId)
+    /**
+     * @param int $shopId
+     *
+     * @return ConfigurationDto
+     */
+    public function getConfigurationForShop(int $shopId): ConfigurationDto
     {
         \Shop::setContext(\Shop::CONTEXT_SHOP, $shopId);
 

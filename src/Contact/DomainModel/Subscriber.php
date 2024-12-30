@@ -35,7 +35,7 @@ class Subscriber implements \JsonSerializable
     /** @var string|null */
     private $name;
 
-    public function __construct($email, $marketingConsent, $name)
+    public function __construct(string $email, bool $marketingConsent, ?string $name)
     {
         $this->email = $email;
         $this->marketingConsent = $marketingConsent;
@@ -43,9 +43,9 @@ class Subscriber implements \JsonSerializable
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'callback_type' => CallbackType::SUBSCRIBERS_UPDATE,

@@ -20,7 +20,9 @@
 
 namespace GetResponse\Ecommerce\Application;
 
+use GetResponse\Ecommerce\Application\Adapter\ProductAdapter;
 use GetResponse\Ecommerce\Application\Command\RecommendedProductCommand;
+use GetResponse\Ecommerce\DomainModel\Product;
 use GetResponse\Ecommerce\DomainModel\RecommendedProduct;
 use GetResponse\Ecommerce\DomainModel\Variant;
 
@@ -30,9 +32,10 @@ if (!defined('_PS_VERSION_')) {
 
 class RecommendationService
 {
+    /** @var ProductAdapter */
     private $productAdapter;
 
-    public function __construct($productAdapter)
+    public function __construct(ProductAdapter $productAdapter)
     {
         $this->productAdapter = $productAdapter;
     }
@@ -40,7 +43,7 @@ class RecommendationService
     /**
      * @return RecommendedProduct|null
      */
-    public function createRecommendedProduct(RecommendedProductCommand $command)
+    public function createRecommendedProduct(RecommendedProductCommand $command): ?RecommendedProduct
     {
         $product = $this->productAdapter->getProductById($command->getProductId(), $command->getLanguageId());
         /** @var Variant $variant */
@@ -66,9 +69,11 @@ class RecommendationService
     }
 
     /**
+     * @param string|null $pageId
+     *
      * @return string|null
      */
-    public function getPageType($pageId)
+    public function getPageType($pageId): ?string
     {
         $mapping = [
             'index' => 'home',
@@ -78,13 +83,13 @@ class RecommendationService
             'product' => 'product',
         ];
 
-        return isset($mapping[$pageId]) ? $mapping[$pageId] : null;
+        return $mapping[$pageId] ?? null;
     }
 
     /**
-     * @return array
+     * @return array<string>
      */
-    public function getCategories($product)
+    public function getCategories(Product $product): array
     {
         return array_map(static function ($category) {
             return $category->getName();

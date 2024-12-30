@@ -38,12 +38,14 @@ class MessageSenderService
     }
 
     /**
-     * @param $url
+     * @param string $url
      * @param \JsonSerializable $object
+     *
+     * @return void
      *
      * @throws MessageSenderException
      */
-    public function send($url, $object)
+    public function send(string $url, \JsonSerializable $object): void
     {
         try {
             $this->eventEmitter->emit($url, $object);

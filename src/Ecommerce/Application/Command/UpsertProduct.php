@@ -33,7 +33,7 @@ class UpsertProduct
     /** @var int */
     private $languageId;
 
-    public function __construct($shopId, $productId, $languageId)
+    public function __construct(int $shopId, int $productId, int $languageId)
     {
         $this->shopId = $shopId;
         $this->productId = $productId;
@@ -43,7 +43,7 @@ class UpsertProduct
     /**
      * @return int
      */
-    public function getShopId()
+    public function getShopId(): int
     {
         return $this->shopId;
     }
@@ -51,7 +51,7 @@ class UpsertProduct
     /**
      * @return int
      */
-    public function getProductId()
+    public function getProductId(): int
     {
         return $this->productId;
     }
@@ -59,7 +59,7 @@ class UpsertProduct
     /**
      * @return int
      */
-    public function getLanguageId()
+    public function getLanguageId(): int
     {
         return $this->languageId;
     }

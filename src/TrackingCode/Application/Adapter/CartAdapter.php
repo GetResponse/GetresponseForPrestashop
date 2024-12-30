@@ -29,7 +29,14 @@ if (!defined('_PS_VERSION_')) {
 
 class CartAdapter
 {
-    public function getCartById($cartId)
+    /**
+     * @param int $cartId
+     *
+     * @return Cart
+     *
+     * @throws \Exception
+     */
+    public function getCartById(int $cartId): Cart
     {
         $prestashopCart = new \Cart($cartId);
         $currency = new \Currency($prestashopCart->id_currency);

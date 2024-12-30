@@ -62,23 +62,41 @@ class Order implements \JsonSerializable
     /** @var string|null */
     private $updatedAt;
 
+    /**
+     * @param int $id
+     * @param string $orderNumber
+     * @param int $cartId
+     * @param string $contactEmail
+     * @param Customer $customer
+     * @param Line[] $lines
+     * @param string|null $url
+     * @param float $totalPrice
+     * @param float|null $totalPriceTax
+     * @param float $shippingPrice
+     * @param string $currency
+     * @param string $status
+     * @param Address|null $shippingAddress
+     * @param Address|null $billingAddress
+     * @param string $createdAt
+     * @param string|null $updatedAt
+     */
     public function __construct(
-        $id,
-        $orderNumber,
-        $cartId,
-        $contactEmail,
-        $customer,
-        $lines,
-        $url,
-        $totalPrice,
-        $totalPriceTax,
-        $shippingPrice,
-        $currency,
-        $status,
-        $shippingAddress,
-        $billingAddress,
-        $createdAt,
-        $updatedAt
+        int $id,
+        string $orderNumber,
+        int $cartId,
+        string $contactEmail,
+        Customer $customer,
+        array $lines,
+        ?string $url,
+        float $totalPrice,
+        ?float $totalPriceTax,
+        float $shippingPrice,
+        string $currency,
+        string $status,
+        ?Address $shippingAddress,
+        ?Address $billingAddress,
+        string $createdAt,
+        ?string $updatedAt
     ) {
         $this->id = $id;
         $this->orderNumber = $orderNumber;
@@ -99,9 +117,9 @@ class Order implements \JsonSerializable
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $lines = [];
         foreach ($this->lines as $line) {

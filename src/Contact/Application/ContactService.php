@@ -51,8 +51,10 @@ class ContactService
      * @param UpsertCustomer $command
      *
      * @throws MessageSenderException
+     *
+     * @return void
      */
-    public function upsertCustomer(UpsertCustomer $command)
+    public function upsertCustomer(UpsertCustomer $command): void
     {
         $configuration = $this->configurationReadModel->getConfigurationForShop($command->getShopId());
 
@@ -72,8 +74,10 @@ class ContactService
      * @param UpsertSubscriber $command
      *
      * @throws MessageSenderException
+     *
+     * @return void
      */
-    public function upsertSubscriber(UpsertSubscriber $command)
+    public function upsertSubscriber(UpsertSubscriber $command): void
     {
         $configuration = $this->configurationReadModel->getConfigurationForShop($command->getShopId());
 

@@ -34,15 +34,15 @@ class ConfigurationReadModel
     /**
      * @param ConfigurationRepository $repository
      */
-    public function __construct($repository)
+    public function __construct(ConfigurationRepository $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @return ConfigurationDtoCollection
+     * @return ConfigurationDtoCollection<ConfigurationDto>
      */
-    public function getConfigurationForAllShops()
+    public function getConfigurationForAllShops(): ConfigurationDtoCollection
     {
         $collection = new ConfigurationDtoCollection();
 
@@ -58,7 +58,7 @@ class ConfigurationReadModel
      *
      * @return ConfigurationDto
      */
-    public function getConfigurationForShop($shopId)
+    public function getConfigurationForShop(int $shopId): ConfigurationDto
     {
         return $this->repository->getConfigurationForShop($shopId);
     }

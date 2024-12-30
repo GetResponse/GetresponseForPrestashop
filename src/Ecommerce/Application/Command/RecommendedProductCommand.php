@@ -31,18 +31,18 @@ class RecommendedProductCommand
     /** @var int */
     private $languageId;
 
-    public function __construct($productId, $languageId)
+    public function __construct(int $productId, int $languageId)
     {
         $this->productId = $productId;
         $this->languageId = $languageId;
     }
 
-    public function getProductId()
+    public function getProductId(): int
     {
         return $this->productId;
     }
 
-    public function getLanguageId()
+    public function getLanguageId(): int
     {
         return $this->languageId;
     }

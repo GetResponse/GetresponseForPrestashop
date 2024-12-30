@@ -49,8 +49,10 @@ class ProductService
      * @param UpsertProduct $command
      *
      * @throws MessageSenderException
+     *
+     * @return void
      */
-    public function upsertProduct(UpsertProduct $command)
+    public function upsertProduct(UpsertProduct $command): void
     {
         $configuration = $this->configurationReadModel->getConfigurationForShop($command->getShopId());
 

@@ -91,7 +91,7 @@ class CartServiceTest extends BaseTestCase
 
         $customerMock = new Customer(1, 'John', 'Doe', 'john.doe@example.com', $address, true, ['birthday' => '1987-09-04']);
 
-        $line = new Line(34,1, 29.99, 34.43, 1, 'product_combination_1');
+        $line = new Line(34, 1, 29.99, 34.43, 1, 'product_combination_1');
 
         $cartMock = new Cart(
             1,

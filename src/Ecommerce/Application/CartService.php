@@ -49,8 +49,10 @@ class CartService
      * @param UpsertCart $command
      *
      * @throws MessageSenderException
+     *
+     * @return void
      */
-    public function upsertCart(UpsertCart $command)
+    public function upsertCart(UpsertCart $command): void
     {
         $configuration = $this->configurationReadModel->getConfigurationForShop($command->getShopId());
 

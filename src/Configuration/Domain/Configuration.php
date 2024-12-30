@@ -48,16 +48,16 @@ class Configuration
     private $getresponseShopId;
 
     public function __construct(
-        $shopId,
-        $facebookPixelSnippet,
-        $facebookAdsPixelSnippet,
-        $facebookBusinessExtensionSnippet,
-        $getResponseChatSnippet,
-        $getResponseRecommendationSnippet,
-        $getResponseWebTrackingSnippet,
-        $getResponseWebForm,
-        $liveSynchronization,
-        $getresponseShopId
+        int $shopId,
+        ?string $facebookPixelSnippet,
+        ?string $facebookAdsPixelSnippet,
+        ?string $facebookBusinessExtensionSnippet,
+        ?string $getResponseChatSnippet,
+        ?string $getResponseRecommendationSnippet,
+        ?string $getResponseWebTrackingSnippet,
+        ?WebForm $getResponseWebForm,
+        ?LiveSynchronization $liveSynchronization,
+        ?string $getresponseShopId
     ) {
         $this->shopId = $shopId;
         $this->facebookPixelSnippet = $facebookPixelSnippet;
@@ -71,7 +71,7 @@ class Configuration
         $this->getresponseShopId = $getresponseShopId;
     }
 
-    public function getShopId()
+    public function getShopId(): int
     {
         return $this->shopId;
     }
@@ -146,5 +146,45 @@ class Configuration
     public function getGetResponseRecommendationSnippet()
     {
         return $this->getResponseRecommendationSnippet;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGetResponseWebFormId(): string
+    {
+        return $this->getResponseWebForm->getId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getGetResponseWebFormUrl(): string
+    {
+        return $this->getResponseWebForm->getUrl();
+    }
+
+    /**
+     * @return string
+     */
+    public function getGetResponseWebFormPosition(): string
+    {
+        return $this->getResponseWebForm->getPosition();
+    }
+
+    /**
+     * @return string
+     */
+    public function getLiveSynchronizationType(): string
+    {
+        return $this->liveSynchronization->getType();
+    }
+
+    /**
+     * @return string
+     */
+    public function getLiveSynchronizationUrl(): string
+    {
+        return $this->liveSynchronization->getUrl();
     }
 }

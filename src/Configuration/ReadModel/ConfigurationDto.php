@@ -146,7 +146,7 @@ class ConfigurationDto
         return $this->getResponseWebTrackingSnippet;
     }
 
-    public function isGetResponseWebTrackingActive()
+    public function isGetResponseWebTrackingActive(): bool
     {
         return '' !== $this->getResponseWebTrackingSnippet;
     }
@@ -199,7 +199,7 @@ class ConfigurationDto
         return $this->getresponseShopId;
     }
 
-    public function getGetResponseRecommendationSnippet()
+    public function getGetResponseRecommendationSnippet(): ?string
     {
         return $this->getResponseRecommendationSnippet;
     }

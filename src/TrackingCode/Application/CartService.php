@@ -45,8 +45,10 @@ class CartService
     /**
      * @param int $cartId
      * @param int $shopId
+     *
+     * @return void
      */
-    public function addCartToBuffer($cartId, $shopId)
+    public function addCartToBuffer(int $cartId, int $shopId): void
     {
         $configuration = $this->configurationReadModel->getConfigurationForShop($shopId);
 
@@ -67,7 +69,7 @@ class CartService
      *
      * @return Cart|null
      */
-    public function getCartFromBuffer($shopId)
+    public function getCartFromBuffer(int $shopId): ?Cart
     {
         $configuration = $this->configurationReadModel->getConfigurationForShop($shopId);
 

@@ -36,7 +36,12 @@ class WebForm
     /** @var string */
     private $position;
 
-    public function __construct($id, $url, $position)
+    /**
+     * @param string $id
+     * @param string $url
+     * @param string $position
+     */
+    public function __construct(string $id, string $url, string $position)
     {
         $availablePositions = [
             WebFormPosition::FOOTER,
@@ -61,5 +66,29 @@ class WebForm
         ];
 
         return json_encode($webForm);
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPosition(): string
+    {
+        return $this->position;
     }
 }

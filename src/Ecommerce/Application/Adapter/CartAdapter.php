@@ -31,11 +31,11 @@ if (!defined('_PS_VERSION_')) {
 class CartAdapter
 {
     /**
-     * @param $cartId
+     * @param int $cartId
      *
      * @return Cart
      */
-    public function getCartById($cartId)
+    public function getCartById(int $cartId): Cart
     {
         $prestashopCart = new \Cart($cartId);
         $customerAdapter = new CustomerAdapter();
@@ -64,9 +64,7 @@ class CartAdapter
             );
         }
 
-        $shopCartUrl = version_compare(_PS_VERSION_, '1.7', '>=')
-            ? \Context::getContext()->link->getPageLink('cart', null, null, ['action' => 'show'])
-            : \Context::getContext()->link->getPageLink('order');
+        $shopCartUrl = \Context::getContext()->link->getPageLink('cart', null, null, ['action' => 'show']);
 
         return new Cart(
             $prestashopCart->id,

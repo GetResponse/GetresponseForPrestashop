@@ -33,7 +33,11 @@ class LiveSynchronization
     /** @var string */
     private $type;
 
-    public function __construct($url, $type)
+    /**
+     * @param string $url
+     * @param string $type
+     */
+    public function __construct(string $url, string $type)
     {
         Assertion::inArray($type, ['Contacts', 'Products', 'FullEcommerce']);
         $this->url = $url;
@@ -48,5 +52,21 @@ class LiveSynchronization
         ];
 
         return json_encode($webForm);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
     }
 }
