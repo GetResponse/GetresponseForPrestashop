@@ -17,8 +17,8 @@ workflow:
   rules:
     - if: $CI_COMMIT_BRANCH != "master"
 
-composer install:php71:
-  image: php:7.1-cli
+composer install:php72:
+  image: php:7.2-cli
   stage: install_dependencies
   before_script:
     - apt-get update
@@ -34,8 +34,8 @@ composer install:php71:
     expire_in: 2 hrs
   <<: *exclude-master
 
-test:app-php71:
-  image: php:7.1-cli
+test:app-php72:
+  image: php:7.2-cli
   stage: test
   tags:
     - kubernetes-ci
@@ -43,7 +43,7 @@ test:app-php71:
     - ./vendor/bin/phpunit --testsuite unit --configuration ./tests/phpunit.xml --colors=never
   <<: *exclude-master
   dependencies:
-    - composer install:php71
+    - composer install:php72
 
 upload to s3:
   stage: upload_to_s3
