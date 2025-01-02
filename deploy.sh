@@ -145,10 +145,10 @@ done
 
 echo ""
 echo "Build composer"
-docker compose up -d php71
-docker compose exec php71 composer install --no-dev --working-dir="$COMPOSER_REMOTE_PROJECT_PATH"
+docker compose up -d php72
+docker compose exec php72 composer install --no-dev --working-dir="$COMPOSER_REMOTE_PROJECT_PATH"
 
-if ! docker ps | grep -q php71; then
+if ! docker ps | grep -q php72; then
     echo "Docker does not seem to be running, run it first and retry!"
     exit 1
 fi
