@@ -17,37 +17,12 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 
-namespace GetResponse\Configuration\ReadModel;
+header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Cache-Control: post-check=0, pre-check=0', false);
+header('Pragma: no-cache');
 
-if (!defined('_PS_VERSION_')) {
-    exit;
-}
-
-/**
- * @template T
- * @implements \IteratorAggregate<int, T>
- */
-class ConfigurationDtoCollection implements \IteratorAggregate
-{
-    /** @var array<int, T> */
-    private $configurations = [];
-
-    /**
-     * @param T $configuration
-     *
-     * @return void
-     */
-    public function add($configuration): void
-    {
-        $this->configurations[] = $configuration;
-    }
-
-    /**
-     * @return \ArrayIterator<int, T>
-     */
-    public function getIterator(): \ArrayIterator
-    {
-        return new \ArrayIterator($this->configurations);
-    }
-}
+header('Location: ../');
+exit;

@@ -20,7 +20,10 @@
 
 namespace GetResponse\SharedKernel\Session;
 
-use RuntimeException;
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class StorageFactory
@@ -43,7 +46,7 @@ class StorageFactory
             if ($context->cookie) {
                 return new CookieStorage();
             }
-        } catch (RuntimeException $e) {
+        } catch (\RuntimeException $e) {
             $this->logGetResponseError($e->getMessage());
         }
 

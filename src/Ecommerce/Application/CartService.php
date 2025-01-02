@@ -34,6 +34,7 @@ class CartService
 {
     /** @var MessageSenderService */
     private $messageSenderService;
+
     /** @var ConfigurationReadModel */
     private $configurationReadModel;
 
@@ -48,9 +49,9 @@ class CartService
     /**
      * @param UpsertCart $command
      *
-     * @throws MessageSenderException
-     *
      * @return void
+     *
+     * @throws MessageSenderException
      */
     public function upsertCart(UpsertCart $command): void
     {

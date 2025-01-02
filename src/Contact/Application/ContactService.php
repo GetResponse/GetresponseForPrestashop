@@ -36,6 +36,7 @@ class ContactService
 {
     /** @var MessageSenderService */
     private $messageSenderService;
+
     /** @var ConfigurationReadModel */
     private $configurationReadModel;
 
@@ -50,9 +51,9 @@ class ContactService
     /**
      * @param UpsertCustomer $command
      *
-     * @throws MessageSenderException
-     *
      * @return void
+     *
+     * @throws MessageSenderException
      */
     public function upsertCustomer(UpsertCustomer $command): void
     {
@@ -73,9 +74,9 @@ class ContactService
     /**
      * @param UpsertSubscriber $command
      *
-     * @throws MessageSenderException
-     *
      * @return void
+     *
+     * @throws MessageSenderException
      */
     public function upsertSubscriber(UpsertSubscriber $command): void
     {

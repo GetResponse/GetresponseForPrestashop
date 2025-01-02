@@ -34,6 +34,7 @@ class OrderService
 {
     /** @var MessageSenderService */
     private $messageSenderService;
+
     /** @var ConfigurationReadModel */
     private $configurationReadModel;
 
@@ -48,9 +49,9 @@ class OrderService
     /**
      * @param UpsertOrder $command
      *
-     * @throws MessageSenderException
-     *
      * @return void
+     *
+     * @throws MessageSenderException
      */
     public function upsertOrder(UpsertOrder $command): void
     {

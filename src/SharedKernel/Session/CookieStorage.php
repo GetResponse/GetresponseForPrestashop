@@ -26,7 +26,8 @@ if (!defined('_PS_VERSION_')) {
 
 class CookieStorage implements Storage
 {
-    private \Context $context;
+    /** @var \Context */
+    private $context;
 
     public function __construct()
     {

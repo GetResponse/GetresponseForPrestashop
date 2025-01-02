@@ -34,7 +34,7 @@ class Category implements \JsonSerializable
     private $name;
     /** @var bool */
     private $isDefault;
-    /** @var string|null */
+    /** @var ?string */
     private $url;
 
     public function __construct(
@@ -42,7 +42,7 @@ class Category implements \JsonSerializable
         int $parentId,
         string $name,
         bool $isDefault = false,
-        ?string $url = null
+        string $url = null
     ) {
         $this->id = $id;
         $this->parentId = $parentId;

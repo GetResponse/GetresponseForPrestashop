@@ -1,0 +1,52 @@
+{
+    "config": {
+        "run-mode": "docker",
+        "run-exec": "docker exec -w /project/prestashop/modules/grprestashop prestashop-app-17",
+        "path": "/vendor/bin/captainhook",
+        "git": "/.git"
+    },
+    "commit-msg": {
+        "enabled": false,
+        "actions": []
+    },
+    "pre-push": {
+        "enabled": false,
+        "actions": []
+    },
+  "pre-commit": {
+
+    "enabled": true,
+    "actions": [
+      {
+        "action": "composer run-script php-cs-fix"
+      },
+      {
+        "action": "composer run-script phpstan"
+      }
+    ]
+  },
+    "prepare-commit-msg": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-commit": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-merge": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-checkout": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-rewrite": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-change": {
+        "enabled": false,
+        "actions": []
+    }
+}

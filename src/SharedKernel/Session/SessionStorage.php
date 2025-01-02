@@ -28,7 +28,8 @@ if (!defined('_PS_VERSION_')) {
 
 class SessionStorage implements Storage
 {
-    private SessionInterface $session;
+    /** @var SessionInterface */
+    private $session;
 
     public function __construct(SessionInterface $session)
     {
