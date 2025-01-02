@@ -22,7 +22,6 @@ namespace GetResponse\Ecommerce\Application;
 
 use GetResponse\Configuration\ReadModel\ConfigurationReadModel;
 use GetResponse\Ecommerce\Application\Adapter\ProductAdapter;
-use GetResponse\Ecommerce\Application\Command\UpsertOrder;
 use GetResponse\Ecommerce\Application\Command\UpsertProduct;
 use GetResponse\MessageSender\Application\MessageSenderException;
 use GetResponse\MessageSender\Application\MessageSenderService;
