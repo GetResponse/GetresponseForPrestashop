@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.5.0] - 2024-12-18
+### Feature
+- Added support for cart recovery for non-logged-in users
+
 ## [1.4.2] - 2024-10-31
 ### Feature
 - Change storage from cookie to session
