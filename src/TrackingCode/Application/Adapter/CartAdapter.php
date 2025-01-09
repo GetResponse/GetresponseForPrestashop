@@ -20,6 +20,7 @@
 
 namespace GetResponse\TrackingCode\Application\Adapter;
 
+use GetResponse\SharedKernel\CartRecoveryHelper;
 use GetResponse\TrackingCode\DomainModel\Cart;
 use GetResponse\TrackingCode\DomainModel\Product;
 
@@ -33,7 +34,7 @@ class CartAdapter
     {
         $prestashopCart = new \Cart($cartId);
         $currency = new \Currency($prestashopCart->id_currency);
-        $shopCartUrl = \Context::getContext()->link->getPageLink('cart', null, null, ['action' => 'show']);
+        $cartRecoveryUrl = CartRecoveryHelper::getUrl($prestashopCart->id);
 
         $products = [];
 
@@ -50,7 +51,7 @@ class CartAdapter
             $prestashopCart->id,
             $prestashopCart->getOrderTotal(true),
             $currency->iso_code,
-            $shopCartUrl,
+            $cartRecoveryUrl,
             $products
         );
     }
