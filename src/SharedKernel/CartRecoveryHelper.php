@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -18,25 +17,27 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-class Link
+
+namespace GetResponse\SharedKernel;
+
+use Context;
+
+class CartRecoveryHelper
 {
-    public function getProductLink($product)
+    public static function getUrl($cartId)
     {
-        return __PS_BASE_URI__ . 'product/' . $product->id;
+        return Context::getContext()->link->getModuleLink(
+            'grprestashop',
+            'CartRecovery',
+            [
+                'cart_id' => $cartId,
+                'cart_token' => self::generateCartToken($cartId),
+            ]
+        );
     }
 
-    public function getImageLink($name, $ids, $type = null)
+    public static function generateCartToken($cartId)
     {
-        return 'my-prestashop.com/product/1/images/default.jpg';
-    }
-
-    public function getPageLink($controllerName, $ssl = null, $id_lang = null, $request = null)
-    {
-        return 'https://my-prestashop.com/pl/koszyk?action=show';
-    }
-
-    public function getModuleLink($module, $controllerName, $params, $ssl = null, $id_lang = null, $idShop = null, $relativeProtocol = false)
-    {
-        return 'https://prestashop.com/en/module/grprestashop/CartRecovery?cart_id=123&cart_token=54321';
+        return md5(_COOKIE_KEY_ . 'recover_cart_' . $cartId);
     }
 }

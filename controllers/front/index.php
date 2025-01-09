@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -18,25 +17,14 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-class Link
-{
-    public function getProductLink($product)
-    {
-        return __PS_BASE_URI__ . 'product/' . $product->id;
-    }
 
-    public function getImageLink($name, $ids, $type = null)
-    {
-        return 'my-prestashop.com/product/1/images/default.jpg';
-    }
 
-    public function getPageLink($controllerName, $ssl = null, $id_lang = null, $request = null)
-    {
-        return 'https://my-prestashop.com/pl/koszyk?action=show';
-    }
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
 
-    public function getModuleLink($module, $controllerName, $params, $ssl = null, $id_lang = null, $idShop = null, $relativeProtocol = false)
-    {
-        return 'https://prestashop.com/en/module/grprestashop/CartRecovery?cart_id=123&cart_token=54321';
-    }
-}
+header("Cache-Control: no-store, no-cache, must-revalidate");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+header("Location: ../");
+exit;

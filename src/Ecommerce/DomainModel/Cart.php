@@ -33,6 +33,8 @@ class Cart implements \JsonSerializable
     private $id;
     /** @var Customer */
     private $customer;
+    /** @var ?string */
+    private $visitorUuid;
     /** @var Line[] */
     private $lines;
     /** @var float */
@@ -51,6 +53,7 @@ class Cart implements \JsonSerializable
     public function __construct(
         $id,
         Customer $customer,
+        $visitorUuid,
         $lines,
         $totalPrice,
         $totalTaxPrice,
@@ -61,6 +64,7 @@ class Cart implements \JsonSerializable
     ) {
         $this->id = $id;
         $this->customer = $customer;
+        $this->visitorUuid = $visitorUuid;
         $this->lines = $lines;
         $this->totalPrice = $totalPrice;
         $this->totalTaxPrice = $totalTaxPrice;
@@ -84,6 +88,14 @@ class Cart implements \JsonSerializable
     public function getCustomer()
     {
         return $this->customer;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVisitorUuid()
+    {
+        return $this->visitorUuid;
     }
 
     /**
@@ -157,6 +169,7 @@ class Cart implements \JsonSerializable
             'id' => $this->id,
             'contact_email' => $this->customer->getEmail(),
             'customer' => $this->customer->jsonSerialize(),
+            'visitor_uuid' => $this->visitorUuid,
             'lines' => $lines,
             'total_price' => $this->totalPrice,
             'total_price_tax' => $this->totalTaxPrice,
@@ -172,6 +185,6 @@ class Cart implements \JsonSerializable
      */
     public function isValuable()
     {
-        return $this->id !== 0 && $this->customer->getEmail() !== null;
+        return $this->id !== 0 && ($this->customer->getEmail() !== null || $this->visitorUuid !== null);
     }
 }
