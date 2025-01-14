@@ -23,6 +23,7 @@ namespace GetResponse\Ecommerce\Application\Adapter;
 use GetResponse\Contact\Application\Adapter\CustomerAdapter;
 use GetResponse\Ecommerce\DomainModel\Cart;
 use GetResponse\Ecommerce\DomainModel\Line;
+use GetResponse\SharedKernel\CartRecoveryHelper;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -32,10 +33,11 @@ class CartAdapter
 {
     /**
      * @param int $cartId
+     * @param string $visitorUuid
      *
      * @return Cart
      */
-    public function getCartById(int $cartId): Cart
+    public function getCartById(int $cartId, string $visitorUuid): Cart
     {
         $prestashopCart = new \Cart($cartId);
         $customerAdapter = new CustomerAdapter();
@@ -64,16 +66,17 @@ class CartAdapter
             );
         }
 
-        $shopCartUrl = \Context::getContext()->link->getPageLink('cart', null, null, ['action' => 'show']);
+        $cartRecoveryUrl = CartRecoveryHelper::getUrl($prestashopCart->id);
 
         return new Cart(
             $prestashopCart->id,
             $customer,
+            $visitorUuid,
             $lines,
             $prestashopCart->getOrderTotal(false),
             $prestashopCart->getOrderTotal(true),
             $currency->iso_code,
-            $shopCartUrl,
+            $cartRecoveryUrl,
             $prestashopCart->date_add,
             $prestashopCart->date_upd
         );

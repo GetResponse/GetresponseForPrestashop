@@ -61,8 +61,13 @@ class CartService
             return;
         }
 
+        $visitorUuid = null;
+        if ($configuration->isGetResponseWebTrackingActive() && isset($_COOKIE['gaVisitorUuid'])) {
+            $visitorUuid = $_COOKIE['gaVisitorUuid'];
+        }
+
         $cartAdapter = new CartAdapter();
-        $cart = $cartAdapter->getCartById($command->getCartId());
+        $cart = $cartAdapter->getCartById($command->getCartId(), $visitorUuid);
 
         if ($cart->isValuable()) {
             $this->messageSenderService->send(

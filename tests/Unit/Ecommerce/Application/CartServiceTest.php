@@ -45,12 +45,17 @@ class CartServiceTest extends BaseTestCase
         $this->messageSenderServiceMock = $this->getMockWithoutConstructing(MessageSenderService::class);
         $this->configurationReadModelMock = $this->getMockWithoutConstructing(ConfigurationReadModel::class);
 
+        define('_COOKIE_KEY_', '216732178362183');
+        $_COOKIE['gaVisitorUuid'] = 'this-is-uuid';
+
         $this->sut = new CartService($this->messageSenderServiceMock, $this->configurationReadModelMock);
     }
 
-    /**
-     * @test
-     */
+    public function tearDown()
+    {
+        unset($_COOKIE['gaVisitorUuid']);
+    }
+
     public function shouldUpsertCart()
     {
         $shopId = 3;
@@ -65,6 +70,11 @@ class CartServiceTest extends BaseTestCase
 
         $configurationDTOMock
             ->expects(self::once())
+            ->method('isGetResponseWebTrackingActive')
+            ->willReturn(false);
+
+        $configurationDTOMock
+            ->expects(self::once())
             ->method('getLiveSynchronizationUrl')
             ->willReturn($liveSynchronizationUrl);
 
@@ -74,7 +84,97 @@ class CartServiceTest extends BaseTestCase
             ->with($shopId)
             ->willReturn($configurationDTOMock);
 
-        $address = new Address(
+        $address = $this->getAddress();
+        $customerMock = $this->getCustomer($address);
+        $line = $this->getLine();
+
+        $cartMock = new Cart(
+            1,
+            $customerMock,
+            null,
+            [$line],
+            29.99,
+            34.43,
+            'eur',
+            'https://prestashop.com/en/module/grprestashop/CartRecovery?cart_id=123&cart_token=54321',
+            '2020-05-12 11:43:59',
+            '2020-05-14 16:32:03'
+        );
+
+        $this->messageSenderServiceMock
+            ->expects(self::once())
+            ->method('send')
+            ->with($liveSynchronizationUrl, $cartMock);
+
+        $command = new UpsertCart(1, $shopId);
+
+        $this->sut->upsertCart($command);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldUpsertCartWithVisitorUuid()
+    {
+        $shopId = 3;
+        $liveSynchronizationUrl = 'https://app.getreponse.com/callback/ecommerce/33983';
+
+        $configurationDTOMock = $this->getMockWithoutConstructing(ConfigurationDto::class);
+
+        $configurationDTOMock
+            ->expects(self::once())
+            ->method('isEcommerceLiveSynchronizationActive')
+            ->willReturn(true);
+
+        $configurationDTOMock
+            ->expects(self::once())
+            ->method('isGetResponseWebTrackingActive')
+            ->willReturn(true);
+
+        $configurationDTOMock
+            ->expects(self::once())
+            ->method('getLiveSynchronizationUrl')
+            ->willReturn($liveSynchronizationUrl);
+
+        $this->configurationReadModelMock
+            ->expects(self::once())
+            ->method('getConfigurationForShop')
+            ->with($shopId)
+            ->willReturn($configurationDTOMock);
+
+        $address = $this->getAddress();
+        $customerMock = $this->getCustomer($address);
+        $line = $this->getLine();
+
+        $cartMock = new Cart(
+            1,
+            $customerMock,
+            'this-is-uuid',
+            [$line],
+            29.99,
+            34.43,
+            'eur',
+            'https://prestashop.com/en/module/grprestashop/CartRecovery?cart_id=123&cart_token=54321',
+            '2020-05-12 11:43:59',
+            '2020-05-14 16:32:03'
+        );
+
+        $this->messageSenderServiceMock
+            ->expects(self::once())
+            ->method('send')
+            ->with($liveSynchronizationUrl, $cartMock);
+
+        $command = new UpsertCart(1, $shopId);
+
+        $this->sut->upsertCart($command);
+    }
+
+    /**
+     * @return Address
+     */
+    private function getAddress()
+    {
+        return new Address(
             'home',
             'Poland',
             'John',
@@ -88,30 +188,23 @@ class CartServiceTest extends BaseTestCase
             '544 404 400',
             ''
         );
+    }
 
-        $customerMock = new Customer(1, 'John', 'Doe', 'john.doe@example.com', $address, true, ['birthday' => '1987-09-04']);
+    /**
+     * @param Address $address
+     *
+     * @return Customer
+     */
+    private function getCustomer(Address $address)
+    {
+        return new Customer(1, 'John', 'Doe', 'john.doe@example.com', $address, true, ['birthday' => '1987-09-04']);
+    }
 
-        $line = new Line(34, 1, 29.99, 34.43, 1, 'product_combination_1');
-
-        $cartMock = new Cart(
-            1,
-            $customerMock,
-            [$line],
-            29.99,
-            34.43,
-            'eur',
-            'https://my-prestashop.com/pl/koszyk?action=show',
-            '2020-05-12 11:43:59',
-            '2020-05-14 16:32:03'
-        );
-
-        $this->messageSenderServiceMock
-            ->expects(self::once())
-            ->method('send')
-            ->with($liveSynchronizationUrl, $cartMock);
-
-        $command = new UpsertCart(1, $shopId);
-
-        $this->sut->upsertCart($command);
+    /**
+     * @return Line
+     */
+    private function getLine()
+    {
+        return new Line(34, 1, 29.99, 34.43, 1, 'product_combination_1');
     }
 }

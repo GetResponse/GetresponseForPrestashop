@@ -33,6 +33,8 @@ class Cart implements \JsonSerializable
     private $id;
     /** @var Customer */
     private $customer;
+    /** @var ?string */
+    private $visitorUuid;
     /** @var Line[] */
     private $lines;
     /** @var float */
@@ -52,6 +54,7 @@ class Cart implements \JsonSerializable
      * @param int $id
      * @param Customer $customer
      * @param Line[] $lines
+     * @param string $visitorUuid
      * @param float $totalPrice
      * @param float $totalTaxPrice
      * @param string $currency
@@ -62,16 +65,18 @@ class Cart implements \JsonSerializable
     public function __construct(
         int $id,
         Customer $customer,
-        array $lines,
-        float $totalPrice,
-        float $totalTaxPrice,
-        string $currency,
-        string $url,
-        string $createdAt,
-        string $updatedAt
+        $visitorUuid,
+        $lines,
+        $totalPrice,
+        $totalTaxPrice,
+        $currency,
+        $url,
+        $createdAt,
+        $updatedAt
     ) {
         $this->id = $id;
         $this->customer = $customer;
+        $this->visitorUuid = $visitorUuid;
         $this->lines = $lines;
         $this->totalPrice = $totalPrice;
         $this->totalTaxPrice = $totalTaxPrice;
@@ -95,6 +100,14 @@ class Cart implements \JsonSerializable
     public function getCustomer(): Customer
     {
         return $this->customer;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVisitorUuid()
+    {
+        return $this->visitorUuid;
     }
 
     /**
@@ -168,6 +181,7 @@ class Cart implements \JsonSerializable
             'id' => $this->id,
             'contact_email' => $this->customer->getEmail(),
             'customer' => $this->customer->jsonSerialize(),
+            'visitor_uuid' => $this->visitorUuid,
             'lines' => $lines,
             'total_price' => $this->totalPrice,
             'total_price_tax' => $this->totalTaxPrice,
@@ -183,6 +197,6 @@ class Cart implements \JsonSerializable
      */
     public function isValuable(): bool
     {
-        return $this->id !== 0 && $this->customer->getEmail() !== null;
+        return $this->id !== 0 && ($this->customer->getEmail() !== null || $this->visitorUuid !== null);
     }
 }
