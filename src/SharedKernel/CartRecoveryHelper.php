@@ -20,13 +20,15 @@
 
 namespace GetResponse\SharedKernel;
 
-use Context;
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class CartRecoveryHelper
 {
     public static function getUrl(int $cartId): string
     {
-        return Context::getContext()->link->getModuleLink(
+        return \Context::getContext()->link->getModuleLink(
             'grprestashop',
             'CartRecovery',
             [
