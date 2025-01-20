@@ -45,12 +45,6 @@ class Customer implements \JsonSerializable
     private $customFields;
 
     /**
-     * @param int $id
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $email
-     * @param Address|null $address
-     * @param bool $marketingConsent
      * @param array<string, mixed> $customFields
      */
     public function __construct(
