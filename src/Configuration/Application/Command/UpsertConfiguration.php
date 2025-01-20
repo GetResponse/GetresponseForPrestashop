@@ -53,21 +53,6 @@ class UpsertConfiguration
     /** @var string|null */
     private $getResponseShopId;
 
-    /**
-     * @param int $shopId
-     * @param string|null $facebookPixelSnippet
-     * @param string|null $facebookAdsPixelSnippet
-     * @param string|null $facebookBusinessExtensionSnippet
-     * @param string|null $getResponseChatSnippet
-     * @param string|null $getResponseRecommendationSnippet
-     * @param string|null $getResponseWebTrackingSnippet
-     * @param int|null $getResponseWebFormId
-     * @param string|null $getResponseWebFormUrl
-     * @param string|null $getResponseWebFormPosition
-     * @param string|null $liveSynchronizationUrl
-     * @param string|null $liveSynchronizationType
-     * @param string|null $getResponseShopId
-     */
     public function __construct(
         int $shopId,
         ?string $facebookPixelSnippet,
