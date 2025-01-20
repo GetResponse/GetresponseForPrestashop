@@ -272,7 +272,7 @@ class GrPrestashop extends Module
      */
     public function install()
     {
-        if (!parent::install() || !$this->installTab() || !$this->isPrestaShopVersionCompatible()) {
+        if (!parent::install() || !$this->installTab()) {
             return false;
         }
 
@@ -712,10 +712,5 @@ class GrPrestashop extends Module
             'getresponse_recommendation_object',
             json_encode(['pageType' => $pageType, 'pageData' => $pageData])
         );
-    }
-
-    private function isPrestaShopVersionCompatible()
-    {
-        return version_compare(_PS_VERSION_, '1.7', '>=');
     }
 }
