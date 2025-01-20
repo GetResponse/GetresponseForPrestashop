@@ -33,10 +33,6 @@ class LiveSynchronization
     /** @var string */
     private $type;
 
-    /**
-     * @param string $url
-     * @param string $type
-     */
     public function __construct(string $url, string $type)
     {
         Assertion::inArray($type, ['Contacts', 'Products', 'FullEcommerce']);
