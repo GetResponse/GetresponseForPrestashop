@@ -31,9 +31,6 @@ class ConfigurationReadModel
     /** @var ConfigurationRepository */
     private $repository;
 
-    /**
-     * @param ConfigurationRepository $repository
-     */
     public function __construct(ConfigurationRepository $repository)
     {
         $this->repository = $repository;

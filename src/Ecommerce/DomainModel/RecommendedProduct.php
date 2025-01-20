@@ -46,15 +46,7 @@ class RecommendedProduct
     private $previousPrice;
 
     /**
-     * @param string $url
-     * @param int $externalId
-     * @param string $name
-     * @param float $price
-     * @param string $imageUrl
-     * @param string $description
      * @param string[] $categories
-     * @param string $sku
-     * @param float|null $previousPrice
      */
     public function __construct(
         string $url,

@@ -60,22 +60,7 @@ class Variant implements \JsonSerializable
     private $status;
 
     /**
-     * @param int $id
-     * @param int $productId
-     * @param string $name
-     * @param string $sku
-     * @param float $price
-     * @param float $priceTax
-     * @param float|null $previousPrice
-     * @param float|null $previousPriceTax
-     * @param int $quantity
-     * @param string $url
-     * @param int|null $position
-     * @param int|null $barcode
-     * @param string $shortDescription
-     * @param string $description
      * @param Image[]|null $images
-     * @param string $status
      */
     public function __construct(
         int $id,

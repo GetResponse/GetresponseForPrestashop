@@ -36,11 +36,6 @@ class WebForm
     /** @var string */
     private $position;
 
-    /**
-     * @param string $id
-     * @param string $url
-     * @param string $position
-     */
     public function __construct(string $id, string $url, string $position)
     {
         $availablePositions = [
