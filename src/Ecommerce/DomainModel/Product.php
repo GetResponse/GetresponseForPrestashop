@@ -53,16 +53,8 @@ class Product implements \JsonSerializable
     private $status;
 
     /**
-     * @param int $id
-     * @param string $name
-     * @param string $type
-     * @param string $url
-     * @param string $vendor
      * @param Category[] $categories
      * @param Variant[] $variants
-     * @param string $createdAt
-     * @param string|null $updatedAt
-     * @param string $status
      */
     public function __construct(
         int $id,
