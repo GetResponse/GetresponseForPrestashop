@@ -63,22 +63,7 @@ class Order implements \JsonSerializable
     private $updatedAt;
 
     /**
-     * @param int $id
-     * @param string $orderNumber
-     * @param int $cartId
-     * @param string $contactEmail
-     * @param Customer $customer
      * @param Line[] $lines
-     * @param string|null $url
-     * @param float $totalPrice
-     * @param float|null $totalPriceTax
-     * @param float $shippingPrice
-     * @param string $currency
-     * @param string $status
-     * @param Address|null $shippingAddress
-     * @param Address|null $billingAddress
-     * @param string $createdAt
-     * @param string|null $updatedAt
      */
     public function __construct(
         int $id,
