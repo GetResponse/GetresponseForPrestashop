@@ -498,11 +498,13 @@ class GrPrestashop extends Module
     public function hookActionProductUpdate($params)
     {
         try {
-            /** @var Product $product */
-            $product = $params['product'];
-
-            if (null !== $product) {
-                $this->upsertProduct($product);
+            if(isset($params['product'])){
+                /** @var Product $product */
+                $product = $params['product'];
+    
+                if (null !== $product) {
+                    $this->upsertProduct($product);
+                }
             }
         } catch (GetResponse\MessageSender\Application\MessageSenderException $e) {
             $this->logGetResponseError($e->getMessage());
