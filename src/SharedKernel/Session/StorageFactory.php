@@ -36,6 +36,10 @@ class StorageFactory
         try {
             $context = \Context::getContext();
 
+            if ($context === null) {
+                throw new \RuntimeException('Context is null');
+            }
+
             /** @var SessionInterface|null $session */
             $session = $context->session;
 

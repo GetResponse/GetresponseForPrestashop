@@ -30,12 +30,14 @@ class GrPrestashopCartRecoveryModuleFrontController extends ModuleFrontControlle
     {
         $queryParams = Tools::getAllValues();
 
-        if (empty($queryParams['cart_id']) || empty($queryParams['cart_token'])) {
+        if (!is_array($queryParams) || empty($queryParams['cart_id']) || empty($queryParams['cart_token'])) {
             $this->showErrorFlashMessage();
         }
-        $cartId = $queryParams['cart_id'];
 
-        if ($queryParams['cart_token'] != CartRecoveryHelper::generateCartToken($cartId)) {
+        $cartId = (int) $queryParams['cart_id'];
+        $cartToken = (string) $queryParams['cart_token'];
+
+        if ($cartToken !== CartRecoveryHelper::generateCartToken($cartId)) {
             $this->showErrorFlashMessage();
         }
 

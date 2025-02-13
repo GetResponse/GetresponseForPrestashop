@@ -149,42 +149,42 @@ class Configuration
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getGetResponseWebFormId(): string
+    public function getGetResponseWebFormId(): ?string
     {
-        return $this->getResponseWebForm->getId();
+        return $this->getResponseWebForm ? $this->getResponseWebForm->getId() : null;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getGetResponseWebFormUrl(): string
+    public function getGetResponseWebFormUrl(): ?string
     {
-        return $this->getResponseWebForm->getUrl();
+        return $this->getResponseWebForm ? $this->getResponseWebForm->getUrl() : null;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getGetResponseWebFormPosition(): string
+    public function getGetResponseWebFormPosition(): ?string
     {
-        return $this->getResponseWebForm->getPosition();
+        return $this->getResponseWebForm ? $this->getResponseWebForm->getPosition() : null;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLiveSynchronizationType(): string
+    public function getLiveSynchronizationType(): ?string
     {
-        return $this->liveSynchronization->getType();
+        return $this->liveSynchronization ? $this->liveSynchronization->getType() : null;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLiveSynchronizationUrl(): string
+    public function getLiveSynchronizationUrl(): ?string
     {
-        return $this->liveSynchronization->getUrl();
+        return $this->liveSynchronization ? $this->liveSynchronization->getUrl() : null;
     }
 }

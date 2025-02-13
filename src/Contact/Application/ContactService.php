@@ -63,21 +63,19 @@ class ContactService
             return;
         }
 
+        $url = $configuration->getLiveSynchronizationUrl();
+        if ($url === null) {
+            throw new \InvalidArgumentException('Live synchronization URL cannot be null');
+        }
+
         $customerAdapter = new CustomerAdapter();
 
         $this->messageSenderService->send(
-            $configuration->getLiveSynchronizationUrl(),
+            $url,
             $customerAdapter->getCustomerById($command->getCustomerId())
         );
     }
 
-    /**
-     * @param UpsertSubscriber $command
-     *
-     * @return void
-     *
-     * @throws MessageSenderException
-     */
     public function upsertSubscriber(UpsertSubscriber $command): void
     {
         $configuration = $this->configurationReadModel->getConfigurationForShop($command->getShopId());
@@ -86,8 +84,13 @@ class ContactService
             return;
         }
 
+        $url = $configuration->getLiveSynchronizationUrl();
+        if ($url === null) {
+            throw new \InvalidArgumentException('Live synchronization URL cannot be null');
+        }
+
         $this->messageSenderService->send(
-            $configuration->getLiveSynchronizationUrl(),
+            $url,
             new Subscriber($command->getEmail(), $command->isMarketingConsent(), $command->getName())
         );
     }

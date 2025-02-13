@@ -20,7 +20,6 @@
 
 namespace GetResponse\Configuration\Infrastructure;
 
-use GetResponse\Configuration\Application\Command\UpsertConfiguration;
 use GetResponse\Configuration\Domain\Configuration;
 use GetResponse\Configuration\Domain\ConfigurationRepository as Repository;
 use GetResponse\Configuration\ReadModel\ConfigurationDto;
@@ -42,7 +41,7 @@ class ConfigurationRepository implements Repository
     const GR_SHOP_ID = 'GR_CONFIG_GR_SHOP_ID';
 
     /**
-     * @param Configuration|UpsertConfiguration $configuration
+     * @param Configuration $configuration
      */
     public function upsertConfiguration($configuration)
     {
@@ -80,7 +79,9 @@ class ConfigurationRepository implements Repository
      */
     private function updateConfig(string $key, $value): void
     {
-        $value = is_object($value) ? (string) $value : $value;
+        if (is_object($value)) {
+            $value = json_encode($value);
+        }
 
         $keyWithPrefix = $key;
         \Configuration::updateValue($keyWithPrefix, $value);

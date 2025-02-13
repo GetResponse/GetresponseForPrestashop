@@ -57,7 +57,7 @@ class ConfigurationService
                 $configuration->getGetResponseRecommendationSnippet(),
                 $configuration->getGetResponseWebTrackingSnippet(),
                 $this->getWebForm($configuration),
-                $this->getLiveSynchronization($configuration),
+                $configuration instanceof UpsertConfiguration ? $this->getLiveSynchronization($configuration) : null,
                 $configuration->getGetResponseShopId()
             )
         );
@@ -83,7 +83,7 @@ class ConfigurationService
 
     private function getLiveSynchronization(UpsertConfiguration $configuration): ?LiveSynchronization
     {
-        $type = $configuration->getLiveSynchronizationType();
+        $type = (string) $configuration->getLiveSynchronizationType();
         $url = $configuration->getLiveSynchronizationUrl();
 
         return '' !== $type && '' !== $url ? new LiveSynchronization($url, $type) : null;

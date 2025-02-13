@@ -87,7 +87,7 @@ class OrderAdapter
         }
 
         return new Order(
-            $prestashopOrder->id,
+            (int) $prestashopOrder->id,
             $prestashopOrder->reference,
             $prestashopOrder->id_cart,
             $customer->email,
@@ -146,6 +146,9 @@ class OrderAdapter
     private function getOrderStatus(\Order $order): string
     {
         $status = (new \OrderState($order->getCurrentState(), $order->id_lang))->name;
+        if (is_array($status)) {
+            $status = implode(', ', $status);
+        }
 
         return empty($status) ? 'new' : $status;
     }

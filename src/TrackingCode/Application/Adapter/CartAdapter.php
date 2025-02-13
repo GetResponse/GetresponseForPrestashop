@@ -40,25 +40,25 @@ class CartAdapter
     public function getCartById(int $cartId): Cart
     {
         $prestashopCart = new \Cart($cartId);
-        $currency = new \Currency($prestashopCart->id_currency);
-        $cartRecoveryUrl = CartRecoveryHelper::getUrl($prestashopCart->id);
+        $currency = new \Currency((int) $prestashopCart->id_currency);
+        $cartRecoveryUrl = CartRecoveryHelper::getUrl((int) $prestashopCart->id);
 
         $products = [];
 
         foreach ($prestashopCart->getProducts(true) as $product) {
             $products[] = new Product(
-                $product['id_product'],
-                $product['price_wt'],
-                $currency->iso_code,
-                $product['quantity']
+                (int) $product['id_product'],
+                (float) $product['price_wt'],
+                (string) $currency->iso_code,
+                (int) $product['quantity']
             );
         }
 
         return new Cart(
-            $prestashopCart->id,
-            $prestashopCart->getOrderTotal(true),
-            $currency->iso_code,
-            $cartRecoveryUrl,
+            (int) $prestashopCart->id,
+            (float) $prestashopCart->getOrderTotal(true),
+            (string) $currency->iso_code,
+            (string) $cartRecoveryUrl,
             $products
         );
     }

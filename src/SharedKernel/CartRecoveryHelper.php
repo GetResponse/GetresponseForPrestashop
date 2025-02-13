@@ -28,7 +28,12 @@ class CartRecoveryHelper
 {
     public static function getUrl(int $cartId): string
     {
-        return \Context::getContext()->link->getModuleLink(
+        $context = \Context::getContext();
+        if ($context === null || $context->link === null) {
+            throw new \RuntimeException('Context or link is null');
+        }
+
+        return $context->link->getModuleLink(
             'grprestashop',
             'CartRecovery',
             [

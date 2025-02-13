@@ -45,7 +45,7 @@ class Order implements \JsonSerializable
     private $url;
     /** @var float */
     private $totalPrice;
-    /** @var float */
+    /** @var float|null */
     private $totalPriceTax;
     /** @var float */
     private $shippingPrice;

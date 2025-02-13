@@ -105,9 +105,9 @@ class Cart implements \JsonSerializable
     /**
      * @return string
      */
-    public function getVisitorUuid()
+    public function getVisitorUuid(): string
     {
-        return $this->visitorUuid;
+        return $this->visitorUuid ?? '';
     }
 
     /**

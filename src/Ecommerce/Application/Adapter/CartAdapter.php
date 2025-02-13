@@ -66,10 +66,10 @@ class CartAdapter
             );
         }
 
-        $cartRecoveryUrl = CartRecoveryHelper::getUrl($prestashopCart->id);
+        $cartRecoveryUrl = CartRecoveryHelper::getUrl((int) $prestashopCart->id);
 
         return new Cart(
-            $prestashopCart->id,
+            (int) $prestashopCart->id,
             $customer,
             $visitorUuid,
             $lines,

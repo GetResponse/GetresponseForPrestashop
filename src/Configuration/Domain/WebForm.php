@@ -60,7 +60,7 @@ class WebForm
             'position' => $this->position,
         ];
 
-        return json_encode($webForm);
+        return json_encode($webForm) ?: '';
     }
 
     /**

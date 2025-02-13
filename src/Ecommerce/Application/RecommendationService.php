@@ -53,7 +53,7 @@ class RecommendationService
             return null;
         }
 
-        $imageUrl = !empty($variant->getImages()) ? $variant->getImages()[0]->getSrc() : null;
+        $imageUrl = !empty($variant->getImages()) ? $variant->getImages()[0]->getSrc() : '';
 
         return new RecommendedProduct(
             $product->getUrl(),

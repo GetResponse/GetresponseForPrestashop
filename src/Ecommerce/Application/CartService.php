@@ -61,6 +61,11 @@ class CartService
             return;
         }
 
+        $url = $configuration->getLiveSynchronizationUrl();
+        if ($url === null) {
+            throw new \InvalidArgumentException('Live synchronization URL cannot be null');
+        }
+
         $visitorUuid = null;
         if ($configuration->isGetResponseWebTrackingActive() && isset($_COOKIE['gaVisitorUuid'])) {
             $visitorUuid = $_COOKIE['gaVisitorUuid'];
@@ -71,7 +76,7 @@ class CartService
 
         if ($cart->isValuable()) {
             $this->messageSenderService->send(
-                $configuration->getLiveSynchronizationUrl(),
+                $url,
                 $cart
             );
         }

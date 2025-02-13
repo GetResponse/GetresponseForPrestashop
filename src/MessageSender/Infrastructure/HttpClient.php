@@ -84,8 +84,12 @@ class HttpClient implements EventEmitter
             throw EventEmitterException::createFromCurlError($error_message);
         }
 
-        $response = json_decode($response, true);
+        $response = json_decode((string) $response, true);
         curl_close($curl);
+
+        if (!is_array($response)) {
+            throw new \RuntimeException('Invalid JSON response');
+        }
 
         return $response;
     }
@@ -110,8 +114,13 @@ class HttpClient implements EventEmitter
      */
     private function createHmac(\JsonSerializable $object): string
     {
+        $json = json_encode($object->jsonSerialize());
+        if ($json === false) {
+            throw new \RuntimeException('Failed to encode JSON');
+        }
+
         return base64_encode(
-            hash_hmac('sha256', json_encode($object->jsonSerialize()), self::API_APP_SECRET, true)
+            hash_hmac('sha256', $json, self::API_APP_SECRET, true)
         );
     }
 }

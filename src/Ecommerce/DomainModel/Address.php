@@ -87,18 +87,18 @@ class Address implements \JsonSerializable
     public static function createFromArray(array $params): self
     {
         return new self(
-            $params['alias'],
-            $params['country'],
-            $params['firstname'],
-            $params['lastname'],
-            $params['address1'],
-            $params['address2'],
-            $params['city'],
-            $params['postcode'],
-            $params['state'],
+            isset($params['alias']) ? (string) $params['alias'] : '',
+            isset($params['country']) ? (string) $params['country'] : '',
+            isset($params['firstname']) ? (string) $params['firstname'] : '',
+            isset($params['lastname']) ? (string) $params['lastname'] : '',
+            isset($params['address1']) ? (string) $params['address1'] : '',
+            isset($params['address2']) ? (string) $params['address2'] : null,
+            isset($params['city']) ? (string) $params['city'] : '',
+            isset($params['postcode']) ? (string) $params['postcode'] : '',
+            isset($params['state']) ? (string) $params['state'] : null,
             '',
-            $params['phone'],
-            $params['company']
+            isset($params['phone']) ? (string) $params['phone'] : null,
+            isset($params['company']) ? (string) $params['company'] : null
         );
     }
 

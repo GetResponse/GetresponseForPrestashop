@@ -47,7 +47,7 @@ class LiveSynchronization
             'type' => $this->type,
         ];
 
-        return json_encode($webForm);
+        return json_encode($webForm) ?: '';
     }
 
     /**

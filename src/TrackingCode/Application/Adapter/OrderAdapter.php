@@ -54,7 +54,7 @@ class OrderAdapter
         }
 
         return new Order(
-            $order->id,
+            (int) $order->id,
             $order->id_cart,
             $order->total_paid_tax_incl,
             $currency->iso_code,

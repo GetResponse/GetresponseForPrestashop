@@ -61,10 +61,15 @@ class ProductService
             return;
         }
 
+        $url = $configuration->getLiveSynchronizationUrl();
+        if ($url === null) {
+            throw new \InvalidArgumentException('Live synchronization URL cannot be null');
+        }
+
         $productAdapter = new ProductAdapter();
 
         $this->messageSenderService->send(
-            $configuration->getLiveSynchronizationUrl(),
+            $url,
             $productAdapter->getProductById(
                 $command->getProductId(),
                 $command->getLanguageId()

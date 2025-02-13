@@ -47,12 +47,12 @@ class CustomerAdapter
 
         return new Customer(
             (int) $customer->id,
-            $customer->firstname,
-            $customer->lastname,
-            $customer->email,
+            (string) $customer->firstname,
+            (string) $customer->lastname,
+            (string) $customer->email,
             $address,
-            $customer->newsletter,
-            ['birthday' => $customer->birthday]
+            (bool) $customer->newsletter,
+            ['birthday' => (string) $customer->birthday]
         );
     }
 }

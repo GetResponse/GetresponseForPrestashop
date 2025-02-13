@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3cb58a856b4a2ef4ac7aec1cea688500",
+    "content-hash": "298979195ce58e6e108d3d18c6818b4f",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -728,16 +728,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.12.1",
+            "version": "1.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "123267b2c49fbf30d78a7b2d333f6be754b94845"
+                "reference": "024473a478be9df5fdaca2c793f2232fe788e414"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/123267b2c49fbf30d78a7b2d333f6be754b94845",
-                "reference": "123267b2c49fbf30d78a7b2d333f6be754b94845",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/024473a478be9df5fdaca2c793f2232fe788e414",
+                "reference": "024473a478be9df5fdaca2c793f2232fe788e414",
                 "shasum": ""
             },
             "require": {
@@ -776,7 +776,7 @@
             ],
             "support": {
                 "issues": "https://github.com/myclabs/DeepCopy/issues",
-                "source": "https://github.com/myclabs/DeepCopy/tree/1.12.1"
+                "source": "https://github.com/myclabs/DeepCopy/tree/1.13.0"
             },
             "funding": [
                 {
@@ -784,7 +784,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-08T17:47:46+00:00"
+            "time": "2025-02-12T12:17:51+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -1124,16 +1124,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.14",
+            "version": "1.12.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "e73868f809e68fff33be961ad4946e2e43ec9e38"
+                "reference": "fef9f07814a573399229304bb0046affdf558812"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e73868f809e68fff33be961ad4946e2e43ec9e38",
-                "reference": "e73868f809e68fff33be961ad4946e2e43ec9e38",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/fef9f07814a573399229304bb0046affdf558812",
+                "reference": "fef9f07814a573399229304bb0046affdf558812",
                 "shasum": ""
             },
             "require": {
@@ -1178,7 +1178,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-31T07:26:13+00:00"
+            "time": "2025-02-13T12:44:44+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -1652,6 +1652,57 @@
                 "source": "https://github.com/PrestaShopCorp/autoindex/tree/v2.1.0"
             },
             "time": "2022-10-10T08:35:00+00:00"
+        },
+        {
+            "name": "prestashop/header-stamp",
+            "version": "v2.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PrestaShopCorp/header-stamp.git",
+                "reference": "7f09cd041bbf1fa56bd71ae91bab3919da88b6ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PrestaShopCorp/header-stamp/zipball/7f09cd041bbf1fa56bd71ae91bab3919da88b6ac",
+                "reference": "7f09cd041bbf1fa56bd71ae91bab3919da88b6ac",
+                "shasum": ""
+            },
+            "require": {
+                "nikic/php-parser": "^4.10",
+                "php": "^8.0 || ^7.2",
+                "symfony/console": "^3.4 || ~4.0 || ~5.0 || ~6.0",
+                "symfony/finder": "^3.4 || ~4.0 || ~5.0 || ~6.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.12",
+                "prestashop/php-dev-tools": "1.*"
+            },
+            "bin": [
+                "bin/header-stamp"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PrestaShop\\HeaderStamp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "AFL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "PrestaShop SA",
+                    "email": "contact@prestashop.com"
+                }
+            ],
+            "description": "Rewrite your file headers to add the license or to make them up-to-date",
+            "homepage": "https://github.com/PrestaShopCorp/header-stamp",
+            "support": {
+                "issues": "https://github.com/PrestaShopCorp/header-stamp/issues",
+                "source": "https://github.com/PrestaShopCorp/header-stamp/tree/v2.6"
+            },
+            "time": "2025-02-05T08:44:26+00:00"
         },
         {
             "name": "prestashop/php-dev-tools",

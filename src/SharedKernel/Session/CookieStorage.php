@@ -31,7 +31,11 @@ class CookieStorage implements Storage
 
     public function __construct()
     {
-        $this->context = \Context::getContext();
+        $context = \Context::getContext();
+        if ($context === null) {
+            throw new \RuntimeException('Context is null');
+        }
+        $this->context = $context;
     }
 
     public function exists(string $keyName): bool
@@ -41,7 +45,7 @@ class CookieStorage implements Storage
 
     public function set(string $keyName, $payload): void
     {
-        $this->context->cookie->__set($keyName, base64_encode($payload));
+        $this->context->cookie->__set($keyName, base64_encode((string) $payload));
     }
 
     public function remove(string $keyName): void

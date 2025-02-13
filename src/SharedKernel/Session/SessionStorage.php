@@ -43,7 +43,7 @@ class SessionStorage implements Storage
 
     public function set(string $keyName, $payload): void
     {
-        $this->session->set($keyName, base64_encode($payload));
+        $this->session->set($keyName, base64_encode((string) $payload));
     }
 
     public function remove(string $keyName): void
@@ -57,6 +57,6 @@ class SessionStorage implements Storage
             return null;
         }
 
-        return base64_decode($this->session->get($keyName));
+        return base64_decode((string) $this->session->get($keyName));
     }
 }

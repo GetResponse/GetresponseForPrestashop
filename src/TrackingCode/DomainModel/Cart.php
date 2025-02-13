@@ -50,19 +50,32 @@ class Cart
     }
 
     /**
-     * @param array<string, int|float|string|array<int, array<string, int|float|string>>> $cart
+     * @param array{
+     *     id: int,
+     *     price: float,
+     *     currency: string,
+     *     url: string,
+     *     products: array<int, array<string, int|float|string>>
+     * } $cart
      *
      * @return self
      */
     public static function createFromArray(array $cart): self
     {
         $products = [];
-
-        foreach ($cart['products'] as $product) {
-            $products[] = Product::createFromArray($product);
+        if (isset($cart['products']) && is_array($cart['products'])) {
+            foreach ($cart['products'] as $product) {
+                $products[] = Product::createFromArray($product);
+            }
         }
 
-        return new self($cart['id'], $cart['price'], $cart['currency'], $cart['url'], $products);
+        return new self(
+            (int) $cart['id'],
+            (float) $cart['price'],
+            (string) $cart['currency'],
+            (string) $cart['url'],
+            $products
+        );
     }
 
     /**

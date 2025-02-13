@@ -25,7 +25,8 @@
         "friendsofphp/php-cs-fixer": "^3.4",
         "captainhook/captainhook": "^5.14",
         "phpstan/phpstan": "^1.12",
-        "prestashop/autoindex": "^2.1"
+        "prestashop/autoindex": "^2.1",
+        "prestashop/header-stamp": "^2.6"
     },
     "autoload": {
         "psr-4": {

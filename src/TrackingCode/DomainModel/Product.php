@@ -95,6 +95,11 @@ class Product
      */
     public static function createFromArray(array $product): self
     {
-        return new self($product['id'], $product['price'], $product['currency'], $product['quantity']);
+        return new self(
+            (int) $product['id'],
+            (float) $product['price'],
+            (string) $product['currency'],
+            (int) $product['quantity']
+        );
     }
 }

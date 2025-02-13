@@ -137,10 +137,10 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
     {
         $payload = $this->getPayload();
 
-        $idShop = empty($payload['shop_id']) ? null : (int) $payload['shop_id'];
-        $settings = empty($payload['settings']) ? null : $payload['settings'];
+        $idShop = isset($payload['shop_id']) ? (int) $payload['shop_id'] : null;
+        $settings = isset($payload['settings']) ? $payload['settings'] : null;
 
-        if (null === $idShop || empty($settings)) {
+        if (null === $idShop || !is_array($settings)) {
             return;
         }
 
@@ -148,30 +148,24 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
         $configurationService->upsertConfiguration(
             new UpsertConfiguration(
                 $idShop,
-                !empty($settings['facebook_pixel_snippet']) ? $settings['facebook_pixel_snippet'] : null,
-                !empty($settings['facebook_ads_pixel_snippet']) ? $settings['facebook_ads_pixel_snippet'] : null,
-                !empty($settings['facebook_business_pixel_snippet'])
-                    ? $settings['facebook_business_pixel_snippet']
-                    : null,
-                !empty($settings['getresponse_chat_snippet']) ? $settings['getresponse_chat_snippet'] : null,
-                !empty($settings['getresponse_recommendation_snippet']) ? $settings['getresponse_recommendation_snippet'] : null,
-                !empty($settings['getresponse_web_tracking_snippet'])
-                    ? $settings['getresponse_web_tracking_snippet']
-                    : null,
-                !empty($settings['getresponse_web_form_id']) ? $settings['getresponse_web_form_id'] : null,
-                !empty($settings['getresponse_web_form_url']) ? $settings['getresponse_web_form_url'] : null,
-                !empty($settings['getresponse_web_form_position'])
-                    ? $settings['getresponse_web_form_position']
-                    : null,
-                !empty($settings['live_synchronization_url']) ? $settings['live_synchronization_url'] : null,
-                !empty($settings['live_synchronization_type']) ? $settings['live_synchronization_type'] : null,
-                !empty($settings['getresponse_shop_id']) ? $settings['getresponse_shop_id'] : null
+                isset($settings['facebook_pixel_snippet']) ? (string) $settings['facebook_pixel_snippet'] : null,
+                isset($settings['facebook_ads_pixel_snippet']) ? (string) $settings['facebook_ads_pixel_snippet'] : null,
+                isset($settings['facebook_business_pixel_snippet']) ? (string) $settings['facebook_business_pixel_snippet'] : null,
+                isset($settings['getresponse_chat_snippet']) ? (string) $settings['getresponse_chat_snippet'] : null,
+                isset($settings['getresponse_recommendation_snippet']) ? (string) $settings['getresponse_recommendation_snippet'] : null,
+                isset($settings['getresponse_web_tracking_snippet']) ? (string) $settings['getresponse_web_tracking_snippet'] : null,
+                isset($settings['getresponse_web_form_id']) ? (int) $settings['getresponse_web_form_id'] : null,
+                isset($settings['getresponse_web_form_url']) ? (string) $settings['getresponse_web_form_url'] : null,
+                isset($settings['getresponse_web_form_position']) ? (string) $settings['getresponse_web_form_position'] : null,
+                isset($settings['live_synchronization_url']) ? (string) $settings['live_synchronization_url'] : null,
+                isset($settings['live_synchronization_type']) ? (string) $settings['live_synchronization_type'] : null,
+                isset($settings['getresponse_shop_id']) ? (string) $settings['getresponse_shop_id'] : null
             )
         );
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array<string>
      */
     public function getContent(): array
     {
@@ -187,8 +181,8 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
     {
         $payload = $this->getPayload();
 
-        $shopId = empty($payload['shop_id']) ? null : (int) $payload['shop_id'];
-        $email = empty($payload['email']) ? null : $payload['email'];
+        $shopId = isset($payload['shop_id']) ? (int) $payload['shop_id'] : null;
+        $email = isset($payload['email']) ? (string) $payload['email'] : null;
 
         if (null === $shopId || empty($email)) {
             return;
@@ -238,7 +232,7 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
                 'php_version' => phpversion(),
                 'shops' => $shops,
             ]
-        );
+        ) ?: '';
     }
 
     /**
@@ -252,12 +246,13 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array<string>
      */
-    public function getPayload(): array
+    private function getPayload(): array
     {
         $json = Tools::file_get_contents('php://input');
+        $data = is_string($json) ? json_decode($json, true) : [];
 
-        return json_decode($json, true);
+        return is_array($data) ? array_map('strval', $data) : [];
     }
 }
