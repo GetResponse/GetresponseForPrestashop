@@ -8,6 +8,6 @@ parameters:
   - ../../src
   - ../../views
   reportUnmatchedIgnoredErrors: false
-  level: 7
+  level: 8
   phpVersion: 70200
   treatPhpDocTypesAsCertain: false
