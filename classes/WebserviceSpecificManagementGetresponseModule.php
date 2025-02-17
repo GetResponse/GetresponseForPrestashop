@@ -36,20 +36,11 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
 {
     /** @var WebserviceOutputBuilderCore */
     protected $objOutput;
-
-    /** @var array<string, mixed> */
     protected $output;
-
-    /** @var WebserviceRequestCore */
+    /** @var WebserviceRequest */
     protected $wsObject;
-
-    /** @var array<string> */
     protected $urlSegment;
-
-    /** @var array<string> */
     protected $errors = [];
-
-    /** @var string */
     protected $content;
 
     /**
@@ -57,61 +48,43 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
      *
      * @return WebserviceSpecificManagementInterface
      */
-    public function setObjectOutput(WebserviceOutputBuilderCore $obj): WebserviceSpecificManagementInterface
+    public function setObjectOutput(WebserviceOutputBuilderCore $obj)
     {
         $this->objOutput = $obj;
 
         return $this;
     }
 
-    /**
-     * @param WebserviceRequestCore $obj
-     *
-     * @return void
-     */
-    public function setWsObject(WebserviceRequestCore $obj): void
+    public function setWsObject(WebserviceRequestCore $obj)
     {
         $this->wsObject = $obj;
+
+        return $this;
     }
 
-    /**
-     * @return WebserviceRequestCore
-     */
-    public function getWsObject(): WebserviceRequestCore
+    public function getWsObject()
     {
         return $this->wsObject;
     }
 
-    /**
-     * @return WebserviceOutputBuilderCore
-     */
-    public function getObjectOutput(): WebserviceOutputBuilderCore
+    public function getObjectOutput()
     {
         return $this->objOutput;
     }
 
-    /**
-     * @param array<string> $segments
-     *
-     * @return void
-     */
-    public function setUrlSegment(array $segments): void
+    public function setUrlSegment($segments)
     {
         $this->urlSegment = $segments;
+
+        return $this;
     }
 
-    /**
-     * @return array<string>
-     */
-    public function getUrlSegment(): array
+    public function getUrlSegment()
     {
         return $this->urlSegment;
     }
 
-    /**
-     * @return bool
-     */
-    public function manage(): bool
+    public function manage()
     {
         switch ($this->wsObject->method) {
             case 'GET':
@@ -130,17 +103,14 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
         return $this->wsObject->getOutputEnabled();
     }
 
-    /**
-     * @return void
-     */
-    private function updateSettings(): void
+    private function updateSettings()
     {
         $payload = $this->getPayload();
 
-        $idShop = isset($payload['shop_id']) ? (int) $payload['shop_id'] : null;
-        $settings = isset($payload['settings']) ? $payload['settings'] : null;
+        $idShop = empty($payload['shop_id']) ? null : (int) $payload['shop_id'];
+        $settings = empty($payload['settings']) ? null : $payload['settings'];
 
-        if (null === $idShop || !is_array($settings)) {
+        if (null === $idShop || empty($settings)) {
             return;
         }
 
@@ -148,41 +118,39 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
         $configurationService->upsertConfiguration(
             new UpsertConfiguration(
                 $idShop,
-                isset($settings['facebook_pixel_snippet']) ? (string) $settings['facebook_pixel_snippet'] : null,
-                isset($settings['facebook_ads_pixel_snippet']) ? (string) $settings['facebook_ads_pixel_snippet'] : null,
-                isset($settings['facebook_business_pixel_snippet']) ? (string) $settings['facebook_business_pixel_snippet'] : null,
-                isset($settings['getresponse_chat_snippet']) ? (string) $settings['getresponse_chat_snippet'] : null,
-                isset($settings['getresponse_recommendation_snippet']) ? (string) $settings['getresponse_recommendation_snippet'] : null,
-                isset($settings['getresponse_web_tracking_snippet']) ? (string) $settings['getresponse_web_tracking_snippet'] : null,
-                isset($settings['getresponse_web_form_id']) ? (int) $settings['getresponse_web_form_id'] : null,
-                isset($settings['getresponse_web_form_url']) ? (string) $settings['getresponse_web_form_url'] : null,
-                isset($settings['getresponse_web_form_position']) ? (string) $settings['getresponse_web_form_position'] : null,
-                isset($settings['live_synchronization_url']) ? (string) $settings['live_synchronization_url'] : null,
-                isset($settings['live_synchronization_type']) ? (string) $settings['live_synchronization_type'] : null,
-                isset($settings['getresponse_shop_id']) ? (string) $settings['getresponse_shop_id'] : null
+                !empty($settings['facebook_pixel_snippet']) ? $settings['facebook_pixel_snippet'] : null,
+                !empty($settings['facebook_ads_pixel_snippet']) ? $settings['facebook_ads_pixel_snippet'] : null,
+                !empty($settings['facebook_business_pixel_snippet'])
+                    ? $settings['facebook_business_pixel_snippet']
+                    : null,
+                !empty($settings['getresponse_chat_snippet']) ? $settings['getresponse_chat_snippet'] : null,
+                !empty($settings['getresponse_recommendation_snippet']) ? $settings['getresponse_recommendation_snippet'] : null,
+                !empty($settings['getresponse_web_tracking_snippet'])
+                    ? $settings['getresponse_web_tracking_snippet']
+                    : null,
+                !empty($settings['getresponse_web_form_id']) ? $settings['getresponse_web_form_id'] : null,
+                !empty($settings['getresponse_web_form_url']) ? $settings['getresponse_web_form_url'] : null,
+                !empty($settings['getresponse_web_form_position'])
+                    ? $settings['getresponse_web_form_position']
+                    : null,
+                !empty($settings['live_synchronization_url']) ? $settings['live_synchronization_url'] : null,
+                !empty($settings['live_synchronization_type']) ? $settings['live_synchronization_type'] : null,
+                !empty($settings['getresponse_shop_id']) ? $settings['getresponse_shop_id'] : null
             )
         );
     }
 
-    /**
-     * @return array<string>
-     */
-    public function getContent(): array
+    public function getContent()
     {
-        return [
-            'content' => $this->content,
-        ];
+        return $this->content;
     }
 
-    /**
-     * @return void
-     */
-    private function unsubscribeContact(): void
+    private function unsubscribeContact()
     {
         $payload = $this->getPayload();
 
-        $shopId = isset($payload['shop_id']) ? (int) $payload['shop_id'] : null;
-        $email = isset($payload['email']) ? (string) $payload['email'] : null;
+        $shopId = empty($payload['shop_id']) ? null : (int) $payload['shop_id'];
+        $email = empty($payload['email']) ? null : $payload['email'];
 
         if (null === $shopId || empty($email)) {
             return;
@@ -196,10 +164,7 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
         );
     }
 
-    /**
-     * @return string
-     */
-    private function getPluginDetails(): string
+    private function getPluginDetails()
     {
         $shops = [];
         $configurationReadModel = new ConfigurationReadModel(new ConfigurationRepository());
@@ -232,27 +197,20 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
                 'php_version' => phpversion(),
                 'shops' => $shops,
             ]
-        ) ?: '';
+        );
     }
 
-    /**
-     * @return bool
-     */
-    private function isUnsubscribeContactPath(): bool
+    private function isUnsubscribeContactPath()
     {
         return isset($this->wsObject->urlSegment[1], $this->wsObject->urlSegment[2])
             && $this->wsObject->urlSegment[1] === 'contact'
             && $this->wsObject->urlSegment[2] === 'unsubscribe';
     }
 
-    /**
-     * @return array<string>
-     */
-    private function getPayload(): array
+    public function getPayload()
     {
         $json = Tools::file_get_contents('php://input');
-        $data = is_string($json) ? json_decode($json, true) : [];
 
-        return is_array($data) ? array_map('strval', $data) : [];
+        return json_decode($json, true);
     }
 }
