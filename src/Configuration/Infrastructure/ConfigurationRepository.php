@@ -79,12 +79,7 @@ class ConfigurationRepository implements Repository
      */
     private function updateConfig(string $key, $value): void
     {
-        if (is_object($value)) {
-            $value = json_encode($value);
-        }
-
-        $keyWithPrefix = $key;
-        \Configuration::updateValue($keyWithPrefix, $value);
+        \Configuration::updateValue($key, is_object($value) ? (string) $value : $value);
     }
 
     /**

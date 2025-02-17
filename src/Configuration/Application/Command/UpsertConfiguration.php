@@ -61,7 +61,7 @@ class UpsertConfiguration
         ?string $getResponseChatSnippet,
         ?string $getResponseRecommendationSnippet,
         ?string $getResponseWebTrackingSnippet,
-        ?int $getResponseWebFormId,
+        ?string $getResponseWebFormId,
         ?string $getResponseWebFormUrl,
         ?string $getResponseWebFormPosition,
         ?string $liveSynchronizationUrl,
@@ -131,7 +131,7 @@ class UpsertConfiguration
     /**
      * @return int|null
      */
-    public function getGetResponseWebFormId(): ?int
+    public function getGetResponseWebFormId(): ?string
     {
         return $this->getResponseWebFormId;
     }

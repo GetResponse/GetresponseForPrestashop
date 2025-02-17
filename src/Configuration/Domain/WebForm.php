@@ -52,15 +52,15 @@ class WebForm
         $this->position = $position;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        $webForm = [
+        $data = [
             'id' => $this->id,
             'url' => $this->url,
             'position' => $this->position,
         ];
 
-        return json_encode($webForm) ?: '';
+        return json_encode($data) ?: '';
     }
 
     /**

@@ -40,12 +40,7 @@ class ConfigurationService
         $this->configurationRepository = $configurationRepository;
     }
 
-    /**
-     * @param Configuration|UpsertConfiguration $configuration
-     *
-     * @return void
-     */
-    public function upsertConfiguration($configuration): void
+    public function upsertConfiguration(UpsertConfiguration $configuration): void
     {
         $this->configurationRepository->upsertConfiguration(
             new Configuration(
@@ -57,18 +52,13 @@ class ConfigurationService
                 $configuration->getGetResponseRecommendationSnippet(),
                 $configuration->getGetResponseWebTrackingSnippet(),
                 $this->getWebForm($configuration),
-                $configuration instanceof UpsertConfiguration ? $this->getLiveSynchronization($configuration) : null,
+                $this->getLiveSynchronization($configuration),
                 $configuration->getGetResponseShopId()
             )
         );
     }
 
-    /**
-     * @param Configuration|UpsertConfiguration $updateConfiguration
-     *
-     * @return WebForm|null
-     */
-    private function getWebForm($updateConfiguration): ?WebForm
+    private function getWebForm(UpsertConfiguration $updateConfiguration): ?WebForm
     {
         if (null === $updateConfiguration->getGetResponseWebFormId()) {
             return null;
@@ -77,7 +67,7 @@ class ConfigurationService
         return new WebForm(
             (string) $updateConfiguration->getGetResponseWebFormId(),
             (string) $updateConfiguration->getGetResponseWebFormUrl(),
-            (string) $updateConfiguration->getGetResponseWebFormPosition()
+            $updateConfiguration->getGetResponseWebFormPosition()
         );
     }
 
