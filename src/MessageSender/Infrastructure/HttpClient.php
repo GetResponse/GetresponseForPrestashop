@@ -84,12 +84,12 @@ class HttpClient implements EventEmitter
             throw EventEmitterException::createFromCurlError($error_message);
         }
 
-        $response = json_decode((string) $response, true);
-        curl_close($curl);
-
-        if (!is_array($response)) {
-            throw new \RuntimeException('Invalid JSON response');
+        if (!empty($response)) {
+            $response = json_decode((string) $response, true);
+        } else {
+            $response = [];
         }
+        curl_close($curl);
 
         return $response;
     }
