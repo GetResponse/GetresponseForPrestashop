@@ -423,7 +423,7 @@ class GrPrestashop extends Module
             $cart = $params['cart'];
 
             // sometimes it happens
-            if (null === $cart) {
+            if (null === $cart || null === $cart->id) {
                 return;
             }
 
@@ -439,7 +439,7 @@ class GrPrestashop extends Module
                 ),
                 $configurationReadModel
             );
-            $cartService->upsertCart(new GetResponse\Ecommerce\Application\Command\UpsertCart($cart->id, $shop->id));
+            $cartService->upsertCart(new GetResponse\Ecommerce\Application\Command\UpsertCart((int) $cart->id, $shop->id));
 
             $sessionStorage = new \GetResponse\SharedKernel\Session\StorageFactory();
             $storage = $sessionStorage->create();
