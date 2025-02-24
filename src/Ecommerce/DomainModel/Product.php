@@ -39,7 +39,7 @@ class Product implements \JsonSerializable
     private $type;
     /** @var string */
     private $url;
-    /** @var string */
+    /** @var string|null */
     private $vendor;
     /** @var Category[] */
     private $categories;
@@ -61,7 +61,7 @@ class Product implements \JsonSerializable
         string $name,
         string $type,
         string $url,
-        string $vendor,
+        ?string $vendor,
         array $categories,
         array $variants,
         string $createdAt,
@@ -115,7 +115,7 @@ class Product implements \JsonSerializable
     /**
      * @return string
      */
-    public function getVendor(): string
+    public function getVendor(): ?string
     {
         return $this->vendor;
     }
