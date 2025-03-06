@@ -115,14 +115,16 @@ class ProductAdapter
             );
         }
 
-        $manufacture = new \Manufacturer($product->id_manufacturer);
+        $manufacturer = new \Manufacturer($product->id_manufacturer);
+        $manufacturerName = $manufacturer->name ?? '';
 
+        /** @var \Product $product */
         return new Product(
             (int) $product->id,
             (string) $product->name[$languageId],
             $productType,
             $productLink,
-            $manufacture->name,
+            $manufacturerName,
             $categories,
             $variants,
             $product->date_add,
