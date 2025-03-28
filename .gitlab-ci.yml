@@ -38,7 +38,7 @@ test:app-php71:
   image: php:7.1-cli
   stage: test
   tags:
-    - kubernetes-ci
+    - hq1-small-amd64
   script:
     - ./vendor/bin/phpunit --testsuite unit --configuration ./tests/phpunit.xml --colors=never
   <<: *exclude-master
@@ -50,7 +50,7 @@ upload to s3:
   rules:
     - if: $CI_COMMIT_TAG
   tags:
-    - kubernetes-us
+    - hq1-small-amd64
   script:
     - tar --exclude='.git' --exclude='composer.*' --exclude='.gitignore' --exclude='.gitlab-ci.yml' --exclude='README.md' --exclude='CHANGELOG.md' --exclude='Makefile' -czf /tmp/$CI_COMMIT_TAG.tar.gz .
     - mv /tmp/$CI_COMMIT_TAG.tar.gz .
