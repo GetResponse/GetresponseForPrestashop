@@ -31,9 +31,9 @@ class EcommercePresenter
     /**
      * @param int $productId
      *
-     * @return array
+     * @return array<int, array{id: string, name: string}>
      */
-    protected function getProductCategories($productId)
+    protected function getProductCategories($productId): array
     {
         $categories = [];
 
@@ -51,9 +51,9 @@ class EcommercePresenter
     /**
      * @param Product $product
      *
-     * @return array
+     * @return array<string, string|float>
      */
-    protected function getProduct($product)
+    protected function getProduct($product): array
     {
         $prestashopProduct = new \Product($product->getId());
 

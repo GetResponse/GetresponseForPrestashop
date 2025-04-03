@@ -34,6 +34,7 @@ class ProductService
 {
     /** @var MessageSenderService */
     private $messageSenderService;
+
     /** @var ConfigurationReadModel */
     private $configurationReadModel;
 
@@ -48,9 +49,11 @@ class ProductService
     /**
      * @param UpsertProduct $command
      *
+     * @return void
+     *
      * @throws MessageSenderException
      */
-    public function upsertProduct(UpsertProduct $command)
+    public function upsertProduct(UpsertProduct $command): void
     {
         $configuration = $this->configurationReadModel->getConfigurationForShop($command->getShopId());
 
@@ -58,10 +61,15 @@ class ProductService
             return;
         }
 
+        $url = $configuration->getLiveSynchronizationUrl();
+        if ($url === null) {
+            throw new \InvalidArgumentException('Live synchronization URL cannot be null');
+        }
+
         $productAdapter = new ProductAdapter();
 
         $this->messageSenderService->send(
-            $configuration->getLiveSynchronizationUrl(),
+            $url,
             $productAdapter->getProductById(
                 $command->getProductId(),
                 $command->getLanguageId()

@@ -14,6 +14,8 @@ FILES_TO_DELETE=(
   ".php_cs.dist"
   ".php_cs.cache"
   ".php-cs-fixer.cache"
+  ".php-cs-fixer.dist.php"
+  "captainhook.json"
   "deploy.sh"
   "create-zip-dev.sh"
   ".gitlab-ci.yml"
@@ -47,14 +49,15 @@ done
 
 echo ""
 echo "Build composer"
-if ! docker compose ps | grep -q "php71"; then
-  echo "Container php71 is not running. Starting it..."
-  docker compose up -d php71
+if ! docker compose ps | grep -q "php72"; then
+  echo "Container php72 is not running. Starting it..."
+  docker compose up -d php72
 fi
-docker compose exec php71 composer install --no-dev --working-dir="$COMPOSER_REMOTE_PROJECT_PATH"
+docker compose exec php72 composer install --no-dev --working-dir="$COMPOSER_REMOTE_PROJECT_PATH"
 
 echo ""
 echo "Create new zip"
 cd $TMP_PATH && zip -rm "$RELEASE_FILE" "$RELEASE_DIR" -x ".git*"
 
+echo "Created zip file: $TMP_PATH/$RELEASE_FILE"
 echo "ZIP done."

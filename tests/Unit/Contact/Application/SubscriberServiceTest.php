@@ -50,11 +50,6 @@ class SubscriberServiceTest extends BaseTestCase
 
         $this->newsletterRepositoryMock
             ->expects(self::once())
-            ->method('removeSubscriberFromNewsletter')
-            ->with($shopId, $email);
-
-        $this->newsletterRepositoryMock
-            ->expects(self::once())
             ->method('removeCustomerFromNewsletter')
             ->with($shopId, $email);
 

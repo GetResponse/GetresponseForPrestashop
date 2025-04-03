@@ -45,8 +45,20 @@ class RecommendedProduct
     /** @var float|null */
     private $previousPrice;
 
-    public function __construct($url, $externalId, $name, $price, $imageUrl, $description, $categories, $sku, $previousPrice)
-    {
+    /**
+     * @param string[] $categories
+     */
+    public function __construct(
+        string $url,
+        int $externalId,
+        string $name,
+        float $price,
+        string $imageUrl,
+        string $description,
+        array $categories,
+        string $sku,
+        ?float $previousPrice
+    ) {
         $this->url = $url;
         $this->externalId = $externalId;
         $this->name = $name;
@@ -61,7 +73,7 @@ class RecommendedProduct
     /**
      * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
@@ -69,7 +81,7 @@ class RecommendedProduct
     /**
      * @return int
      */
-    public function getExternalId()
+    public function getExternalId(): int
     {
         return $this->externalId;
     }
@@ -77,7 +89,7 @@ class RecommendedProduct
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -85,7 +97,7 @@ class RecommendedProduct
     /**
      * @return float
      */
-    public function getPrice()
+    public function getPrice(): float
     {
         return $this->price;
     }
@@ -93,7 +105,7 @@ class RecommendedProduct
     /**
      * @return string
      */
-    public function getImageUrl()
+    public function getImageUrl(): string
     {
         return $this->imageUrl;
     }
@@ -101,12 +113,15 @@ class RecommendedProduct
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function getDescriptionWithoutHtmlTags()
+    /**
+     * @return string
+     */
+    public function getDescriptionWithoutHtmlTags(): string
     {
         if (empty($this->description)) {
             return '';
@@ -121,7 +136,7 @@ class RecommendedProduct
     /**
      * @return array|string[]
      */
-    public function getCategories()
+    public function getCategories(): array
     {
         return $this->categories;
     }
@@ -129,7 +144,7 @@ class RecommendedProduct
     /**
      * @return string
      */
-    public function getSku()
+    public function getSku(): string
     {
         return $this->sku;
     }
@@ -137,15 +152,15 @@ class RecommendedProduct
     /**
      * @return float|null
      */
-    public function getPreviousPrice()
+    public function getPreviousPrice(): ?float
     {
         return $this->previousPrice;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'productUrl' => $this->url,

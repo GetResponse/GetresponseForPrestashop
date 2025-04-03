@@ -29,8 +29,13 @@ if (!defined('_PS_VERSION_')) {
 
 class ImageAdapter
 {
-    public function getImageById($imageId)
+    public function getImageById(?int $imageId): Image
     {
+        if ($imageId === null) {
+            throw new \InvalidArgumentException('Image ID cannot be null');
+        }
+
+        // @phpstan-ignore-next-line
         $image = new PrestashopImage($imageId);
         $url = _PS_BASE_URL_ . _THEME_PROD_DIR_ . $image->getExistingImgPath() . '.jpg';
 

@@ -25,6 +25,6 @@ class Manufacturer
     public function __construct($id)
     {
         $params = ManufacturerParams::getManufactureById($id);
-        $this->name = $params['name'];
+        $this->name = $params['name'] ?? '';
     }
 }

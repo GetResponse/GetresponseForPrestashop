@@ -39,7 +39,7 @@ class OrderAdapterTest extends BaseTestCase
 
         $productLines = [];
         $currency = new \Currency($order->id_currency);
-        $orderStatus = new \OrderState($order->getCurrentState(), $order->id_lang);
+        $orderStatus = new \OrderState($order->getCurrentState());
 
         $customerAddress = new Address('home', 'Poland', 'John', 'Doe', 'Street 1', '', 'City', 'PostCode', 'State', '', '544 404 400', '');
         $customer = new Customer(1, 'John', 'Doe', 'john.doe@example.com', $customerAddress, 1, ['birthday' => '1987-09-04']);

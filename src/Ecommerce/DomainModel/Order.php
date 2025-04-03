@@ -45,7 +45,7 @@ class Order implements \JsonSerializable
     private $url;
     /** @var float */
     private $totalPrice;
-    /** @var float */
+    /** @var float|null */
     private $totalPriceTax;
     /** @var float */
     private $shippingPrice;
@@ -62,23 +62,26 @@ class Order implements \JsonSerializable
     /** @var string|null */
     private $updatedAt;
 
+    /**
+     * @param Line[] $lines
+     */
     public function __construct(
-        $id,
-        $orderNumber,
-        $cartId,
-        $contactEmail,
-        $customer,
-        $lines,
-        $url,
-        $totalPrice,
-        $totalPriceTax,
-        $shippingPrice,
-        $currency,
-        $status,
-        $shippingAddress,
-        $billingAddress,
-        $createdAt,
-        $updatedAt
+        int $id,
+        string $orderNumber,
+        int $cartId,
+        string $contactEmail,
+        Customer $customer,
+        array $lines,
+        ?string $url,
+        float $totalPrice,
+        ?float $totalPriceTax,
+        float $shippingPrice,
+        string $currency,
+        string $status,
+        ?Address $shippingAddress,
+        ?Address $billingAddress,
+        string $createdAt,
+        ?string $updatedAt
     ) {
         $this->id = $id;
         $this->orderNumber = $orderNumber;
@@ -99,9 +102,9 @@ class Order implements \JsonSerializable
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $lines = [];
         foreach ($this->lines as $line) {

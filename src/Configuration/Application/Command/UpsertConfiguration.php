@@ -53,34 +53,20 @@ class UpsertConfiguration
     /** @var string|null */
     private $getResponseShopId;
 
-    /**
-     * @param int $shopId
-     * @param string|null $facebookPixelSnippet
-     * @param string|null $facebookAdsPixelSnippet
-     * @param string|null $facebookBusinessExtensionSnippet
-     * @param string|null $getResponseChatSnippet
-     * @param string|null $getResponseWebTrackingSnippet
-     * @param int|null $getResponseWebFormId
-     * @param string|null $getResponseWebFormUrl
-     * @param string|null $getResponseWebFormPosition
-     * @param string|null $liveSynchronizationUrl
-     * @param string|null $liveSynchronizationType
-     * @param string|null $getResponseShopId
-     */
     public function __construct(
-        $shopId,
-        $facebookPixelSnippet,
-        $facebookAdsPixelSnippet,
-        $facebookBusinessExtensionSnippet,
-        $getResponseChatSnippet,
-        $getResponseRecommendationSnippet,
-        $getResponseWebTrackingSnippet,
-        $getResponseWebFormId,
-        $getResponseWebFormUrl,
-        $getResponseWebFormPosition,
-        $liveSynchronizationUrl,
-        $liveSynchronizationType,
-        $getResponseShopId
+        int $shopId,
+        ?string $facebookPixelSnippet,
+        ?string $facebookAdsPixelSnippet,
+        ?string $facebookBusinessExtensionSnippet,
+        ?string $getResponseChatSnippet,
+        ?string $getResponseRecommendationSnippet,
+        ?string $getResponseWebTrackingSnippet,
+        ?string $getResponseWebFormId,
+        ?string $getResponseWebFormUrl,
+        ?string $getResponseWebFormPosition,
+        ?string $liveSynchronizationUrl,
+        ?string $liveSynchronizationType,
+        ?string $getResponseShopId
     ) {
         $this->shopId = $shopId;
         $this->facebookPixelSnippet = $facebookPixelSnippet;
@@ -97,7 +83,7 @@ class UpsertConfiguration
         $this->getResponseShopId = $getResponseShopId;
     }
 
-    public function getShopId()
+    public function getShopId(): int
     {
         return $this->shopId;
     }
@@ -105,7 +91,7 @@ class UpsertConfiguration
     /**
      * @return string|null
      */
-    public function getFacebookPixelSnippet()
+    public function getFacebookPixelSnippet(): ?string
     {
         return $this->facebookPixelSnippet;
     }
@@ -113,7 +99,7 @@ class UpsertConfiguration
     /**
      * @return string|null
      */
-    public function getFacebookAdsPixelSnippet()
+    public function getFacebookAdsPixelSnippet(): ?string
     {
         return $this->facebookAdsPixelSnippet;
     }
@@ -121,7 +107,7 @@ class UpsertConfiguration
     /**
      * @return string|null
      */
-    public function getFacebookBusinessExtensionSnippet()
+    public function getFacebookBusinessExtensionSnippet(): ?string
     {
         return $this->facebookBusinessExtensionSnippet;
     }
@@ -129,7 +115,7 @@ class UpsertConfiguration
     /**
      * @return string|null
      */
-    public function getGetResponseChatSnippet()
+    public function getGetResponseChatSnippet(): ?string
     {
         return $this->getResponseChatSnippet;
     }
@@ -137,7 +123,7 @@ class UpsertConfiguration
     /**
      * @return string|null
      */
-    public function getGetResponseWebTrackingSnippet()
+    public function getGetResponseWebTrackingSnippet(): ?string
     {
         return $this->getResponseWebTrackingSnippet;
     }
@@ -145,7 +131,7 @@ class UpsertConfiguration
     /**
      * @return int|null
      */
-    public function getGetResponseWebFormId()
+    public function getGetResponseWebFormId(): ?string
     {
         return $this->getResponseWebFormId;
     }
@@ -153,31 +139,31 @@ class UpsertConfiguration
     /**
      * @return string|null
      */
-    public function getGetResponseWebFormUrl()
+    public function getGetResponseWebFormUrl(): ?string
     {
         return $this->getResponseWebFormUrl;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getGetResponseWebFormPosition()
+    public function getGetResponseWebFormPosition(): string
     {
-        return $this->getResponseWebFormPosition;
+        return (string) $this->getResponseWebFormPosition;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLiveSynchronizationUrl(): string
+    {
+        return (string) $this->liveSynchronizationUrl;
     }
 
     /**
      * @return string|null
      */
-    public function getLiveSynchronizationUrl()
-    {
-        return $this->liveSynchronizationUrl;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getLiveSynchronizationType()
+    public function getLiveSynchronizationType(): ?string
     {
         return $this->liveSynchronizationType;
     }
@@ -185,7 +171,7 @@ class UpsertConfiguration
     /**
      * @return string|null
      */
-    public function getGetResponseShopId()
+    public function getGetResponseShopId(): ?string
     {
         return $this->getResponseShopId;
     }
@@ -193,7 +179,7 @@ class UpsertConfiguration
     /**
      * @return string|null
      */
-    public function getGetResponseRecommendationSnippet()
+    public function getGetResponseRecommendationSnippet(): ?string
     {
         return $this->getResponseRecommendationSnippet;
     }

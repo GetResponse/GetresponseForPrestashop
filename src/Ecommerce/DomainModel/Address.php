@@ -52,18 +52,18 @@ class Address implements \JsonSerializable
     private $company;
 
     public function __construct(
-        $name,
-        $country,
-        $firstName,
-        $lastName,
-        $address1,
-        $address2,
-        $city,
-        $zip,
-        $province,
-        $provinceCode,
-        $phone,
-        $company
+        string $name,
+        string $country,
+        string $firstName,
+        string $lastName,
+        string $address1,
+        ?string $address2,
+        string $city,
+        string $zip,
+        ?string $province,
+        ?string $provinceCode,
+        ?string $phone,
+        ?string $company
     ) {
         $this->name = $name;
         $this->country = $country;
@@ -80,32 +80,32 @@ class Address implements \JsonSerializable
     }
 
     /**
-     * @param array $params
+     * @param array<string, mixed> $params
      *
      * @return self
      */
-    public static function createFromArray($params)
+    public static function createFromArray(array $params): self
     {
         return new self(
-            $params['alias'],
-            $params['country'],
-            $params['firstname'],
-            $params['lastname'],
-            $params['address1'],
-            $params['address2'],
-            $params['city'],
-            $params['postcode'],
-            $params['state'],
+            isset($params['alias']) ? (string) $params['alias'] : '',
+            isset($params['country']) ? (string) $params['country'] : '',
+            isset($params['firstname']) ? (string) $params['firstname'] : '',
+            isset($params['lastname']) ? (string) $params['lastname'] : '',
+            isset($params['address1']) ? (string) $params['address1'] : '',
+            isset($params['address2']) ? (string) $params['address2'] : null,
+            isset($params['city']) ? (string) $params['city'] : '',
+            isset($params['postcode']) ? (string) $params['postcode'] : '',
+            isset($params['state']) ? (string) $params['state'] : null,
             '',
-            $params['phone'],
-            $params['company']
+            isset($params['phone']) ? (string) $params['phone'] : null,
+            isset($params['company']) ? (string) $params['company'] : null
         );
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'name' => $this->name,

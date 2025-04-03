@@ -59,23 +59,26 @@ class Variant implements \JsonSerializable
     /** @var string */
     private $status;
 
+    /**
+     * @param Image[]|null $images
+     */
     public function __construct(
-        $id,
-        $productId,
-        $name,
-        $sku,
-        $price,
-        $priceTax,
-        $previousPrice,
-        $previousPriceTax,
-        $quantity,
-        $url,
-        $position,
-        $barcode,
-        $shortDescription,
-        $description,
-        $images,
-        $status
+        int $id,
+        int $productId,
+        string $name,
+        string $sku,
+        float $price,
+        float $priceTax,
+        ?float $previousPrice,
+        ?float $previousPriceTax,
+        int $quantity,
+        string $url,
+        ?int $position,
+        ?int $barcode,
+        string $shortDescription,
+        string $description,
+        ?array $images,
+        string $status
     ) {
         $this->id = $id;
         $this->productId = $productId;
@@ -98,7 +101,7 @@ class Variant implements \JsonSerializable
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -106,7 +109,7 @@ class Variant implements \JsonSerializable
     /**
      * @return int
      */
-    public function getProductId()
+    public function getProductId(): int
     {
         return $this->productId;
     }
@@ -114,7 +117,7 @@ class Variant implements \JsonSerializable
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -122,7 +125,7 @@ class Variant implements \JsonSerializable
     /**
      * @return string
      */
-    public function getSku()
+    public function getSku(): string
     {
         return $this->sku;
     }
@@ -130,7 +133,7 @@ class Variant implements \JsonSerializable
     /**
      * @return float
      */
-    public function getPrice()
+    public function getPrice(): float
     {
         return $this->price;
     }
@@ -138,7 +141,7 @@ class Variant implements \JsonSerializable
     /**
      * @return float
      */
-    public function getPriceTax()
+    public function getPriceTax(): float
     {
         return $this->priceTax;
     }
@@ -146,7 +149,7 @@ class Variant implements \JsonSerializable
     /**
      * @return float|null
      */
-    public function getPreviousPrice()
+    public function getPreviousPrice(): ?float
     {
         return $this->previousPrice;
     }
@@ -154,7 +157,7 @@ class Variant implements \JsonSerializable
     /**
      * @return float|null
      */
-    public function getPreviousPriceTax()
+    public function getPreviousPriceTax(): ?float
     {
         return $this->previousPriceTax;
     }
@@ -162,7 +165,7 @@ class Variant implements \JsonSerializable
     /**
      * @return int
      */
-    public function getQuantity()
+    public function getQuantity(): int
     {
         return $this->quantity;
     }
@@ -170,7 +173,7 @@ class Variant implements \JsonSerializable
     /**
      * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
@@ -178,7 +181,7 @@ class Variant implements \JsonSerializable
     /**
      * @return int|null
      */
-    public function getPosition()
+    public function getPosition(): ?int
     {
         return $this->position;
     }
@@ -186,7 +189,7 @@ class Variant implements \JsonSerializable
     /**
      * @return int|null
      */
-    public function getBarcode()
+    public function getBarcode(): ?int
     {
         return $this->barcode;
     }
@@ -194,35 +197,37 @@ class Variant implements \JsonSerializable
     /**
      * @return string
      */
-    public function getShortDescription()
+    public function getShortDescription(): string
     {
         return $this->shortDescription;
     }
 
     /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
      * @return Image[]|null
      */
-    public function getImages()
+    public function getImages(): ?array
     {
         return $this->images;
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function jsonSerialize()
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function jsonSerialize(): array
     {
         $images = [];
-        foreach ($this->images as $image) {
-            $images[] = $image->jsonSerialize();
+        if ($this->images !== null) {
+            foreach ($this->images as $image) {
+                $images[] = $image->jsonSerialize();
+            }
         }
 
         return [

@@ -35,7 +35,7 @@ class Product
     /** @var int */
     private $quantity;
 
-    public function __construct($id, $price, $currency, $quantity)
+    public function __construct(int $id, float $price, string $currency, int $quantity)
     {
         $this->id = $id;
         $this->price = $price;
@@ -46,7 +46,7 @@ class Product
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -54,7 +54,7 @@ class Product
     /**
      * @return float
      */
-    public function getPrice()
+    public function getPrice(): float
     {
         return $this->price;
     }
@@ -62,7 +62,7 @@ class Product
     /**
      * @return string
      */
-    public function getCurrency()
+    public function getCurrency(): string
     {
         return $this->currency;
     }
@@ -70,15 +70,15 @@ class Product
     /**
      * @return int
      */
-    public function getQuantity()
+    public function getQuantity(): int
     {
         return $this->quantity;
     }
 
     /**
-     * @return array
+     * @return array<string, int|float|string>
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'id' => (string) $this->id,
@@ -89,12 +89,17 @@ class Product
     }
 
     /**
-     * @param array $product
+     * @param array<string, int|float|string> $product
      *
      * @return self
      */
-    public static function createFromArray($product)
+    public static function createFromArray(array $product): self
     {
-        return new self($product['id'], $product['price'], $product['currency'], $product['quantity']);
+        return new self(
+            (int) $product['id'],
+            (float) $product['price'],
+            (string) $product['currency'],
+            (int) $product['quantity']
+        );
     }
 }

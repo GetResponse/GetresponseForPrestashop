@@ -26,16 +26,18 @@ if (!defined('_PS_VERSION_')) {
 
 class GrPrestashopCartRecoveryModuleFrontController extends ModuleFrontController
 {
-    public function init()
+    public function init(): void
     {
         $queryParams = Tools::getAllValues();
 
-        if (empty($queryParams['cart_id']) || empty($queryParams['cart_token'])) {
+        if (!is_array($queryParams) || empty($queryParams['cart_id']) || empty($queryParams['cart_token'])) {
             $this->showErrorFlashMessage();
         }
-        $cartId = $queryParams['cart_id'];
 
-        if ($queryParams['cart_token'] != CartRecoveryHelper::generateCartToken($cartId)) {
+        $cartId = (int) $queryParams['cart_id'];
+        $cartToken = (string) $queryParams['cart_token'];
+
+        if ($cartToken !== CartRecoveryHelper::generateCartToken($cartId)) {
             $this->showErrorFlashMessage();
         }
 
@@ -45,7 +47,7 @@ class GrPrestashopCartRecoveryModuleFrontController extends ModuleFrontControlle
         }
 
         $this->context->cart = $recoveredCart;
-        $this->context->cookie->id_cart = (int) $recoveredCart->id;
+        $this->context->cookie->id_cart = (int) $recoveredCart->id; // @phpstan-ignore-line
 
         $link = $this->context->link ? $this->context->link : new Link();
 
@@ -53,11 +55,9 @@ class GrPrestashopCartRecoveryModuleFrontController extends ModuleFrontControlle
         Tools::redirect($redirectLink);
     }
 
-    private function showErrorFlashMessage()
+    private function showErrorFlashMessage(): void
     {
         $this->errors[] = $this->l('We could not recover your cart');
         $this->redirectWithNotifications('index.php');
-
-        return;
     }
 }

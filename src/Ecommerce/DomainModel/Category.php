@@ -32,17 +32,17 @@ class Category implements \JsonSerializable
     private $parentId;
     /** @var string */
     private $name;
-    /** @var false|bool */
+    /** @var bool */
     private $isDefault;
-    /** @var string|null */
+    /** @var ?string */
     private $url;
 
     public function __construct(
-        $id,
-        $parentId,
-        $name,
-        $isDefault = false,
-        $url = null
+        int $id,
+        int $parentId,
+        string $name,
+        bool $isDefault = false,
+        string $url = null
     ) {
         $this->id = $id;
         $this->parentId = $parentId;
@@ -54,7 +54,7 @@ class Category implements \JsonSerializable
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -62,7 +62,7 @@ class Category implements \JsonSerializable
     /**
      * @return int
      */
-    public function getParentId()
+    public function getParentId(): int
     {
         return $this->parentId;
     }
@@ -70,15 +70,15 @@ class Category implements \JsonSerializable
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'id' => $this->id,

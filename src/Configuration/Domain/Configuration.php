@@ -48,16 +48,16 @@ class Configuration
     private $getresponseShopId;
 
     public function __construct(
-        $shopId,
-        $facebookPixelSnippet,
-        $facebookAdsPixelSnippet,
-        $facebookBusinessExtensionSnippet,
-        $getResponseChatSnippet,
-        $getResponseRecommendationSnippet,
-        $getResponseWebTrackingSnippet,
-        $getResponseWebForm,
-        $liveSynchronization,
-        $getresponseShopId
+        int $shopId,
+        ?string $facebookPixelSnippet,
+        ?string $facebookAdsPixelSnippet,
+        ?string $facebookBusinessExtensionSnippet,
+        ?string $getResponseChatSnippet,
+        ?string $getResponseRecommendationSnippet,
+        ?string $getResponseWebTrackingSnippet,
+        ?WebForm $getResponseWebForm,
+        ?LiveSynchronization $liveSynchronization,
+        ?string $getresponseShopId
     ) {
         $this->shopId = $shopId;
         $this->facebookPixelSnippet = $facebookPixelSnippet;
@@ -71,7 +71,7 @@ class Configuration
         $this->getresponseShopId = $getresponseShopId;
     }
 
-    public function getShopId()
+    public function getShopId(): int
     {
         return $this->shopId;
     }
@@ -146,5 +146,45 @@ class Configuration
     public function getGetResponseRecommendationSnippet()
     {
         return $this->getResponseRecommendationSnippet;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGetResponseWebFormId(): ?string
+    {
+        return $this->getResponseWebForm ? $this->getResponseWebForm->getId() : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGetResponseWebFormUrl(): ?string
+    {
+        return $this->getResponseWebForm ? $this->getResponseWebForm->getUrl() : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGetResponseWebFormPosition(): ?string
+    {
+        return $this->getResponseWebForm ? $this->getResponseWebForm->getPosition() : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLiveSynchronizationType(): ?string
+    {
+        return $this->liveSynchronization ? $this->liveSynchronization->getType() : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLiveSynchronizationUrl(): ?string
+    {
+        return $this->liveSynchronization ? $this->liveSynchronization->getUrl() : null;
     }
 }

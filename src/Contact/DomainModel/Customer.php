@@ -41,17 +41,20 @@ class Customer implements \JsonSerializable
     private $address;
     /** @var bool */
     private $marketingConsent;
-    /** @var array */
+    /** @var array<string, mixed> */
     private $customFields;
 
+    /**
+     * @param array<string, mixed> $customFields
+     */
     public function __construct(
-        $id,
-        $firstName,
-        $lastName,
-        $email,
-        $address,
-        $marketingConsent,
-        $customFields
+        int $id,
+        string $firstName,
+        string $lastName,
+        string $email,
+        ?Address $address,
+        bool $marketingConsent,
+        array $customFields
     ) {
         $this->id = $id;
         $this->firstName = $firstName;
@@ -65,7 +68,7 @@ class Customer implements \JsonSerializable
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -73,7 +76,7 @@ class Customer implements \JsonSerializable
     /**
      * @return string
      */
-    public function getFirstName()
+    public function getFirstName(): string
     {
         return $this->firstName;
     }
@@ -81,7 +84,7 @@ class Customer implements \JsonSerializable
     /**
      * @return string
      */
-    public function getLastName()
+    public function getLastName(): string
     {
         return $this->lastName;
     }
@@ -89,7 +92,7 @@ class Customer implements \JsonSerializable
     /**
      * @return bool
      */
-    public function getMarketingConsent()
+    public function getMarketingConsent(): bool
     {
         return $this->marketingConsent;
     }
@@ -97,7 +100,7 @@ class Customer implements \JsonSerializable
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -105,23 +108,23 @@ class Customer implements \JsonSerializable
     /**
      * @return Address|null
      */
-    public function getAddress()
+    public function getAddress(): ?Address
     {
         return $this->address;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function getCustomFields()
+    public function getCustomFields(): array
     {
         return $this->customFields;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'callback_type' => CallbackType::CUSTOMER_UPDATE,

@@ -42,11 +42,11 @@ class GrPrestashop extends Module
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '1.5.0';
+        $this->version = '2.0.0';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
-        $this->ps_versions_compliancy = ['min' => '1.6', 'max' => '8.1.7'];
+        $this->ps_versions_compliancy = ['min' => '1.7', 'max' => '8.2.1'];
         $this->displayName = $this->l('GetResponse');
         $this->description = 'Add your Prestashop contacts to GetResponse.';
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
@@ -299,7 +299,7 @@ class GrPrestashop extends Module
         $tab->active = 1;
         $tab->class_name = 'AdminGetresponse';
         $tab->name = [];
-        $tab->id_parent = strpos(_PS_VERSION_, '1.6') === 0 ? 0 : (int) Tab::getIdFromClassName('AdminAdmin');
+        $tab->id_parent = (int) Tab::getIdFromClassName('AdminAdmin');
         $tab->module = $this->name;
         foreach (Language::getLanguages(true) as $lang) {
             $tab->name[$lang['id_lang']] = 'GetResponse';
@@ -423,7 +423,7 @@ class GrPrestashop extends Module
             $cart = $params['cart'];
 
             // sometimes it happens
-            if (null === $cart) {
+            if (null === $cart || null === $cart->id) {
                 return;
             }
 
@@ -439,7 +439,7 @@ class GrPrestashop extends Module
                 ),
                 $configurationReadModel
             );
-            $cartService->upsertCart(new GetResponse\Ecommerce\Application\Command\UpsertCart($cart->id, $shop->id));
+            $cartService->upsertCart(new GetResponse\Ecommerce\Application\Command\UpsertCart((int) $cart->id, $shop->id));
 
             $sessionStorage = new \GetResponse\SharedKernel\Session\StorageFactory();
             $storage = $sessionStorage->create();

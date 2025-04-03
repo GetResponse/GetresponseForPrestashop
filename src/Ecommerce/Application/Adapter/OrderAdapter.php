@@ -31,7 +31,7 @@ if (!defined('_PS_VERSION_')) {
 
 class OrderAdapter
 {
-    public function getOrderById($orderId)
+    public function getOrderById(int $orderId): Order
     {
         $customerAdapter = new CustomerAdapter();
         $prestashopOrder = new \Order($orderId);
@@ -87,7 +87,7 @@ class OrderAdapter
         }
 
         return new Order(
-            $prestashopOrder->id,
+            (int) $prestashopOrder->id,
             $prestashopOrder->reference,
             $prestashopOrder->id_cart,
             $customer->email,
@@ -106,7 +106,12 @@ class OrderAdapter
         );
     }
 
-    private function getProducts(\Order $order)
+    /**
+     * @param \Order $order
+     *
+     * @return array<int, Line>
+     */
+    private function getProducts(\Order $order): array
     {
         $lines = [];
 
@@ -133,9 +138,17 @@ class OrderAdapter
         return $lines;
     }
 
-    private function getOrderStatus(\Order $order)
+    /**
+     * @param \Order $order
+     *
+     * @return string
+     */
+    private function getOrderStatus(\Order $order): string
     {
         $status = (new \OrderState($order->getCurrentState(), $order->id_lang))->name;
+        if (is_array($status)) {
+            $status = implode(', ', $status);
+        }
 
         return empty($status) ? 'new' : $status;
     }

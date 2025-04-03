@@ -28,7 +28,12 @@ class EventEmitterException extends \Exception
 {
     const INVALID_CURL_RESPONSE = 10001;
 
-    public static function createFromCurlError($error)
+    /**
+     * @param string $error
+     *
+     * @return self
+     */
+    public static function createFromCurlError(string $error): self
     {
         return new self($error, self::INVALID_CURL_RESPONSE);
     }

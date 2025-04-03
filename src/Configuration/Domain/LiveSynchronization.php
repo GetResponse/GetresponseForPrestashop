@@ -28,25 +28,33 @@ if (!defined('_PS_VERSION_')) {
 
 class LiveSynchronization
 {
-    /** @var string */
     private $url;
-    /** @var string */
     private $type;
 
-    public function __construct($url, $type)
+    public function __construct(string $url, string $type)
     {
         Assertion::inArray($type, ['Contacts', 'Products', 'FullEcommerce']);
         $this->url = $url;
         $this->type = $type;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        $webForm = [
+        $data = [
             'url' => $this->url,
             'type' => $this->type,
         ];
 
-        return json_encode($webForm);
+        return json_encode($data) ?: '';
+    }
+
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
     }
 }

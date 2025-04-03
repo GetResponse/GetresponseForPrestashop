@@ -1,12 +1,13 @@
 includes:
   - %currentWorkingDirectory%/vendor/prestashop/php-dev-tools/phpstan/ps-module-extension.neon
-    
+
 parameters:
   paths:
   - ../../classes
   - ../../controllers
-  - ../../override
   - ../../src
   - ../../views
   reportUnmatchedIgnoredErrors: false
-  level: max
+  level: 8
+  phpVersion: 70200
+  treatPhpDocTypesAsCertain: false

@@ -34,6 +34,7 @@ class OrderService
 {
     /** @var MessageSenderService */
     private $messageSenderService;
+
     /** @var ConfigurationReadModel */
     private $configurationReadModel;
 
@@ -48,9 +49,11 @@ class OrderService
     /**
      * @param UpsertOrder $command
      *
+     * @return void
+     *
      * @throws MessageSenderException
      */
-    public function upsertOrder(UpsertOrder $command)
+    public function upsertOrder(UpsertOrder $command): void
     {
         $configuration = $this->configurationReadModel->getConfigurationForShop($command->getShopId());
 
@@ -58,10 +61,15 @@ class OrderService
             return;
         }
 
+        $url = $configuration->getLiveSynchronizationUrl();
+        if ($url === null) {
+            throw new \InvalidArgumentException('Live synchronization URL cannot be null');
+        }
+
         $orderAdapter = new OrderAdapter();
 
         $this->messageSenderService->send(
-            $configuration->getLiveSynchronizationUrl(),
+            $url,
             $orderAdapter->getOrderById($command->getOrderId())
         );
     }

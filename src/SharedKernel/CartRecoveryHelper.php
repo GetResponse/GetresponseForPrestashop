@@ -20,13 +20,20 @@
 
 namespace GetResponse\SharedKernel;
 
-use Context;
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 class CartRecoveryHelper
 {
-    public static function getUrl($cartId)
+    public static function getUrl(int $cartId): string
     {
-        return Context::getContext()->link->getModuleLink(
+        $context = \Context::getContext();
+        if ($context === null || $context->link === null) {
+            throw new \RuntimeException('Context or link is null');
+        }
+
+        return $context->link->getModuleLink(
             'grprestashop',
             'CartRecovery',
             [
@@ -36,7 +43,7 @@ class CartRecoveryHelper
         );
     }
 
-    public static function generateCartToken($cartId)
+    public static function generateCartToken(int $cartId): string
     {
         return md5(_COOKIE_KEY_ . 'recover_cart_' . $cartId);
     }

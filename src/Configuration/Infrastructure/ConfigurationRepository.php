@@ -71,15 +71,23 @@ class ConfigurationRepository implements Repository
         \Configuration::deleteByName(self::GR_SHOP_ID);
     }
 
-    private function updateConfig(string $key, $value)
+    /**
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return void
+     */
+    private function updateConfig(string $key, $value): void
     {
-        $value = is_object($value) ? (string) $value : $value;
-
-        $keyWithPrefix = $key;
-        \Configuration::updateValue($keyWithPrefix, $value);
+        \Configuration::updateValue($key, is_object($value) ? (string) $value : $value);
     }
 
-    public function getConfigurationForShop($shopId)
+    /**
+     * @param int $shopId
+     *
+     * @return ConfigurationDto
+     */
+    public function getConfigurationForShop(int $shopId): ConfigurationDto
     {
         \Shop::setContext(\Shop::CONTEXT_SHOP, $shopId);
 

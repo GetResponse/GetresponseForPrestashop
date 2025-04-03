@@ -34,6 +34,7 @@ class CartService
 {
     /** @var MessageSenderService */
     private $messageSenderService;
+
     /** @var ConfigurationReadModel */
     private $configurationReadModel;
 
@@ -48,14 +49,21 @@ class CartService
     /**
      * @param UpsertCart $command
      *
+     * @return void
+     *
      * @throws MessageSenderException
      */
-    public function upsertCart(UpsertCart $command)
+    public function upsertCart(UpsertCart $command): void
     {
         $configuration = $this->configurationReadModel->getConfigurationForShop($command->getShopId());
 
         if (false === $configuration->isEcommerceLiveSynchronizationActive()) {
             return;
+        }
+
+        $url = $configuration->getLiveSynchronizationUrl();
+        if ($url === null) {
+            throw new \InvalidArgumentException('Live synchronization URL cannot be null');
         }
 
         $visitorUuid = null;
@@ -68,7 +76,7 @@ class CartService
 
         if ($cart->isValuable()) {
             $this->messageSenderService->send(
-                $configuration->getLiveSynchronizationUrl(),
+                $url,
                 $cart
             );
         }

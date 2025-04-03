@@ -40,7 +40,7 @@ class CartPresenter extends EcommercePresenter
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function present()
     {

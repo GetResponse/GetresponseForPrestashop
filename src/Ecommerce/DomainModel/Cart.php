@@ -50,8 +50,20 @@ class Cart implements \JsonSerializable
     /** @var string */
     private $updatedAt;
 
+    /**
+     * @param int $id
+     * @param Customer $customer
+     * @param Line[] $lines
+     * @param string $visitorUuid
+     * @param float $totalPrice
+     * @param float $totalTaxPrice
+     * @param string $currency
+     * @param string $url
+     * @param string $createdAt
+     * @param string $updatedAt
+     */
     public function __construct(
-        $id,
+        int $id,
         Customer $customer,
         $visitorUuid,
         $lines,
@@ -77,7 +89,7 @@ class Cart implements \JsonSerializable
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -85,7 +97,7 @@ class Cart implements \JsonSerializable
     /**
      * @return Customer
      */
-    public function getCustomer()
+    public function getCustomer(): Customer
     {
         return $this->customer;
     }
@@ -93,15 +105,15 @@ class Cart implements \JsonSerializable
     /**
      * @return string
      */
-    public function getVisitorUuid()
+    public function getVisitorUuid(): string
     {
-        return $this->visitorUuid;
+        return $this->visitorUuid ?? '';
     }
 
     /**
      * @return Line[]
      */
-    public function getLines()
+    public function getLines(): array
     {
         return $this->lines;
     }
@@ -109,7 +121,7 @@ class Cart implements \JsonSerializable
     /**
      * @return float
      */
-    public function getTotalPrice()
+    public function getTotalPrice(): float
     {
         return $this->totalPrice;
     }
@@ -117,7 +129,7 @@ class Cart implements \JsonSerializable
     /**
      * @return float
      */
-    public function getTotalTaxPrice()
+    public function getTotalTaxPrice(): float
     {
         return $this->totalTaxPrice;
     }
@@ -125,7 +137,7 @@ class Cart implements \JsonSerializable
     /**
      * @return string
      */
-    public function getCurrency()
+    public function getCurrency(): string
     {
         return $this->currency;
     }
@@ -133,7 +145,7 @@ class Cart implements \JsonSerializable
     /**
      * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
@@ -141,7 +153,7 @@ class Cart implements \JsonSerializable
     /**
      * @return string
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): string
     {
         return $this->createdAt;
     }
@@ -149,15 +161,15 @@ class Cart implements \JsonSerializable
     /**
      * @return string
      */
-    public function getUpdatedAt()
+    public function getUpdatedAt(): string
     {
         return $this->updatedAt;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $lines = [];
         foreach ($this->lines as $line) {
@@ -183,7 +195,7 @@ class Cart implements \JsonSerializable
     /**
      * @return bool
      */
-    public function isValuable()
+    public function isValuable(): bool
     {
         return $this->id !== 0 && ($this->customer->getEmail() !== null || $this->visitorUuid !== null);
     }

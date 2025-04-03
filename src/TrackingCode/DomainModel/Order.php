@@ -34,10 +34,13 @@ class Order
     private $price;
     /** @var string */
     private $currency;
-    /** @var array<Product> */
+    /** @var array<int, Product> */
     private $products;
 
-    public function __construct($id, $cartId, $price, $currency, $products)
+    /**
+     * @param array<int, Product> $products
+     */
+    public function __construct(int $id, int $cartId, float $price, string $currency, array $products)
     {
         $this->id = $id;
         $this->cartId = $cartId;
@@ -49,7 +52,7 @@ class Order
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -57,7 +60,7 @@ class Order
     /**
      * @return int
      */
-    public function getCartId()
+    public function getCartId(): int
     {
         return $this->cartId;
     }
@@ -65,7 +68,7 @@ class Order
     /**
      * @return float
      */
-    public function getPrice()
+    public function getPrice(): float
     {
         return $this->price;
     }
@@ -73,59 +76,71 @@ class Order
     /**
      * @return string
      */
-    public function getCurrency()
+    public function getCurrency(): string
     {
         return $this->currency;
     }
 
     /**
-     * @return Product[]
+     * @return array<int, Product>
      */
-    public function getProducts()
+    public function getProducts(): array
     {
         return $this->products;
     }
 
     /**
-     * @return array
+     * @return array<string, int|float|string|array<int, array<string, int|float|string>>>
      */
-    public function toArray()
+    public function toArray(): array
     {
-        $products = [];
-
+        $productsArray = [];
         foreach ($this->products as $product) {
-            $products[] = $product->toArray();
+            $productsArray[] = $product->toArray();
         }
 
         return [
             'id' => (string) $this->id,
             'cartId' => (string) $this->cartId,
-            'price' => (float) $this->price,
+            'price' => $this->price,
             'currency' => $this->currency,
-            'products' => $products,
+            'products' => $productsArray,
         ];
     }
 
     /**
-     * @param array $order
+     * @param array{
+     *     id: int,
+     *     cart_id: int,
+     *     price: float,
+     *     currency: string,
+     *     products: array<int, array<string, int|float|string>>
+     * } $order
      *
      * @return self
      */
-    public static function createFromArray($order)
+    public static function createFromArray(array $order): self
     {
         $products = [];
-
-        foreach ($order['products'] as $product) {
-            $products[] = Product::createFromArray($product);
+        if (isset($order['products']) && is_array($order['products'])) {
+            foreach ($order['products'] as $product) {
+                $products[] = Product::createFromArray($product);
+            }
         }
 
-        return new self($order['id'], $order['cartId'], $order['price'], $order['currency'], $products);
+        return new self(
+            (int) $order['id'],
+            (int) $order['cart_id'],
+            (float) $order['price'],
+            (string) $order['currency'],
+            $products
+        );
     }
 
     /**
      * @return bool
      */
-    public function isValuable()
+    public function isValuable(): bool
     {
         return $this->id !== 0;
     }

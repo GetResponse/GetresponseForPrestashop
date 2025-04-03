@@ -30,9 +30,9 @@ interface EventEmitter
      * @param string $url
      * @param \JsonSerializable $object
      *
-     * @return array
+     * @return array<string, mixed>
      *
      * @throws EventEmitterException
      */
-    public function emit($url, $object);
+    public function emit(string $url, \JsonSerializable $object): array;
 }

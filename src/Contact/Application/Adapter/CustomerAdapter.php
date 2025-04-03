@@ -31,11 +31,11 @@ if (!defined('_PS_VERSION_')) {
 class CustomerAdapter
 {
     /**
-     * @param $customerId
+     * @param int $customerId
      *
      * @return Customer
      */
-    public function getCustomerById($customerId)
+    public function getCustomerById(int $customerId): Customer
     {
         $customer = new PrestashopCustomer($customerId);
 
@@ -47,12 +47,12 @@ class CustomerAdapter
 
         return new Customer(
             (int) $customer->id,
-            $customer->firstname,
-            $customer->lastname,
-            $customer->email,
+            (string) $customer->firstname,
+            (string) $customer->lastname,
+            (string) $customer->email,
             $address,
-            $customer->newsletter,
-            ['birthday' => $customer->birthday]
+            (bool) $customer->newsletter,
+            ['birthday' => (string) $customer->birthday]
         );
     }
 }

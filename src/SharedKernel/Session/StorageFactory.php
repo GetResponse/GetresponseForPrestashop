@@ -20,15 +20,25 @@
 
 namespace GetResponse\SharedKernel\Session;
 
-use RuntimeException;
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class StorageFactory
 {
+    /**
+     * @return SessionStorage|CookieStorage|null
+     */
     public function create()
     {
         try {
             $context = \Context::getContext();
+
+            if ($context === null) {
+                throw new \RuntimeException('Context is null');
+            }
 
             /** @var SessionInterface|null $session */
             $session = $context->session;
@@ -38,18 +48,22 @@ class StorageFactory
             }
 
             if ($context->cookie) {
-                return new CookieStorage($context->cookie);
+                return new CookieStorage();
             }
-        } catch (RuntimeException $e) {
+        } catch (\RuntimeException $e) {
             $this->logGetResponseError($e->getMessage());
         }
+
+        return null;
     }
 
     /**
      * @param string $message
+     *
+     * @return void
      */
-    private function logGetResponseError($message)
+    private function logGetResponseError(string $message): void
     {
-        PrestaShopLoggerCore::addLog($message, 2, null, 'GetResponse', 'GetResponse');
+        \PrestaShopLoggerCore::addLog($message, 2, null, 'GetResponse');
     }
 }

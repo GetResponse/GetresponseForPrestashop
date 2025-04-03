@@ -27,8 +27,11 @@ class AdminGetresponseController extends ModuleAdminController
     {
         parent::__construct();
 
-        $link = Context::getContext()->link->getAdminLink('AdminModules');
-        $link .= '&configure=grprestashop';
-        Tools::redirectAdmin($link);
+        $context = Context::getContext();
+        if ($context !== null) {
+            $link = $context->link->getAdminLink('AdminModules');
+            $link .= '&configure=grprestashop';
+            Tools::redirectAdmin($link);
+        }
     }
 }

@@ -31,7 +31,7 @@ class Image implements \JsonSerializable
     /** @var int */
     private $position;
 
-    public function __construct($src, $position)
+    public function __construct(string $src, int $position)
     {
         $this->src = $src;
         $this->position = $position;
@@ -40,7 +40,7 @@ class Image implements \JsonSerializable
     /**
      * @return string
      */
-    public function getSrc()
+    public function getSrc(): string
     {
         return $this->src;
     }
@@ -48,15 +48,15 @@ class Image implements \JsonSerializable
     /**
      * @return int
      */
-    public function getPosition()
+    public function getPosition(): int
     {
         return $this->position;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'src' => $this->src,

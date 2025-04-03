@@ -35,12 +35,17 @@ class TrackingCodeBufferService
     /** @var Storage */
     private $sessionStorage;
 
-    public function __construct($sessionStorage)
+    public function __construct(Storage $sessionStorage)
     {
         $this->sessionStorage = $sessionStorage;
     }
 
-    public function addCartToBuffer(Cart $cart)
+    /**
+     * @param Cart $cart
+     *
+     * @return void
+     */
+    public function addCartToBuffer(Cart $cart): void
     {
         if ($this->sessionStorage->exists(self::CART_HASH_COOKIE_NAME)) {
             $lastCartHash = $this->sessionStorage->get(self::CART_HASH_COOKIE_NAME);
@@ -50,52 +55,55 @@ class TrackingCodeBufferService
             }
         }
 
-        $this->sessionStorage->set(self::CART_COOKIE_NAME, serialize($cart->toArray()));
+        $this->sessionStorage->set(self::CART_COOKIE_NAME, json_encode($cart->toArray()));
         $this->sessionStorage->set(self::CART_HASH_COOKIE_NAME, $cart->getHash());
     }
 
     /**
-     * @return Cart|null
+     * @param Order $order
+     *
+     * @return void
      */
-    public function getCartFromBuffer()
+    public function addOrderToBuffer(Order $order): void
     {
-        if (false === $this->sessionStorage->exists(self::CART_COOKIE_NAME)) {
-            return null;
-        }
-
-        $cart = $this->sessionStorage->get(self::CART_COOKIE_NAME);
-
-        if (null === $cart) {
-            return null;
-        }
-
-        $this->sessionStorage->remove(self::CART_COOKIE_NAME);
-
-        return Cart::createFromArray(unserialize($cart));
-    }
-
-    public function addOrderToBuffer(Order $order)
-    {
-        $this->sessionStorage->set(self::ORDER_COOKIE_NAME, serialize($order->toArray()));
+        $this->sessionStorage->set(self::ORDER_COOKIE_NAME, json_encode($order->toArray()));
     }
 
     /**
-     * @return Order|null
+     * @return ?Order
      */
-    public function getOrderFromBuffer()
+    public function getOrderFromBuffer(): ?Order
     {
-        if (false === $this->sessionStorage->exists(self::ORDER_COOKIE_NAME)) {
-            return null;
+        if ($this->sessionStorage->exists(self::ORDER_COOKIE_NAME)) {
+            $json = $this->sessionStorage->get(self::ORDER_COOKIE_NAME);
+            if (is_string($json)) {
+                /** @var array{id: int, cart_id: int, price: float, currency: string, products: array<int, array<string, int|float|string>>} $data */
+                $data = json_decode($json, true);
+                if (is_array($data)) {
+                    return Order::createFromArray($data);
+                }
+            }
         }
 
-        $order = $this->sessionStorage->get(self::ORDER_COOKIE_NAME);
+        return null;
+    }
 
-        if (null === $order) {
-            return null;
+    /**
+     * @return ?Cart
+     */
+    public function getCartFromBuffer(): ?Cart
+    {
+        if ($this->sessionStorage->exists(self::CART_COOKIE_NAME)) {
+            $json = $this->sessionStorage->get(self::CART_COOKIE_NAME);
+            if (is_string($json)) {
+                /** @var array{id: int, price: float, currency: string, url: string, products: array<int, array<string, int|float|string>>} $data */
+                $data = json_decode($json, true);
+                if (is_array($data)) {
+                    return Cart::createFromArray($data);
+                }
+            }
         }
 
-        $this->sessionStorage->remove(self::ORDER_COOKIE_NAME);
-
-        return Order::createFromArray(unserialize($order));
+        return null;
     }
 }

@@ -34,10 +34,13 @@ class Cart
     private $currency;
     /** @var string */
     private $url;
-    /** @var array<Product> */
+    /** @var array<int, Product> */
     private $products;
 
-    public function __construct($id, $price, $currency, $url, $products)
+    /**
+     * @param array<int, Product> $products
+     */
+    public function __construct(int $id, float $price, string $currency, string $url, array $products)
     {
         $this->id = $id;
         $this->price = $price;
@@ -47,25 +50,38 @@ class Cart
     }
 
     /**
-     * @param array $cart
+     * @param array{
+     *     id: int,
+     *     price: float,
+     *     currency: string,
+     *     url: string,
+     *     products: array<int, array<string, int|float|string>>
+     * } $cart
      *
      * @return self
      */
-    public static function createFromArray($cart)
+    public static function createFromArray(array $cart): self
     {
         $products = [];
-
-        foreach ($cart['products'] as $product) {
-            $products[] = Product::createFromArray($product);
+        if (isset($cart['products']) && is_array($cart['products'])) {
+            foreach ($cart['products'] as $product) {
+                $products[] = Product::createFromArray($product);
+            }
         }
 
-        return new self($cart['id'], $cart['price'], $cart['currency'], $cart['url'], $products);
+        return new self(
+            (int) $cart['id'],
+            (float) $cart['price'],
+            (string) $cart['currency'],
+            (string) $cart['url'],
+            $products
+        );
     }
 
     /**
-     * @return array
+     * @return array<string, int|float|string|array<int, array<string, int|float|string>>>
      */
-    public function toArray()
+    public function toArray(): array
     {
         $products = [];
 
@@ -85,7 +101,7 @@ class Cart
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -93,7 +109,7 @@ class Cart
     /**
      * @return float
      */
-    public function getPrice()
+    public function getPrice(): float
     {
         return $this->price;
     }
@@ -101,7 +117,7 @@ class Cart
     /**
      * @return string
      */
-    public function getCurrency()
+    public function getCurrency(): string
     {
         return $this->currency;
     }
@@ -109,15 +125,15 @@ class Cart
     /**
      * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
 
     /**
-     * @return Product[]
+     * @return array<int, Product>
      */
-    public function getProducts()
+    public function getProducts(): array
     {
         return $this->products;
     }
@@ -125,7 +141,7 @@ class Cart
     /**
      * @return bool
      */
-    public function isValuable()
+    public function isValuable(): bool
     {
         return $this->id !== 0;
     }
@@ -133,7 +149,7 @@ class Cart
     /**
      * @return string
      */
-    public function getHash()
+    public function getHash(): string
     {
         return md5(serialize($this->toArray()));
     }

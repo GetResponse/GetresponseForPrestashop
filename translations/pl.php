@@ -17,8 +17,6 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-
-
 global $_MODULE;
 $_MODULE = [];
 $_MODULE['<{grprestashop}prestashop>cartrecovery_8667e2738fda398dc435804735e06344'] = 'Nie udało się odtworzyć koszyka.';

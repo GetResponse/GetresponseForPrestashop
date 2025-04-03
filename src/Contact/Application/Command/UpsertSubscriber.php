@@ -35,7 +35,7 @@ class UpsertSubscriber
     /** @var string|null */
     private $name;
 
-    public function __construct($email, $marketingConsent, $shopId, $name)
+    public function __construct(string $email, bool $marketingConsent, int $shopId, ?string $name)
     {
         $this->email = $email;
         $this->marketingConsent = $marketingConsent;
@@ -43,22 +43,22 @@ class UpsertSubscriber
         $this->name = $name;
     }
 
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function isMarketingConsent()
+    public function isMarketingConsent(): bool
     {
         return $this->marketingConsent;
     }
 
-    public function getShopId()
+    public function getShopId(): int
     {
         return $this->shopId;
     }
 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }

@@ -24,16 +24,29 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+/**
+ * @template T
+ * @implements \IteratorAggregate<int, T>
+ */
 class ConfigurationDtoCollection implements \IteratorAggregate
 {
-    private $configurations;
+    /** @var array<int, T> */
+    private $configurations = [];
 
-    public function add($configuration)
+    /**
+     * @param T $configuration
+     *
+     * @return void
+     */
+    public function add($configuration): void
     {
         $this->configurations[] = $configuration;
     }
 
-    public function getIterator()
+    /**
+     * @return \ArrayIterator<int, T>
+     */
+    public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator($this->configurations);
     }

@@ -28,6 +28,7 @@ if (!defined('_PS_VERSION_')) {
 
 class SessionStorage implements Storage
 {
+    /** @var SessionInterface */
     private $session;
 
     public function __construct(SessionInterface $session)
@@ -35,27 +36,27 @@ class SessionStorage implements Storage
         $this->session = $session;
     }
 
-    public function exists($keyName)
+    public function exists(string $keyName): bool
     {
         return $this->session->has($keyName);
     }
 
-    public function set($keyName, $payload)
+    public function set(string $keyName, $payload): void
     {
-        $this->session->set($keyName, base64_encode($payload));
+        $this->session->set($keyName, base64_encode((string) $payload));
     }
 
-    public function remove($keyName)
+    public function remove(string $keyName): void
     {
         $this->session->remove($keyName);
     }
 
-    public function get($keyName)
+    public function get(string $keyName)
     {
         if (!$this->exists($keyName)) {
             return null;
         }
 
-        return base64_decode($this->session->get($keyName));
+        return base64_decode((string) $this->session->get($keyName));
     }
 }

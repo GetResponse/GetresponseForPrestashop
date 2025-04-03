@@ -45,8 +45,10 @@ class OrderService
     /**
      * @param int $orderId
      * @param int $shopId
+     *
+     * @return void
      */
-    public function addOrderToBuffer($orderId, $shopId)
+    public function addOrderToBuffer(int $orderId, int $shopId): void
     {
         $configuration = $this->configurationReadModel->getConfigurationForShop($shopId);
 
@@ -67,7 +69,7 @@ class OrderService
      *
      * @return Order|null
      */
-    public function getOrderFromBuffer($shopId)
+    public function getOrderFromBuffer(int $shopId): ?Order
     {
         $configuration = $this->configurationReadModel->getConfigurationForShop($shopId);
 

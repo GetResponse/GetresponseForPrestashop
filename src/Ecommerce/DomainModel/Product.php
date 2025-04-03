@@ -39,7 +39,7 @@ class Product implements \JsonSerializable
     private $type;
     /** @var string */
     private $url;
-    /** @var string */
+    /** @var string|null */
     private $vendor;
     /** @var Category[] */
     private $categories;
@@ -52,17 +52,21 @@ class Product implements \JsonSerializable
     /** @var string */
     private $status;
 
+    /**
+     * @param Category[] $categories
+     * @param Variant[] $variants
+     */
     public function __construct(
-        $id,
-        $name,
-        $type,
-        $url,
-        $vendor,
-        $categories,
-        $variants,
-        $createdAt,
-        $updatedAt,
-        $status
+        int $id,
+        string $name,
+        string $type,
+        string $url,
+        ?string $vendor,
+        array $categories,
+        array $variants,
+        string $createdAt,
+        ?string $updatedAt,
+        string $status
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -76,60 +80,90 @@ class Product implements \JsonSerializable
         $this->status = $status;
     }
 
-    public function getId()
+    /**
+     * @return int
+     */
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName()
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getType()
+    /**
+     * @return string
+     */
+    public function getType(): string
     {
         return $this->type;
     }
 
-    public function getUrl()
+    /**
+     * @return string
+     */
+    public function getUrl(): string
     {
         return $this->url;
     }
 
-    public function getVendor()
+    /**
+     * @return string
+     */
+    public function getVendor(): ?string
     {
         return $this->vendor;
     }
 
-    public function getCategories()
+    /**
+     * @return Category[]
+     */
+    public function getCategories(): array
     {
         return $this->categories;
     }
 
-    public function getVariants()
+    /**
+     * @return Variant[]
+     */
+    public function getVariants(): array
     {
         return $this->variants;
     }
 
-    public function getCreatedAt()
+    /**
+     * @return string
+     */
+    public function getCreatedAt(): string
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt()
+    /**
+     * @return string|null
+     */
+    public function getUpdatedAt(): ?string
     {
         return $this->updatedAt;
     }
 
-    public function getStatus()
+    /**
+     * @return string
+     */
+    public function getStatus(): string
     {
         return $this->status;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $categories = [];
         foreach ($this->categories as $category) {

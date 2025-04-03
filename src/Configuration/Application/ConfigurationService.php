@@ -20,6 +20,7 @@
 
 namespace GetResponse\Configuration\Application;
 
+use GetResponse\Configuration\Application\Command\UpsertConfiguration;
 use GetResponse\Configuration\Domain\Configuration;
 use GetResponse\Configuration\Domain\ConfigurationRepository;
 use GetResponse\Configuration\Domain\LiveSynchronization;
@@ -31,17 +32,15 @@ if (!defined('_PS_VERSION_')) {
 
 class ConfigurationService
 {
+    /** @var ConfigurationRepository */
     private $configurationRepository;
 
-    /**
-     * @param ConfigurationRepository $configurationRepository
-     */
-    public function __construct($configurationRepository)
+    public function __construct(ConfigurationRepository $configurationRepository)
     {
         $this->configurationRepository = $configurationRepository;
     }
 
-    public function upsertConfiguration($configuration)
+    public function upsertConfiguration(UpsertConfiguration $configuration): void
     {
         $this->configurationRepository->upsertConfiguration(
             new Configuration(
@@ -59,41 +58,28 @@ class ConfigurationService
         );
     }
 
-    /**
-     * @param $updateConfiguration
-     *
-     * @return WebForm|null
-     */
-    private function getWebForm($updateConfiguration)
+    private function getWebForm(UpsertConfiguration $updateConfiguration): ?WebForm
     {
-        if (null !== $updateConfiguration->getGetResponseWebFormId()
-            && null !== $updateConfiguration->getGetResponseWebFormUrl()
-            && null !== $updateConfiguration->getGetResponseWebFormPosition()
-        ) {
-            return new WebForm(
-                $updateConfiguration->getGetResponseWebFormId(),
-                $updateConfiguration->getGetResponseWebFormUrl(),
-                $updateConfiguration->getGetResponseWebFormPosition()
-            );
+        if (null === $updateConfiguration->getGetResponseWebFormId()) {
+            return null;
         }
 
-        return null;
+        return new WebForm(
+            (string) $updateConfiguration->getGetResponseWebFormId(),
+            (string) $updateConfiguration->getGetResponseWebFormUrl(),
+            $updateConfiguration->getGetResponseWebFormPosition()
+        );
     }
 
-    /**
-     * @param $updateConfiguration
-     *
-     * @return LiveSynchronization|null
-     */
-    private function getLiveSynchronization($configuration)
+    private function getLiveSynchronization(UpsertConfiguration $configuration): ?LiveSynchronization
     {
-        $type = $configuration->getLiveSynchronizationType();
+        $type = (string) $configuration->getLiveSynchronizationType();
         $url = $configuration->getLiveSynchronizationUrl();
 
-        return null !== $type && null !== $url ? new LiveSynchronization($url, $type) : null;
+        return '' !== $type && '' !== $url ? new LiveSynchronization($url, $type) : null;
     }
 
-    public function deleteAllConfigurations()
+    public function deleteAllConfigurations(): void
     {
         $this->configurationRepository->deleteAllConfigurations();
     }

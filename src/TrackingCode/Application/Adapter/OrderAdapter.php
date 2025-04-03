@@ -29,7 +29,15 @@ if (!defined('_PS_VERSION_')) {
 
 class OrderAdapter
 {
-    public function getOrderById($orderId)
+    /**
+     * @param int $orderId
+     *
+     * @return Order
+     *
+     * @throws \PrestaShopDatabaseException
+     * @throws \PrestaShopException
+     */
+    public function getOrderById(int $orderId): Order
     {
         $order = new \Order($orderId);
         $currency = new \Currency($order->id_currency);
@@ -46,7 +54,7 @@ class OrderAdapter
         }
 
         return new Order(
-            $order->id,
+            (int) $order->id,
             $order->id_cart,
             $order->total_paid_tax_incl,
             $currency->iso_code,

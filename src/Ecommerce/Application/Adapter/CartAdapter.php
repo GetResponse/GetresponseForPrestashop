@@ -32,12 +32,12 @@ if (!defined('_PS_VERSION_')) {
 class CartAdapter
 {
     /**
-     * @param $cartId
-     * @param $visitorUuid
+     * @param int $cartId
+     * @param string $visitorUuid
      *
      * @return Cart
      */
-    public function getCartById($cartId, $visitorUuid)
+    public function getCartById(int $cartId, string $visitorUuid): Cart
     {
         $prestashopCart = new \Cart($cartId);
         $customerAdapter = new CustomerAdapter();
@@ -66,10 +66,10 @@ class CartAdapter
             );
         }
 
-        $cartRecoveryUrl = CartRecoveryHelper::getUrl($prestashopCart->id);
+        $cartRecoveryUrl = CartRecoveryHelper::getUrl((int) $prestashopCart->id);
 
         return new Cart(
-            $prestashopCart->id,
+            (int) $prestashopCart->id,
             $customer,
             $visitorUuid,
             $lines,
