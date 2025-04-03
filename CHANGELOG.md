@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.0] - 2025-04-02
+### Feature
+- Update plugin to PHP 7.2
+
 ## [1.5.0] - 2024-12-18
 ### Feature
 - Added support for cart recovery for non-logged-in users
