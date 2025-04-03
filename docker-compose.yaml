@@ -1,7 +1,0 @@
-services:
-  php72:
-    build:
-      context: .
-      target: php7
-    volumes:
-      - ./:/plugin:consistent
