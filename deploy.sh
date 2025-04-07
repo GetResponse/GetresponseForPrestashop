@@ -29,6 +29,7 @@ FILES_TO_DELETE=(
   "vendor"
   "tests"
   "tmp"
+  ".php-cs-fixer.dist.php"
 )
 
 if ! command -v gh > /dev/null 2>&1; then
