@@ -42,7 +42,7 @@ class GrPrestashop extends Module
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '2.0.0';
+        $this->version = '2.0.1';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
@@ -498,12 +498,8 @@ class GrPrestashop extends Module
     public function hookActionProductUpdate($params)
     {
         try {
-            /** @var Product $product */
-            $product = $params['product'];
-
-            if (null !== $product) {
-                $this->upsertProduct($product);
-            }
+            $product = new Product($params['id_product']);
+            $this->upsertProduct($product);
         } catch (GetResponse\MessageSender\Application\MessageSenderException $e) {
             $this->logGetResponseError($e->getMessage());
         }
