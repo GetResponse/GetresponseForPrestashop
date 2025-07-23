@@ -1,18 +1,16 @@
-FROM php:7.2-cli as php7
+FROM php:8.4-cli as php8
 RUN mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
-RUN pecl channel-update pecl.php.net
-RUN pecl install http://pecl.php.net/get/xdebug-2.9.0.tgz \
+RUN pecl channel-update pecl.php.net \
+    && pecl install xdebug \
     && docker-php-ext-enable xdebug
 WORKDIR /plugin
-COPY --from=docker.int.getresponse.com/docker/composer:2.2.9 /usr/bin/composer /usr/bin/composer
+COPY --from=docker.int.getresponse.com/docker/composer:2 /usr/bin/composer /usr/bin/composer
 COPY . ./
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y \
         unzip
 RUN composer update --no-interaction --prefer-dist --no-suggest --no-cache
-RUN printf "zend_extension=xdebug.so\nxdebug.remote_autostart=off\nxdebug.remote_enable=on\nxdebug.remote_port=9003\nxdebug.idekey=PHPSTORM\nxdebug.remote_connect_back=off\nxdebug.remote_log=/proc/self/fd/2\nxdebug.remote_host=host.docker.internal" > $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini
+RUN printf "zend_extension=xdebug.so\nxdebug.mode=debug\nxdebug.start_with_request=trigger\nxdebug.client_port=9003\nxdebug.idekey=PHPSTORM\nxdebug.client_host=host.docker.internal\nxdebug.log=/proc/self/fd/2\n" > $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini
+
 ENTRYPOINT [ "/bin/bash", "-c", "tail -f /dev/null" ]
-
-
-

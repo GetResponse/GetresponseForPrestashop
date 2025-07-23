@@ -197,6 +197,6 @@ class Cart implements \JsonSerializable
      */
     public function isValuable(): bool
     {
-        return $this->id !== 0 && ($this->customer->getEmail() !== null || $this->visitorUuid !== null);
+        return $this->id !== 0 && $this->visitorUuid !== null;
     }
 }

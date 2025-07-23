@@ -17,11 +17,9 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-class Product
+class Product extends ObjectModel
 {
-    /** @var int */
-    public $id;
-    /** @var string */
+    /** @var string|array Name or array of names by id_lang */
     public $name;
     /** @var array */
     public $images;
@@ -49,14 +47,14 @@ class Product
     public $date_add;
     /** @var string */
     public $date_upd;
-    /** @var string */
+    /** @var int Manufacturer identifier */
     public $id_manufacturer;
     /** @var string */
     public $active;
     /** @var array */
     private $wsStockAvailables;
 
-    public function __construct($id)
+    public function __construct($id = null, $id_lang = null, $id_shop = null, $translator = null)
     {
         $params = ProductParams::getProductById($id);
         $this->id = $params['id'];
@@ -94,13 +92,42 @@ class Product
         return $this->hasAttributes;
     }
 
-    public function getAttributeCombinations()
+    /**
+     * Get all available product attributes combinations.
+     *
+     * @param int|null $id_lang Language identifier
+     * @param bool $groupByIdAttributeGroup
+     *
+     * @return array Product attributes combinations
+     */
+    public function getAttributeCombinations($id_lang = null, $groupByIdAttributeGroup = true)
     {
         return $this->attributeCombinations;
     }
 
-    public function getPrice()
-    {
+    /**
+     * Get product price
+     * Same as static function getPriceStatic, no need to specify product id.
+     *
+     * @param bool $tax With taxes or not (optional)
+     * @param int|null $id_product_attribute Attribute identifier
+     * @param int $decimals Number of decimals
+     * @param int|null $divisor Util when paying many time without fees
+     * @param bool $only_reduc
+     * @param bool $usereduc
+     * @param int $quantity
+     *
+     * @return float Product price in euros
+     */
+    public function getPrice(
+        $tax = true,
+        $id_product_attribute = null,
+        $decimals = 6,
+        $divisor = null,
+        $only_reduc = false,
+        $usereduc = true,
+        $quantity = 1
+    ) {
         return $this->price;
     }
 

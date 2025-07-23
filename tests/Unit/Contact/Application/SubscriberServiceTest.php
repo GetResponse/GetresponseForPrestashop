@@ -33,7 +33,7 @@ class SubscriberServiceTest extends BaseTestCase
     /** @var SubscriberService */
     private $sut;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->newsletterRepositoryMock = $this->getMockWithoutConstructing(NewsletterRepository::class);
 

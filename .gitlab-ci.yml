@@ -1,6 +1,6 @@
 stages:
-  - install_dependencies
   - test
+  - static_analysis
   - upload_to_s3
 
 workflow:
@@ -17,33 +17,56 @@ workflow:
   rules:
     - if: $CI_COMMIT_BRANCH != "master"
 
-composer install:php72:
-  image: php:7.2-cli
-  stage: install_dependencies
+.base_installation: &base_installation
   before_script:
-    - apt-get update
-    - apt-get install -y git unzip
-    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    - php composer-setup.php
-    - php -r "unlink('composer-setup.php');"
-  script:
-    - php composer.phar update
-  artifacts:
-    paths:
-      - vendor/
-    expire_in: 2 hrs
-  <<: *exclude-master
+    - |
+      if [[ "$PHP_VERSION" == "7.2" ]]; then
+        echo "deb http://archive.debian.org/debian buster main" > /etc/apt/sources.list
+        echo "deb http://archive.debian.org/debian-security buster/updates main" >> /etc/apt/sources.list
+        echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until
+      fi
+    - apt-get update -qq >/dev/null && apt-get install -qq -y unzip git zip libzip-dev zlib1g-dev >/dev/null
 
-test:app-php72:
-  image: php:7.2-cli
+    - |
+      if [[ "$PHP_VERSION" == "7.2" ]]; then
+        docker-php-ext-configure zip --with-libzip
+      fi
+    - docker-php-ext-install -j$(nproc) zip > /dev/null
+    - curl -sS https://getcomposer.org/installer | php
+    - php composer.phar update --no-progress --prefer-stable --quiet --no-interaction --prefer-dist
+
+unit_tests:
+  <<: *base_installation
   stage: test
+  image: php:$PHP_VERSION-cli
   tags:
     - hq1-small-amd64
+  parallel:
+    matrix:
+      - PHP_VERSION: [ "7.2", "7.3", "7.4", "8.0", "8.1", "8.2", "8.3", "8.4" ]
   script:
-    - ./vendor/bin/phpunit --testsuite unit --configuration ./tests/phpunit.xml --colors=never
+    - echo "Running PHPUnit tests ..."
+    - ./vendor/bin/phpunit --configuration ./tests/phpunit.xml --colors=never
   <<: *exclude-master
-  dependencies:
-    - composer install:php72
+
+php-stan:
+  <<: *base_installation
+  stage: static_analysis
+  image: php:8.3-cli
+  parallel:
+    matrix:
+      - PHPSTAN_PHP_VERSION: [ "72", "73", "74", "80", "81", "82", "83", "84" ]
+  script:
+    - ./vendor/bin/phpstan analyse -c phpstan/phpstan-$PHPSTAN_PHP_VERSION.neon src --no-progress --memory-limit=512M
+  <<: *exclude-master
+
+php-compatibility:
+  <<: *base_installation
+  stage: static_analysis
+  image: php:8.3-cli
+  script:
+    - ./vendor/bin/phpcs -s -v --standard=PHPCompatibility --runtime-set testVersion 7.2-8.4 src
+  <<: *exclude-master
 
 upload to s3:
   stage: upload_to_s3

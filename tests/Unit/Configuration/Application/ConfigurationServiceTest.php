@@ -34,7 +34,7 @@ class ConfigurationServiceTest extends BaseTestCase
     /** @var ConfigurationRepository|\PHPUnit_Framework_MockObject_MockObject */
     private $configurationRepositoryMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->configurationRepositoryMock = $this->getMockWithoutConstructing(ConfigurationRepository::class);
         $this->sut = new ConfigurationService($this->configurationRepositoryMock);

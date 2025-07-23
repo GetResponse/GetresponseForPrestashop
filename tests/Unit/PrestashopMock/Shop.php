@@ -17,14 +17,34 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-class Shop
+class Shop extends ObjectModel
 {
-    /** @var int */
-    public $id;
+    public const CONTEXT_SHOP = 1;
 
-    public function __construct($id)
+    public function __construct($id = null, $id_lang = null, $id_shop = null, $translator = null)
     {
         $params = ShopParams::getShopById($id);
         $this->id = $params['id'];
     }
+
+    /**
+     * Change the current shop context.
+     *
+     * @param int $type Shop::CONTEXT_ALL | Shop::CONTEXT_GROUP | Shop::CONTEXT_SHOP
+     * @param int $id ID shop if CONTEXT_SHOP or id shop group if CONTEXT_GROUP
+     */
+    public static function setContext($type, $id = null)
+    {}
+
+    /**
+     * Get shops list.
+     *
+     * @param bool $active
+     * @param int $id_shop_group
+     * @param bool $get_as_list_id
+     *
+     * @return array
+     */
+    public static function getShops($active = true, $id_shop_group = null, $get_as_list_id = false)
+    {}
 }

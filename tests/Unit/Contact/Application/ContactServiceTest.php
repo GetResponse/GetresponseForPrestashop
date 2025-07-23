@@ -39,7 +39,7 @@ class ContactServiceTest extends BaseTestCase
     /** @var ContactService */
     private $sut;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->messageSenderServiceMock = $this->getMockWithoutConstructing(MessageSenderService::class);
         $this->configurationReadModelMock = $this->getMockWithoutConstructing(ConfigurationReadModel::class);

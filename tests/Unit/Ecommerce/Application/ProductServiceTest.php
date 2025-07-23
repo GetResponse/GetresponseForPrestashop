@@ -40,7 +40,7 @@ class ProductServiceTest extends BaseTestCase
     /** @var ProductService */
     private $sut;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->messageSenderMock = $this->getMockWithoutConstructing(MessageSenderService::class);
         $this->configurationReadModelMock = $this->getMockWithoutConstructing(ConfigurationReadModel::class);

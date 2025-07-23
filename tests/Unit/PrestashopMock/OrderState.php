@@ -17,14 +17,12 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-class OrderState
+class OrderState extends ObjectModel
 {
-    /** @var int */
-    public $id;
-    /** @var string */
+    /** @var string|array<int, string> Name */
     public $name;
 
-    public function __construct($id)
+    public function __construct($id = null, $id_lang = null, $id_shop = null, $translator = null)
     {
         $params = OrderStateParams::getOrderStateById($id);
         $this->id = $params['id'];

@@ -17,10 +17,8 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-class Customer
+class Customer extends ObjectModel
 {
-    /** @var int */
-    public $id;
     /** @var int */
     public $id_shop;
     /** @var int */
@@ -41,7 +39,7 @@ class Customer
     /**
      * @param int $id
      */
-    public function __construct($id)
+    public function __construct($id = null, $id_lang = null, $id_shop = null, $translator = null)
     {
         $params = CustomerParams::getCustomerById($id);
         $this->id = $params['id'];
@@ -66,4 +64,17 @@ class Customer
 
         return [$customer];
     }
+
+    /**
+     * Updates the current Customer in the database.
+     *
+     * @param bool $nullValues Whether we want to use NULL values instead of empty quotes values
+     *
+     * @return bool Indicates whether the Customer has been successfully updated
+     *
+     * @throws PrestaShopDatabaseException
+     * @throws PrestaShopException
+     */
+    public function update($nullValues = false)
+    {}
 }
