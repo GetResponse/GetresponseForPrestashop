@@ -64,6 +64,6 @@ class StorageFactory
      */
     private function logGetResponseError(string $message): void
     {
-        \PrestaShopLoggerCore::addLog($message, 2, null, 'GetResponse');
+        \PrestaShopLogger::addLog($message, 2, null, 'GetResponse');
     }
 }

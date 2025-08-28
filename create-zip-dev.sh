@@ -49,11 +49,11 @@ done
 
 echo ""
 echo "Build composer"
-if ! docker compose ps | grep -q "php72"; then
-  echo "Container php72 is not running. Starting it..."
-  docker compose up -d php72
+if ! docker compose ps | grep -q "php8"; then
+  echo "Container php8 is not running. Starting it..."
+  docker compose up -d php8
 fi
-docker compose exec php72 composer install --no-dev --working-dir="$COMPOSER_REMOTE_PROJECT_PATH"
+docker compose exec php8 composer install --no-dev --working-dir="$COMPOSER_REMOTE_PROJECT_PATH"
 
 echo ""
 echo "Create new zip"

@@ -17,10 +17,8 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-class Address
+class Address extends ObjectModel
 {
-    /** @var int */
-    public $id;
     /** @var int */
     public $id_address_delivery;
     /** @var int */
@@ -48,7 +46,7 @@ class Address
     /** @var string */
     public $company;
 
-    public function __construct($id)
+    public function __construct($id = null, $id_lang = null, $id_shop = null, $translator = null)
     {
         $params = AddressParams::getAddressById($id);
         $this->id = $params['id'];

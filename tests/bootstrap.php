@@ -17,6 +17,7 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
+require_once __DIR__ . '/Unit/PrestashopMock/ObjectModel.php';
 require_once __DIR__ . '/Unit/PrestashopMock/Customer.php';
 require_once __DIR__ . '/Unit/PrestashopMock/MockParams/CustomerParams.php';
 require_once __DIR__ . '/Unit/PrestashopMock/Currency.php';
@@ -52,8 +53,16 @@ require_once __DIR__ . '/Unit/PrestashopMock/Manufacturer.php';
 require_once __DIR__ . '/Unit/PrestashopMock/MockParams/StockAvailableParams.php';
 require_once __DIR__ . '/Unit/PrestashopMock/StockAvailableCore.php';
 require_once __DIR__ . '/Unit/PrestashopMock/Context.php';
+require_once __DIR__ . '/Unit/PrestashopMock/Configuration.php';
+require_once __DIR__ . '/Unit/PrestashopMock/Cookie.php';
+require_once __DIR__ . '/Unit/PrestashopMock/Db.php';
+require_once __DIR__ . '/Unit/PrestashopMock/PrestaShopException.php';
+require_once __DIR__ . '/Unit/PrestashopMock/PrestaShopDatabaseException.php';
+require_once __DIR__ . '/Unit/PrestashopMock/PrestaShopLogger.php';
 
 define('__PS_BASE_URI__', 'https://my-prestashop.com/');
 define('_PS_BASE_URL_', 'https://my-prestashop.com/');
 define('_PS_VERSION_', '1.7.0.3');
 define('_THEME_PROD_DIR_', 'img/p/');
+define('_DB_PREFIX_',  'config_parameters_database_prefix');
+define('_COOKIE_KEY_', 'cookie_key');

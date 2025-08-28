@@ -19,6 +19,9 @@
  */
 class Context
 {
+    /** @var Cookie|null */
+    public $cookie;
+
     /** @var Link */
     public $link;
 

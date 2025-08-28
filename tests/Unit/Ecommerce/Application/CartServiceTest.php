@@ -40,18 +40,17 @@ class CartServiceTest extends BaseTestCase
     /** @var CartService */
     private $sut;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->messageSenderServiceMock = $this->getMockWithoutConstructing(MessageSenderService::class);
         $this->configurationReadModelMock = $this->getMockWithoutConstructing(ConfigurationReadModel::class);
 
-        define('_COOKIE_KEY_', '216732178362183');
         $_COOKIE['gaVisitorUuid'] = 'this-is-uuid';
 
         $this->sut = new CartService($this->messageSenderServiceMock, $this->configurationReadModelMock);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($_COOKIE['gaVisitorUuid']);
     }

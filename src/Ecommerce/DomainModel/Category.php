@@ -42,7 +42,7 @@ class Category implements \JsonSerializable
         int $parentId,
         string $name,
         bool $isDefault = false,
-        string $url = null
+        ?string $url = null
     ) {
         $this->id = $id;
         $this->parentId = $parentId;

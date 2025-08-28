@@ -36,7 +36,7 @@ class OrderServiceTest extends BaseTestCase
     /** @var OrderService() */
     private $sut;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->messageSenderServiceMock = $this->getMockWithoutConstructing(MessageSenderService::class);
         $this->configurationReadModelMock = $this->getMockWithoutConstructing(ConfigurationReadModel::class);

@@ -20,8 +20,40 @@
  */
 class Link
 {
-    public function getProductLink($product)
-    {
+    /**
+     * Create a link to a product.
+     *
+     * @param Product|array|int $product Product object (can be an ID product, but deprecated)
+     * @param string|null $alias
+     * @param string|null $category
+     * @param string|null $ean13
+     * @param int|null $idLang
+     * @param int|null $idShop (since 1.5.0) ID shop need to be used when we generate a product link for a product in a cart
+     * @param int|null $idProductAttribute ID product attribute
+     * @param bool $force_routes
+     * @param bool $relativeProtocol
+     * @param bool $withIdInAnchor
+     * @param array $extraParams
+     * @param bool $addAnchor
+     *
+     * @return string
+     *
+     * @throws PrestaShopException
+     */
+    public function getProductLink(
+        $product,
+        $alias = null,
+        $category = null,
+        $ean13 = null,
+        $idLang = null,
+        $idShop = null,
+        $idProductAttribute = null,
+        $force_routes = false,
+        $relativeProtocol = false,
+        $withIdInAnchor = false,
+        $extraParams = [],
+        bool $addAnchor = true
+    ) {
         return __PS_BASE_URI__ . 'product/' . $product->id;
     }
 

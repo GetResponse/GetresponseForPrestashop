@@ -17,14 +17,12 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-class Country
+class Country extends ObjectModel
 {
-    /** @var int */
-    public $id;
     /** @var string */
     public $iso_code;
 
-    public function __construct($id)
+    public function __construct($id = null, $id_lang = null, $id_shop = null, $translator = null)
     {
         $params = CountryParams::getCountryById($id);
         $this->id = $params['id'];

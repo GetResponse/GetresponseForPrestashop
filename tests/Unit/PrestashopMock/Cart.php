@@ -17,10 +17,8 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-class Cart
+class Cart extends ObjectModel
 {
-    /** @var int */
-    public $id;
     /** @var int */
     public $id_shop;
     /** @var int */
@@ -38,7 +36,7 @@ class Cart
     /** @var array */
     public $products;
 
-    public function __construct($id)
+    public function __construct($id = null, $id_lang = null, $id_shop = null, $translator = null)
     {
         $params = CartParams::getCartById($id);
         $this->id = $params['id'];
@@ -67,9 +65,17 @@ class Cart
     }
 
     /**
-     * @return array
+     * Return cart products.
+     *
+     * @param bool $refresh
+     * @param bool|int $id_product
+     * @param int|null $id_country
+     * @param bool $fullInfos
+     * @param bool $keepOrderPrices When true use the Order saved prices instead of the most recent ones from catalog (if Order exists)
+     *
+     * @return array Products
      */
-    public function getProducts()
+    public function getProducts($refresh = false, $id_product = false, $id_country = null, $fullInfos = true, bool $keepOrderPrices = false)
     {
         return $this->products;
     }

@@ -36,7 +36,10 @@ class RecommendationServiceTest extends BaseTestCase
     /** @var ProductAdapter|MockObject */
     private $productAdapterMock;
 
-    public function setUp()
+    /** @var RecommendationService */
+    private $sut;
+
+    public function setUp(): void
     {
         $this->productAdapterMock = $this->getMockWithoutConstructing(ProductAdapter::class);
 
