@@ -46,7 +46,6 @@ class RecommendationService
     public function createRecommendedProduct(RecommendedProductCommand $command): ?RecommendedProduct
     {
         $product = $this->productAdapter->getProductById($command->getProductId(), $command->getLanguageId());
-        /** @var Variant $variant */
         $variant = !empty($product->getVariants()) ? $product->getVariants()[0] : null;
 
         if (null === $variant) {

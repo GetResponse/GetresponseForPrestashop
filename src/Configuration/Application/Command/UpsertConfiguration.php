@@ -40,7 +40,7 @@ class UpsertConfiguration
     private $getResponseRecommendationSnippet;
     /** @var string|null */
     private $getResponseWebTrackingSnippet;
-    /** @var int|null */
+    /** @var string|null */
     private $getResponseWebFormId;
     /** @var string|null */
     private $getResponseWebFormUrl;
@@ -128,9 +128,6 @@ class UpsertConfiguration
         return $this->getResponseWebTrackingSnippet;
     }
 
-    /**
-     * @return int|null
-     */
     public function getGetResponseWebFormId(): ?string
     {
         return $this->getResponseWebFormId;

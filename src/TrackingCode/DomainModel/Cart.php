@@ -63,10 +63,9 @@ class Cart
     public static function createFromArray(array $cart): self
     {
         $products = [];
-        if (isset($cart['products']) && is_array($cart['products'])) {
-            foreach ($cart['products'] as $product) {
-                $products[] = Product::createFromArray($product);
-            }
+
+        foreach ($cart['products'] as $product) {
+            $products[] = Product::createFromArray($product);
         }
 
         return new self(

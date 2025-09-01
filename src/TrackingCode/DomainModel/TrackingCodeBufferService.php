@@ -77,7 +77,7 @@ class TrackingCodeBufferService
         if ($this->sessionStorage->exists(self::ORDER_COOKIE_NAME)) {
             $json = $this->sessionStorage->get(self::ORDER_COOKIE_NAME);
             if (is_string($json)) {
-                /** @var array{id: int, cart_id: int, price: float, currency: string, products: array<int, array<string, int|float|string>>} $data */
+                /** @var array{id: int, cart_id: int, price: float, currency: string, products: array<int, array<string, int|float|string>>}|false $data */
                 $data = json_decode($json, true);
                 if (is_array($data)) {
                     return Order::createFromArray($data);
@@ -96,7 +96,7 @@ class TrackingCodeBufferService
         if ($this->sessionStorage->exists(self::CART_COOKIE_NAME)) {
             $json = $this->sessionStorage->get(self::CART_COOKIE_NAME);
             if (is_string($json)) {
-                /** @var array{id: int, price: float, currency: string, url: string, products: array<int, array<string, int|float|string>>} $data */
+                /** @var array{id: int, price: float, currency: string, url: string, products: array<int, array<string, int|float|string>>}|false $data */
                 $data = json_decode($json, true);
                 if (is_array($data)) {
                     return Cart::createFromArray($data);

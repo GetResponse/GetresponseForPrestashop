@@ -1,4 +1,8 @@
 # Changelog
+## [2.0.2] - 2025-08-28
+### Fix
+- Fixed doctypes/code-style
+- Added missing customFields in customer webhooks: note, id_gender, id_default_group, language
 
 ## [2.0.1] - 2025-07-07
 ### Fix

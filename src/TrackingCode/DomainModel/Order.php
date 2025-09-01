@@ -122,10 +122,9 @@ class Order
     public static function createFromArray(array $order): self
     {
         $products = [];
-        if (isset($order['products']) && is_array($order['products'])) {
-            foreach ($order['products'] as $product) {
-                $products[] = Product::createFromArray($product);
-            }
+
+        foreach ($order['products'] as $product) {
+            $products[] = Product::createFromArray($product);
         }
 
         return new self(

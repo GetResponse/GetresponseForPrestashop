@@ -28,7 +28,9 @@ if (!defined('_PS_VERSION_')) {
 
 class LiveSynchronization
 {
+    /** @var string */
     private $url;
+    /** @var string */
     private $type;
 
     public function __construct(string $url, string $type)
