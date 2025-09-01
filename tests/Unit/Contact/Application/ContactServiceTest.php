@@ -80,7 +80,21 @@ class ContactServiceTest extends BaseTestCase
             ''
         );
 
-        $customerMock = new Customer(1, 'John', 'Doe', 'john.doe@example.com', $address, true, ['birthday' => '1987-09-04']);
+        $customerMock = new Customer(
+            1,
+            'John',
+            'Doe',
+            'john.doe@example.com',
+            $address,
+            true,
+            [
+                'birthday' => '1987-09-04',
+                'note' => 'note 1',
+                'id_gender' => 3,
+                'id_default_group' => 4,
+                'language' => 'en'
+            ]
+        );
 
         $command = new UpsertCustomer(1, 1);
 

@@ -42,7 +42,21 @@ class OrderAdapterTest extends BaseTestCase
         $orderStatus = new \OrderState($order->getCurrentState());
 
         $customerAddress = new Address('home', 'Poland', 'John', 'Doe', 'Street 1', '', 'City', 'PostCode', 'State', '', '544 404 400', '');
-        $customer = new Customer(1, 'John', 'Doe', 'john.doe@example.com', $customerAddress, 1, ['birthday' => '1987-09-04']);
+        $customer = new Customer(
+            1,
+            'John',
+            'Doe',
+            'john.doe@example.com',
+            $customerAddress,
+            true,
+            [
+                'birthday' => '1987-09-04',
+                'note' => 'note 1',
+                'id_gender' => 3,
+                'id_default_group' => 4,
+                'language' => 'en'
+            ]
+        );
 
         $address = new Address('home', 'pl', 'John', 'Doe', 'address1', 'address2', 'city', 'postcode', 'state', '', '544404400', 'company');
 

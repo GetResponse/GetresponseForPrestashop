@@ -19,6 +19,7 @@
  */
 require_once __DIR__ . '/Unit/PrestashopMock/ObjectModel.php';
 require_once __DIR__ . '/Unit/PrestashopMock/Customer.php';
+require_once __DIR__ . '/Unit/PrestashopMock/Language.php';
 require_once __DIR__ . '/Unit/PrestashopMock/MockParams/CustomerParams.php';
 require_once __DIR__ . '/Unit/PrestashopMock/Currency.php';
 require_once __DIR__ . '/Unit/PrestashopMock/MockParams/CurrencyParams.php';

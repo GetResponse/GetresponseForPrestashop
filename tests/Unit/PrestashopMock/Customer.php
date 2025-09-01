@@ -35,6 +35,12 @@ class Customer extends ObjectModel
     public $addresses;
     /** @var string */
     public $birthday;
+    /** @var string */
+    public $note;
+    /** @var int */
+    public $id_gender = 0;
+    /** @var int */
+    public $id_default_group;
 
     /**
      * @param int $id
@@ -51,6 +57,9 @@ class Customer extends ObjectModel
         $this->newsletter = $params['newsletter'];
         $this->addresses = $params['addresses'];
         $this->birthday = $params['birthday'];
+        $this->note = $params['note'];
+        $this->id_gender = $params['id_gender'];
+        $this->id_default_group = $params['id_default_group'];
     }
 
     public function getAddresses($id_lang = null)
