@@ -47,6 +47,9 @@ class CustomerParams
                     'company' => '',
                 ],
             ],
+            'note' => 'note 1',
+            'id_gender' => 3,
+            'id_default_group' => 4,
         ],
         2 => [
             'id' => 2,
@@ -72,6 +75,9 @@ class CustomerParams
                     'company' => '',
                 ],
             ],
+            'note' => 'note 2',
+            'id_gender' => 8,
+            'id_default_group' => 9,
         ],
     ];
 
