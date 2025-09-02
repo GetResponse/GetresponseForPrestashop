@@ -30,6 +30,7 @@ FILES_TO_DELETE=(
   "tests"
   "tmp"
   ".php-cs-fixer.dist.php"
+  "phpstan"
 )
 
 if ! command -v gh > /dev/null 2>&1; then
