@@ -32,8 +32,8 @@ class CookieStorage implements Storage
     public function __construct()
     {
         $context = \Context::getContext();
-        if ($context === null) {
-            throw new \RuntimeException('Context is null');
+        if ($context === null || !isset($context->cookie)) {
+            throw new \RuntimeException('Context or cookie is null');
         }
         $this->context = $context;
     }

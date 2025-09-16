@@ -40,14 +40,11 @@ class StorageFactory
                 throw new \RuntimeException('Context is null');
             }
 
-            /** @var SessionInterface|null $session */
-            $session = $context->session;
-
-            if ($session instanceof SessionInterface) {
-                return new SessionStorage($session);
+            if (isset($context->session) && $context->session instanceof SessionInterface) {
+                return new SessionStorage($context->session);
             }
 
-            if ($context->cookie) {
+            if (isset($context->cookie)) {
                 return new CookieStorage();
             }
         } catch (\RuntimeException $e) {
