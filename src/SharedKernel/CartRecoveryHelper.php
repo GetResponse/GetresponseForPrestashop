@@ -29,7 +29,7 @@ class CartRecoveryHelper
     public static function getUrl(int $cartId): string
     {
         $context = \Context::getContext();
-        if ($context === null || $context->link === null) {
+        if ($context === null || !isset($context->link)) {
             throw new \RuntimeException('Context or link is null');
         }
 
