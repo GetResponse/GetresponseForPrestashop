@@ -1,4 +1,9 @@
 # Changelog
+
+## [2.0.3] - 2025-09-12
+### Fix
+- Fixed: check if context exists before using it
+
 ## [2.0.2] - 2025-08-28
 ### Fix
 - Fixed doctypes/code-style
