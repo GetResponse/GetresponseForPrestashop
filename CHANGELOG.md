@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.4] - 2025-09-23
+### Fix
+- Improved exception handling, preventing disruptions to customer experience
+
 ## [2.0.3] - 2025-09-12
 ### Fix
 - Fixed: check if context exists before using it

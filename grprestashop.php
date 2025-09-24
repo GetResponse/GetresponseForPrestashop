@@ -42,7 +42,7 @@ class GrPrestashop extends Module
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '2.0.3';
+        $this->version = '2.0.4';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
@@ -379,7 +379,7 @@ class GrPrestashop extends Module
                     new GetResponse\Contact\Application\Command\UpsertSubscriber($email, true, $shop->id, $name)
                 );
             }
-        } catch (GetResponse\MessageSender\Application\MessageSenderException $e) {
+        } catch (\Throwable $e) {
             $this->logGetResponseError($e->getMessage());
         }
     }
@@ -393,7 +393,7 @@ class GrPrestashop extends Module
             if (null !== $customer) {
                 $this->upsertCustomer($customer);
             }
-        } catch (GetResponse\MessageSender\Application\MessageSenderException $e) {
+        } catch (\Throwable $e) {
             $this->logGetResponseError($e->getMessage());
         }
     }
@@ -407,7 +407,7 @@ class GrPrestashop extends Module
             if (null !== $customer) {
                 $this->upsertCustomer($customer);
             }
-        } catch (GetResponse\MessageSender\Application\MessageSenderException $e) {
+        } catch (\Throwable $e) {
             $this->logGetResponseError($e->getMessage());
         }
     }
@@ -448,7 +448,7 @@ class GrPrestashop extends Module
                 new GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($storage)
             );
             $trackingCodeCartService->addCartToBuffer($cart->id, $shop->id);
-        } catch (GetResponse\MessageSender\Application\MessageSenderException $e) {
+        } catch (\Throwable $e) {
             $this->logGetResponseError($e->getMessage());
         }
     }
@@ -462,7 +462,7 @@ class GrPrestashop extends Module
             if (null !== $address && null !== $address->id_customer) {
                 $this->upsertCustomer(new Customer($address->id_customer));
             }
-        } catch (GetResponse\MessageSender\Application\MessageSenderException $e) {
+        } catch (\Throwable $e) {
             $this->logGetResponseError($e->getMessage());
         }
     }
@@ -476,7 +476,7 @@ class GrPrestashop extends Module
             if (null !== $address && null !== $address->id_customer) {
                 $this->upsertCustomer(new Customer($address->id_customer));
             }
-        } catch (GetResponse\MessageSender\Application\MessageSenderException $e) {
+        } catch (\Throwable $e) {
             $this->logGetResponseError($e->getMessage());
         }
     }
@@ -490,7 +490,7 @@ class GrPrestashop extends Module
             if (null !== $product) {
                 $this->upsertProduct($product);
             }
-        } catch (GetResponse\MessageSender\Application\MessageSenderException $e) {
+        } catch (\Throwable $e) {
             $this->logGetResponseError($e->getMessage());
         }
     }
@@ -500,7 +500,7 @@ class GrPrestashop extends Module
         try {
             $product = new Product($params['id_product']);
             $this->upsertProduct($product);
-        } catch (GetResponse\MessageSender\Application\MessageSenderException $e) {
+        } catch (\Throwable $e) {
             $this->logGetResponseError($e->getMessage());
         }
     }
@@ -516,9 +516,7 @@ class GrPrestashop extends Module
             }
 
             $this->upsertOrder($order);
-        } catch (GetResponse\MessageSender\Application\MessageSenderException $e) {
-            $this->logGetResponseError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             $this->logGetResponseError($e->getMessage());
         }
     }
@@ -533,9 +531,7 @@ class GrPrestashop extends Module
             $order = new Order($params['id_order']);
 
             $this->upsertOrder($order);
-        } catch (GetResponse\MessageSender\Application\MessageSenderException $e) {
-            $this->logGetResponseError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             $this->logGetResponseError($e->getMessage());
         }
     }
@@ -551,9 +547,7 @@ class GrPrestashop extends Module
             }
 
             $this->upsertOrder($order);
-        } catch (GetResponse\MessageSender\Application\MessageSenderException $e) {
-            $this->logGetResponseError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             $this->logGetResponseError($e->getMessage());
         }
     }
