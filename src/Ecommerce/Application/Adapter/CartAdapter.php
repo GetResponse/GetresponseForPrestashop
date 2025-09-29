@@ -33,11 +33,11 @@ class CartAdapter
 {
     /**
      * @param int $cartId
-     * @param string $visitorUuid
+     * @param string|null $visitorUuid
      *
      * @return Cart
      */
-    public function getCartById(int $cartId, string $visitorUuid): Cart
+    public function getCartById(int $cartId, ?string $visitorUuid): Cart
     {
         $prestashopCart = new \Cart($cartId);
         $customerAdapter = new CustomerAdapter();
