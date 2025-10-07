@@ -54,7 +54,7 @@ class Cart implements \JsonSerializable
      * @param int $id
      * @param Customer $customer
      * @param Line[] $lines
-     * @param string $visitorUuid
+     * @param string|null $visitorUuid
      * @param float $totalPrice
      * @param float $totalTaxPrice
      * @param string $currency
