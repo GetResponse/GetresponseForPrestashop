@@ -169,6 +169,44 @@ class CartServiceTest extends BaseTestCase
     }
 
     /**
+     * @test
+     * @dataProvider provideCartValuableTestCases
+     */
+    public function testIsValuable($id, $email, $visitorUuid, $expectedResult)
+    {
+        $customer = $this->createMock(Customer::class);
+        $customer->method('getEmail')->willReturn($email);
+
+        $cart = new Cart(
+            $id,
+            $customer,
+            $visitorUuid,
+            [],
+            0,
+            0,
+            'USD',
+            '',
+            '',
+            ''
+        );
+
+        $this->assertEquals($expectedResult, $cart->isValuable());
+    }
+
+    public function provideCartValuableTestCases(): array
+    {
+        return [
+            'Valid cart with customer email' => [1, 'test@example.com', null, true],
+            'Valid cart with customer email and empty gaVisitorUuid' => [1, 'test@example.com', '', true],
+            'Valid cart with gaVisitorUuid' => [1, '', 'visitor-uuid', true],
+            'Valid cart with both customer email and gaVisitorUuid' => [1, 'test@example.com', 'visitor-uuid', true],
+            'Invalid cart with email and gaVisitorUuid' => [0, 'test@example.com', 'visitor-uuid', false],
+            'Invalid cart without customer email or gaVisitorUuid' => [0, '', null, false],
+            'Invalid cart without customer email or empty gaVisitorUuid' => [0, '', '', false],
+        ];
+    }
+
+    /**
      * @return Address
      */
     private function getAddress()
