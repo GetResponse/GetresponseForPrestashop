@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.0.5] - 2025-10-07
+### Fix
+- Fixed: cart handling for disabled WebConnect
+- Fixed: Ensure cart is considered valuable if either customer email or visitor UUID is present
+
 ## [2.0.4] - 2025-09-23
 ### Fix
 - Improved exception handling, preventing disruptions to customer experience
