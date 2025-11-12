@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.6] - 2025-11-12
+### Fix
+- Fixed: Handle TimeZone during orders processing
+
 ## [2.0.5] - 2025-10-07
 ### Fix
 - Fixed: cart handling for disabled WebConnect
