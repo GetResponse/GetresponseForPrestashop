@@ -104,7 +104,7 @@ class OrderAdapter
             $shippingAddress,
             $billingAddress,
             $this->getDateInUTC($prestashopOrder->date_add),
-            $this->getDateInUTC($prestashopOrder->date_upd),
+            $this->getDateInUTC($prestashopOrder->date_upd)
         );
     }
 
