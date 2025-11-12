@@ -157,7 +157,11 @@ class OrderAdapter
 
     private function getDateInUTC(string $date): string
     {
-        $timeZone = (string) \Configuration::get('PS_TIMEZONE');
+        $timeZone = \Configuration::get('PS_TIMEZONE');
+
+        if (empty($timeZone)) {
+            return $date;
+        }
 
         $dateTime = new DateTime($date, new DateTimeZone($timeZone));
         $dateTime->setTimezone(new DateTimeZone('UTC'));
