@@ -20,6 +20,7 @@
 
 namespace GetResponse\Tests\Unit\Ecommerce\Application;
 
+use DateTime;
 use GetResponse\Configuration\ReadModel\ConfigurationDto;
 use GetResponse\Configuration\ReadModel\ConfigurationReadModel;
 use GetResponse\Contact\DomainModel\Customer;
@@ -30,12 +31,13 @@ use GetResponse\Ecommerce\DomainModel\Cart;
 use GetResponse\Ecommerce\DomainModel\Line;
 use GetResponse\MessageSender\Application\MessageSenderService;
 use GetResponse\Tests\Unit\BaseTestCase;
+use PHPUnit_Framework_MockObject_MockObject;
 
 class CartServiceTest extends BaseTestCase
 {
-    /** @var MessageSenderService|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var MessageSenderService|PHPUnit_Framework_MockObject_MockObject */
     private $messageSenderServiceMock;
-    /** @var ConfigurationReadModel|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var ConfigurationReadModel|PHPUnit_Framework_MockObject_MockObject */
     private $configurationReadModelMock;
     /** @var CartService */
     private $sut;
@@ -55,7 +57,7 @@ class CartServiceTest extends BaseTestCase
         unset($_COOKIE['gaVisitorUuid']);
     }
 
-    public function shouldUpsertCart()
+    public function shouldUpsertCart(): void
     {
         $shopId = 3;
         $liveSynchronizationUrl = 'https://app.getreponse.com/callback/ecommerce/33983';
@@ -96,8 +98,8 @@ class CartServiceTest extends BaseTestCase
             34.43,
             'eur',
             'https://prestashop.com/en/module/grprestashop/CartRecovery?cart_id=123&cart_token=54321',
-            '2020-05-12 11:43:59',
-            '2020-05-14 16:32:03'
+            (new DateTime('2020-05-12 11:43:59'))->format('c'),
+            (new DateTime('2020-05-14T16:32:03'))->format('c')
         );
 
         $this->messageSenderServiceMock
@@ -113,7 +115,7 @@ class CartServiceTest extends BaseTestCase
     /**
      * @test
      */
-    public function shouldUpsertCartWithVisitorUuid()
+    public function shouldUpsertCartWithVisitorUuid(): void
     {
         $shopId = 3;
         $liveSynchronizationUrl = 'https://app.getreponse.com/callback/ecommerce/33983';
@@ -154,8 +156,8 @@ class CartServiceTest extends BaseTestCase
             34.43,
             'eur',
             'https://prestashop.com/en/module/grprestashop/CartRecovery?cart_id=123&cart_token=54321',
-            '2020-05-12 11:43:59',
-            '2020-05-14 16:32:03'
+            (new DateTime('2020-05-12 11:43:59'))->format('c'),
+            (new DateTime('2020-05-14T16:32:03'))->format('c')
         );
 
         $this->messageSenderServiceMock
@@ -172,7 +174,7 @@ class CartServiceTest extends BaseTestCase
      * @test
      * @dataProvider provideCartValuableTestCases
      */
-    public function testIsValuable($id, $email, $visitorUuid, $expectedResult)
+    public function testIsValuable($id, $email, $visitorUuid, $expectedResult): void
     {
         $customer = $this->createMock(Customer::class);
         $customer->method('getEmail')->willReturn($email);
@@ -190,7 +192,7 @@ class CartServiceTest extends BaseTestCase
             ''
         );
 
-        $this->assertEquals($expectedResult, $cart->isValuable());
+        self::assertEquals($expectedResult, $cart->isValuable());
     }
 
     public function provideCartValuableTestCases(): array
@@ -209,7 +211,7 @@ class CartServiceTest extends BaseTestCase
     /**
      * @return Address
      */
-    private function getAddress()
+    private function getAddress(): Address
     {
         return new Address(
             'home',
@@ -232,7 +234,7 @@ class CartServiceTest extends BaseTestCase
      *
      * @return Customer
      */
-    private function getCustomer(Address $address)
+    private function getCustomer(Address $address): Customer
     {
         return new Customer(
             1,
@@ -254,7 +256,7 @@ class CartServiceTest extends BaseTestCase
     /**
      * @return Line
      */
-    private function getLine()
+    private function getLine(): Line
     {
         return new Line(34, 1, 29.99, 34.43, 1, 'product_combination_1');
     }

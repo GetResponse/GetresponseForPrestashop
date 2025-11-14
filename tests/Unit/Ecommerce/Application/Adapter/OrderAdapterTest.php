@@ -20,26 +20,39 @@
 
 namespace GetResponse\Tests\Unit\Ecommerce\Application\Adapter;
 
+use Configuration;
+use Currency;
+use DateTime;
+use DateTimeZone;
 use GetResponse\Contact\DomainModel\Customer;
 use GetResponse\Ecommerce\Application\Adapter\OrderAdapter;
 use GetResponse\Ecommerce\DomainModel\Address;
 use GetResponse\Ecommerce\DomainModel\Order;
 use GetResponse\Tests\Unit\BaseTestCase;
+use OrderState;
 
 class OrderAdapterTest extends BaseTestCase
 {
     /**
      * @test
+     * @dataProvider createOrderDataProvider
      */
-    public function shouldCreateOrderFromCommand()
+    public function shouldCreateOrder($timeZone, Order $expectedOrder): void
+    {
+        Configuration::set('PS_TIMEZONE', $timeZone);
+
+        $orderAdapter = new OrderAdapter();
+        $orderFromCommand = $orderAdapter->getOrderById(1);
+
+        self::assertEquals($expectedOrder, $orderFromCommand);
+    }
+
+    public function createOrderDataProvider(): array
     {
         $order = new \Order(1);
 
-        $orderUrl = 'https://my-prestashop.com/?controller=order-detail&id_order=' . $order->id;
-
-        $productLines = [];
-        $currency = new \Currency($order->id_currency);
-        $orderStatus = new \OrderState($order->getCurrentState());
+        $currency = new Currency($order->id_currency);
+        $orderStatus = new OrderState($order->getCurrentState());
 
         $customerAddress = new Address('home', 'Poland', 'John', 'Doe', 'Street 1', '', 'City', 'PostCode', 'State', '', '544 404 400', '');
         $customer = new Customer(
@@ -60,28 +73,70 @@ class OrderAdapterTest extends BaseTestCase
 
         $address = new Address('home', 'pl', 'John', 'Doe', 'address1', 'address2', 'city', 'postcode', 'state', '', '544404400', 'company');
 
-        $expectedOrder = new Order(
-            $order->id,
-            $order->reference,
-            $order->id_cart,
-            'john.doe@example.com',
-            $customer,
-            $productLines,
-            $orderUrl,
-            $order->total_paid_tax_excl,
-            $order->total_paid_tax_incl,
-            $order->total_shipping_tax_incl,
-            $currency->iso_code,
-            $orderStatus->name,
-            $address,
-            $address,
-            $order->date_add,
-            $order->date_upd
-        );
-
-        $orderAdapter = new OrderAdapter();
-        $orderFromCommand = $orderAdapter->getOrderById($order->id);
-
-        self::assertEquals($expectedOrder, $orderFromCommand);
+        return [
+            [
+                'Europe/Warsaw',
+                new Order(
+                    $order->id,
+                    $order->reference,
+                    $order->id_cart,
+                    'john.doe@example.com',
+                    $customer,
+                    [],
+                    'https://my-prestashop.com/?controller=order-detail&id_order=' . $order->id,
+                    $order->total_paid_tax_excl,
+                    $order->total_paid_tax_incl,
+                    $order->total_shipping_tax_incl,
+                    $currency->iso_code,
+                    $orderStatus->name,
+                    $address,
+                    $address,
+                    (new DateTime($order->date_add, new DateTimeZone('Europe/Warsaw')))->format('c'),
+                    (new DateTime($order->date_upd, new DateTimeZone('Europe/Warsaw')))->format('c')
+                ),
+            ],
+            [
+                '',
+                new Order(
+                    $order->id,
+                    $order->reference,
+                    $order->id_cart,
+                    'john.doe@example.com',
+                    $customer,
+                    [],
+                    'https://my-prestashop.com/?controller=order-detail&id_order=' . $order->id,
+                    $order->total_paid_tax_excl,
+                    $order->total_paid_tax_incl,
+                    $order->total_shipping_tax_incl,
+                    $currency->iso_code,
+                    $orderStatus->name,
+                    $address,
+                    $address,
+                    (new DateTime($order->date_add, new DateTimeZone('UTC')))->format('c'),
+                    (new DateTime($order->date_upd, new DateTimeZone('UTC')))->format('c')
+                )
+            ],
+            [
+                'InvalidTimeZone',
+                new Order(
+                    $order->id,
+                    $order->reference,
+                    $order->id_cart,
+                    'john.doe@example.com',
+                    $customer,
+                    [],
+                    'https://my-prestashop.com/?controller=order-detail&id_order=' . $order->id,
+                    $order->total_paid_tax_excl,
+                    $order->total_paid_tax_incl,
+                    $order->total_shipping_tax_incl,
+                    $currency->iso_code,
+                    $orderStatus->name,
+                    $address,
+                    $address,
+                    (new DateTime($order->date_add, new DateTimeZone('UTC')))->format('c'),
+                    (new DateTime($order->date_upd, new DateTimeZone('UTC')))->format('c')
+                )
+            ],
+        ];
     }
 }

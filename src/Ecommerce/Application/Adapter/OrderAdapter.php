@@ -20,12 +20,11 @@
 
 namespace GetResponse\Ecommerce\Application\Adapter;
 
-use DateTime;
-use DateTimeZone;
 use GetResponse\Contact\Application\Adapter\CustomerAdapter;
 use GetResponse\Ecommerce\DomainModel\Address;
 use GetResponse\Ecommerce\DomainModel\Line;
 use GetResponse\Ecommerce\DomainModel\Order;
+use GetResponse\SharedKernel\DateTimeNormalizer;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -33,6 +32,8 @@ if (!defined('_PS_VERSION_')) {
 
 class OrderAdapter
 {
+    use DateTimeNormalizer;
+
     public function getOrderById(int $orderId): Order
     {
         $customerAdapter = new CustomerAdapter();
@@ -103,8 +104,8 @@ class OrderAdapter
             $this->getOrderStatus($prestashopOrder),
             $shippingAddress,
             $billingAddress,
-            $this->getDateInUTC($prestashopOrder->date_add),
-            $this->getDateInUTC($prestashopOrder->date_upd)
+            $this->getDateWithTimeZone($prestashopOrder->date_add),
+            $this->getDateWithTimeZone($prestashopOrder->date_upd)
         );
     }
 
@@ -155,17 +156,5 @@ class OrderAdapter
         return empty($status) ? 'new' : $status;
     }
 
-    private function getDateInUTC(string $date): string
-    {
-        $timeZone = \Configuration::get('PS_TIMEZONE');
 
-        if (empty($timeZone)) {
-            return $date;
-        }
-
-        $dateTime = new DateTime($date, new DateTimeZone($timeZone));
-        $dateTime->setTimezone(new DateTimeZone('UTC'));
-
-        return $dateTime->format('Y-m-d H:i:s');
-    }
 }

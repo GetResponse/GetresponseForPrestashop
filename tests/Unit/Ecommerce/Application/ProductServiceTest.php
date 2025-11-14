@@ -51,13 +51,14 @@ class ProductServiceTest extends BaseTestCase
     /**
      * @test
      */
-    public function shouldUpsertProduct()
+    public function shouldUpsertProduct(): void
     {
         $shopId = 1;
         $productId = 2;
         $languageId = 2;
-        $createdOn = '2020-01-05 12:45:22';
-        $updatedOn = '2020-01-06 12:34:12';
+        $dateTimeCreated = (new \DateTime('2020-01-05 12:45:22'))->format('c');
+        $dateTimeUpdated = (new \DateTime('2020-01-06 12:34:12'))->format('c');
+
         $status = 'publish';
 
         $categories = [
@@ -97,8 +98,8 @@ class ProductServiceTest extends BaseTestCase
             'VendorName',
             $categories,
             $variants,
-            $createdOn,
-            $updatedOn,
+            $dateTimeCreated,
+            $dateTimeUpdated,
             $status
         );
 

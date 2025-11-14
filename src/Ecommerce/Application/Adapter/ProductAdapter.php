@@ -23,6 +23,7 @@ namespace GetResponse\Ecommerce\Application\Adapter;
 use GetResponse\Ecommerce\DomainModel\Category;
 use GetResponse\Ecommerce\DomainModel\Product;
 use GetResponse\Ecommerce\DomainModel\Variant;
+use GetResponse\SharedKernel\DateTimeNormalizer;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -30,6 +31,8 @@ if (!defined('_PS_VERSION_')) {
 
 class ProductAdapter
 {
+    use DateTimeNormalizer;
+
     const PRODUCT_STATUS_PUBLISH = 'publish';
     const PRODUCT_STATUS_DRAFT = 'draft';
     const SKU_PREFIX = 'sku_';
@@ -125,8 +128,8 @@ class ProductAdapter
             $manufacture->name,
             $categories,
             $variants,
-            $product->date_add,
-            $product->date_upd,
+            $this->getDateWithTimeZone($product->date_add),
+            $this->getDateWithTimeZone($product->date_upd),
             $product->active === '1' ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
         );
     }
