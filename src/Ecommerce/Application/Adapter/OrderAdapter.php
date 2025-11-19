@@ -155,6 +155,4 @@ class OrderAdapter
 
         return empty($status) ? 'new' : $status;
     }
-
-
 }
