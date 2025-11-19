@@ -26,6 +26,12 @@
 
 class Configuration extends ObjectModel
 {
+    static private $storage = [];
+
+    public static function set($key, $value) {
+        static::$storage[$key] = $value;
+    }
+
     /**
      * Get a single configuration value (in one language only).
      *
@@ -35,7 +41,9 @@ class Configuration extends ObjectModel
      * @return string|false Value
      */
     public static function get($key, $idLang = null, $idShopGroup = null, $idShop = null, $default = false)
-    {}
+    {
+        return isset(static::$storage[$key]) ? static::$storage[$key] : false;
+    }
 
     /**
      * Delete a configuration key in database (with or without language management).

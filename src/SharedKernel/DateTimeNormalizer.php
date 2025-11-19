@@ -17,38 +17,23 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-class OrderParams
-{
-    /**
-     * @var array
-     */
-    private static $order = [
-        1 => [
-            'id' => 1,
-            'id_customer' => 1,
-            'id_currency' => 1,
-            'id_address_delivery' => 1,
-            'id_address_invoice' => 1,
-            'reference' => 'WD32X98',
-            'id_cart' => 1,
-            'products' => [],
-            'total_paid_tax_excl' => 9.99,
-            'total_paid_tax_incl' => 12.33,
-            'total_shipping_tax_incl' => 5.00,
-            'current_state' => 2,
-            'id_lang' => 1,
-            'date_add' => '2020-03-12 14:01:23',
-            'date_upd' => '2020-03-15 14:01:44',
-        ],
-    ];
 
-    /**
-     * @param int $id
-     *
-     * @return array
-     */
-    public static function getOrderById($id)
+namespace GetResponse\SharedKernel;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
+trait DateTimeNormalizer
+{
+    private function getDateWithTimeZone(string $date): string
     {
-        return static::$order[$id];
+        try {
+            $dateTimeZone = new \DateTimeZone(\Configuration::get('PS_TIMEZONE'));
+        } catch (\Exception $e) {
+            $dateTimeZone = new \DateTimeZone('UTC');
+        }
+
+        return (new \DateTime($date, $dateTimeZone))->format('c');
     }
 }

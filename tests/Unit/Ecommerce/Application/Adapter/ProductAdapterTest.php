@@ -20,6 +20,7 @@
 
 namespace GetResponse\Tests\Unit\Ecommerce\Application\Adapter;
 
+use DateTime;
 use GetResponse\Ecommerce\Application\Adapter\ProductAdapter;
 use GetResponse\Ecommerce\DomainModel\Category;
 use GetResponse\Ecommerce\DomainModel\Image;
@@ -40,20 +41,15 @@ class ProductAdapterTest extends BaseTestCase
     /**
      * @test
      */
-    public function shouldCreateSimpleProduct()
+    public function shouldCreateSimpleProduct(): void
     {
         $productId = 1;
         $languageId = 1;
 
         $product = $this->sut->getProductById($productId, $languageId);
 
-        $categories = [
-            new Category(3, 1, 'Default category'),
-        ];
-
-        $images = [
-            new Image('https://my-prestashop.com/img/p/2.jpg', 2),
-        ];
+        $categories = [new Category(3, 1, 'Default category')];
+        $images = [new Image('https://my-prestashop.com/img/p/2.jpg', 2)];
 
         $variants = [
             new Variant(
@@ -76,6 +72,9 @@ class ProductAdapterTest extends BaseTestCase
             ),
         ];
 
+        $dateTimeCreated = (new DateTime('2020-01-05 12:45:22'))->format('c');
+        $dateTimeUpdated = (new DateTime('2020-01-06 12:34:12'))->format('c');
+
         self::assertEquals($productId, $product->getId());
         self::assertEquals('Test Product', $product->getName());
         self::assertEquals(Product::SINGLE_TYPE, $product->getType());
@@ -83,27 +82,22 @@ class ProductAdapterTest extends BaseTestCase
         self::assertEquals('VendorName', $product->getVendor());
         self::assertEquals($categories, $product->getCategories());
         self::assertEquals($variants, $product->getVariants());
-        self::assertEquals('2020-01-05 12:45:22', $product->getCreatedAt());
-        self::assertEquals('2020-01-06 12:34:12', $product->getUpdatedAt());
+        self::assertEquals($dateTimeCreated, $product->getCreatedAt());
+        self::assertEquals($dateTimeUpdated, $product->getUpdatedAt());
     }
 
     /**
      * @test
      */
-    public function shouldCreateConfigurableProduct()
+    public function shouldCreateConfigurableProduct(): void
     {
         $productId = 2;
         $languageId = 1;
 
         $product = $this->sut->getProductById($productId, $languageId);
 
-        $categories = [
-            new Category(3, 1, 'Default category'),
-        ];
-
-        $images = [
-            new Image('https://my-prestashop.com/img/p/2.jpg', 2),
-        ];
+        $categories = [new Category(3, 1, 'Default category')];
+        $images = [new Image('https://my-prestashop.com/img/p/2.jpg', 2)];
 
         $variants = [
             new Variant(
@@ -126,6 +120,9 @@ class ProductAdapterTest extends BaseTestCase
             ),
         ];
 
+        $dateTimeCreated = (new DateTime('2020-01-05 12:45:22'))->format('c');
+        $dateTimeUpdated = (new DateTime('2020-01-06 12:34:12'))->format('c');
+
         self::assertEquals($productId, $product->getId());
         self::assertEquals('Test Product', $product->getName());
         self::assertEquals(Product::CONFIGURABLE_TYPE, $product->getType());
@@ -133,7 +130,7 @@ class ProductAdapterTest extends BaseTestCase
         self::assertEquals('VendorName', $product->getVendor());
         self::assertEquals($categories, $product->getCategories());
         self::assertEquals($variants, $product->getVariants());
-        self::assertEquals('2020-01-05 12:45:22', $product->getCreatedAt());
-        self::assertEquals('2020-01-06 12:34:12', $product->getUpdatedAt());
+        self::assertEquals($dateTimeCreated, $product->getCreatedAt());
+        self::assertEquals($dateTimeUpdated, $product->getUpdatedAt());
     }
 }

@@ -63,14 +63,14 @@ class HttpClient implements EventEmitter
         $options = [
             CURLOPT_URL => $url,
             CURLOPT_ENCODING => 'gzip,deflate',
-            CURLOPT_FRESH_CONNECT => 1,
-            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_FRESH_CONNECT => true,
+            CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => self::TIMEOUT,
             CURLOPT_HTTPHEADER => $headers,
         ];
 
         if ($method === self::POST) {
-            $options[CURLOPT_POST] = 1;
+            $options[CURLOPT_POST] = true;
             $options[CURLOPT_POSTFIELDS] = json_encode($object->jsonSerialize());
         }
 
