@@ -24,6 +24,7 @@ use GetResponse\Contact\Application\Adapter\CustomerAdapter;
 use GetResponse\Ecommerce\DomainModel\Cart;
 use GetResponse\Ecommerce\DomainModel\Line;
 use GetResponse\SharedKernel\CartRecoveryHelper;
+use GetResponse\SharedKernel\DateTimeNormalizer;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -31,6 +32,8 @@ if (!defined('_PS_VERSION_')) {
 
 class CartAdapter
 {
+    use DateTimeNormalizer;
+
     /**
      * @param int $cartId
      * @param string|null $visitorUuid
@@ -77,8 +80,8 @@ class CartAdapter
             $prestashopCart->getOrderTotal(true),
             $currency->iso_code,
             $cartRecoveryUrl,
-            $prestashopCart->date_add,
-            $prestashopCart->date_upd
+            $this->getDateWithTimeZone($prestashopCart->date_add),
+            $this->getDateWithTimeZone($prestashopCart->date_upd)
         );
     }
 }
