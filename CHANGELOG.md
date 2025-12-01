@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.7] - 2025-12-01
+### Fix
+- Added limit for images and description
+
 ## [2.0.6] - 2025-11-12
 ### Fix
 - Fixed: Handle TimeZone during orders processing
