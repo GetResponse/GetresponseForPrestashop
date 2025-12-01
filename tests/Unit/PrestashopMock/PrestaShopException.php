@@ -28,4 +28,5 @@
  * @since 1.5.0
  */
 class PrestaShopException extends Exception
-{}
+{
+}

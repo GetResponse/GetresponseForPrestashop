@@ -428,6 +428,4 @@ class ProductAdapterTest extends BaseTestCase
         self::assertEquals('Product description with spaces', $variant->getDescription());
         self::assertEquals('Short description', $variant->getShortDescription());
     }
-
-
 }

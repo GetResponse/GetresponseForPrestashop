@@ -34,7 +34,8 @@ class Shop extends ObjectModel
      * @param int $id ID shop if CONTEXT_SHOP or id shop group if CONTEXT_GROUP
      */
     public static function setContext($type, $id = null)
-    {}
+    {
+    }
 
     /**
      * Get shops list.
@@ -46,5 +47,6 @@ class Shop extends ObjectModel
      * @return array
      */
     public static function getShops($active = true, $id_shop_group = null, $get_as_list_id = false)
-    {}
+    {
+    }
 }

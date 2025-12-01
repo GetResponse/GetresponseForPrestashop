@@ -23,7 +23,6 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  */
-
 class ObjectModel // todo: extend in all entities
 {
     /** @var int|null Object ID */
@@ -41,5 +40,6 @@ class ObjectModel // todo: extend in all entities
      * @throws PrestaShopException
      */
     public function __construct($id = null, $id_lang = null, $id_shop = null, $translator = null)
-    {}
+    {
+    }
 }

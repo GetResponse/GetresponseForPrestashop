@@ -23,7 +23,6 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  */
-
 abstract class Db
 {
     /**
@@ -34,7 +33,8 @@ abstract class Db
      * @return Db Singleton instance of Db object
      */
     public static function getInstance($master = true)
-    {}
+    {
+    }
 
     /**
      * Executes a query.
@@ -45,5 +45,6 @@ abstract class Db
      * @return bool
      */
     public function execute($sql, $use_cache = true)
-    {}
+    {
+    }
 }

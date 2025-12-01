@@ -85,5 +85,6 @@ class Customer extends ObjectModel
      * @throws PrestaShopException
      */
     public function update($nullValues = false)
-    {}
+    {
+    }
 }

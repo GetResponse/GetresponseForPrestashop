@@ -23,12 +23,12 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  */
-
 class Configuration extends ObjectModel
 {
-    static private $storage = [];
+    private static $storage = [];
 
-    public static function set($key, $value) {
+    public static function set($key, $value)
+    {
         static::$storage[$key] = $value;
     }
 
@@ -53,7 +53,8 @@ class Configuration extends ObjectModel
      * @return bool Deletion result
      */
     public static function deleteByName($key)
-    {}
+    {
+    }
 
     /**
      * Update configuration key and value into database (automatically insert if key does not exist).
@@ -72,5 +73,6 @@ class Configuration extends ObjectModel
      * @return bool Update result
      */
     public static function updateValue($key, $values, $html = false, $idShopGroup = null, $idShop = null)
-    {}
+    {
+    }
 }

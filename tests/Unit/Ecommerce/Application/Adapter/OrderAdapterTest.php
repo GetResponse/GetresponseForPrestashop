@@ -67,7 +67,7 @@ class OrderAdapterTest extends BaseTestCase
                 'note' => 'note 1',
                 'id_gender' => 3,
                 'id_default_group' => 4,
-                'language' => 'en'
+                'language' => 'en',
             ]
         );
 
@@ -114,7 +114,7 @@ class OrderAdapterTest extends BaseTestCase
                     $address,
                     (new DateTime($order->date_add, new DateTimeZone('UTC')))->format('c'),
                     (new DateTime($order->date_upd, new DateTimeZone('UTC')))->format('c')
-                )
+                ),
             ],
             [
                 'InvalidTimeZone',
@@ -135,7 +135,7 @@ class OrderAdapterTest extends BaseTestCase
                     $address,
                     (new DateTime($order->date_add, new DateTimeZone('UTC')))->format('c'),
                     (new DateTime($order->date_upd, new DateTimeZone('UTC')))->format('c')
-                )
+                ),
             ],
         ];
     }

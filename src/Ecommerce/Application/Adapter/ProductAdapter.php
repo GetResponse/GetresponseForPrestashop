@@ -277,7 +277,7 @@ class ProductAdapter
         $images = [];
         $imageAdapter = new ImageAdapter();
         foreach ($productImages as $productImage) {
-            $image = $imageAdapter->getImageById((int)$productImage['id_image']);
+            $image = $imageAdapter->getImageById((int) $productImage['id_image']);
             $images[$image->getPosition()] = $image;
         }
 

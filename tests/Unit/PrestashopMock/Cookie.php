@@ -33,7 +33,8 @@ class Cookie
      * @return string value corresponding to the key
      */
     public function __get($key)
-    {}
+    {
+    }
 
     /**
      * Magic method which check if key exists in the cookie.
@@ -43,7 +44,8 @@ class Cookie
      * @return bool key existence
      */
     public function __isset($key)
-    {}
+    {
+    }
 
     /**
      * Magic method which adds data into _content array.
@@ -54,7 +56,8 @@ class Cookie
      * @throws Exception
      */
     public function __set($key, $value)
-    {}
+    {
+    }
 
     /**
      * Magic method which delete data into _content array.
@@ -62,5 +65,6 @@ class Cookie
      * @param string $key key wanted
      */
     public function __unset($key)
-    {}
+    {
+    }
 }

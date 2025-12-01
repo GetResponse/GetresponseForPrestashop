@@ -18,7 +18,6 @@
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
 
-
 use GetResponse\Contact\DomainModel\Customer;
 use GetResponse\Ecommerce\Application\Adapter\CartAdapter;
 use GetResponse\Ecommerce\DomainModel\Address;
@@ -62,7 +61,7 @@ class CartAdapterTest extends BaseTestCase
                 'note' => 'note 1',
                 'id_gender' => 3,
                 'id_default_group' => 4,
-                'language' => 'en'
+                'language' => 'en',
             ]
         );
 
@@ -74,7 +73,7 @@ class CartAdapterTest extends BaseTestCase
                 $cart->products[0]['price_wt'],
                 $cart->products[0]['quantity'],
                 'product_combination_1'
-            )
+            ),
         ];
 
         $cartRecoveryUrl = CartRecoveryHelper::getUrl((int) $cart->id);
@@ -108,7 +107,7 @@ class CartAdapterTest extends BaseTestCase
                     $cartRecoveryUrl,
                     (new DateTime($cart->date_add, new DateTimeZone('UTC')))->format('c'),
                     (new DateTime($cart->date_upd, new DateTimeZone('UTC')))->format('c')
-                )
+                ),
             ],
             [
                 'ABC',
@@ -123,7 +122,7 @@ class CartAdapterTest extends BaseTestCase
                     $cartRecoveryUrl,
                     (new DateTime($cart->date_add, new DateTimeZone('UTC')))->format('c'),
                     (new DateTime($cart->date_upd, new DateTimeZone('UTC')))->format('c')
-                )
+                ),
             ],
         ];
     }
