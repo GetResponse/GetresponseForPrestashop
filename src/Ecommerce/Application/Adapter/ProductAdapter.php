@@ -21,6 +21,7 @@
 namespace GetResponse\Ecommerce\Application\Adapter;
 
 use GetResponse\Ecommerce\DomainModel\Category;
+use GetResponse\Ecommerce\DomainModel\Image;
 use GetResponse\Ecommerce\DomainModel\Product;
 use GetResponse\Ecommerce\DomainModel\Variant;
 use GetResponse\SharedKernel\DateTimeNormalizer;
@@ -268,6 +269,11 @@ class ProductAdapter
         return null;
     }
 
+    /**
+     * @param array<int, array{id_image:string}> $productImages
+     *
+     * @return array<int, Image>
+     */
     private function getImages(array $productImages): array
     {
         if (empty($productImages)) {
@@ -283,7 +289,7 @@ class ProductAdapter
 
         ksort($images);
 
-        return !empty($images) ? [reset($images)] : [];
+        return [reset($images)];
     }
 
     private function sanitizeDescription(string $description, int $maxLength): string
