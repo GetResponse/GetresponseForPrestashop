@@ -21,6 +21,7 @@
 namespace GetResponse\Ecommerce\Application\Adapter;
 
 use GetResponse\Ecommerce\DomainModel\Category;
+use GetResponse\Ecommerce\DomainModel\Image;
 use GetResponse\Ecommerce\DomainModel\Product;
 use GetResponse\Ecommerce\DomainModel\Variant;
 use GetResponse\SharedKernel\DateTimeNormalizer;
@@ -36,6 +37,7 @@ class ProductAdapter
     const PRODUCT_STATUS_PUBLISH = 'publish';
     const PRODUCT_STATUS_DRAFT = 'draft';
     const SKU_PREFIX = 'sku_';
+    const MAX_DESC_LENGTH = 1000;
 
     /**
      * @param int $languageId
@@ -45,20 +47,16 @@ class ProductAdapter
      */
     public function getProductById(int $productId, int $languageId): Product
     {
-        $imageAdapter = new ImageAdapter();
         $product = new \Product($productId);
         $link = new \Link();
 
         $variants = [];
-        $images = [];
         $categories = [];
         $productType = Product::SINGLE_TYPE;
 
         $productLink = $link->getProductLink($product, null, null, null, $languageId);
 
-        foreach ($product->getImages($languageId) as $image) {
-            $images[] = $imageAdapter->getImageById((int) $image['id_image']);
-        }
+        $images = $this->getImages($product->getImages($languageId));
 
         foreach ($product->getCategories() as $productCategory) {
             $category = new \Category($productCategory, $languageId);
@@ -170,7 +168,7 @@ class ProductAdapter
             return null;
         }
 
-        return $description;
+        return $this->sanitizeDescription($description, self::MAX_DESC_LENGTH);
     }
 
     /**
@@ -187,7 +185,7 @@ class ProductAdapter
             return null;
         }
 
-        return $description;
+        return $this->sanitizeDescription($description, self::MAX_DESC_LENGTH);
     }
 
     /**
@@ -269,5 +267,45 @@ class ProductAdapter
         }
 
         return null;
+    }
+
+    /**
+     * @param array<int, array{id_image:string}> $productImages
+     *
+     * @return array<int, Image>
+     */
+    private function getImages(array $productImages): array
+    {
+        if (empty($productImages)) {
+            return [];
+        }
+
+        $images = [];
+        $imageAdapter = new ImageAdapter();
+        foreach ($productImages as $productImage) {
+            $image = $imageAdapter->getImageById((int) $productImage['id_image']);
+            $images[$image->getPosition()] = $image;
+        }
+
+        ksort($images);
+
+        return [reset($images)];
+    }
+
+    private function sanitizeDescription(string $description, int $maxLength): string
+    {
+        $cleanDescription = (string) preg_replace('#<style(.*?)>(.*?)</style>#is', '', $description);
+        $cleanDescription = (string) preg_replace('#<script(.*?)>(.*?)</script>#is', '', $cleanDescription);
+        $cleanDescription = html_entity_decode($cleanDescription, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $cleanDescription = html_entity_decode($cleanDescription, ENT_COMPAT);
+        $cleanDescription = strip_tags($cleanDescription);
+        $cleanDescription = trim($cleanDescription);
+        $cleanDescription = (string) preg_replace('/\s+/', ' ', $cleanDescription);
+
+        if (mb_strlen($cleanDescription) <= $maxLength) {
+            return $cleanDescription;
+        }
+
+        return mb_substr($cleanDescription, 0, $maxLength - 3) . '...';
     }
 }

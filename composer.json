@@ -23,9 +23,9 @@
         "beberlei/assert": "2.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.0 || ^6.0 || ^7.0 || ^8.0",
+        "phpunit/phpunit": "^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0" ,
         "prestashop/php-dev-tools": "^5.0",
-        "friendsofphp/php-cs-fixer": "^3.4",
+        "friendsofphp/php-cs-fixer": "^3.0",
         "captainhook/captainhook": "^5.14",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpstan/phpstan": "^1.12 || ^2.1",
@@ -47,8 +47,8 @@
     "license": "AFL-3.0",
     "scripts": {
         "run-fixers": [
-            "php vendor/bin/php-cs-fixer fix",
-            "_PS_ROOT_DIR_=../../ vendor/bin/phpstan analyse --configuration=tests/phpstan/phpstan.neon --memory-limit=256M",
+            "@php-cs-fix",
+            "@phpstan",
             "vendor/bin/autoindex",
             "vendor/bin/header-stamp --license=assets/afl.txt --exclude=vendor"
         ],

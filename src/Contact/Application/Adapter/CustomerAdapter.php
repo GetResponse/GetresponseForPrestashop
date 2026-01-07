@@ -58,7 +58,7 @@ class CustomerAdapter
                 'birthday' => (string) $customer->birthday,
                 'id_gender' => (int) $customer->id_gender,
                 'id_default_group' => (int) $customer->id_default_group,
-                'language' => (string) ((new Language($customer->id_lang))->iso_code)
+                'language' => (string) (new Language($customer->id_lang))->iso_code,
             ]
         );
     }
