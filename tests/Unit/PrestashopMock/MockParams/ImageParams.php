@@ -22,7 +22,7 @@ class ImageParams
     /**
      * @var array
      */
-    private static $image = [
+    public static $image = [
         1 => [
             'id' => 1,
             'position' => 1,

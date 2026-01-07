@@ -92,7 +92,7 @@ class ContactServiceTest extends BaseTestCase
                 'note' => 'note 1',
                 'id_gender' => 3,
                 'id_default_group' => 4,
-                'language' => 'en'
+                'language' => 'en',
             ]
         );
 

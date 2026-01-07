@@ -24,7 +24,6 @@ use GetResponse\Ecommerce\Application\Adapter\ProductAdapter;
 use GetResponse\Ecommerce\Application\Command\RecommendedProductCommand;
 use GetResponse\Ecommerce\DomainModel\Product;
 use GetResponse\Ecommerce\DomainModel\RecommendedProduct;
-use GetResponse\Ecommerce\DomainModel\Variant;
 
 if (!defined('_PS_VERSION_')) {
     exit;

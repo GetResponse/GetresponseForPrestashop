@@ -19,6 +19,8 @@ FILES_TO_DELETE=(
   ".php_cs.dist"
   ".php_cs.cache"
   ".php-cs-fixer.cache"
+  ".php-cs-fixer.dist.php"
+  "captainhook.json"
   "deploy.sh"
   "create-zip-dev.sh"
   ".gitlab-ci.yml"
@@ -26,10 +28,9 @@ FILES_TO_DELETE=(
   "docker-compose.yaml"
   "Makefile"
   ".env"
-  "vendor"
   "tests"
+  "vendor"
   "tmp"
-  ".php-cs-fixer.dist.php"
   "phpstan"
 )
 

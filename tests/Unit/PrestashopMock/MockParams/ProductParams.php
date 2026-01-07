@@ -22,7 +22,7 @@ class ProductParams
     /**
      * @var array
      */
-    private static $product = [
+    public static $product = [
         1 => [
             'id' => 1,
             'name' => [1 => 'Test Product', 2 => 'Test Product2'],

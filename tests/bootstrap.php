@@ -65,5 +65,5 @@ define('__PS_BASE_URI__', 'https://my-prestashop.com/');
 define('_PS_BASE_URL_', 'https://my-prestashop.com/');
 define('_PS_VERSION_', '1.7.0.3');
 define('_THEME_PROD_DIR_', 'img/p/');
-define('_DB_PREFIX_',  'config_parameters_database_prefix');
+define('_DB_PREFIX_', 'config_parameters_database_prefix');
 define('_COOKIE_KEY_', 'cookie_key');
