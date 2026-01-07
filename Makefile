@@ -10,6 +10,13 @@ app-php8-dev-build: ## Create environment with php8.x for unit tests
 run-tests-php8: app-php8-dev-build ## Runs unit tests with php8.x
 	docker compose exec php8 vendor/bin/phpunit --configuration tests/phpunit.xml
 
+app-php7-dev-build: ## Create environment with php7.2 for unit tests
+	docker compose up -d php7
+	docker compose exec php7 composer update
+
+run-tests-php7: app-php7-dev-build ## Runs unit tests with php8.x
+	docker compose exec php7 vendor/bin/phpunit --configuration tests/phpunit.xml
+
 deploy-to-github: ## Creates new release in github from gitlab tags
 	sh deploy.sh
 
