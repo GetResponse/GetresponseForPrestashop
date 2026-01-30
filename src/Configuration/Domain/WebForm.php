@@ -20,8 +20,8 @@
 
 namespace GetResponse\Configuration\Domain;
 
-use Assert\Assertion;
 use GetResponse\Configuration\SharedKernel\WebFormPosition;
+use InvalidArgumentException;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -36,6 +36,9 @@ class WebForm
     /** @var string */
     private $position;
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function __construct(string $id, string $url, string $position)
     {
         $availablePositions = [
@@ -46,7 +49,13 @@ class WebForm
             WebFormPosition::LEFT,
             WebFormPosition::RIGHT,
         ];
-        Assertion::inArray($position, $availablePositions);
+
+        if (false === in_array($position, $availablePositions)) {
+            throw new InvalidArgumentException(
+                sprintf('Not valid position `%s`', $position)
+            );
+        }
+
         $this->id = $id;
         $this->url = $url;
         $this->position = $position;

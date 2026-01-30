@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.8] - 2025-01-30
+### Fix
+- Added support for PrestaShop 9.1
+- 
 ## [2.0.7] - 2025-12-01
 ### Fix
 - Added limit for images and description

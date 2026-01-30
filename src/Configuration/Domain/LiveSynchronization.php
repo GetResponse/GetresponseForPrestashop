@@ -20,7 +20,7 @@
 
 namespace GetResponse\Configuration\Domain;
 
-use Assert\Assertion;
+use InvalidArgumentException;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -33,9 +33,17 @@ class LiveSynchronization
     /** @var string */
     private $type;
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function __construct(string $url, string $type)
     {
-        Assertion::inArray($type, ['Contacts', 'Products', 'FullEcommerce']);
+        if (false === in_array($type, ['Contacts', 'Products', 'FullEcommerce'])) {
+            throw new InvalidArgumentException(
+                sprintf('Not valid type `%s`', $type)
+            );
+        }
+
         $this->url = $url;
         $this->type = $type;
     }

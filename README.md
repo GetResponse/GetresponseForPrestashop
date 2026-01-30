@@ -20,8 +20,8 @@ Send personalized, targeted offers to maximize conversions and increase sales.
 ## Requirements
 - PrestaShop in one of the supported versions: 1.7.x or 8.x
 - PHP version:
-  - 7.4 for PrestaShop 1.7.x
-  - 8.1 or higher for PrestaShop 8.x
+  - 7.2 for PrestaShop 1.7.x / 8.x
+  - 8.1 or higher for PrestaShop 9.x
 - Prestshop response time (for request from GetResponse) no longer than 15 seconds
 
 ## Known issues

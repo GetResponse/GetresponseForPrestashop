@@ -42,11 +42,11 @@ class GrPrestashop extends Module
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '2.0.7';
+        $this->version = '2.0.8';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
-        $this->ps_versions_compliancy = ['min' => '1.7', 'max' => '8.2.1'];
+        $this->ps_versions_compliancy = ['min' => '1.7', 'max' => '9.1'];
         $this->displayName = $this->l('GetResponse');
         $this->description = 'Add your Prestashop contacts to GetResponse.';
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
