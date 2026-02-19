@@ -31,7 +31,7 @@ interface NewsletterRepository
      *
      * @return void
      */
-    public function removeSubscriberFromNewsletter($shopId, $email);
+    public function removeSubscriberFromNewsletter($shopId, $email): void;
 
     /**
      * @param int $shopId
@@ -39,5 +39,5 @@ interface NewsletterRepository
      *
      * @return void
      */
-    public function removeCustomerFromNewsletter($shopId, $email);
+    public function removeCustomerFromNewsletter($shopId, $email): void;
 }

@@ -29,7 +29,9 @@ trait DateTimeNormalizer
     private function getDateWithTimeZone(string $date): string
     {
         try {
-            $dateTimeZone = new \DateTimeZone(\Configuration::get('PS_TIMEZONE'));
+            $timeZone = \Configuration::get('PS_TIMEZONE');
+            $timeZone = is_string($timeZone) && $timeZone !== '' ? $timeZone : 'UTC';
+            $dateTimeZone = new \DateTimeZone($timeZone);
         } catch (\Exception $e) {
             $dateTimeZone = new \DateTimeZone('UTC');
         }

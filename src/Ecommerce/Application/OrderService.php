@@ -47,10 +47,6 @@ class OrderService
     }
 
     /**
-     * @param UpsertOrder $command
-     *
-     * @return void
-     *
      * @throws MessageSenderException
      */
     public function upsertOrder(UpsertOrder $command): void

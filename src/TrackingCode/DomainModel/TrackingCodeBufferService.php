@@ -40,11 +40,6 @@ class TrackingCodeBufferService
         $this->sessionStorage = $sessionStorage;
     }
 
-    /**
-     * @param Cart $cart
-     *
-     * @return void
-     */
     public function addCartToBuffer(Cart $cart): void
     {
         if ($this->sessionStorage->exists(self::CART_HASH_COOKIE_NAME)) {
@@ -59,19 +54,11 @@ class TrackingCodeBufferService
         $this->sessionStorage->set(self::CART_HASH_COOKIE_NAME, $cart->getHash());
     }
 
-    /**
-     * @param Order $order
-     *
-     * @return void
-     */
     public function addOrderToBuffer(Order $order): void
     {
         $this->sessionStorage->set(self::ORDER_COOKIE_NAME, json_encode($order->toArray()));
     }
 
-    /**
-     * @return ?Order
-     */
     public function getOrderFromBuffer(): ?Order
     {
         if ($this->sessionStorage->exists(self::ORDER_COOKIE_NAME)) {
@@ -88,9 +75,6 @@ class TrackingCodeBufferService
         return null;
     }
 
-    /**
-     * @return ?Cart
-     */
     public function getCartFromBuffer(): ?Cart
     {
         if ($this->sessionStorage->exists(self::CART_COOKIE_NAME)) {

@@ -148,41 +148,26 @@ class Configuration
         return $this->getResponseRecommendationSnippet;
     }
 
-    /**
-     * @return string|null
-     */
     public function getGetResponseWebFormId(): ?string
     {
         return $this->getResponseWebForm ? $this->getResponseWebForm->getId() : null;
     }
 
-    /**
-     * @return string|null
-     */
     public function getGetResponseWebFormUrl(): ?string
     {
         return $this->getResponseWebForm ? $this->getResponseWebForm->getUrl() : null;
     }
 
-    /**
-     * @return string|null
-     */
     public function getGetResponseWebFormPosition(): ?string
     {
         return $this->getResponseWebForm ? $this->getResponseWebForm->getPosition() : null;
     }
 
-    /**
-     * @return string|null
-     */
     public function getLiveSynchronizationType(): ?string
     {
         return $this->liveSynchronization ? $this->liveSynchronization->getType() : null;
     }
 
-    /**
-     * @return string|null
-     */
     public function getLiveSynchronizationUrl(): ?string
     {
         return $this->liveSynchronization ? $this->liveSynchronization->getUrl() : null;

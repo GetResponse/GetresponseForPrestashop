@@ -81,8 +81,6 @@ class Address implements \JsonSerializable
 
     /**
      * @param array<string, mixed> $params
-     *
-     * @return self
      */
     public static function createFromArray(array $params): self
     {

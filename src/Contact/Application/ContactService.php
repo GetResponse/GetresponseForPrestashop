@@ -91,7 +91,14 @@ class ContactService
 
         $this->messageSenderService->send(
             $url,
-            new Subscriber($command->getEmail(), $command->isMarketingConsent(), $command->getName())
+            new Subscriber(
+                $command->getEmail(),
+                $command->isMarketingConsent(),
+                $command->getName(),
+                [
+                    'language' => $command->getShopLanguage(),
+                ]
+            )
         );
     }
 }

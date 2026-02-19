@@ -4,9 +4,8 @@
     "description": "GetResponse for PrestaShop",
     "authors": [
         {
-            "name": "GetResponse",
-            "email": "devzone@getresponse.com",
-            "homepage": "https://getresponse.com"
+            "name": "PrestaShop SA",
+            "email": "contact@prestashop.com"
         }
     ],
     "config": {
@@ -19,10 +18,12 @@
     "type": "prestashop-module",
     "minimum-stability": "stable",
     "require": {
-        "php": ">= 7.2"
+        "php": ">= 7.2",
+        "ext-json": "*",
+        "ext-curl": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0" ,
+        "phpunit/phpunit": "^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0",
         "prestashop/php-dev-tools": "^5.0",
         "friendsofphp/php-cs-fixer": "^3.0",
         "captainhook/captainhook": "^5.14",
@@ -45,14 +46,26 @@
     "author": "PrestaShop",
     "license": "AFL-3.0",
     "scripts": {
-        "run-fixers": [
-            "@php-cs-fix",
-            "@phpstan",
-            "vendor/bin/autoindex",
-            "vendor/bin/header-stamp --license=assets/afl.txt --exclude=vendor"
+        "autoindex-fix": "vendor/bin/autoindex prestashop:add:index . --exclude=tests,vendor",
+        "licenses-fix": "vendor/bin/header-stamp --license=assets/afl.txt --exclude=vendor --display-report",
+        "licenses-check": "vendor/bin/header-stamp --license=assets/afl.txt --exclude=vendor --display-report --dry-run",
+        "php-cs-fix": "php vendor/bin/php-cs-fixer fix --using-cache=no",
+        "php-cs-check": "php vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no",
+        "phpstan-check": "_PS_ROOT_DIR_=../../ vendor/bin/phpstan analyse --configuration=tests/phpstan/phpstan.neon --memory-limit=256M",
+        "tests": "vendor/bin/phpunit --configuration tests/phpunit.xml",
+        "fix": [
+            "@autoindex-fix",
+            "@licenses-fix",
+            "@php-cs-fix"
         ],
-        "phpstan": "_PS_ROOT_DIR_=../../ vendor/bin/phpstan analyse --configuration=tests/phpstan/phpstan.neon --memory-limit=256M",
-        "php-cs-fix": "php vendor/bin/php-cs-fixer fix",
-        "tests": "vendor/bin/phpunit --configuration tests/phpunit.xml"
+        "check": [
+            "@licenses-check",
+            "@php-cs-check",
+            "@phpstan-check"
+        ],
+        "check-all": [
+            "@check",
+            "@tests"
+        ]
     }
 }

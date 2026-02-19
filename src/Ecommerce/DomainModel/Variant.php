@@ -98,105 +98,66 @@ class Variant implements \JsonSerializable
         $this->status = $status;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return int
-     */
     public function getProductId(): int
     {
         return $this->productId;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getSku(): string
     {
         return $this->sku;
     }
 
-    /**
-     * @return float
-     */
     public function getPrice(): float
     {
         return $this->price;
     }
 
-    /**
-     * @return float
-     */
     public function getPriceTax(): float
     {
         return $this->priceTax;
     }
 
-    /**
-     * @return float|null
-     */
     public function getPreviousPrice(): ?float
     {
         return $this->previousPrice;
     }
 
-    /**
-     * @return float|null
-     */
     public function getPreviousPriceTax(): ?float
     {
         return $this->previousPriceTax;
     }
 
-    /**
-     * @return int
-     */
     public function getQuantity(): int
     {
         return $this->quantity;
     }
 
-    /**
-     * @return string
-     */
     public function getUrl(): string
     {
         return $this->url;
     }
 
-    /**
-     * @return int|null
-     */
     public function getPosition(): ?int
     {
         return $this->position;
     }
 
-    /**
-     * @return int|null
-     */
     public function getBarcode(): ?int
     {
         return $this->barcode;
     }
 
-    /**
-     * @return string
-     */
     public function getShortDescription(): string
     {
         return $this->shortDescription;
@@ -210,9 +171,6 @@ class Variant implements \JsonSerializable
         return $this->images;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;

@@ -30,10 +30,6 @@ if (!defined('_PS_VERSION_')) {
 class OrderAdapter
 {
     /**
-     * @param int $orderId
-     *
-     * @return Order
-     *
      * @throws \PrestaShopDatabaseException
      * @throws \PrestaShopException
      */

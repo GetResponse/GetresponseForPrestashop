@@ -28,7 +28,7 @@ if (!defined('_PS_VERSION_')) {
 
 class NewsletterDbRepository implements NewsletterRepository
 {
-    public function removeSubscriberFromNewsletter($shopId, $email)
+    public function removeSubscriberFromNewsletter($shopId, $email): void
     {
         $table = _DB_PREFIX_ . 'newsletter';
         $sql = sprintf("UPDATE %s SET active = %s WHERE id_shop = %s AND email = '%s'", $table, 0, $shopId, $email);
@@ -36,7 +36,7 @@ class NewsletterDbRepository implements NewsletterRepository
         \Db::getInstance()->execute($sql);
     }
 
-    public function removeCustomerFromNewsletter($shopId, $email)
+    public function removeCustomerFromNewsletter($shopId, $email): void
     {
         $customers = \Customer::getCustomersByEmail($email);
 

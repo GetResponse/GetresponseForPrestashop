@@ -70,57 +70,36 @@ class RecommendedProduct
         $this->previousPrice = $previousPrice;
     }
 
-    /**
-     * @return string
-     */
     public function getUrl(): string
     {
         return $this->url;
     }
 
-    /**
-     * @return int
-     */
     public function getExternalId(): int
     {
         return $this->externalId;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return float
-     */
     public function getPrice(): float
     {
         return $this->price;
     }
 
-    /**
-     * @return string
-     */
     public function getImageUrl(): string
     {
         return $this->imageUrl;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @return string
-     */
     public function getDescriptionWithoutHtmlTags(): string
     {
         if (empty($this->description)) {
@@ -134,24 +113,18 @@ class RecommendedProduct
     }
 
     /**
-     * @return array|string[]
+     * @return string[]
      */
     public function getCategories(): array
     {
         return $this->categories;
     }
 
-    /**
-     * @return string
-     */
     public function getSku(): string
     {
         return $this->sku;
     }
 
-    /**
-     * @return float|null
-     */
     public function getPreviousPrice(): ?float
     {
         return $this->previousPrice;

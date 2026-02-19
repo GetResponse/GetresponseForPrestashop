@@ -35,19 +35,19 @@ class CartService
     private $configurationReadModel;
     /** @var TrackingCodeBufferService */
     private $service;
+    /** @var \Link */
+    private $link;
 
-    public function __construct(ConfigurationReadModel $configurationReadModel, TrackingCodeBufferService $service)
-    {
+    public function __construct(
+        ConfigurationReadModel $configurationReadModel,
+        TrackingCodeBufferService $service,
+        \Link $link
+    ) {
         $this->configurationReadModel = $configurationReadModel;
         $this->service = $service;
+        $this->link = $link;
     }
 
-    /**
-     * @param int $cartId
-     * @param int $shopId
-     *
-     * @return void
-     */
     public function addCartToBuffer(int $cartId, int $shopId): void
     {
         $configuration = $this->configurationReadModel->getConfigurationForShop($shopId);
@@ -56,7 +56,7 @@ class CartService
             return;
         }
 
-        $cartAdapter = new CartAdapter();
+        $cartAdapter = new CartAdapter($this->link);
         $cart = $cartAdapter->getCartById($cartId);
 
         if ($cart->isValuable()) {
@@ -64,11 +64,6 @@ class CartService
         }
     }
 
-    /**
-     * @param int $shopId
-     *
-     * @return Cart|null
-     */
     public function getCartFromBuffer(int $shopId): ?Cart
     {
         $configuration = $this->configurationReadModel->getConfigurationForShop($shopId);

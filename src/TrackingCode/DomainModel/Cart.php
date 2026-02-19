@@ -57,8 +57,6 @@ class Cart
      *     url: string,
      *     products: array<int, array<string, int|float|string>>
      * } $cart
-     *
-     * @return self
      */
     public static function createFromArray(array $cart): self
     {
@@ -97,33 +95,21 @@ class Cart
         ];
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return float
-     */
     public function getPrice(): float
     {
         return $this->price;
     }
 
-    /**
-     * @return string
-     */
     public function getCurrency(): string
     {
         return $this->currency;
     }
 
-    /**
-     * @return string
-     */
     public function getUrl(): string
     {
         return $this->url;
@@ -137,17 +123,11 @@ class Cart
         return $this->products;
     }
 
-    /**
-     * @return bool
-     */
     public function isValuable(): bool
     {
         return $this->id !== 0;
     }
 
-    /**
-     * @return string
-     */
     public function getHash(): string
     {
         return md5(serialize($this->toArray()));

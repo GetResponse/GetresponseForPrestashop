@@ -117,7 +117,7 @@ class Customer implements \JsonSerializable
             'email' => $this->email,
             'first_name' => $this->firstName,
             'last_name' => $this->lastName,
-            'accepts_marketing' => (bool) $this->marketingConsent,
+            'accepts_marketing' => $this->marketingConsent,
             'address' => null !== $this->address ? $this->address->jsonSerialize() : [],
             'tags' => [],
             'customFields' => $this->customFields,

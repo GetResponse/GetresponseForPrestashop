@@ -34,12 +34,18 @@ class Subscriber implements \JsonSerializable
     private $marketingConsent;
     /** @var string|null */
     private $name;
+    /** @var array<string, mixed> */
+    private $customFields;
 
-    public function __construct(string $email, bool $marketingConsent, ?string $name)
+    /**
+     * @param array<string, mixed> $customFields
+     */
+    public function __construct(string $email, bool $marketingConsent, ?string $name, array $customFields)
     {
         $this->email = $email;
         $this->marketingConsent = $marketingConsent;
         $this->name = $name;
+        $this->customFields = $customFields;
     }
 
     /**
@@ -51,7 +57,8 @@ class Subscriber implements \JsonSerializable
             'callback_type' => CallbackType::SUBSCRIBERS_UPDATE,
             'email' => $this->email,
             'name' => $this->name,
-            'accepts_marketing' => (bool) $this->marketingConsent,
+            'accepts_marketing' => $this->marketingConsent,
+            'customFields' => $this->customFields,
         ];
     }
 }

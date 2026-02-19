@@ -39,9 +39,6 @@ class RecommendationService
         $this->productAdapter = $productAdapter;
     }
 
-    /**
-     * @return RecommendedProduct|null
-     */
     public function createRecommendedProduct(RecommendedProductCommand $command): ?RecommendedProduct
     {
         $product = $this->productAdapter->getProductById($command->getProductId(), $command->getLanguageId());
@@ -68,8 +65,6 @@ class RecommendationService
 
     /**
      * @param string|null $pageId
-     *
-     * @return string|null
      */
     public function getPageType($pageId): ?string
     {

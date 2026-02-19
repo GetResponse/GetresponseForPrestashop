@@ -40,25 +40,16 @@ class UpsertProduct
         $this->languageId = $languageId;
     }
 
-    /**
-     * @return int
-     */
     public function getShopId(): int
     {
         return $this->shopId;
     }
 
-    /**
-     * @return int
-     */
     public function getProductId(): int
     {
         return $this->productId;
     }
 
-    /**
-     * @return int
-     */
     public function getLanguageId(): int
     {
         return $this->languageId;

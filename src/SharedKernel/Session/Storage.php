@@ -26,31 +26,16 @@ if (!defined('_PS_VERSION_')) {
 
 interface Storage
 {
-    /**
-     * @param string $keyName
-     *
-     * @return bool
-     */
     public function exists(string $keyName): bool;
 
     /**
-     * @param string $keyName
      * @param mixed $payload
-     *
-     * @return void
      */
     public function set(string $keyName, $payload): void;
 
-    /**
-     * @param string $keyName
-     *
-     * @return void
-     */
     public function remove(string $keyName): void;
 
     /**
-     * @param string $keyName
-     *
      * @return mixed
      */
     public function get(string $keyName);

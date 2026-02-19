@@ -20,8 +20,6 @@
 
 namespace GetResponse\Configuration\Domain;
 
-use InvalidArgumentException;
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -34,14 +32,12 @@ class LiveSynchronization
     private $type;
 
     /**
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function __construct(string $url, string $type)
     {
         if (false === in_array($type, ['Contacts', 'Products', 'FullEcommerce'])) {
-            throw new InvalidArgumentException(
-                sprintf('Not valid type `%s`', $type)
-            );
+            throw new \InvalidArgumentException(sprintf('Not valid type `%s`', $type));
         }
 
         $this->url = $url;

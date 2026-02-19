@@ -43,33 +43,21 @@ class Product
         $this->quantity = $quantity;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return float
-     */
     public function getPrice(): float
     {
         return $this->price;
     }
 
-    /**
-     * @return string
-     */
     public function getCurrency(): string
     {
         return $this->currency;
     }
 
-    /**
-     * @return int
-     */
     public function getQuantity(): int
     {
         return $this->quantity;
@@ -90,8 +78,6 @@ class Product
 
     /**
      * @param array<string, int|float|string> $product
-     *
-     * @return self
      */
     public static function createFromArray(array $product): self
     {

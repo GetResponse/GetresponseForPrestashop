@@ -26,31 +26,27 @@ if (!defined('_PS_VERSION_')) {
 
 class CookieStorage implements Storage
 {
-    /** @var \Context */
-    private $context;
+    /** @var \Cookie */
+    private $cookie;
 
-    public function __construct()
+    public function __construct(\Cookie $cookie)
     {
-        $context = \Context::getContext();
-        if ($context === null || !isset($context->cookie)) {
-            throw new \RuntimeException('Context or cookie is null');
-        }
-        $this->context = $context;
+        $this->cookie = $cookie;
     }
 
     public function exists(string $keyName): bool
     {
-        return (bool) $this->context->cookie->__isset($keyName);
+        return (bool) $this->cookie->__isset($keyName);
     }
 
     public function set(string $keyName, $payload): void
     {
-        $this->context->cookie->__set($keyName, base64_encode((string) $payload));
+        $this->cookie->__set($keyName, base64_encode((string) $payload));
     }
 
     public function remove(string $keyName): void
     {
-        $this->context->cookie->__unset($keyName);
+        $this->cookie->__unset($keyName);
     }
 
     public function get(string $keyName)
@@ -59,6 +55,6 @@ class CookieStorage implements Storage
             return null;
         }
 
-        return base64_decode($this->context->cookie->__get($keyName));
+        return base64_decode($this->cookie->__get($keyName));
     }
 }

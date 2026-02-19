@@ -80,41 +80,26 @@ class Product implements \JsonSerializable
         $this->status = $status;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return string
-     */
     public function getUrl(): string
     {
         return $this->url;
     }
 
-    /**
-     * @return string
-     */
     public function getVendor(): ?string
     {
         return $this->vendor;
@@ -136,9 +121,6 @@ class Product implements \JsonSerializable
         return $this->variants;
     }
 
-    /**
-     * @return string
-     */
     public function getCreatedAt(): string
     {
         return $this->createdAt;
@@ -152,9 +134,6 @@ class Product implements \JsonSerializable
         return $this->updatedAt;
     }
 
-    /**
-     * @return string
-     */
     public function getStatus(): string
     {
         return $this->status;

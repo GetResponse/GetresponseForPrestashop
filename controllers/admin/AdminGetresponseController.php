@@ -27,9 +27,8 @@ class AdminGetresponseController extends ModuleAdminController
     {
         parent::__construct();
 
-        $context = Context::getContext();
-        if ($context !== null) {
-            $link = $context->link->getAdminLink('AdminModules');
+        if ($this->context !== null && isset($this->context->link)) {
+            $link = $this->context->link->getAdminLink('AdminModules');
             $link .= '&configure=grprestashop';
             Tools::redirectAdmin($link);
         }

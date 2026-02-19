@@ -38,12 +38,17 @@ class CartService
     /** @var ConfigurationReadModel */
     private $configurationReadModel;
 
+    /** @var \Link */
+    private $link;
+
     public function __construct(
         MessageSenderService $messageSenderService,
-        ConfigurationReadModel $configurationReadModel
+        ConfigurationReadModel $configurationReadModel,
+        \Link $link
     ) {
         $this->messageSenderService = $messageSenderService;
         $this->configurationReadModel = $configurationReadModel;
+        $this->link = $link;
     }
 
     /**
@@ -71,7 +76,7 @@ class CartService
             $visitorUuid = $_COOKIE['gaVisitorUuid'];
         }
 
-        $cartAdapter = new CartAdapter();
+        $cartAdapter = new CartAdapter($this->link);
         $cart = $cartAdapter->getCartById($command->getCartId(), $visitorUuid);
 
         if ($cart->isValuable()) {

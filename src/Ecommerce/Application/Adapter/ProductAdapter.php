@@ -90,7 +90,7 @@ class ProductAdapter
                     (string) $this->getShortDescription($product, $languageId),
                     (string) $this->getDescription($product, $languageId),
                     $images,
-                    $product->active === '1' ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
+                    $product->active ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
                 );
 
                 $variants[] = $variant;
@@ -112,7 +112,7 @@ class ProductAdapter
                 (string) $this->getShortDescription($product, $languageId),
                 (string) $this->getDescription($product, $languageId),
                 $images,
-                $product->active === '1' ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
+                $product->active ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
             );
         }
 
@@ -128,7 +128,7 @@ class ProductAdapter
             $variants,
             $this->getDateWithTimeZone($product->date_add),
             $this->getDateWithTimeZone($product->date_upd),
-            $product->active === '1' ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
+            $product->active ? self::PRODUCT_STATUS_PUBLISH : self::PRODUCT_STATUS_DRAFT
         );
     }
 
@@ -154,13 +154,7 @@ class ProductAdapter
         return $uniqueCombinations;
     }
 
-    /**
-     * @param \Product $product
-     * @param int $languageId
-     *
-     * @return mixed|null
-     */
-    private function getDescription(\Product $product, int $languageId)
+    private function getDescription(\Product $product, int $languageId): ?string
     {
         $description = $product->description[$languageId];
 
@@ -171,13 +165,7 @@ class ProductAdapter
         return $this->sanitizeDescription($description, self::MAX_DESC_LENGTH);
     }
 
-    /**
-     * @param \Product $product
-     * @param int $languageId
-     *
-     * @return mixed|null
-     */
-    private function getShortDescription(\Product $product, int $languageId)
+    private function getShortDescription(\Product $product, int $languageId): ?string
     {
         $description = $product->description_short[$languageId];
 
@@ -188,19 +176,9 @@ class ProductAdapter
         return $this->sanitizeDescription($description, self::MAX_DESC_LENGTH);
     }
 
-    /**
-     * @param \Product $product
-     * @param int $idProductAttribute
-     *
-     * @return int
-     */
     private function getProductQuantity(\Product $product, int $idProductAttribute): int
     {
         if (empty($product->getWsStockAvailables())) {
-            return 0;
-        }
-
-        if (!is_array($product->getWsStockAvailables())) {
             return 0;
         }
 
@@ -245,12 +223,6 @@ class ProductAdapter
         return self::SKU_PREFIX . (int) $product->id;
     }
 
-    /**
-     * @param \Product $product
-     * @param int $idProductAttribute
-     *
-     * @return int|null
-     */
     private function getStockAvailableId(\Product $product, int $idProductAttribute): ?int
     {
         foreach ($product->getWsStockAvailables() as $stockAvailable) {

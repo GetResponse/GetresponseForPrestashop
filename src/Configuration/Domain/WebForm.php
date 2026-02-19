@@ -21,7 +21,6 @@
 namespace GetResponse\Configuration\Domain;
 
 use GetResponse\Configuration\SharedKernel\WebFormPosition;
-use InvalidArgumentException;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -37,7 +36,7 @@ class WebForm
     private $position;
 
     /**
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function __construct(string $id, string $url, string $position)
     {
@@ -51,9 +50,7 @@ class WebForm
         ];
 
         if (false === in_array($position, $availablePositions)) {
-            throw new InvalidArgumentException(
-                sprintf('Not valid position `%s`', $position)
-            );
+            throw new \InvalidArgumentException(sprintf('Not valid position `%s`', $position));
         }
 
         $this->id = $id;

@@ -34,6 +34,14 @@ class CartAdapter
 {
     use DateTimeNormalizer;
 
+    /** @var \Link */
+    private $link;
+
+    public function __construct(\Link $link)
+    {
+        $this->link = $link;
+    }
+
     /**
      * @param int $cartId
      * @param string|null $visitorUuid
@@ -69,7 +77,7 @@ class CartAdapter
             );
         }
 
-        $cartRecoveryUrl = CartRecoveryHelper::getUrl((int) $prestashopCart->id);
+        $cartRecoveryUrl = CartRecoveryHelper::getUrl((int) $prestashopCart->id, $this->link);
 
         return new Cart(
             (int) $prestashopCart->id,

@@ -27,9 +27,6 @@ if (!defined('_PS_VERSION_')) {
 interface EventEmitter
 {
     /**
-     * @param string $url
-     * @param \JsonSerializable $object
-     *
      * @return array<string, mixed>
      *
      * @throws EventEmitterException

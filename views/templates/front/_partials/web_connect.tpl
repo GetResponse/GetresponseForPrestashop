@@ -17,8 +17,11 @@
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  *}
 
+{**
+ * The following JavaScript snippet is dynamically generated per user and fetched from our infrastructure.
+ * Escaping is not possible.
+ *}
 <script type="text/javascript">
-
 {$web_connect|unescape:'all' nofilter}
 
 {if $user_email}

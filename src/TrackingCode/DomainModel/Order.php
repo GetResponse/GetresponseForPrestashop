@@ -49,33 +49,21 @@ class Order
         $this->products = $products;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return int
-     */
     public function getCartId(): int
     {
         return $this->cartId;
     }
 
-    /**
-     * @return float
-     */
     public function getPrice(): float
     {
         return $this->price;
     }
 
-    /**
-     * @return string
-     */
     public function getCurrency(): string
     {
         return $this->currency;
@@ -116,8 +104,6 @@ class Order
      *     currency: string,
      *     products: array<int, array<string, int|float|string>>
      * } $order
-     *
-     * @return self
      */
     public static function createFromArray(array $order): self
     {
@@ -136,9 +122,6 @@ class Order
         );
     }
 
-    /**
-     * @return bool
-     */
     public function isValuable(): bool
     {
         return $this->id !== 0;

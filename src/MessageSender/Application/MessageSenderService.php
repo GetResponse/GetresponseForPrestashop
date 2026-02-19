@@ -38,11 +38,6 @@ class MessageSenderService
     }
 
     /**
-     * @param string $url
-     * @param \JsonSerializable $object
-     *
-     * @return void
-     *
      * @throws MessageSenderException
      */
     public function send(string $url, \JsonSerializable $object): void

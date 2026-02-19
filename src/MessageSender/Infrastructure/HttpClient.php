@@ -43,10 +43,6 @@ class HttpClient implements EventEmitter
     }
 
     /**
-     * @param string $url
-     * @param \JsonSerializable $object
-     * @param string $method
-     *
      * @return array<string, mixed>
      *
      * @throws EventEmitterException
@@ -107,11 +103,6 @@ class HttpClient implements EventEmitter
         return $this->sendRequest($url, $object, self::POST);
     }
 
-    /**
-     * @param \JsonSerializable $object
-     *
-     * @return string
-     */
     private function createHmac(\JsonSerializable $object): string
     {
         $json = json_encode($object->jsonSerialize());

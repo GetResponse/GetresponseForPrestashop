@@ -47,10 +47,6 @@ class ProductService
     }
 
     /**
-     * @param UpsertProduct $command
-     *
-     * @return void
-     *
      * @throws MessageSenderException
      */
     public function upsertProduct(UpsertProduct $command): void

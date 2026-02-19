@@ -22,6 +22,8 @@ namespace GetResponse\Configuration\Infrastructure;
 
 use GetResponse\Configuration\Domain\Configuration;
 use GetResponse\Configuration\Domain\ConfigurationRepository as Repository;
+use GetResponse\Configuration\Domain\LiveSynchronization;
+use GetResponse\Configuration\Domain\WebForm;
 use GetResponse\Configuration\ReadModel\ConfigurationDto;
 
 if (!defined('_PS_VERSION_')) {
@@ -43,7 +45,7 @@ class ConfigurationRepository implements Repository
     /**
      * @param Configuration $configuration
      */
-    public function upsertConfiguration($configuration)
+    public function upsertConfiguration(Configuration $configuration): void
     {
         \Shop::setContext(\Shop::CONTEXT_SHOP, $configuration->getShopId());
 
@@ -58,7 +60,7 @@ class ConfigurationRepository implements Repository
         $this->updateConfig(self::GR_SHOP_ID, $configuration->getGetresponseShopId());
     }
 
-    public function deleteAllConfigurations()
+    public function deleteAllConfigurations(): void
     {
         \Configuration::deleteByName(self::FB_PIXEL_SNIPPET);
         \Configuration::deleteByName(self::FB_ADS_PIXEL_SNIPPET);
@@ -79,7 +81,11 @@ class ConfigurationRepository implements Repository
      */
     private function updateConfig(string $key, $value): void
     {
-        \Configuration::updateValue($key, is_object($value) ? (string) $value : $value);
+        if ($value instanceof WebForm || $value instanceof LiveSynchronization) {
+            $value = (string) $value;
+        }
+
+        \Configuration::updateValue($key, $value);
     }
 
     /**

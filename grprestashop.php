@@ -42,7 +42,7 @@ class GrPrestashop extends Module
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '2.0.8';
+        $this->version = '2.0.9';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
@@ -175,10 +175,14 @@ class GrPrestashop extends Module
             $getresponseShopId = $configuration->getGetresponseShopId();
 
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                $sessionStorage = new \GetResponse\SharedKernel\Session\StorageFactory();
+                $sessionStorage = new \GetResponse\SharedKernel\Session\StorageFactory($this->context);
                 $storage = $sessionStorage->create();
                 $session = new GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($storage);
-                $cartService = new GetResponse\TrackingCode\Application\CartService($configurationReadModel, $session);
+                $cartService = new GetResponse\TrackingCode\Application\CartService(
+                    $configurationReadModel,
+                    $session,
+                    $this->context->link
+                );
 
                 $cart = $cartService->getCartFromBuffer($currentShopId);
 
@@ -230,12 +234,11 @@ class GrPrestashop extends Module
             new GetResponse\Configuration\Infrastructure\ConfigurationRepository()
         );
 
-        $context = Context::getContext();
         $shopContext = Shop::getContext();
         if ($shopContext === Shop::CONTEXT_SHOP) {
-            $contextId = (int) $context->shop->getContextShopID();
+            $contextId = (int) $this->context->shop->getContextShopID();
         } elseif ($shopContext === Shop::CONTEXT_GROUP) {
-            $contextId = (int) $context->shop->getContextShopGroupID();
+            $contextId = (int) $this->context->shop->getContextShopGroupID();
         } else {
             $contextId = null;
         }
@@ -296,7 +299,7 @@ class GrPrestashop extends Module
     public function installTab()
     {
         $tab = new Tab();
-        $tab->active = 1;
+        $tab->active = true;
         $tab->class_name = 'AdminGetresponse';
         $tab->name = [];
         $tab->id_parent = (int) Tab::getIdFromClassName('AdminAdmin');
@@ -376,7 +379,13 @@ class GrPrestashop extends Module
                 );
 
                 $contactService->upsertSubscriber(
-                    new GetResponse\Contact\Application\Command\UpsertSubscriber($email, true, $shop->id, $name)
+                    new GetResponse\Contact\Application\Command\UpsertSubscriber(
+                        $email,
+                        true,
+                        $shop->id,
+                        $shop->getAssociatedLanguage()->iso_code,
+                        $name
+                    )
                 );
             }
         } catch (\Throwable $e) {
@@ -419,11 +428,9 @@ class GrPrestashop extends Module
         }
 
         try {
-            /** @var Cart $cart */
             $cart = $params['cart'];
 
-            // sometimes it happens
-            if (null === $cart || null === $cart->id) {
+            if (false === ($cart instanceof Cart) || null === $cart->id) {
                 return;
             }
 
@@ -437,15 +444,17 @@ class GrPrestashop extends Module
                 new GetResponse\MessageSender\Application\MessageSenderService(
                     new GetResponse\MessageSender\Infrastructure\HttpClient($shop->getBaseURL())
                 ),
-                $configurationReadModel
+                $configurationReadModel,
+                $this->context->link
             );
             $cartService->upsertCart(new GetResponse\Ecommerce\Application\Command\UpsertCart((int) $cart->id, $shop->id));
 
-            $sessionStorage = new \GetResponse\SharedKernel\Session\StorageFactory();
+            $sessionStorage = new \GetResponse\SharedKernel\Session\StorageFactory($this->context);
             $storage = $sessionStorage->create();
             $trackingCodeCartService = new GetResponse\TrackingCode\Application\CartService(
                 $configurationReadModel,
-                new GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($storage)
+                new GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($storage),
+                $this->context->link
             );
             $trackingCodeCartService->addCartToBuffer($cart->id, $shop->id);
         } catch (\Throwable $e) {
@@ -508,10 +517,9 @@ class GrPrestashop extends Module
     public function hookActionOrderStatusUpdate($params)
     {
         try {
-            /** @var Order $order */
             $order = isset($params['order']) ? $params['order'] : null;
 
-            if (null === $order) {
+            if (false === ($order instanceof Order)) {
                 return;
             }
 
@@ -539,10 +547,9 @@ class GrPrestashop extends Module
     public function hookActionOrderEdited($params)
     {
         try {
-            /** @var Order $order */
             $order = $params['order'];
 
-            if (null === $order) {
+            if (false === ($order instanceof Order)) {
                 return;
             }
 
@@ -557,7 +564,7 @@ class GrPrestashop extends Module
      */
     private function logGetResponseError($message)
     {
-        PrestaShopLoggerCore::addLog($message, 2, null, 'GetResponse', 'GetResponse');
+        PrestaShopLoggerCore::addLog($message, 2, null, 'GetResponse');
     }
 
     /**
@@ -663,7 +670,7 @@ class GrPrestashop extends Module
             new GetResponse\Ecommerce\Application\Command\UpsertOrder($order->id, $order->id_shop)
         );
 
-        $sessionStorage = new \GetResponse\SharedKernel\Session\StorageFactory();
+        $sessionStorage = new \GetResponse\SharedKernel\Session\StorageFactory($this->context);
         $storage = $sessionStorage->create();
 
         $trackingCodeOrderService = new GetResponse\TrackingCode\Application\OrderService(
@@ -692,7 +699,7 @@ class GrPrestashop extends Module
         if ($pageType === 'product') {
             $command = new GetResponse\Ecommerce\Application\Command\RecommendedProductCommand(
                 Tools::getValue('id_product'),
-                Configuration::get('PS_LANG_DEFAULT')
+                (int) Configuration::get('PS_LANG_DEFAULT')
             );
             $product = $service->createRecommendedProduct($command);
             $pageData = $product !== null ? $product->toArray() : [];

@@ -37,17 +37,11 @@ class Image implements \JsonSerializable
         $this->position = $position;
     }
 
-    /**
-     * @return string
-     */
     public function getSrc(): string
     {
         return $this->src;
     }
 
-    /**
-     * @return int
-     */
     public function getPosition(): int
     {
         return $this->position;

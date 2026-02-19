@@ -28,37 +28,40 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class StorageFactory
 {
+    /** @var \Context */
+    private $context;
+
+    /**
+     * @param \Context $context
+     */
+    public function __construct(\Context $context)
+    {
+        $this->context = $context;
+    }
+
     /**
      * @return SessionStorage|CookieStorage|null
      */
     public function create()
     {
         try {
-            $context = \Context::getContext();
+            $context = $this->context;
 
-            if ($context === null) {
-                throw new \RuntimeException('Context is null');
-            }
-
-            if (isset($context->session) && $context->session instanceof SessionInterface) {
-                return new SessionStorage($context->session);
+            $session = $context->session ?? null;
+            if ($session instanceof SessionInterface) {
+                return new SessionStorage($session);
             }
 
             if (isset($context->cookie)) {
-                return new CookieStorage();
+                return new CookieStorage($context->cookie);
             }
-        } catch (\RuntimeException $e) {
+        } catch (\Throwable $e) {
             $this->logGetResponseError($e->getMessage());
         }
 
         return null;
     }
 
-    /**
-     * @param string $message
-     *
-     * @return void
-     */
     private function logGetResponseError(string $message): void
     {
         \PrestaShopLogger::addLog($message, 2, null, 'GetResponse');

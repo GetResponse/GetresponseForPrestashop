@@ -30,18 +30,23 @@ if (!defined('_PS_VERSION_')) {
 
 class CartAdapter
 {
+    /** @var \Link */
+    private $link;
+
+    public function __construct(\Link $link)
+    {
+        $this->link = $link;
+    }
+
     /**
-     * @param int $cartId
-     *
-     * @return Cart
-     *
      * @throws \Exception
      */
     public function getCartById(int $cartId): Cart
     {
         $prestashopCart = new \Cart($cartId);
         $currency = new \Currency((int) $prestashopCart->id_currency);
-        $cartRecoveryUrl = CartRecoveryHelper::getUrl((int) $prestashopCart->id);
+
+        $cartRecoveryUrl = CartRecoveryHelper::getUrl((int) $prestashopCart->id, $this->link);
 
         $products = [];
 

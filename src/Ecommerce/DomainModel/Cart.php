@@ -86,25 +86,16 @@ class Cart implements \JsonSerializable
         $this->updatedAt = $updatedAt;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return Customer
-     */
     public function getCustomer(): Customer
     {
         return $this->customer;
     }
 
-    /**
-     * @return string
-     */
     public function getVisitorUuid(): string
     {
         return $this->visitorUuid ?? '';
@@ -118,49 +109,31 @@ class Cart implements \JsonSerializable
         return $this->lines;
     }
 
-    /**
-     * @return float
-     */
     public function getTotalPrice(): float
     {
         return $this->totalPrice;
     }
 
-    /**
-     * @return float
-     */
     public function getTotalTaxPrice(): float
     {
         return $this->totalTaxPrice;
     }
 
-    /**
-     * @return string
-     */
     public function getCurrency(): string
     {
         return $this->currency;
     }
 
-    /**
-     * @return string
-     */
     public function getUrl(): string
     {
         return $this->url;
     }
 
-    /**
-     * @return string
-     */
     public function getCreatedAt(): string
     {
         return $this->createdAt;
     }
 
-    /**
-     * @return string
-     */
     public function getUpdatedAt(): string
     {
         return $this->updatedAt;
@@ -192,25 +165,16 @@ class Cart implements \JsonSerializable
         ];
     }
 
-    /**
-     * @return bool
-     */
     public function isValuable(): bool
     {
         return $this->id !== 0 && ($this->hasValidCustomerEmail() || $this->hasValidVisitorUuid());
     }
 
-    /**
-     * @return bool
-     */
     private function hasValidCustomerEmail(): bool
     {
         return $this->customer->getEmail() !== '';
     }
 
-    /**
-     * @return bool
-     */
     private function hasValidVisitorUuid(): bool
     {
         return $this->visitorUuid !== null && $this->visitorUuid !== '';

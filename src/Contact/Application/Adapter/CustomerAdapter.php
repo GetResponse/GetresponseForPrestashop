@@ -23,7 +23,6 @@ namespace GetResponse\Contact\Application\Adapter;
 use Customer as PrestashopCustomer;
 use GetResponse\Contact\DomainModel\Customer;
 use GetResponse\Ecommerce\DomainModel\Address;
-use Language;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -58,7 +57,7 @@ class CustomerAdapter
                 'birthday' => (string) $customer->birthday,
                 'id_gender' => (int) $customer->id_gender,
                 'id_default_group' => (int) $customer->id_default_group,
-                'language' => (string) (new Language($customer->id_lang))->iso_code,
+                'language' => (string) (new \Language($customer->id_lang))->iso_code,
             ]
         );
     }
