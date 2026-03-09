@@ -23,7 +23,7 @@ namespace GetResponse\TrackingCode\Application;
 use GetResponse\Configuration\ReadModel\ConfigurationReadModel;
 use GetResponse\TrackingCode\Application\Adapter\OrderAdapter;
 use GetResponse\TrackingCode\DomainModel\Order;
-use GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService;
+use Order as PrestashopOrder;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -33,32 +33,13 @@ class OrderService
 {
     /** @var ConfigurationReadModel */
     private $configurationReadModel;
-    /** @var TrackingCodeBufferService */
-    private $service;
 
-    public function __construct(ConfigurationReadModel $configurationReadModel, TrackingCodeBufferService $service)
+    public function __construct(ConfigurationReadModel $configurationReadModel)
     {
         $this->configurationReadModel = $configurationReadModel;
-        $this->service = $service;
     }
 
-    public function addOrderToBuffer(int $orderId, int $shopId): void
-    {
-        $configuration = $this->configurationReadModel->getConfigurationForShop($shopId);
-
-        if (false === $configuration->isGetResponseWebTrackingActive()) {
-            return;
-        }
-
-        $orderAdapter = new OrderAdapter();
-        $order = $orderAdapter->getOrderById($orderId);
-
-        if ($order->isValuable()) {
-            $this->service->addOrderToBuffer($order);
-        }
-    }
-
-    public function getOrderFromBuffer(int $shopId): ?Order
+    public function getOrderForWebconnect(PrestashopOrder $order, int $shopId): ?Order
     {
         $configuration = $this->configurationReadModel->getConfigurationForShop($shopId);
 
@@ -66,6 +47,13 @@ class OrderService
             return null;
         }
 
-        return $this->service->getOrderFromBuffer();
+        $orderAdapter = new OrderAdapter();
+        $order = $orderAdapter->getOrderByPrestashopOrder($order);
+
+        if (!$order->isValuable()) {
+            return null;
+        }
+
+        return $order;
     }
 }

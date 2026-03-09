@@ -20,3 +20,5 @@
 global $_MODULE;
 $_MODULE = [];
 $_MODULE['<{grprestashop}prestashop>cartrecovery_8667e2738fda398dc435804735e06344'] = 'Nie udało się odtworzyć koszyka.';
+$_MODULE['<{grprestashop}prestashop>grprestashop_876f23178c29dc2552c0b48bf23cd9bd'] = 'Czy na pewno chcesz odinstalować?';
+$_MODULE['<{grprestashop}prestashop>grprestashop_0bf6a723854dc87ca1149a51e0423dcf'] = 'Nie znaleziono biblioteki cURL';

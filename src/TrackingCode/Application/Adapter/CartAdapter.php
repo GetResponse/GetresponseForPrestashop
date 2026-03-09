@@ -20,6 +20,7 @@
 
 namespace GetResponse\TrackingCode\Application\Adapter;
 
+use Cart as PrestashopCart;
 use GetResponse\SharedKernel\CartRecoveryHelper;
 use GetResponse\TrackingCode\DomainModel\Cart;
 use GetResponse\TrackingCode\DomainModel\Product;
@@ -38,14 +39,9 @@ class CartAdapter
         $this->link = $link;
     }
 
-    /**
-     * @throws \Exception
-     */
-    public function getCartById(int $cartId): Cart
+    public function getCartByPrestashopCart(PrestashopCart $prestashopCart): Cart
     {
-        $prestashopCart = new \Cart($cartId);
         $currency = new \Currency((int) $prestashopCart->id_currency);
-
         $cartRecoveryUrl = CartRecoveryHelper::getUrl((int) $prestashopCart->id, $this->link);
 
         $products = [];

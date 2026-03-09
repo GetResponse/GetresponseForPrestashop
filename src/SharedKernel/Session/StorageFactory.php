@@ -24,8 +24,6 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-
 class StorageFactory
 {
     /** @var \Context */
@@ -40,21 +38,18 @@ class StorageFactory
     }
 
     /**
-     * @return SessionStorage|CookieStorage|null
+     * @return CookieStorage|null
      */
     public function create()
     {
         try {
             $context = $this->context;
 
-            $session = $context->session ?? null;
-            if ($session instanceof SessionInterface) {
-                return new SessionStorage($session);
+            if (null === $context->cookie) {
+                return null;
             }
 
-            if (isset($context->cookie)) {
-                return new CookieStorage($context->cookie);
-            }
+            return new CookieStorage($context->cookie);
         } catch (\Throwable $e) {
             $this->logGetResponseError($e->getMessage());
         }

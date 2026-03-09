@@ -42,12 +42,12 @@ class GrPrestashop extends Module
     {
         $this->name = 'grprestashop';
         $this->tab = 'emailing';
-        $this->version = '2.0.9';
+        $this->version = '2.0.10';
         $this->author = 'GetResponse';
         $this->need_instance = 0;
         $this->module_key = '311ef191c3135b237511d18c4bc27369';
         $this->ps_versions_compliancy = ['min' => '1.7', 'max' => '9.1'];
-        $this->displayName = $this->l('GetResponse');
+        $this->displayName = 'GetResponse';
         $this->description = 'Add your Prestashop contacts to GetResponse.';
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
         $this->bootstrap = true;
@@ -175,25 +175,30 @@ class GrPrestashop extends Module
             $getresponseShopId = $configuration->getGetresponseShopId();
 
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                $sessionStorage = new \GetResponse\SharedKernel\Session\StorageFactory($this->context);
-                $storage = $sessionStorage->create();
-                $session = new GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($storage);
-                $cartService = new GetResponse\TrackingCode\Application\CartService(
-                    $configurationReadModel,
-                    $session,
-                    $this->context->link
-                );
+                /** @var Cart $prestashopCart */
+                $prestashopCart = $this->context->cart;
 
-                $cart = $cartService->getCartFromBuffer($currentShopId);
-
-                if (null !== $cart) {
-                    $cartPresenter = new GetResponse\TrackingCode\Presenter\CartPresenter($cart);
-                    $this->smarty->assign('buffered_cart', json_encode($cartPresenter->present()));
+                if (null !== $prestashopCart) {
+                    $sessionStorage = new \GetResponse\SharedKernel\Session\StorageFactory($this->context);
+                    $storage = $sessionStorage->create();
+                    $session = new GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($storage);
+                    $cartService = new GetResponse\TrackingCode\Application\CartService(
+                        $configurationReadModel,
+                        $session,
+                        $this->context->link
+                    );
+                    $cart = $cartService->getCartForWebconnect($prestashopCart, $currentShopId);
+                    if (null !== $cart) {
+                        $cartPresenter = new GetResponse\TrackingCode\Presenter\CartPresenter($cart);
+                        $this->smarty->assign('buffered_cart', json_encode($cartPresenter->present()));
+                        $cartService->setLastCartHash($cart->getHash());
+                    }
                 }
 
-                if (isset($this->context->controller->php_self) && $this->context->controller->php_self === 'order-confirmation') {
-                    $orderService = new GetResponse\TrackingCode\Application\OrderService($configurationReadModel, $session);
-                    $order = $orderService->getOrderFromBuffer($currentShopId);
+                $prestashopOrder = $this->getPrestashopOrder();
+                if (null !== $prestashopOrder) {
+                    $orderService = new GetResponse\TrackingCode\Application\OrderService($configurationReadModel);
+                    $order = $orderService->getOrderForWebconnect($prestashopOrder, $currentShopId);
 
                     if (null !== $order) {
                         $orderPresenter = new GetResponse\TrackingCode\Presenter\OrderPresenter($order);
@@ -448,15 +453,6 @@ class GrPrestashop extends Module
                 $this->context->link
             );
             $cartService->upsertCart(new GetResponse\Ecommerce\Application\Command\UpsertCart((int) $cart->id, $shop->id));
-
-            $sessionStorage = new \GetResponse\SharedKernel\Session\StorageFactory($this->context);
-            $storage = $sessionStorage->create();
-            $trackingCodeCartService = new GetResponse\TrackingCode\Application\CartService(
-                $configurationReadModel,
-                new GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($storage),
-                $this->context->link
-            );
-            $trackingCodeCartService->addCartToBuffer($cart->id, $shop->id);
         } catch (\Throwable $e) {
             $this->logGetResponseError($e->getMessage());
         }
@@ -557,6 +553,24 @@ class GrPrestashop extends Module
         } catch (\Throwable $e) {
             $this->logGetResponseError($e->getMessage());
         }
+    }
+
+    private function getPrestashopOrder(): ?Order
+    {
+        if (!isset($this->context->controller->php_self) || $this->context->controller->php_self !== 'order-confirmation') {
+            return null;
+        }
+
+        $idCart = (int) Tools::getValue('id_cart');
+        $idOrder = Order::getIdByCartId($idCart);
+
+        if (false === $idOrder) {
+            return null;
+        }
+
+        $order = new Order($idOrder);
+
+        return $order->secure_key === $this->context->customer->secure_key ? $order : null;
     }
 
     /**
@@ -669,16 +683,6 @@ class GrPrestashop extends Module
         $orderService->upsertOrder(
             new GetResponse\Ecommerce\Application\Command\UpsertOrder($order->id, $order->id_shop)
         );
-
-        $sessionStorage = new \GetResponse\SharedKernel\Session\StorageFactory($this->context);
-        $storage = $sessionStorage->create();
-
-        $trackingCodeOrderService = new GetResponse\TrackingCode\Application\OrderService(
-            $configurationReadModel,
-            new GetResponse\TrackingCode\DomainModel\TrackingCodeBufferService($storage)
-        );
-
-        $trackingCodeOrderService->addOrderToBuffer($order->id, $order->id_shop);
     }
 
     private function assignRecommendationObject($recommendationSnippet)

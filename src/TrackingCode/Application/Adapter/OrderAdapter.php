@@ -20,7 +20,7 @@
 
 namespace GetResponse\TrackingCode\Application\Adapter;
 
-use GetResponse\TrackingCode\DomainModel\Order;
+use GetResponse\TrackingCode\DomainModel\Order as GrOrder;
 use GetResponse\TrackingCode\DomainModel\Product;
 
 if (!defined('_PS_VERSION_')) {
@@ -29,13 +29,8 @@ if (!defined('_PS_VERSION_')) {
 
 class OrderAdapter
 {
-    /**
-     * @throws \PrestaShopDatabaseException
-     * @throws \PrestaShopException
-     */
-    public function getOrderById(int $orderId): Order
+    public function getOrderByPrestashopOrder(\Order $order): GrOrder
     {
-        $order = new \Order($orderId);
         $currency = new \Currency($order->id_currency);
 
         $products = [];
@@ -49,7 +44,7 @@ class OrderAdapter
             );
         }
 
-        return new Order(
+        return new GrOrder(
             (int) $order->id,
             $order->id_cart,
             $order->total_paid_tax_incl,

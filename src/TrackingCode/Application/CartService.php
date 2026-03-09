@@ -20,6 +20,7 @@
 
 namespace GetResponse\TrackingCode\Application;
 
+use Cart as PrestashopCart;
 use GetResponse\Configuration\ReadModel\ConfigurationReadModel;
 use GetResponse\TrackingCode\Application\Adapter\CartAdapter;
 use GetResponse\TrackingCode\DomainModel\Cart;
@@ -48,23 +49,12 @@ class CartService
         $this->link = $link;
     }
 
-    public function addCartToBuffer(int $cartId, int $shopId): void
+    public function setLastCartHash(string $cartHash): void
     {
-        $configuration = $this->configurationReadModel->getConfigurationForShop($shopId);
-
-        if (false === $configuration->isGetResponseWebTrackingActive()) {
-            return;
-        }
-
-        $cartAdapter = new CartAdapter($this->link);
-        $cart = $cartAdapter->getCartById($cartId);
-
-        if ($cart->isValuable()) {
-            $this->service->addCartToBuffer($cart);
-        }
+        $this->service->setLastCartHash($cartHash);
     }
 
-    public function getCartFromBuffer(int $shopId): ?Cart
+    public function getCartForWebconnect(PrestashopCart $prestashopCart, int $shopId): ?Cart
     {
         $configuration = $this->configurationReadModel->getConfigurationForShop($shopId);
 
@@ -72,6 +62,13 @@ class CartService
             return null;
         }
 
-        return $this->service->getCartFromBuffer();
+        $cartAdapter = new CartAdapter($this->link);
+        $cart = $cartAdapter->getCartByPrestashopCart($prestashopCart);
+
+        if (!$cart->isValuable() || $cart->getHash() === $this->service->getLastCartHash()) {
+            return null;
+        }
+
+        return $cart;
     }
 }

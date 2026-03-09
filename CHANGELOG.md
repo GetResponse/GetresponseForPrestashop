@@ -1,4 +1,9 @@
 # Changelog
+## [2.0.10] - 2026-03-03
+### Fix
+- Fixed missing translations
+- Replaced the WebConnect cookie/session cart event data source with a native Prestashop cart
+- Fixed the cookie limit exceeding issue for carts with many items.
 
 ## [2.0.9] - 2026-02-02
 ### Fix
