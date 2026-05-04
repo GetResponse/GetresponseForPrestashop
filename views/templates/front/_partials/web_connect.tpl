@@ -16,13 +16,8 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  *}
-
-{**
- * The following JavaScript snippet is dynamically generated per user and fetched from our infrastructure.
- * Escaping is not possible.
- *}
 <script type="text/javascript">
-{$web_connect|unescape:'all' nofilter}
+{$web_connect|unescape:'all' nofilter} {* nofilter is on purpose, this variable is safely retrieved from the PHP file, it's not user's input *}
 
 {if $user_email}
     GrTracking('setUserId', '{$user_email|escape:'htmlall':'UTF-8'}');

@@ -33,7 +33,7 @@ class UpsertSubscriber
     /** @var bool */
     private $marketingConsent;
     /** @var string */
-    private $shopLanguage;
+    private $language;
     /** @var string|null */
     private $name;
 
@@ -41,13 +41,13 @@ class UpsertSubscriber
         string $email,
         bool $marketingConsent,
         int $shopId,
-        string $shopLanguage,
+        string $language,
         ?string $name
     ) {
         $this->email = $email;
         $this->marketingConsent = $marketingConsent;
         $this->shopId = $shopId;
-        $this->shopLanguage = $shopLanguage;
+        $this->language = $language;
         $this->name = $name;
     }
 
@@ -66,9 +66,9 @@ class UpsertSubscriber
         return $this->shopId;
     }
 
-    public function getShopLanguage(): string
+    public function getLanguage(): string
     {
-        return $this->shopLanguage;
+        return $this->language;
     }
 
     public function getName(): ?string

@@ -96,7 +96,7 @@ class ContactService
                 $command->isMarketingConsent(),
                 $command->getName(),
                 [
-                    'language' => $command->getShopLanguage(),
+                    'language' => $command->getLanguage(),
                 ]
             )
         );

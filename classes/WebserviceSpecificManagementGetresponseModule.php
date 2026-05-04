@@ -203,7 +203,7 @@ class WebserviceSpecificManagementGetresponseModule implements WebserviceSpecifi
 
         $payload = json_encode(
             [
-                'plugin_version' => '2.0.10',
+                'plugin_version' => '2.0.11',
                 'prestashop_version' => _PS_VERSION_,
                 'php_version' => phpversion(),
                 'shops' => $shops,

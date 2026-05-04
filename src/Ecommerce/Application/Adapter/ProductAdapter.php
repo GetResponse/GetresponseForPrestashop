@@ -37,7 +37,7 @@ class ProductAdapter
     const PRODUCT_STATUS_PUBLISH = 'publish';
     const PRODUCT_STATUS_DRAFT = 'draft';
     const SKU_PREFIX = 'sku_';
-    const MAX_DESC_LENGTH = 1000;
+    const MAX_DESC_LENGTH = 10000;
 
     /**
      * @param int $languageId

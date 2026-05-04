@@ -1,4 +1,8 @@
 # Changelog
+## [2.0.11] - 2026-05-02
+### Fix
+- Fixed passing language for subscribers in multi-language shops
+
 ## [2.0.10] - 2026-03-03
 ### Fix
 - Fixed missing translations
